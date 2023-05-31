@@ -17,11 +17,11 @@ model User {
     id        Int      @id @default(autoincrement())
     name      String    @unique
     password  String
+    createdPolls Poll[]
+    participatingPolls Poll[] @relation("UserParticipatingInPoll")
+    votes Vote[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
-   // createdPolls Poll[]
-    participatingPolls Poll[]
-    //votes Vote[]
 }
 
 model Poll{
@@ -29,37 +29,47 @@ model Poll{
     title    String?
     description String?
     question String
-    createdAt DateTime @default(now())
-    //creator User @relation(fields: [creatorId], references: [id])
-    creatorId Int
     options String[]
-    participants User[]
-   // votes Vote[]
-    //endcondition 
-    anonymity anonymity
+    creator User @relation(fields: [creatorId], references: [id])
+    creatorId Int
+    participants User[] @relation("UserParticipatingInPoll")
+    votes Vote[]
+    endcondition EndCondition
+    anonymity Anonymity
     quorum Int?
-    questiontype    questiontype
+    type    PollType
+    createdAt DateTime @default(now())
     
     //no updatedAt because updating the poll after users voted shouldntbe allowed?
 }
-enum questiontype {
-    MultipleChoice
-    SingleChoice
-    Open
-    Rating
-    Ranking
-}
-
-enum anonymity {
-    Anonymous
-    NonAnonymous
-    AnonymousUntilQuorum
-}
 model Vote{
     id        Int      @id @default(autoincrement())
-    //poll Poll @relation(fields: [pollId], references: [id])
-    userID Int
     answer String[]
+    poll Poll @relation(fields: [pollId], references: [id])
+    pollId Int
+    User User @relation(fields: [userID], references: [id])
+    userID Int
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
+}
+
+enum EndCondition {
+    EndDate //poll closes on a specific date
+    Quorum //poll closes when quorum is met
+    NoEnd //never closes
+    AllVoted //poll closes when all participants have voted
+}
+enum PollType {
+    MultipleChoice //can choose between 1 and all of the options, eg A,B,C from A,B,C,D,E
+    SingleChoice //can choose a single option, eg A from A,B,C
+    Open //no options, answer is just a string
+    Rating //rates each option on a scale of 1 to 10, eg A-4, B-7, C-1 from A,B,C
+    Ranking //ranks the options, eg A-2nd, B-1st, C-3rd from A,B,C
+}
+
+enum Anonymity {
+    Anonymous //no one knows who voted what
+    NonAnonymous //everyone knows who voted what
+    AnonymousUntilQuorum //no one knows who voted what until quorum is met
+    
 }
