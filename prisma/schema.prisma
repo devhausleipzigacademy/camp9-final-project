@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
@@ -12,8 +13,53 @@ datasource db {
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
-model User{
- id String @id @default(uuid())
- name String @unique
- password String 
+model User {
+    id        Int      @id @default(autoincrement())
+    name      String    @unique
+    password  String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
+   // createdPolls Poll[]
+    participatingPolls Poll[]
+    //votes Vote[]
+}
+
+model Poll{
+    id        Int      @id @default(autoincrement())
+    title    String?
+    description String?
+    question String
+    createdAt DateTime @default(now())
+    //creator User @relation(fields: [creatorId], references: [id])
+    creatorId Int
+    options String[]
+    participants User[]
+   // votes Vote[]
+    //endcondition 
+    anonymity anonymity
+    quorum Int?
+    questiontype    questiontype
+    
+    //no updatedAt because updating the poll after users voted shouldntbe allowed?
+}
+enum questiontype {
+    MultipleChoice
+    SingleChoice
+    Open
+    Rating
+    Ranking
+}
+
+enum anonymity {
+    Anonymous
+    NonAnonymous
+    AnonymousUntilQuorum
+}
+model Vote{
+    id        Int      @id @default(autoincrement())
+    //poll Poll @relation(fields: [pollId], references: [id])
+    userID Int
+    answer String[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt @default(now())
 }
