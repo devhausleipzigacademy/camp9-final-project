@@ -1,10 +1,25 @@
-export default function PollCard() {
+import { Button } from '../stories/Button';
+
+interface PollCardProps {
+  title: string;
+  description: string;
+  backgroundColor?: string;
+  onClick?: () => void;
+}
+
+export default function PollCard({
+  title,
+  description,
+  backgroundColor,
+  onClick,
+}: PollCardProps) {
   return (
-    <>
+    <button className={`bg-${backgroundColor}`}>
       <div>
-        <h1>Title/Description</h1>
+        <h1>{title}</h1>
+        <p>{description}</p>
       </div>
-      <button>Share</button>
-    </>
+      <Button label="Vote" />
+    </button>
   );
 }
