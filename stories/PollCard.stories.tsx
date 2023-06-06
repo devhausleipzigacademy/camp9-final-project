@@ -14,5 +14,23 @@ type Story = StoryObj<typeof PollCard>;
 export const Default: Story = {
   args: {
     title: 'Question',
+    open: true,
+    voted: false,
+  },
+};
+
+export const Closed: Story = {
+  args: {
+    title: 'Question',
+    open: false,
+    voted: false,
+  },
+};
+
+export const Voted: Story = {
+  args: {
+    title: 'Question',
+    open: true,
+    voted: true,
   },
 };
