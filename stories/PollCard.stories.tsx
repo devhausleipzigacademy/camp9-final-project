@@ -34,3 +34,11 @@ export const Closed: Story = {
     voted: true,
   },
 };
+
+export const Own: Story = {
+  args: {
+    question: 'Lorem ipsum dolor sit amet, consectetur?',
+    open: false,
+    voteButton: false,
+  },
+};
