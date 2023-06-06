@@ -8,20 +8,33 @@ interface PollCardProps {
 }
 
 const date = new Date();
-// 2 hours 35 minutes from now
+// date in the future
 date.setHours(date.getHours() + 2);
 date.setMinutes(date.getMinutes() + 35);
 
 const countdownHours = date.getHours();
 const countdownMinutes = date.getMinutes();
 
+//
+date.setHours(date.getHours() - 2);
+date.setMinutes(date.getMinutes() - 35);
+
+const countdownHoursPast = date.getHours();
+const countdownMinutesPast = date.getMinutes();
+
 export default function PollCard({
   question: title,
   open = true,
   voted = false,
-  minutes = countdownMinutes,
-  hours = countdownHours,
+  minutes = open ? countdownMinutes : countdownMinutesPast,
+  hours = open ? countdownHours : countdownHoursPast,
 }: PollCardProps) {
+  const displayHours = hours > 0 ? hours : null;
+  const displayMinutes = minutes > 0 ? minutes : null;
+  const pluralize = (value: number, unit: string) => {
+    return value === 1 ? unit : `${unit}s`;
+  };
+
   return (
     <section
       className={`border-3 border-black rounded w-full h-48 flex flex-col p-4 justify-between bg-yellow shadow-brutalist`}
@@ -34,10 +47,26 @@ export default function PollCard({
       <div className="flex justify-between">
         {open ? (
           <button className="typography-small">
-            {`Closes in ${hours} hours ${minutes} minutes`}
+            {`Closes in ${
+              displayHours
+                ? `${displayHours} ${pluralize(displayHours, 'hour')}`
+                : ''
+            } ${
+              displayMinutes
+                ? `${displayMinutes} ${pluralize(displayMinutes, 'minute')}`
+                : ''
+            }`}
           </button>
         ) : (
-          <button className="typography-small">Closed</button>
+          <button className="typography-small">{`Closed since ${
+            displayHours
+              ? `${displayHours} ${pluralize(displayHours, 'hour')}`
+              : ''
+          } ${
+            displayMinutes
+              ? `${displayMinutes} ${pluralize(displayMinutes, 'minute')}`
+              : ''
+          }`}</button>
         )}
         {voted ? (
           <button className="typography-body">Voted</button>
