@@ -1,20 +1,26 @@
 import { BsArrowUpRight } from 'react-icons/bs';
 interface PollCardProps {
-  title: string;
+  question: string;
   open: boolean;
   voted: boolean;
   minutes: number;
+  hours: number;
 }
 
 const date = new Date();
 // 2 hours 35 minutes from now
-const minutesNow = date.getMinutes();
+date.setHours(date.getHours() + 2);
+date.setMinutes(date.getMinutes() + 35);
+
+const countdownHours = date.getHours();
+const countdownMinutes = date.getMinutes();
 
 export default function PollCard({
-  title,
+  question: title,
   open = true,
   voted = false,
-  minutes = minutesNow,
+  minutes = countdownMinutes,
+  hours = countdownHours,
 }: PollCardProps) {
   return (
     <section
@@ -28,7 +34,7 @@ export default function PollCard({
       <div className="flex justify-between">
         {open ? (
           <button className="typography-small">
-            {`Closes in ${minutes} minutes`}
+            {`Closes in ${hours} hours ${minutes} minutes`}
           </button>
         ) : (
           <button className="typography-small">Closed</button>
@@ -36,9 +42,9 @@ export default function PollCard({
         {voted ? (
           <button className="typography-body">Voted</button>
         ) : (
-          <button className="typography-body flex items-center">
+          <button className="typography-body flex items-center gap-1">
             Vote
-            <BsArrowUpRight className="w-10" />
+            <BsArrowUpRight strokeWidth={'1'} />
           </button>
         )}
       </div>
