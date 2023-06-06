@@ -1,8 +1,8 @@
-const { createUsers } = require('./createUsers');
-const { createVotes } = require('./createVotes');
-const PrismaClient = require('@prisma/client');
-const faker = require('faker');
-
+import { createUsers } from './createUsers';
+import { createVotes } from './createVotes';
+import { PrismaClient, User, PollType, Anonymity } from '@prisma/client';
+import { faker } from '@faker-js/faker';
+import { Poll } from './createVotes';
 const prisma = new PrismaClient();
 
 function generateRandomNumber(start: number, end: number): number {
@@ -10,36 +10,45 @@ function generateRandomNumber(start: number, end: number): number {
 }
 
 export async function createPoll(num: number) {
-  const users = await createUsers(num);
-  const endcondition = ['EndDate', 'Quorum', 'NoEnd', 'AllVoted'];
-  const anonymity = ['Anonymous', 'NonAnonymous', 'AnonymousUntilQuorum'];
-  const type = ['SingleChoice', 'MultipleChoice', 'Open', 'Rating', 'Ranking'];
-  const polls = Array.from({ length: num }, () =>
+  const users: User = await createUsers(num);
+  //await Promise.all([...users]);
+  const quorum = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+  const anonymity = [
+    Anonymity.Anonymous,
+    Anonymity.NonAnonymous,
+    Anonymity.AnonymousUntilQuorum,
+  ];
+  const types = [PollType.MultipleChoice, PollType.SingleChoice];
+  const polls: Poll = Array.from({ length: num }, () =>
     prisma.poll.create({
       data: {
-        title: faker.lorem.sentence(),
         description: faker.lorem.paragraph(),
         question: faker.lorem.sentence(),
         options: [
           faker.lorem.sentence(),
           faker.lorem.sentence(),
           faker.lorem.sentence(),
+          faker.lorem.sentence(),
+          faker.lorem.sentence(),
         ],
-        creatorId: users[generateRandomNumber(0, num)].id,
-        participants: [
-          users[generateRandomNumber(0, num)].id,
-          users[generateRandomNumber(0, num)].id,
-          users[generateRandomNumber(0, num)].id,
-          users[generateRandomNumber(0, num)].id,
-          users[generateRandomNumber(0, num)].id,
-        ],
-        endcondition: endcondition[generateRandomNumber(0, 3)],
-        anonymity: anonymity[generateRandomNumber(0, 2)],
-        type: type[generateRandomNumber(0, 4)],
-        quorum: generateRandomNumber(0, 100),
+        creatorId: users?.[generateRandomNumber(0, num)]?.id as number,
+        participants: {
+          connect: [
+            { id: users?.[generateRandomNumber(0, num)]?.id },
+            { id: users?.[generateRandomNumber(0, num)]?.id },
+            { id: users?.[generateRandomNumber(0, num)]?.id },
+            { id: users?.[generateRandomNumber(0, num)]?.id },
+            { id: users?.[generateRandomNumber(0, num)]?.id },
+          ],
+        },
+        endDateTime: faker.date.future(),
+        //endAllVoted: faker.datatype.boolean(),
+        anonymity: anonymity[generateRandomNumber(0, 2)]!,
+        type: types[generateRandomNumber(0, 1)]!,
+        quorum: quorum?.[generateRandomNumber(0, 9)],
       },
     })
   );
-  createVotes(num, polls);
+  //createVotes(num, polls);
   return polls;
 }
