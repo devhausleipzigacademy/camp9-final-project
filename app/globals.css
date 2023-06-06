@@ -1,3 +1,103 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* FONT IMPORTS */
+
+  /* poppins-500 - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../public/fonts/poppins-v20-latin-500.eot'); /* IE9 Compat Modes */
+    src: url('../public/fonts/poppins-v20-latin-500.eot?#iefix')
+        format('embedded-opentype'),
+      /* IE6-IE8 */ url('../public/fonts/poppins-v20-latin-500.woff2')
+        format('woff2'),
+      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+        url('../public/fonts/poppins-v20-latin-500.woff') format('woff'),
+      /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+, iOS 5+ */
+        url('../public/fonts/poppins-v20-latin-500.ttf') format('truetype'),
+      /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
+        url('../public/fonts/poppins-v20-latin-500.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-700 - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../public/fonts/poppins-v20-latin-700.eot'); /* IE9 Compat Modes */
+    src: url('../public/fonts/poppins-v20-latin-700.eot?#iefix')
+        format('embedded-opentype'),
+      /* IE6-IE8 */ url('../public/fonts/poppins-v20-latin-700.woff2')
+        format('woff2'),
+      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+        url('../public/fonts/poppins-v20-latin-700.woff') format('woff'),
+      /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+, iOS 5+ */
+        url('../public/fonts/poppins-v20-latin-700.ttf') format('truetype'),
+      /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
+        url('../public/fonts/poppins-v20-latin-700.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+}
+
+@layer components {
+  /* body {
+        @apply m-12 p-4 ...
+    }; */
+
+  .typography-title {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 64px;
+    letter-spacing: -2%;
+  }
+  .typography-header-2 {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: -2%;
+  }
+  .typography-header-3 {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -2%;
+  }
+  .typography-subtitle {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 24px;
+  }
+  .typography-body {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: -140%;
+  }
+  .typography-small {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .typography-pre-title {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 3%;
+  }
+  .typography-button-text {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 3%;
+  }
+  .typography-link {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: underline;
+  }
+}
