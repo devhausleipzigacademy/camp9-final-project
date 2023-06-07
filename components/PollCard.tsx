@@ -44,9 +44,9 @@ export default function PollCard({
   };
 
   return (
-    <section className="border-3 border-black rounded w-full h-48 flex flex-col p-4 justify-between bg-yellow shadow-brutalist">
-      <div className="p-3 border-3 border-black rounded-md bg-yellowLight h-2/3 flex items-center justify-center">
-        <h1 className="typography-body">{question}</h1>{' '}
+    <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutalist gap-2">
+      <div className="p-3 border-3 border-black rounded-md bg-yellowLight flex-1 flex items-center justify-center">
+        <h1 className="typography-body">{question}</h1>
         {/* Display the question */}
       </div>
       <div className="flex justify-between">
@@ -74,12 +74,13 @@ export default function PollCard({
         )}
         {voteButton && !voted && isOpen && (
           <button className="typography-body flex items-center gap-1">
-            Vote <BsArrowUpRight strokeWidth={'1'} />{' '}
+            Vote <BsArrowUpRight strokeWidth={'1'} />
             {/* Display the vote button with an arrow */}
           </button>
         )}
         {voteButton && voted && (
-          <button className="typography-body">Voted</button> // Display "Voted" if the user has already voted
+          <button className="typography-body">Voted</button>
+          // Display "Voted" if the user has already voted
         )}
       </div>
     </section>
