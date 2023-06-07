@@ -49,7 +49,7 @@ export async function createPoll(num: number) {
         },
       })
   );
-  const pollsArray = Promise.all([...polls]);
+  const pollsArray = await Promise.all([...polls]);
   createVotes(num, pollsArray);
   return Promise.all([...polls]);
 }

@@ -29,7 +29,7 @@ function generateRandomNumber(start: number, end: number): number {
   return Math.floor(Math.random() * (end - start + 1)) + start;
 }
 
-export function createVotes(num: number, polls: any) {
+export function createVotes(num: number, polls: Poll[]) {
   const votes = Array.from({ length: num }, () => {
     const pollId = generateRandomNumber(1, num + 1);
     const participants = polls?.[pollId]?.participants;
