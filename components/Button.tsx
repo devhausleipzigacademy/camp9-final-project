@@ -29,11 +29,9 @@ export default function Button({
     }
   };
 
-  backgroundColor = !enable && !isClicked ? 'bg-white' : backgroundColor; // Add white background if the button is disabled
-
   const buttonClasses = clsx(
     'border-3 border-black rounded shadow-brutalist', // Base button styles
-    backgroundColor,
+    (backgroundColor = !enable && !isClicked ? 'bg-white' : backgroundColor), // Add white background if the button is disabled
     padding,
     width,
     {
