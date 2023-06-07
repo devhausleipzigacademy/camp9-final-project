@@ -19,7 +19,7 @@ module.exports = {
         3: '3px',
       },
       boxShadow: {
-        brutalist: '-5px 5px 0px black',
+        brutalist: '-4px 4px 0px black',
       },
     },
   },
