@@ -7,7 +7,7 @@ import { useState } from 'react';
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   enable: boolean;
   children: React.ReactNode;
-  bgColor: string;
+  backgroundColor: string;
   href: string;
   padding: string;
   width: string;
@@ -16,37 +16,47 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 export default function Button({
   enable,
   children,
-  bgColor,
-  href,
-  padding,
+  backgroundColor = 'bg-yellow',
+  href = '/',
+  padding = 'p-4',
   width,
 }: ButtonProps) {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
-    setIsClicked(prevState => !prevState); // Toggle the isClicked state
+    if (enable) {
+      setIsClicked(prevState => !prevState); // Toggle the isClicked state if the button is enabled
+    }
   };
+
+  backgroundColor = !enable && !isClicked ? 'bg-white' : backgroundColor; // Add white background if the button is disabled
 
   const buttonClasses = clsx(
     'border-3 border-black rounded shadow-brutalist', // Base button styles
-    bgColor,
+    backgroundColor,
     padding,
     width,
     {
-      'bg-white': !enable && !isClicked, // Add white background if the button is disabled and not clicked
       'pointer-events-none': !enable, // Disable click events if the button is disabled
       'shadow-none': !enable, // Remove shadow if the button is disabled
-      clicked: isClicked,  // Apply additional styles when the button is clicked
+      // Apply additional styles when the button is clicked
+      'bg-black': isClicked && enable,
+      'text-white': isClicked && enable,
     }
   );
 
   return enable ? (
-    <Link href={href} passHref>
+    <Link href={href}>
       <button className={buttonClasses} onClick={handleClick}>
         {children}
       </button>
     </Link>
   ) : (
-    <span className={buttonClasses}>{children}</span>
+    // If the button is disabled, render a span instead of a button
+    <span>
+      <button disabled className={buttonClasses}>
+        {children}
+      </button>
+    </span>
   );
 }

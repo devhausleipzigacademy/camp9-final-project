@@ -13,7 +13,7 @@ const meta: Meta<typeof SignUpButton> = {
         defaultValue: 'p-4',
       },
     },
-    bgColor: {
+    backgroundColor: {
       control: {
         type: 'color',
       },
@@ -28,7 +28,7 @@ export const Default: Story = {
   args: {
     children: 'Sign Up',
     enable: true,
-    bgColor: 'bg-teal',
+    backgroundColor: 'bg-teal',
     href: '/',
     padding: 'p-4',
   },

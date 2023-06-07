@@ -1,4 +1,3 @@
-
 import { Meta, StoryObj } from '@storybook/react';
 import LogInButton from '../components/LoginButton';
 
@@ -14,14 +13,14 @@ const meta: Meta<typeof LogInButton> = {
         defaultValue: 'p-4',
       },
     },
-    bgColor: {
+    backgroundColor: {
       control: {
         type: 'color',
       },
     },
   },
 };
-
+ 
 export default meta;
 type Story = StoryObj<typeof LogInButton>;
 
@@ -29,7 +28,7 @@ export const Default: Story = {
   args: {
     children: 'Log In',
     enable: true,
-    bgColor: 'bg-yellow',
+    backgroundColor: 'bg-yellow',
     href: '/',
     padding: 'p-4',
   },

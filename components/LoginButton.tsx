@@ -3,9 +3,9 @@ import Button from './Button';
 export default function LoginButton() {
   return (
     <Button
-      bgColor={'bg-yellow'}
+      backgroundColor={'bg-yellow'}
       children={'Log In'}
-      enable={true}
+      enable={false}
       href="/"
       padding="p-4"
       width="w-full"
