@@ -3,13 +3,12 @@ import Button from './Button';
 export default function SignUpButton() {
   return (
     <Button
-      active={true}
-      href="/"
-      className="p-4"
+      bgColor={'bg-teal'}
       children={'Sign Up'}
       enable={true}
-      bgColor={'bg-teal'}
+      href="/"
       width="w-full"
+      padding={'p-4'}
     />
   );
 }

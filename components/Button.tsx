@@ -1,34 +1,52 @@
+'use client';
+
 import Link from 'next/link';
 import clsx from 'clsx';
+import { useState } from 'react';
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  active: boolean;
   enable: boolean;
   children: React.ReactNode;
-  className: string;
   bgColor: string;
   href: string;
+  padding: string;
   width: string;
 }
 
 export default function Button({
-  active,
   enable,
   children,
-  className,
   bgColor,
   href,
+  padding,
   width,
 }: ButtonProps) {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleClick = () => {
+    setIsClicked(true);
+  };
+
   const buttonClasses = clsx(
-    'border-3 border-black rounded shadow-brutalist w-full',
-    className,
-    bgColor
+    'border-3 border-black rounded shadow-brutalist', // Base button styles
+    bgColor,
+    padding,
+    width,
+    {
+      'bg-white': !enable && !isClicked, // Add white background if the button is disabled and not clicked
+      'pointer-events-none': !enable, // Disable click events if the button is disabled
+      'shadow-none': !enable, // Remove shadow if the button is disabled
+      clicked: isClicked, // Apply additional styles when the button is clicked
+    }
   );
 
-  return (
-    <Link href={href} className={width}>
-      <button className={buttonClasses}>{children}</button>
+  return enable ? (
+    <Link href={href} passHref>
+      <button className={buttonClasses} onClick={handleClick}>
+        {children}
+      </button>
     </Link>
+  ) : (
+    <span className={buttonClasses}>{children}</span>
   );
 }

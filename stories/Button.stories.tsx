@@ -1,12 +1,24 @@
 import { Meta, StoryObj } from '@storybook/react';
-
-import Button from '@/components/Button';
+import Button from '../components/Button';
 
 const meta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {
+    padding: {
+      control: {
+        type: 'select',
+        options: ['p-1', 'p-4'],
+        defaultValue: 'p-4',
+      },
+    },
+    bgColor: {
+      control: {
+        type: 'color',
+      },
+    },
+  },
 };
 
 export default meta;
@@ -16,9 +28,8 @@ export const Default: Story = {
   args: {
     children: 'Button',
     enable: true,
-    className:
-      'border-3  border-black rounded w-full flex flex-col p-4 justify-between  shadow-brutalist gap-2',
     bgColor: 'bg-teal',
     href: '/',
+    padding: 'p-4',
   },
 };

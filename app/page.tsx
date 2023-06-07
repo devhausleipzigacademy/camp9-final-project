@@ -1,5 +1,5 @@
-import LoginButton from '@/components/LoginButton';
-import SignUpButton from '@/components/SignUpButton';
+import LoginButton from '../components/LoginButton';
+import SignUpButton from '../components/SignUpButton';
 
 export default function Home() {
   return (
