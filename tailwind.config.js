@@ -13,6 +13,7 @@ module.exports = {
         green: '#4D9979',
         peach: '#FA9A5D',
         yellow: '#FEBF10',
+        yellowLight: '#FFEDBC',
       },
       borderWidth: {
         3: '3px',
