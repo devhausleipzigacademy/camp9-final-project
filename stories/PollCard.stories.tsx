@@ -43,7 +43,7 @@ export const Closed: Story = {
   },
 };
 
-export const MineOpen: Story = {
+export const OwnOpen: Story = {
   args: {
     question: 'Lorem ipsum dolor sit amet, consectetur?',
     voteButton: false,
@@ -51,7 +51,7 @@ export const MineOpen: Story = {
   },
 };
 
-export const MineClosed: Story = {
+export const OwnClosed: Story = {
   args: {
     question: 'Lorem ipsum dolor sit amet, consectetur?',
     voteButton: false,
