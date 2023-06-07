@@ -42,10 +42,18 @@ export const Closed: Story = {
   },
 };
 
-export const Mine: Story = {
+export const MineOpen: Story = {
   args: {
     question: 'Lorem ipsum dolor sit amet, consectetur?',
     voteButton: false,
     dateInput: new Date('2023-06-15T00:00:00'),
+  },
+};
+
+export const MineClosed: Story = {
+  args: {
+    question: 'Lorem ipsum dolor sit amet, consectetur?',
+    voteButton: false,
+    dateInput: new Date('2023-06-01T00:00:00'),
   },
 };

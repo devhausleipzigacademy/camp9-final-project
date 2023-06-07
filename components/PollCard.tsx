@@ -35,13 +35,7 @@ export default function PollCard({
     return value === 1 ? unit : `${unit}s`; // Add plural "s" to the unit if the value is not 1
   };
 
-  const closedDateOptions: Intl.DateTimeFormatOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  };
+  console.log(date.toLocaleDateString())
 
   return (
     <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutalist gap-2">
@@ -54,11 +48,11 @@ export default function PollCard({
           <button className="typography-pre-title">
             {`Closes in ${
               displayDays
-                ? `${displayDays} ${pluralize(displayDays, 'day')}` // Display the number of days
+                ? `${displayDays} ${pluralize(displayDays, 'day')},` // Display the number of days
                 : ''
             } ${
               displayHours
-                ? `${displayHours} ${pluralize(displayHours, 'hour')}` // Display the number of hours
+                ? `${displayHours} ${pluralize(displayHours, 'hour')},` // Display the number of hours
                 : ''
             } ${
               displayMinutes
@@ -67,10 +61,7 @@ export default function PollCard({
             }`}
           </button>
         ) : (
-          <button className="typography-pre-title">{`Closed on ${date.toLocaleDateString(
-            undefined,
-            closedDateOptions
-          )}`}</button> // Display the closed date
+          <button className="typography-pre-title">{`Closed on ${date.toLocaleDateString()}`}</button> // Display the closed date
         )}
         {voteButton && !voted && isOpen && (
           <button className="typography-body flex items-center gap-1">
