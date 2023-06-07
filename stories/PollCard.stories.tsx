@@ -38,6 +38,7 @@ export const Closed: Story = {
   args: {
     question: 'Lorem ipsum dolor sit amet, consectetur?',
     dateInput: new Date('2023-06-01T00:00:00'),
+    voteButton: true,
     voted: true,
   },
 };

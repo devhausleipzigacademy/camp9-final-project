@@ -35,12 +35,10 @@ export default function PollCard({
     return value === 1 ? unit : `${unit}s`; // Add plural "s" to the unit if the value is not 1
   };
 
-  console.log(date.toLocaleDateString())
-
   return (
     <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutalist gap-2">
       <div className="p-3 border-3 border-black rounded-md bg-yellowLight flex-1 flex items-center justify-center">
-        <h1 className="typography-body">{question}</h1>
+        <h1 className="typography-body overflow-auto">{question}</h1>
         {/* Display the question */}
       </div>
       <div className="flex justify-between">
