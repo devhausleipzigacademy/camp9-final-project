@@ -12,7 +12,6 @@ export type Poll = {
   creatorId: number;
   participants: number[];
   endDateTime: Date;
-  //endAllVoted: boolean;
   anonymity: Anonymity;
   type: PollType;
   quorum: number;
@@ -36,7 +35,7 @@ export function createVotes(num: number, poll: Poll[]) {
           faker.datatype.boolean(),
         ],
         pollId: pollId,
-        user: participants?.[generateRandomNumber(0, 4)],
+        userId: participants?.[generateRandomNumber(0, 4)],
       },
     });
   });

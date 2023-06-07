@@ -42,13 +42,12 @@ export async function createPoll(num: number) {
           ],
         },
         endDateTime: faker.date.future(),
-        //endAllVoted: faker.datatype.boolean(),
         anonymity: anonymity[generateRandomNumber(0, 2)]!,
         type: types[generateRandomNumber(0, 1)]!,
         quorum: quorum?.[generateRandomNumber(0, 9)],
       },
     })
   );
-  //createVotes(num, polls);
+  createVotes(num, polls);
   return polls;
 }
