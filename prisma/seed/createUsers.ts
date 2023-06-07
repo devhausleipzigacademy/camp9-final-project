@@ -14,5 +14,5 @@ export async function createUsers(num: number) {
         },
       })
   );
-  return users;
+  return Promise.all([...users]);
 }

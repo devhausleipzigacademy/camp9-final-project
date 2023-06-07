@@ -33,13 +33,14 @@ model Poll{
     creatorId Int
     participants User[] @relation("UserParticipatingInPoll")
     votes Vote[] 
-    endDateTime DateTime
+    endDateTime DateTime 
     anonymity Anonymity
     quorum Int?
     type    PollType
     createdAt DateTime @default(now())
-    //no updatedAt because updating the poll after users voted shouldntbe allowed?
+    updatedAt DateTime @updatedAt @default(now())
 }
+
 model Vote{
     id        Int      @id @default(autoincrement())
     answer Boolean[]
