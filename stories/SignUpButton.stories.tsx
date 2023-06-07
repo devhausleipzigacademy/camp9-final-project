@@ -5,6 +5,7 @@ const meta: Meta<typeof SignUpButton> = {
   title: 'SignUpButton',
   component: SignUpButton,
   tags: ['autodocs'],
+
   argTypes: {
     padding: {
       control: {
@@ -24,12 +25,16 @@ const meta: Meta<typeof SignUpButton> = {
 export default meta;
 type Story = StoryObj<typeof SignUpButton>;
 
-export const Default: Story = {
+export const Enabled: Story = {
   args: {
     children: 'Sign Up',
     enable: true,
-    backgroundColor: 'bg-teal',
-    href: '/',
-    padding: 'p-4',
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    children: 'Sign Up',
+    enable: false,
   },
 };

@@ -20,16 +20,21 @@ const meta: Meta<typeof LogInButton> = {
     },
   },
 };
- 
+
 export default meta;
 type Story = StoryObj<typeof LogInButton>;
 
-export const Default: Story = {
+export const Enabled: Story = {
   args: {
     children: 'Log In',
     enable: true,
-    backgroundColor: 'bg-yellow',
-    href: '/',
-    padding: 'p-4',
+  },
+  
+};
+
+export const Disabled: Story = {
+  args: {
+    children: 'Log In',
+    enable: false,
   },
 };

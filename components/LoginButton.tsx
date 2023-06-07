@@ -5,7 +5,7 @@ export default function LoginButton() {
     <Button
       backgroundColor={'bg-yellow'}
       children={'Log In'}
-      enable={false}
+      enable={true}
       href="/"
       padding="p-4"
       width="w-full"
