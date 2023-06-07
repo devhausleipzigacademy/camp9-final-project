@@ -41,9 +41,9 @@ export default function PollCard({
         <h1 className="typography-body overflow-auto">{question}</h1>
         {/* Display the question */}
       </div>
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center overflow-auto gap-1">
         {isOpen ? (
-          <button className="typography-pre-title">
+          <p className="typography-pre-title">
             {`Closes in ${
               displayDays
                 ? `${displayDays} ${pluralize(displayDays, 'day')},` // Display the number of days
@@ -57,9 +57,9 @@ export default function PollCard({
                 ? `${displayMinutes} ${pluralize(displayMinutes, 'minute')}` // Display the number of minutes
                 : ''
             }`}
-          </button>
+          </p>
         ) : (
-          <button className="typography-pre-title">{`Closed on ${date.toLocaleDateString()}`}</button> // Display the closed date
+          <p className="typography-pre-title">{`Closed on ${date.toLocaleDateString()}`}</p> // Display the closed date
         )}
         {voteButton && !voted && isOpen && (
           <button className="typography-body flex items-center gap-1">
