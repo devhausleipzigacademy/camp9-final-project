@@ -8,8 +8,9 @@ interface IRequest extends NextRequest {
 }
 
 export async function POST(request: IRequest) {
+  console.log('request', request);
   const { userName, password } = await request.json();
-  
+
   const hashedPassword = await bycrpt.hash(password, 12);
 
   try {

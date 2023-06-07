@@ -3,22 +3,15 @@
 import { useSignUpMutation } from '@/components/hooks/useUser';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
+import { SignUpUser } from '@/types/user/SignUpSchema';
 
 type SignUpForm = React.FormHTMLAttributes<HTMLFormElement>;
 
 function SignUpForm() {
-  const { mutate, isLoading, isError } = useSignUpMutation();
+  const { mutate, isLoading, register, handleSubmit, errors } =
+    useSignUpMutation();
 
   //useForm: a function to register form inputs with the form validation
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpUser>({
-    resolver: zodResolver(signUpSchema),
-  });
-
   const onSubmit = (data: SignUpUser) => {
     mutate(data);
   };
