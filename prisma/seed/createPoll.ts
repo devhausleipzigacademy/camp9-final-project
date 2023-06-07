@@ -1,8 +1,7 @@
 import { createUsers } from './createUsers';
-import { createVotes } from './createVotes';
+import { createVotes, Poll, PollType, Anonymity } from './createVotes';
 import { PrismaClient } from '@prisma/client';
 import { fakerDE_CH as faker } from '@faker-js/faker';
-import { Anonymity, PollType } from './createVotes';
 const prisma = new PrismaClient();
 
 function generateRandomNumber(start: number, end: number): number {
@@ -49,7 +48,7 @@ export async function createPoll(num: number) {
         },
       })
   );
-  const pollsArray = await Promise.all([...polls]);
+  const pollsArray: Poll[] = await Promise.all([...polls]);
   createVotes(num, pollsArray);
   return Promise.all([...polls]);
 }

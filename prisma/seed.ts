@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function createMockData() {
-  const Polls = createPoll(100);
+  const Polls = await createPoll(100);
   await Promise.all([...Polls]);
 }
 
