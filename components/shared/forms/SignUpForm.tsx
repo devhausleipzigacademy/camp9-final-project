@@ -1,27 +1,42 @@
 'use client';
 
-import { useSignUpMutation } from '@/components/hooks/useUser';
-import { useForm } from 'react-hook-form';
+
+import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignUpUser } from '@/types/user/SignUpSchema';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
 
 type SignUpForm = React.FormHTMLAttributes<HTMLFormElement>;
 
-function SignUpForm() {
-  const { mutate, isLoading, register, handleSubmit, errors } =
-    useSignUpMutation();
+async function signUpUser(user: SignUpUser) {
+  const { data } = await axios.post('/api/signup', user, {
+    withCredentials: true,
+  });
+  return data;
+}
 
-  //useForm: a function to register form inputs with the form validation
-  const onSubmit = (data: SignUpUser) => {
-    mutate(data);
+function SignUpForm() {
+  const { mutate, isLoading, isError } = useMutation(signUpUser);
+
+  const {
+    register,
+    formState: { errors },
+    reset,
+  } = useForm<SignUpUser>({
+    resolver: zodResolver(signUpSchema),
+  });
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newUser = new FormData(e.target as HTMLFormElement);
+    const userObject = Object.fromEntries(newUser.entries()) as SignUpUser;
+    mutate(userObject);
+    reset();
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      className="flex flex-col gap-5"
-    >
+    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
       <input
         placeholder={'Username'}
         type="text"
