@@ -24,7 +24,7 @@ export default function Button({
   const [isClicked, setIsClicked] = useState(false);
 
   const handleClick = () => {
-    setIsClicked(true);
+    setIsClicked(prevState => !prevState); // Toggle the isClicked state
   };
 
   const buttonClasses = clsx(
@@ -36,7 +36,7 @@ export default function Button({
       'bg-white': !enable && !isClicked, // Add white background if the button is disabled and not clicked
       'pointer-events-none': !enable, // Disable click events if the button is disabled
       'shadow-none': !enable, // Remove shadow if the button is disabled
-      clicked: isClicked, // Apply additional styles when the button is clicked
+      clicked: isClicked,  // Apply additional styles when the button is clicked
     }
   );
 
