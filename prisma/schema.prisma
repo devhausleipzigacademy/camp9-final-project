@@ -34,7 +34,6 @@ model Poll{
     participants User[] @relation("UserParticipatingInPoll")
     votes Vote[] 
     endDateTime DateTime
-    //endAllVoted Boolean @default(true)
     anonymity Anonymity
     quorum Int?
     type    PollType
@@ -47,7 +46,7 @@ model Vote{
     poll Poll @relation(fields: [pollId], references: [id])
     pollId Int
     User User @relation(fields: [userID], references: [id])
-    userID Int
+    userId Int
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt @default(now())
 }
