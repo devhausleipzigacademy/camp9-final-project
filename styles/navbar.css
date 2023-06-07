@@ -38,12 +38,19 @@
   align-items: center;
   width: 311px;
   height: 60px;
-  background-color: #4d9979;
   box-shadow: -4px 4px;
   border-radius: 4px;
   border-style: solid;
   border-width: 2px;
 }
+
+.box_container--primary {
+  background-color: #4d9979;
+}
+.box_container--secondary {
+  background-color: #038b91;
+}
+
 .box_container svg {
   width: 31px;
   height: 31px;
@@ -59,4 +66,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-color: black;
 }
