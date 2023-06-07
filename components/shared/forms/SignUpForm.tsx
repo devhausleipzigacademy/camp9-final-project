@@ -1,6 +1,5 @@
 'use client';
 
-
 import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -13,6 +12,7 @@ async function signUpUser(user: SignUpUser) {
   const { data } = await axios.post('/api/signup', user, {
     withCredentials: true,
   });
+  console.log(data);
   return data;
 }
 
@@ -30,7 +30,9 @@ function SignUpForm() {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newUser = new FormData(e.target as HTMLFormElement);
+    console.log(newUser);
     const userObject = Object.fromEntries(newUser.entries()) as SignUpUser;
+    console.log(userObject);
     mutate(userObject);
     reset();
   };

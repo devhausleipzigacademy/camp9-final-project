@@ -1,6 +1,8 @@
 import { SignUpUser } from '@/types/user/SignUpSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bycrpt from 'bcrypt';
+import { z } from 'zod';
+import { db } from '@/libs/db';
 //import { db } from '@/libs/db';
 
 interface IRequest extends NextRequest {
@@ -10,18 +12,26 @@ interface IRequest extends NextRequest {
 export async function POST(request: IRequest) {
   const { userName, password } = await request.json();
   console.log(userName, password);
-  
+  // try {
+  //   const userSchema = z.object({
+  //     userName: z.string().min(3).max(20),
+  //     password: z.string().min(8).max(100),
+  //   });
+  //   const validateUser = userSchema.parse({ userName, password });
+  // } catch (err) {
+  //   return NextResponse.json('Invalid user input', { status: 422 });
+  // }
+
   const hashedPassword = await bycrpt.hash(password, 12);
-
+  console.log(hashedPassword);
   try {
-    // const newUser = await db.user.create({
-    //   data: {
-    //     userName,
-    //     password: hashedPassword,
-    //   },
-    // });
-
-    return NextResponse.json('newUser', { status: 201 });
+    const newUser = await db.user.create({
+      data: {
+        userName,
+        password: hashedPassword,
+      },
+    });
+    return NextResponse.json(newUser, { status: 201 });
   } catch (err) {
     return NextResponse.json('User already exists', { status: 422 });
   }
