@@ -1,8 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* .box_container {
+.box_container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -12,22 +8,22 @@
   border-radius: 4px;
   border-style: solid;
   border-width: 2px;
-} */
+}
 
-/* .box_container--primary {
+.box_container--primary {
   background-color: #4d9979;
   border-color: black;
 }
 .box_container--secondary {
   background-color: #038b91;
   border-color: black;
-} */
+}
 
-/* .box_container svg {
+.box_container svg {
   width: 31px;
   height: 31px;
-} */
-/* .single_box {
+}
+.single_box {
   background-color: #febf10;
   box-shadow: -4px 4px;
   border-radius: 4px;
@@ -39,4 +35,4 @@
   justify-content: center;
   align-items: center;
   border-color: black;
-} */
+}
