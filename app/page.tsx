@@ -1,5 +1,6 @@
-import LoginButton from '../components/LoginButton';
-import SignUpButton from '../components/SignUpButton';
+import Button from '@/components/shared/buttons/Button';
+import LoginButton from '../components/shared/buttons/LoginButton';
+import SignUpButton from '../components/shared/buttons/SignUpButton';
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <h1 className="text-3xl text-center text-yellow-900">Consensus App </h1>
       <LoginButton />
       <SignUpButton />
+      <Button>About</Button>
     </body>
   );
 }

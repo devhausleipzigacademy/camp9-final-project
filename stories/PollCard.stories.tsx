@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 
-import PollCard from '../components/PollCard';
+import PollCard from '../components/shared/PollCard';
 
 const meta: Meta<typeof PollCard> = {
   title: 'PollCard',

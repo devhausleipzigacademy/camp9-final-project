@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import Button from '../components/Button';
+import Button from '../components/shared/buttons/Button';
 
 const meta: Meta<typeof Button> = {
   title: 'Button',
@@ -13,13 +13,11 @@ type Story = StoryObj<typeof Button>;
 export const Enabled: Story = {
   args: {
     children: 'Button',
-    enable: true,
   },
 };
 
 export const Disabled: Story = {
   args: {
     children: 'Button',
-    enable: false,
   },
 };

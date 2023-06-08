@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import LogInButton from '../components/LoginButton';
+import LogInButton from '../components/shared/buttons/LoginButton';
 
 const meta: Meta<typeof LogInButton> = {
   title: 'LogInButton',
@@ -29,7 +29,6 @@ export const Enabled: Story = {
     children: 'Log In',
     enable: true,
   },
-  
 };
 
 export const Disabled: Story = {
