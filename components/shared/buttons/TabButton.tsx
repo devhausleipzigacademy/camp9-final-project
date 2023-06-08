@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { VariantProps, cva } from 'class-variance-authority';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -15,15 +14,9 @@ export default function TabButton({
   ...props
 }: ButtonProps) {
   return (
-    <Link
-      href={href}
-      onClick={() => {
-        console.log('clicked');
-      }}
-      className="w-full relative"
-    >
+    <Link href={href} className="w-full relative">
       <button
-        className="p-1 h-11 border-3
+        className="bg-yellow w-18 h-11 border-3
         typography-button-text
       border-black
         rounded
@@ -31,8 +24,7 @@ export default function TabButton({
         disabled:bg-white
         disabled:cursor-not-allowed
         disabled:opacity-50
-
-      "
+        flex items-start justify-start p-1"
         {...props}
       >
         {children}

@@ -16,8 +16,8 @@ export default function Home() {
       <Button onClick={handleClick} type="button" disabled>
         Form
       </Button>
-      <TabButton href="/">Tab Button</TabButton>
-      <TabButton disabled>asdf</TabButton>
+      <TabButton href="/">new</TabButton>
+      <TabButton disabled>closed</TabButton>
     </body>
   );
 }
