@@ -29,10 +29,40 @@ export const Login: Story = {
   },
 };
 
+export const LoginDisabled: Story = {
+  args: {
+    children: 'Login ↗',
+    disabled: true,
+  },
+};
+
 export const SignUp: Story = {
   args: {
     children: 'Sign up',
     variant: 'secondary',
+  },
+};
+
+export const SignUpDisabled: Story = {
+  args: {
+    children: 'Sign up',
+    variant: 'secondary',
+    disabled: true,
+  },
+};
+
+export const Logout: Story = {
+  args: {
+    children: 'Logout ↘',
+    variant: 'secondary',
+  },
+};
+
+export const LogoutDisabled: Story = {
+  args: {
+    children: 'Logout ↘',
+    variant: 'secondary',
+    disabled: true,
   },
 };
 
@@ -44,11 +74,29 @@ export const Next: Story = {
   },
 };
 
+export const NextDisabled: Story = {
+  args: {
+    children: 'Next >',
+    size: 'medium',
+    variant: 'primary',
+    disabled: true,
+  },
+};
+
 export const Back: Story = {
   args: {
     children: '< Back',
     size: 'small',
     variant: 'secondary',
+  },
+};
+
+export const BackDisabled: Story = {
+  args: {
+    children: '< Back',
+    size: 'small',
+    variant: 'secondary',
+    disabled: true,
   },
 };
 
@@ -63,7 +111,7 @@ export const DateTime: Story = {
 export const Countdown: Story = {
   args: {
     children: 'Countdown',
-    size: 'small',
+    size: 'medium',
     variant: 'secondary',
   },
 };
