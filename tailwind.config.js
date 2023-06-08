@@ -13,15 +13,19 @@ module.exports = {
         green: '#4D9979',
         peach: '#FA9A5D',
         yellow: '#FEBF10',
-        yellowLight: '#FFEDBC',
+        'yellow-light': '#FFEDBC',
+        grey: '#BCBCBC',
       },
       borderWidth: {
         3: '3px',
       },
-      boxShadow: {
-        brutalist: '-4px 4px 0px black',
-      },
+
+      // backgroundImage: {
+      //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      //   'gradient-conic':
+      //     'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      // },
     },
+    plugins: [],
   },
-  plugins: [],
 };
