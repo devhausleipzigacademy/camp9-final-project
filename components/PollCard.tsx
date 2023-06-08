@@ -37,7 +37,7 @@ export default function PollCard({
 
   return (
     <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutalist gap-2">
-      <div className="p-3 border-3 border-black rounded-md bg-yellowLight flex-1 flex items-center justify-center">
+      <div className="p-3 border-3 border-black rounded-md bg-yellow-light flex-1 flex items-center justify-center">
         <h1 className="typography-body overflow-auto">{question}</h1>
         {/* Display the question */}
       </div>
