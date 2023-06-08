@@ -13,6 +13,7 @@ type InputFieldProps = {
   type: 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url';
   width: 'full' | 'reduced';
   abled: 'true' | 'false';
+  register?: any;
 };
 
 export const InputField = ({
@@ -33,7 +34,7 @@ export const InputField = ({
       <label>
         {label}
         <input
-          className="h-11  {width:311px} border border-black rounded-md "
+          className="h-11  {width:311px} border border-black rounded-md placeholder-#BCBCBC "
           id={id}
           value={value}
           placeholder={placeholder}
