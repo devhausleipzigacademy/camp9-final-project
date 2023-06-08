@@ -1,38 +1,17 @@
 'use client';
 
-import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
-import { useForm } from 'react-hook-form';
-
-type SignUpForm = React.FormHTMLAttributes<HTMLFormElement>;
-
-async function signUpUser(user: SignUpUser) {
-  const { data } = await axios.post('/api/signup', user, {
-    withCredentials: true,
-  });
-  console.log(data);
-  return data;
-}
+import { useSignUpMutation } from '@/components/hooks/useUser';
+import { SignUpUser } from '@/types/user/SignUpSchema';
 
 function SignUpForm() {
-  const { mutate, isLoading, isError } = useMutation(signUpUser);
-
-  const {
-    //
-    register,
-    formState: { errors },
-    reset,
-    handleSubmit,
-  } = useForm<SignUpUser>({
-    resolver: zodResolver(signUpSchema),
-  });
+  const { mutate, isLoading, handleSubmit, register, errors } =
+    useSignUpMutation();
 
   const onSubmit = (data: SignUpUser) => {
     mutate(data);
-    reset();
   };
+
+  console.log(isLoading);
 
   return (
     <form

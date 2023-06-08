@@ -1,29 +1,34 @@
-import { SignUpUser } from '@/types/user/SignUpSchema';
+import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
 import { NextRequest, NextResponse } from 'next/server';
-import bycrpt from 'bcrypt';
-import { z } from 'zod';
-import { db } from '@/libs/db';
-//import { db } from '@/libs/db';
+import bcrypt from 'bcrypt';
+
 
 interface IRequest extends NextRequest {
   json: () => Promise<SignUpUser>;
 }
 
 export async function POST(request: IRequest) {
-  const { userName, password } = await request.json();
+  const { userName, password, confirmPassword } = await request.json();
 
+
+  //this is the zod validation
   try {
-    const userSchema = z.object({
-      userName: z.string().min(3).max(20),
-      password: z.string().min(8).max(100),
-    });
-    userSchema.parse({ userName, password });
+    signUpSchema.parse({ userName, password, confirmPassword });
   } catch (err) {
     return NextResponse.json('Invalid user input', { status: 422 });
   }
 
-  const hashedPassword = await bycrpt.hash(password, 12);
-  console.log(hashedPassword);
+  //hashing the password
+  const hashedPassword = await bcrypt.hash(password, 12);
+
+
+  //this is the the user creation
+  //the database has a unique requirement for the username
+  //if the username already exists, the database will throw an error
+  //if the username doesn't exist, the user will be created
+  //I am handling the creation and checking for the username in sweep
+
+  //its commented out because we don't have a database yet
   try {
     // const newUser = await db.user.create({
     //   data: {
