@@ -6,6 +6,8 @@ import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { LoginSchema, LoginSchemaType } from './LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios'
+import { POST } from '@/app/api/route';
 
 export default function Form() {
   const {
@@ -15,7 +17,7 @@ export default function Form() {
   } = useForm<LoginSchemaType>({ resolver: zodResolver(LoginSchema) });
 
   // I would love to understand this line!
-  const onSubmit: SubmitHandler<LoginSchemaType> = data => console.log(data);
+  const onSubmit: SubmitHandler<LoginSchemaType> = data => axios.post("/api", data);
 
   return (
     <form
