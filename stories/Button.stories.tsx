@@ -10,14 +10,14 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Enabled: Story = {
+export const Default: Story = {
   args: {
     children: 'Button',
   },
 };
 
-export const Disabled: Story = {
+export const Login: Story = {
   args: {
-    children: 'Button',
+    children: 'Login ↗',
   },
 };
