@@ -13,7 +13,8 @@ module.exports = {
         green: '#4D9979',
         peach: '#FA9A5D',
         yellow: '#FEBF10',
-        yellowLight: '#FFEDBC',
+        'yellow-light': '#FFEDBC',
+        grey: '#BCBCBC',
       },
       borderWidth: {
         3: '3px',
@@ -29,6 +30,6 @@ module.exports = {
         15: '3.75rem',
       }
     },
+    plugins: [],
   },
-  plugins: [],
 };
