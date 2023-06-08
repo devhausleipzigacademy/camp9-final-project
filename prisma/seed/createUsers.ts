@@ -4,15 +4,17 @@ import { faker } from '@faker-js/faker';
 const prisma = new PrismaClient();
 
 export async function createUsers(num: number) {
-  const users = Array.from(
-    { length: num },
-    async () =>
-      await prisma.user.create({
-        data: {
-          name: faker.internet.userName(),
-          password: faker.internet.password(),
-        },
-      })
-  );
-  return Promise.all([...users]);
+  // Generate user data
+  const usersData = Array.from({ length: num }, () => ({
+    name: faker.internet.userName(),
+    password: faker.internet.password(),
+  }));
+
+  // Batch create users
+  await prisma.user.createMany({
+    data: usersData,
+    skipDuplicates: true, // optional, skips inserting a record if a unique constraint would be violated
+  });
+
+  return prisma.user.findMany(); // Returns all users
 }

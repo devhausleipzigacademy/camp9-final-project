@@ -1,19 +1,21 @@
-import { createPoll } from './seed/createPoll';
 import { PrismaClient } from '@prisma/client';
+import { createPolls } from './seed/createPoll';
+import { createVotesForPolls } from './seed/createVotes';
 
 const prisma = new PrismaClient();
 
 async function createMockData() {
-  const Polls = await createPoll(100);
-  await Promise.all([...Polls]);
+  try {
+    const numPolls = 5;
+    const polls = await createPolls(numPolls);
+    const users = await prisma.user.findMany();
+    await createVotesForPolls(polls, users);
+    console.log('Mock data seeded successfully');
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
-createMockData()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async e => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
+createMockData();
