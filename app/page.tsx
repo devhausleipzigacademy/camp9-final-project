@@ -9,9 +9,11 @@ export default function Home() {
   return (
     <body className="px-8 flex  w-full items-center flex-col gap-2">
       <h1 className="text-3xl text-center text-yellow-900">Consensus App </h1>
-      <Button>Login ↗</Button>
+      <Button href="/">Login ↗</Button>
       <Button>Sign up</Button>
-      <Button disabled>About</Button>
+      <Button disabled href="/">
+        About
+      </Button>
       <Button onClick={handleClick} type="button">
         Form
       </Button>

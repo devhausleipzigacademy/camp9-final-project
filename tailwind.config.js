@@ -20,6 +20,7 @@ module.exports = {
       },
       boxShadow: {
         brutalist: '-4px 4px 0px black',
+        brutalistDisabled: '-2px 2px 0px white, -4px 4px 0px black',
       },
     },
   },
