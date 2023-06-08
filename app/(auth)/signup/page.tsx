@@ -1,6 +1,5 @@
 import SignUpForm from '@/components/shared/forms/SignUpForm';
 import React from 'react';
-import { toast } from 'react-toastify';
 
 function SignUp() {
   return (
