@@ -25,9 +25,9 @@ const buttonClasses = cva(
         tertiary: ['bg-green'],
       },
       size: {
-        small: ['h-11', 'w-25'],
-        medium: ['h-11', 'w-40'],
-        large: ['h-15', 'w-full'],
+        small: ['h-11', 'w-25', 'button-small'],
+        medium: ['h-11', 'w-40', 'button'],
+        large: ['h-15', 'w-full', 'button'],
       },
     },
     defaultVariants: {

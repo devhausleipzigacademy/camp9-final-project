@@ -1,5 +1,7 @@
 'use client';
 
+import Button from 'components/shared/buttons/Button';
+
 export default function Home() {
   const handleClick = () => {
     console.log('clicked');

@@ -17,7 +17,7 @@ export default function TabButton({
     <Link href={href} className="w-full relative">
       <button
         className="bg-yellow w-18 h-11 border-3
-        typography-button-text
+        button-small
       border-black
         rounded
         shadow-brutalist
