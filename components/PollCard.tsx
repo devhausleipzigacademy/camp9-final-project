@@ -1,19 +1,10 @@
-import { HiArrowUpRight } from 'react-icons/hi2';
-import { IoCheckmark } from 'react-icons/io5';
-
 interface PollCardProps {
-  question: string;
-  voteButton: boolean;
-  voted: boolean;
+  children: string;
   dateInput: Date;
+  icon?: React.ReactNode;
 }
 
-export default function PollCard({
-  question,
-  dateInput,
-  voted,
-  voteButton,
-}: PollCardProps) {
+export default function PollCard({ children, dateInput, icon }: PollCardProps) {
   const currentDate = new Date(); // Get the current date
 
   const date = new Date(dateInput); // Convert date input string to Date object
@@ -39,7 +30,7 @@ export default function PollCard({
   return (
     <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutalist gap-2">
       <div className="p-3 border-3 border-black rounded-md bg-yellow-light flex-1 flex items-center justify-center">
-        <h1 className="landing-quote overflow-auto">{question}</h1>
+        <h1 className="landing-quote overflow-auto">{children}</h1>
         {/* Display the question */}
       </div>
       <div className="flex justify-between items-center overflow-auto gap-1">
@@ -71,15 +62,9 @@ export default function PollCard({
             {<span className="small-bold">{date.toLocaleDateString()}</span>}
           </p> // Display the closed date
         )}
-        {voteButton && !voted && isOpen && (
+        {icon && (
           <button className="description flex items-center gap-1">
-            Vote <HiArrowUpRight size={15} />
-          </button>
-        )}
-        {voteButton && voted && (
-          <button className="description flex items-center gap-1">
-            Voted
-            <IoCheckmark size={15} />
+            {icon}
           </button>
         )}
       </div>
