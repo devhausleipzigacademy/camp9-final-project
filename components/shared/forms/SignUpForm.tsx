@@ -20,25 +20,26 @@ function SignUpForm() {
   const { mutate, isLoading, isError } = useMutation(signUpUser);
 
   const {
+    //
     register,
     formState: { errors },
     reset,
+    handleSubmit,
   } = useForm<SignUpUser>({
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const newUser = new FormData(e.target as HTMLFormElement);
-    console.log(newUser);
-    const userObject = Object.fromEntries(newUser.entries()) as SignUpUser;
-    console.log(userObject);
-    mutate(userObject);
+  const onSubmit = (data: SignUpUser) => {
+    mutate(data);
     reset();
   };
 
   return (
-    <form onSubmit={onSubmit} noValidate className="flex flex-col gap-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+      className="flex flex-col gap-5"
+    >
       <input
         placeholder={'Username'}
         type="text"
