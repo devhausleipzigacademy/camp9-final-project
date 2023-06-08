@@ -10,7 +10,6 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "type": "module",
   "prisma": {
     "seed": "node --experimental-specifier-resolution=node --loader ts-node/esm prisma/seed.ts"
   },

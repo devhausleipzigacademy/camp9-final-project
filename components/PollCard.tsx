@@ -1,4 +1,5 @@
-import { BsArrowUpRight } from 'react-icons/bs';
+import { HiArrowUpRight } from 'react-icons/hi2';
+import { IoCheckmark } from 'react-icons/io5';
 
 interface PollCardProps {
   question: string;
@@ -38,38 +39,48 @@ export default function PollCard({
   return (
     <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutalist gap-2">
       <div className="p-3 border-3 border-black rounded-md bg-yellow-light flex-1 flex items-center justify-center">
-        <h1 className="typography-body overflow-auto">{question}</h1>
+        <h1 className="landing-quote overflow-auto">{question}</h1>
         {/* Display the question */}
       </div>
       <div className="flex justify-between items-center overflow-auto gap-1">
         {isOpen ? (
-          <p className="typography-pre-title">
-            {`Closes in ${
-              displayDays
-                ? `${displayDays} ${pluralize(displayDays, 'day')},` // Display the number of days
-                : ''
-            } ${
-              displayHours
-                ? `${displayHours} ${pluralize(displayHours, 'hour')},` // Display the number of hours
-                : ''
-            } ${
-              displayMinutes
-                ? `${displayMinutes} ${pluralize(displayMinutes, 'minute')}` // Display the number of minutes
-                : ''
-            }`}
+          <p className="small">
+            Closes in
+            {
+              <span className="small-bold">
+                {' '}
+                {`${
+                  displayDays
+                    ? `${displayDays} ${pluralize(displayDays, 'day')},` // Display the number of days
+                    : ''
+                } ${
+                  displayHours
+                    ? `${displayHours} ${pluralize(displayHours, 'hour')},` // Display the number of hours
+                    : ''
+                } ${
+                  displayMinutes
+                    ? `${displayMinutes} ${pluralize(displayMinutes, 'minute')}` // Display the number of minutes
+                    : ''
+                }`}
+              </span>
+            }
           </p>
         ) : (
-          <p className="typography-pre-title">{`Closed on ${date.toLocaleDateString()}`}</p> // Display the closed date
+          <p className="small">
+            Closed on{' '}
+            {<span className="small-bold">{date.toLocaleDateString()}</span>}
+          </p> // Display the closed date
         )}
         {voteButton && !voted && isOpen && (
-          <button className="typography-body flex items-center gap-1">
-            Vote <BsArrowUpRight strokeWidth={'1'} />
-            {/* Display the vote button with an arrow */}
+          <button className="description flex items-center gap-1">
+            Vote <HiArrowUpRight size={15} />
           </button>
         )}
         {voteButton && voted && (
-          <button className="typography-body">Voted</button>
-          // Display "Voted" if the user has already voted
+          <button className="description flex items-center gap-1">
+            Voted
+            <IoCheckmark size={15} />
+          </button>
         )}
       </div>
     </section>
