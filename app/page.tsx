@@ -1,8 +1,5 @@
 'use client';
 
-import Button from '@/components/shared/buttons/Button';
-import TabButton from '@/components/shared/buttons/TabButton';
-
 export default function Home() {
   const handleClick = () => {
     console.log('clicked');
