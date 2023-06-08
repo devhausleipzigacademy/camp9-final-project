@@ -5,6 +5,25 @@
 @layer base {
   /* FONT IMPORTS */
 
+  /* poppins-regular - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../public/fonts/poppins-v20-latin-regular.eot'); /* IE9 Compat Modes */
+    src: url('../public/fonts/poppins-v20-latin-regular.eot?#iefix')
+        format('embedded-opentype'),
+      /* IE6-IE8 */ url('../public/fonts/poppins-v20-latin-regular.woff2')
+        format('woff2'),
+      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+        url('../public/fonts/poppins-v20-latin-regular.woff') format('woff'),
+      /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+, iOS 5+ */
+        url('../public/fonts/poppins-v20-latin-regular.ttf') format('truetype'),
+      /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
+        url('../public/fonts/poppins-v20-latin-regular.svg#Poppins')
+        format('svg'); /* Legacy iOS */
+  }
   /* poppins-500 - latin */
   @font-face {
     font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
@@ -22,6 +41,24 @@
         url('../public/fonts/poppins-v20-latin-500.ttf') format('truetype'),
       /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
         url('../public/fonts/poppins-v20-latin-500.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-600 - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../public/fonts/poppins-v20-latin-600.eot'); /* IE9 Compat Modes */
+    src: url('../public/fonts/poppins-v20-latin-600.eot?#iefix')
+        format('embedded-opentype'),
+      /* IE6-IE8 */ url('../public/fonts/poppins-v20-latin-600.woff2')
+        format('woff2'),
+      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+        url('../public/fonts/poppins-v20-latin-600.woff') format('woff'),
+      /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+, iOS 5+ */
+        url('../public/fonts/poppins-v20-latin-600.ttf') format('truetype'),
+      /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
+        url('../public/fonts/poppins-v20-latin-600.svg#Poppins') format('svg'); /* Legacy iOS */
   }
   /* poppins-700 - latin */
   @font-face {
@@ -41,6 +78,42 @@
       /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
         url('../public/fonts/poppins-v20-latin-700.svg#Poppins') format('svg'); /* Legacy iOS */
   }
+  /* poppins-800 - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../public/fonts/poppins-v20-latin-800.eot'); /* IE9 Compat Modes */
+    src: url('../public/fonts/poppins-v20-latin-800.eot?#iefix')
+        format('embedded-opentype'),
+      /* IE6-IE8 */ url('../public/fonts/poppins-v20-latin-800.woff2')
+        format('woff2'),
+      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+        url('../public/fonts/poppins-v20-latin-800.woff') format('woff'),
+      /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+, iOS 5+ */
+        url('../public/fonts/poppins-v20-latin-800.ttf') format('truetype'),
+      /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
+        url('../public/fonts/poppins-v20-latin-800.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
+  /* poppins-900 - latin */
+  @font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../public/fonts/poppins-v20-latin-900.eot'); /* IE9 Compat Modes */
+    src: url('../public/fonts/poppins-v20-latin-900.eot?#iefix')
+        format('embedded-opentype'),
+      /* IE6-IE8 */ url('../public/fonts/poppins-v20-latin-900.woff2')
+        format('woff2'),
+      /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+        url('../public/fonts/poppins-v20-latin-900.woff') format('woff'),
+      /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+, iOS 5+ */
+        url('../public/fonts/poppins-v20-latin-900.ttf') format('truetype'),
+      /* Chrome 4+, Firefox 3.5+, IE 9+, Safari 3.1+, iOS 4.2+, Android Browser 2.2+ */
+        url('../public/fonts/poppins-v20-latin-900.svg#Poppins') format('svg'); /* Legacy iOS */
+  }
 }
 
 @layer components {
@@ -48,56 +121,92 @@
         @apply m-12 p-4 ...
     }; */
 
-  .typography-title {
+  .title-black {
+    font-family: 'Poppins';
+    font-weight: 900;
+    font-size: 28px;
+    color: black;
+  }
+  .title-bold {
     font-family: 'Poppins';
     font-weight: 700;
-    font-size: 64px;
-    letter-spacing: -2%;
+    font-size: 28px;
+    color: black;
   }
-  .typography-header-2 {
-    font-family: 'Poppins';
-    font-weight: 700;
-    font-size: 40px;
-    letter-spacing: -2%;
-  }
-  .typography-header-3 {
-    font-family: 'Poppins';
-    font-weight: 700;
-    font-size: 24px;
-    letter-spacing: -2%;
-  }
-  .typography-subtitle {
+  .landing-quote {
     font-family: 'Poppins';
     font-weight: 500;
     font-size: 24px;
+    color: black;
   }
-  .typography-body {
+  .body {
     font-family: 'Poppins';
     font-weight: 500;
     font-size: 16px;
-    line-height: -140%;
+    color: black;
   }
-  .typography-small {
+  .body-semibold {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+    color: black;
+  }
+  .body-accent {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    color: #fa9a5d;
+  }
+  .body-light {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 16px;
+    color: #acacac;
+  }
+  .button {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 16px;
+    color: black;
+  }
+  .button-small {
+    font-family: 'Poppins';
+    font-weight: 800;
+    font-size: 12px;
+    color: black;
+  }
+  .description {
     font-family: 'Poppins';
     font-weight: 500;
     font-size: 14px;
+    color: black;
   }
-  .typography-pre-title {
+  .small {
     font-family: 'Poppins';
-    font-weight: 700;
+    font-weight: 500;
     font-size: 10px;
-    letter-spacing: 3%;
+    color: black;
   }
-  .typography-button-text {
+  .small-bold {
     font-family: 'Poppins';
-    font-weight: 700;
+    font-weight: 800;
     font-size: 10px;
-    letter-spacing: 3%;
+    color: black;
   }
-  .typography-link {
+  .special-accent {
     font-family: 'Poppins';
-    font-weight: 700;
-    font-size: 16px;
-    text-decoration: underline;
+    font-weight: 400;
+    font-size: 12px;
+    color: #fa9a5d;
   }
+}
+
+
+@layer utilities {
+    .border-brutal{
+        border: 3px solid #000000;
+    }
+    .shadow-brutal{
+        box-shadow: -4px 4px 0px rgba(0, 0, 0, 1);
+    }
 }
