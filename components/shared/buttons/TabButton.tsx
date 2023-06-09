@@ -25,7 +25,7 @@ export default function TabButton({
         disabled:cursor-not-allowed
         disabled:opacity-50
         flex items-start justify-start p-1
-        ${inactive ? 'bg-transparent' : ''}` // Add conditional class for active style
+        ${inactive ? 'bg-white' : ''}` // Add conditional class for active style
       }
       {...props}
     >

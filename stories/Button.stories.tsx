@@ -10,8 +10,8 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   argTypes: {
     children: { type: 'string' },
-    onClick: { table: { disable: true } }, // Disable onClick control
-    handleClick: { table: { disable: true } }, // Disable handleClick control
+    onClick: { table: { disable: true } }, 
+    handleClick: { table: { disable: true } }, 
   },
 };
 

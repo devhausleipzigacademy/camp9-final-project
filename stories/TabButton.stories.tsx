@@ -5,23 +5,13 @@ const meta: Meta<typeof TabButton> = {
   title: 'TabButton',
   component: TabButton,
   tags: ['autodocs'],
+  argTypes: {
+    handleClick: { table: { disable: true } },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof TabButton>;
-
-export const Default: Story = {
-  args: {
-    children: 'button',
-  },
-};
-
-export const Inactive: Story = {
-  args: {
-    children: 'button',
-    inactive: true,
-  },
-};
 
 export const New: Story = {
   args: {
@@ -29,7 +19,7 @@ export const New: Story = {
   },
 };
 
-export const NewDisabled: Story = {
+export const NewInactive: Story = {
   args: {
     children: 'new',
     inactive: true,
@@ -42,7 +32,7 @@ export const Pending: Story = {
   },
 };
 
-export const PendingDisabled: Story = {
+export const PendingInactive: Story = {
   args: {
     children: 'pending',
     inactive: true,
@@ -55,7 +45,7 @@ export const Closed: Story = {
   },
 };
 
-export const ClosedDisabled: Story = {
+export const ClosedInactive: Story = {
   args: {
     children: 'closed',
     inactive: true,
@@ -69,7 +59,7 @@ export const MyPolls: Story = {
   },
 };
 
-export const MyPollsDisabled: Story = {
+export const MyPollsInactive: Story = {
   args: {
     children: 'my polls',
     inactive: true,
