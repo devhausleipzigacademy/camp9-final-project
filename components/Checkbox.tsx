@@ -2,31 +2,30 @@
 
 import { useState } from 'react';
 import { BoxCheckedProps } from './Question';
-import clsx from 'clsx';
+import { cva } from 'class-variance-authority';
 
-const Box = ({ color, children, onClick }: BoxCheckedProps) => {
-  const boxclass = clsx(
-    'w-[34px] h-[34px] flex justify-center items-center shadow-shadow rounded-round border-solid border-black border-2',
-    {
-      'bg-tierblue': color === 'blue',
-      'bg-tiergreen': color === 'green',
-      'bg-peach': color === 'peach',
-    }
-  );
-  return (
-    <div className={boxclass} onClick={onClick}>
-      {children}
-    </div>
-  );
-};
-
-function BoxChecked() {
+export const Box = ({ variant }: BoxCheckedProps) => {
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
     setChecked(!checked);
   };
+  const boxclass = cva(
+    [
+      'w-[34px] h-[34px] flex justify-center items-center shadow-shadow rounded-round border-solid border-black border-2',
+    ],
+    {
+      variants: {
+        variant: {
+          primary: 'bg-tierblue',
+          secondary: 'bg-peach',
+          tertiary: 'bg-green',
+        },
+      },
+    }
+  );
+
   return (
-    <Box color="peach" onClick={handleChange}>
+    <div className={boxclass({ variant })} onClick={handleChange}>
       {checked ? (
         <svg
           className="w-10 h-6"
@@ -57,7 +56,8 @@ function BoxChecked() {
           />
         </svg>
       )}
-    </Box>
+    </div>
   );
-}
-export default BoxChecked;
+};
+
+export default Box;

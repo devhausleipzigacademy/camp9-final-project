@@ -1,34 +1,35 @@
 import React from 'react';
 import BoxChecked from './Checkbox';
-import clsx from 'clsx';
+import { cva } from 'class-variance-authority';
 
 export type BoxCheckedProps = {
-  color?: string;
-  children: any;
-  onClick?: () => void;
+  variant: 'primary' | 'secondary' | 'tertiary';
+  children?: any;
 };
 
-export const Questionbox = ({ color, children }: BoxCheckedProps) => {
-  const questionboxClass = clsx(
-    'w-[300px] h-[59px] gap-1.5 px-2.5 shadow-shadow rounded-round flex items-center  border-solid border-black border-2',
+export const Questionbox = ({ variant, children }: BoxCheckedProps) => {
+  const questionboxClass = cva(
+    [
+      'w-[300px] h-[59px] gap-2 px-2.5 shadow-shadow rounded-round flex items-center  border-solid border-black border-2',
+    ],
     {
-      'bg-tierblue': color === 'blue',
-      'bg-tiergreen': color === 'green',
-      'bg-peach': color === 'peach',
+      variants: {
+        variant: {
+          primary: 'bg-tierblue',
+          secondary: 'bg-peach',
+          tertiary: 'bg-green',
+        },
+      },
     }
   );
-  return <div className={questionboxClass}>{children}</div>;
-};
-
-function Question() {
   return (
-    <div className="flex justify-center">
-      <Questionbox color="blue">
-        <BoxChecked />
-        <p>Lorem ipsum dolor sit amet consectetur?</p>
-      </Questionbox>
+    <div className={questionboxClass({ variant })}>
+      {/*BoxChecked variant define the bg color for the checkbox*/}
+      {/*children make reference to a tag(p,h2..) for a question*/}
+      <BoxChecked variant="secondary" />
+      {children}
     </div>
   );
-}
+};
 
-export default Question;
+export default Questionbox;

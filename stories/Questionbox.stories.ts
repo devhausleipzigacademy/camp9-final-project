@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BoxChecked, { Box } from '../components/Checkbox';
+import { Questionbox } from '../components/Question';
 
-const meta: Meta<typeof Box> = {
-  title: 'Example/Box',
-  component: Box,
+const meta: Meta<typeof Questionbox> = {
+  title: 'Example/Questionbox',
+  component: Questionbox,
   tags: ['autodocs'],
+  argTypes: {},
 };
 
 export default meta;
-
-type Story = StoryObj<typeof Box>;
+type Story = StoryObj<typeof Questionbox>;
 
 export const Primary: Story = {
   args: {
