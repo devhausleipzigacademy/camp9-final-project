@@ -40,6 +40,7 @@ interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonClasses> {
   children: React.ReactNode;
+  onClickHandler?: () => void;
   icon?: React.ReactNode;
   href?: string;
   variant?:
@@ -57,19 +58,27 @@ export default function Button({
   className,
   href,
   icon,
+  onClickHandler,
   variant,
   ...props
 }: ButtonProps) {
   return href ? (
-    <Link href={href} className="w-full">
+    <Link onClick={onClickHandler} href={href} className="w-full">
       <button className={buttonClasses({ variant })} {...props}>
         {children}
       </button>
     </Link>
   ) : (
-    <button className={buttonClasses({ variant })} {...props}>
+    <button
+      onClick={onClickHandler}
+      className={buttonClasses({ variant })}
+      {...props}
+    >
+      {variant === 'back' && icon && <>{icon}</>}{' '}
+      {/* Display the icon before children only when variant is "back" */}
       <>{children}</>
-      <>{icon}</>
+      {variant !== 'back' && icon && <>{icon}</>}{' '}
+      {/* Display the icon before children only when variant is "back" */}
     </button>
   );
 }

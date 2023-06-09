@@ -1,11 +1,20 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Button from '../components/shared/buttons/Button';
-import { HiArrowUpRight } from 'react-icons/hi2';
+import { HiArrowDownRight, HiArrowUpRight } from 'react-icons/hi2';
+
+import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 
 const meta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
   tags: ['autodocs'],
+  argTypes: {
+    icon: {
+      control: {
+        type: 'exclude',
+      },
+    },
+  },
 };
 
 export default meta;
@@ -20,25 +29,22 @@ export const Default: Story = {
 export const Disabled: Story = {
   args: {
     children: 'Button',
-    disabled: true,
+    inactive: true,
   },
 };
 
 export const Login: Story = {
   args: {
-    children: (
-      <>
-        <h3>Login </h3>
-        <HiArrowUpRight strokeWidth={1} />
-      </>
-    ),
+    children: 'Login ',
+    icon: <HiArrowUpRight strokeWidth={1} />,
   },
 };
 
 export const LoginDisabled: Story = {
   args: {
-    children: 'Login ↗',
-    disabled: true,
+    children: 'Login ',
+    icon: <HiArrowUpRight strokeWidth={1} />,
+    inactive: true,
   },
 };
 
@@ -53,52 +59,58 @@ export const SignUpDisabled: Story = {
   args: {
     children: 'Sign up',
     variant: 'signup',
-    disabled: true,
+    inactive: true,
   },
 };
 
 export const Logout: Story = {
   args: {
-    children: 'Logout ↘',
-
+    children: 'Logout',
+    icon: <HiArrowDownRight strokeWidth={1} />,
     variant: 'logout',
   },
 };
 
 export const LogoutDisabled: Story = {
   args: {
-    children: 'Logout ↘',
+    children: 'Logout',
+    icon: <HiArrowDownRight strokeWidth={1} />,
     variant: 'logout',
-    disabled: true,
+    inactive: true,
   },
 };
 
 export const Next: Story = {
   args: {
-    children: 'Next >',
+    children: 'Next',
+    icon: <GrFormNext strokeWidth={1} />,
     variant: 'next',
   },
 };
 
 export const NextDisabled: Story = {
   args: {
-    children: 'Next >',
+    children: 'Next',
+    icon: <GrFormNext strokeWidth={2} />,
     variant: 'next',
-    disabled: true,
+    inactive: true,
   },
 };
 
 export const Back: Story = {
   args: {
-    children: '< Back',
+    children: 'Back',
+    icon: <GrFormPrevious strokeWidth={2} />,
     variant: 'back',
   },
 };
 
 export const BackDisabled: Story = {
   args: {
-    children: '< Back',
-    disabled: true,
+    children: 'Back',
+    icon: <GrFormPrevious strokeWidth={2} />,
+    variant: 'back',
+    inactive: true,
   },
 };
 

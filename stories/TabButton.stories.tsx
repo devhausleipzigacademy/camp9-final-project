@@ -16,10 +16,10 @@ export const Default: Story = {
   },
 };
 
-export const Disabled: Story = {
+export const Inactive: Story = {
   args: {
     children: 'button',
-    disabled: true,
+    inactive: true,
   },
 };
 
@@ -32,7 +32,7 @@ export const New: Story = {
 export const NewDisabled: Story = {
   args: {
     children: 'new',
-    disabled: true,
+    inactive: true,
   },
 };
 
@@ -45,7 +45,7 @@ export const Pending: Story = {
 export const PendingDisabled: Story = {
   args: {
     children: 'pending',
-    disabled: true,
+    inactive: true,
   },
 };
 
@@ -58,7 +58,7 @@ export const Closed: Story = {
 export const ClosedDisabled: Story = {
   args: {
     children: 'closed',
-    disabled: true,
+    inactive: true,
   },
 };
 
@@ -72,6 +72,6 @@ export const MyPolls: Story = {
 export const MyPollsDisabled: Story = {
   args: {
     children: 'my polls',
-    disabled: true,
+    inactive: true,
   },
 };
