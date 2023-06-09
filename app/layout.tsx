@@ -1,4 +1,4 @@
-import { Navbar } from '@/components/shared/navbar/Navbar';
+import { Navbar } from 'components/shared/navbar/Navbar';
 import './globals.css';
 
 export const metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({
       <body>
         {children}
         <footer>
-          <Navbar />
+          <Navbar variant={'primary'} />
         </footer>
       </body>
     </html>

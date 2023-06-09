@@ -12,14 +12,13 @@ type Story = StoryObj<typeof Navbar>;
 
 export const Default: Story = {
   args: {
-    primary: true,
-    able: true,
+    variant: 'primary',
   },
 };
 
 export const Primary: Story = {
   args: {
-    primary: true,
+    variant: 'secondary',
   },
 };
 

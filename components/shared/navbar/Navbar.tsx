@@ -6,20 +6,19 @@ import { HiUser } from 'react-icons/hi2';
 import Navbaritem from './NavbarItem';
 
 interface NavbarProps {
-  primary?: boolean;
+  variant: 'primary' | 'secondary';
   active?: boolean;
 }
-export const Navbar = ({ primary, active }: NavbarProps) => {
+export const Navbar = ({ variant = 'primary', active }: NavbarProps) => {
   return (
     <>
       <nav className="flex justify-center">
         <div
           className={clsx(
             'flex justify-around items-center w-[311px] h-[60px] rounded-round border-2 border-black border-solid shadow-shadow',
-            primary ? 'bg-green' : 'bg-tierblue'
+            variant === 'primary' ? 'bg-green' : 'bg-teal'
           )}
         >
-          {primary === true}
           <Navbaritem>
             <IoHomeSharp className="w-8.5 h-8.5" />
           </Navbaritem>
