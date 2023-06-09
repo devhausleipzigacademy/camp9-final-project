@@ -2,6 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 
 import PollCard from '../components/PollCard';
 import { IoCheckmark } from 'react-icons/io5';
+import { HiArrowUpRight } from 'react-icons/hi2';
 
 const meta: Meta<typeof PollCard> = {
   title: 'PollCard',
@@ -20,20 +21,26 @@ type Story = StoryObj<typeof PollCard>;
 export const New: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    icon: (
-      <h3>
-        Vote
-        <IoCheckmark />
-      </h3>
-    ),
     dateInput: new Date('2023-06-15T00:00:00'),
+    icon: (
+      <div className="flex gap-1 items-center">
+        <h3>Vote</h3>
+        <HiArrowUpRight />
+      </div>
+    ),
   },
 };
 
 export const Pending: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: new Date('2023-06-15T00:00:00'),
+    dateInput: new Date('2023-06-01T00:00:00'),
+    icon: (
+      <div className="flex gap-1 items-center">
+        <h3>Voted</h3>
+        <IoCheckmark />
+      </div>
+    ),
   },
 };
 
@@ -41,6 +48,12 @@ export const Closed: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
     dateInput: new Date('2023-06-01T00:00:00'),
+    icon: (
+      <div className="flex gap-1 items-center">
+        <h3>See Results</h3>
+        <HiArrowUpRight />
+      </div>
+    ),
   },
 };
 

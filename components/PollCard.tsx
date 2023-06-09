@@ -28,10 +28,9 @@ export default function PollCard({ children, dateInput, icon }: PollCardProps) {
   };
 
   return (
-    <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutalist gap-2">
+    <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutal gap-2">
       <div className="p-3 border-3 border-black rounded-md bg-yellow-light flex-1 flex items-center justify-center">
         <h1 className="landing-quote overflow-auto">{children}</h1>
-        {/* Display the question */}
       </div>
       <div className="flex justify-between items-center overflow-auto gap-1">
         {isOpen ? (
