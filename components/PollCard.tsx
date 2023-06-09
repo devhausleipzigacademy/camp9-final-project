@@ -40,10 +40,8 @@ export default function PollCard({
       className="border-3 border-black rounded w-full flex flex-col pt-3 px-3 pb-1  bg-yellow gap-1 shadow-brutal "
       href={href}
     >
-      <div className="px-2  flex items-center justify-center border-3 h-18 border-black rounded-md bg-yellow-light ">
-        <h1 className="body">
-          {children.length > 50 ? children.slice(0, 238) + '...?' : children}
-        </h1>
+      <div className="px-2  flex items-center justify-center border-3 h-[66px] border-black rounded-md bg-yellow-light ">
+        <h1 className="body line-clamp-2">{children}</h1>
       </div>
       <div className="flex justify-between items-center h-5  gap-1">
         {isOpen ? (
@@ -76,7 +74,6 @@ export default function PollCard({
         )}
         {icon && (
           <button
-            onClick={() => console.log('hi')}
             className="description flex items-center gap-1"
           >
             {icon}
