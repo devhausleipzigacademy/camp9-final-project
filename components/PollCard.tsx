@@ -1,18 +1,24 @@
-import Link from 'next/link';
+'use client';
+import { useRouter } from 'next/navigation';
 
 interface PollCardProps {
   children: string;
   dateInput: Date;
   href: string;
   icon?: React.ReactNode;
+  isOwner?: boolean;
+  isVoted?: boolean;
 }
 
 export default function PollCard({
   children,
   dateInput,
   icon,
-  href,
+  isOwner,
+  isVoted,
 }: PollCardProps) {
+  const router = useRouter();
+
   const currentDate = new Date(); // Get the current date
 
   const date = new Date(dateInput); // Convert date input string to Date object
@@ -35,10 +41,16 @@ export default function PollCard({
     return value === 1 ? unit : `${unit}s`; // Add plural "s" to the unit if the value is not 1
   };
 
+  function handleClick() {
+    if (!isOwner && isOpen) {
+      router.push('/voting');
+    }
+  }
+
   return (
-    <Link
+    <div
       className="border-3 border-black rounded w-full flex flex-col pt-3 px-3 pb-1  bg-yellow gap-1 shadow-brutal "
-      href={href}
+      onClick={handleClick}
     >
       <div className="px-2  flex items-center justify-center border-3 h-[66px] border-black rounded-md bg-yellow-light ">
         <h1 className="body line-clamp-2">{children}</h1>
@@ -73,13 +85,11 @@ export default function PollCard({
           </p> // Display the closed date
         )}
         {icon && (
-          <button
-            className="description flex items-center gap-1"
-          >
+          <button className="description flex items-center gap-1">
             {icon}
           </button>
         )}
       </div>
-    </Link>
+    </div>
   );
 }

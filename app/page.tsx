@@ -22,7 +22,8 @@ export default function Home() {
         cupiditate sit id eligendi dolor, quas ab ut laboriosam rerum sed minima
         harum magnam eos nobis praesentium.
       </PollCard>
-      <PollCard dateInput={new Date()} href={'/'}>
+      <PollCard dateInput={new Date()} href={'/'}
+      >
         Lorem, ipsum dolor sit amet consectetur adipisicing elit.
       </PollCard>
     </>

@@ -74,6 +74,6 @@ export const OwnClosed: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
     dateInput: faker.date.past(),
-    href: '/results',
+    
   },
 };
