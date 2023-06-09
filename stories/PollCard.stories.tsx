@@ -1,8 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import PollCard from '../components/PollCard';
-import { IoCheckmark } from 'react-icons/io5';
 import { HiArrowUpRight } from 'react-icons/hi2';
+import { faker } from '@faker-js/faker';
+import { HiCheck } from 'react-icons/hi2';
 
 const meta: Meta<typeof PollCard> = {
   title: 'PollCard',
@@ -21,12 +22,12 @@ type Story = StoryObj<typeof PollCard>;
 export const New: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: new Date('2023-06-15T00:00:00'),
+    dateInput: faker.date.future(),
     icon: (
-      <div className="flex gap-1 items-center">
+      <>
         <h3>Vote</h3>
-        <HiArrowUpRight />
-      </div>
+        <HiArrowUpRight strokeWidth={1} />
+      </>
     ),
   },
 };
@@ -34,12 +35,12 @@ export const New: Story = {
 export const Pending: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: new Date('2023-06-01T00:00:00'),
+    dateInput: faker.date.future(),
     icon: (
-      <div className="flex gap-1 items-center">
+      <>
         <h3>Voted</h3>
-        <IoCheckmark />
-      </div>
+        <HiCheck strokeWidth={1} />
+      </>
     ),
   },
 };
@@ -47,12 +48,12 @@ export const Pending: Story = {
 export const Closed: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: new Date('2023-06-01T00:00:00'),
+    dateInput: faker.date.past(),
     icon: (
-      <div className="flex gap-1 items-center">
+      <>
         <h3>See Results</h3>
-        <HiArrowUpRight />
-      </div>
+        <HiArrowUpRight strokeWidth={1} />
+      </>
     ),
   },
 };
@@ -60,13 +61,13 @@ export const Closed: Story = {
 export const OwnOpen: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: new Date('2023-06-15T00:00:00'),
+    dateInput: faker.date.future(),
   },
 };
 
 export const OwnClosed: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: new Date('2023-06-01T00:00:00'),
+    dateInput: faker.date.past(),
   },
 };

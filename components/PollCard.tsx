@@ -62,7 +62,10 @@ export default function PollCard({ children, dateInput, icon }: PollCardProps) {
           </p> // Display the closed date
         )}
         {icon && (
-          <button className="description flex items-center gap-1">
+          <button
+            onClick={() => console.log('hi')}
+            className="description flex items-center gap-1"
+          >
             {icon}
           </button>
         )}
