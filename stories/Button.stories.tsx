@@ -9,121 +9,164 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ['autodocs'],
   argTypes: {
-    icon: {
-      control: {
-        type: 'exclude',
-      },
-    },
+    onClick: { action: 'clicked', type: 'function' },
+    children: { type: 'string' },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {
-  args: {
-    children: 'Button',
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    children: 'Button',
-    inactive: true,
-  },
-};
-
 export const Login: Story = {
   args: {
-    children: 'Login ',
-    icon: <HiArrowUpRight strokeWidth={1} />,
+    children: (
+      <>
+        <h3>Login</h3>
+        <HiArrowUpRight strokeWidth={1} />
+      </>
+    ),
+    variant: 'primary',
+    size: 'full',
   },
 };
 
 export const LoginDisabled: Story = {
   args: {
-    children: 'Login ',
-    icon: <HiArrowUpRight strokeWidth={1} />,
-    inactive: true,
+    children: (
+      <>
+        <h3>Login</h3>
+        <HiArrowUpRight strokeWidth={1} />
+      </>
+    ),
+    size: 'full',
+    disabled: true,
   },
 };
 
 export const SignUp: Story = {
   args: {
     children: 'Sign up',
-    variant: 'signup',
+    variant: 'secondary',
+    size: 'full',
   },
 };
 
 export const SignUpDisabled: Story = {
   args: {
     children: 'Sign up',
-    variant: 'signup',
+    size: 'full',
     inactive: true,
   },
 };
 
 export const Logout: Story = {
   args: {
-    children: 'Logout',
-    icon: <HiArrowDownRight strokeWidth={1} />,
-    variant: 'logout',
+    children: (
+      <>
+        <h3>Logout</h3>
+        <HiArrowDownRight strokeWidth={1} />
+      </>
+    ),
+    variant: 'secondary',
+    size: 'full',
   },
 };
 
 export const LogoutDisabled: Story = {
   args: {
-    children: 'Logout',
-    icon: <HiArrowDownRight strokeWidth={1} />,
-    variant: 'logout',
-    inactive: true,
+    children: (
+      <>
+        <h3>Logout</h3>
+        <HiArrowDownRight strokeWidth={1} />
+      </>
+    ),
+    size: 'full',
+    disabled: true,
   },
 };
 
 export const Next: Story = {
   args: {
-    children: 'Next',
-    icon: <GrFormNext strokeWidth={1} />,
-    variant: 'next',
+    children: (
+      <>
+        <h3>Next</h3>
+        <GrFormNext strokeWidth={2} />
+      </>
+    ),
+    variant: 'primary',
+    size: 'large',
   },
 };
 
 export const NextDisabled: Story = {
   args: {
-    children: 'Next',
-    icon: <GrFormNext strokeWidth={2} />,
-    variant: 'next',
-    inactive: true,
+    children: (
+      <>
+        <h3>Next</h3>
+        <GrFormNext strokeWidth={2} />
+      </>
+    ),
+    disabled: true,
+    size: 'large',
   },
 };
 
 export const Back: Story = {
   args: {
-    children: 'Back',
-    icon: <GrFormPrevious strokeWidth={2} />,
-    variant: 'back',
+    children: (
+      <>
+        <GrFormPrevious strokeWidth={2} />
+        <h3>Back</h3>
+      </>
+    ),
+    variant: 'secondary',
+    size: 'small',
   },
 };
 
 export const BackDisabled: Story = {
   args: {
-    children: 'Back',
-    icon: <GrFormPrevious strokeWidth={2} />,
-    variant: 'back',
-    inactive: true,
+    children: (
+      <>
+        <GrFormPrevious strokeWidth={2} />
+        <h3>Back</h3>
+      </>
+    ),
+    disabled: true,
+    size: 'small',
   },
 };
 
 export const DateTime: Story = {
   args: {
     children: 'Date & Time',
-    variant: 'date&time',
+    variant: 'primary',
+    size: 'medium',
+  },
+};
+
+export const DateTimeInactive: Story = {
+  args: {
+    children: 'Date & Time',
+    variant: 'primary',
+    size: 'medium',
+    inactive: true,
   },
 };
 
 export const Countdown: Story = {
   args: {
     children: 'Countdown',
-    variant: 'countdown',
+    variant: 'secondary',
+    size: 'medium',
+  },
+};
+
+export const CountdownInactive: Story = {
+  args: {
+    children: 'Countdown',
+    variant: 'secondary',
+    size: 'medium',
+    inactive: true,
   },
 };

@@ -7,6 +7,7 @@ const buttonClasses = cva(
   [
     'border-3',
     'border-black',
+    'button',
     'rounded',
     'shadow-brutalist',
     'flex',
@@ -21,17 +22,15 @@ const buttonClasses = cva(
   {
     variants: {
       variant: {
-        login: ['bg-yellow', 'h-15', 'w-full', 'button'],
-        logout: ['bg-peach', 'h-15', 'w-full', 'button'],
-        signup: ['bg-peach', 'h-15', 'w-full', 'button'],
-        next: ['bg-yellow', 'h-11', 'w-40', 'button'],
-        back: ['bg-peach', 'h-11', 'w-25', 'button'],
-        'date&time': ['bg-peach', 'h-11', 'w-40', 'button'],
-        countdown: ['bg-peach', 'h-11', 'w-40', 'button'],
+        primary: ['bg-yellow'],
+        secondary: ['bg-peach'],
       },
-    },
-    defaultVariants: {
-      variant: 'login',
+      size: {
+        small: ['h-11', 'w-25'],
+        medium: ['h-11', 'w-32'],
+        large: ['h-11', 'w-40'],
+        full: ['h-15', 'w-full'],
+      },
     },
   }
 );
@@ -39,46 +38,36 @@ const buttonClasses = cva(
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonClasses> {
+  disabled?: boolean;
   children: React.ReactNode;
   handleClick?: () => void;
-  icon?: React.ReactNode;
+  variant?: 'primary' | 'secondary';
+  size?: 'small' | 'medium' | 'large' | 'full';
   href?: string;
-  variant?:
-    | 'login'
-    | 'logout'
-    | 'signup'
-    | 'next'
-    | 'back'
-    | 'date&time'
-    | 'countdown';
 }
 
 export default function Button({
   children,
   className,
   href,
-  icon,
   handleClick,
-  variant,
+  variant = 'primary',
+  size = 'large',
   ...props
 }: ButtonProps) {
   return href ? (
     <Link href={href} className="w-full">
-      <button className={buttonClasses({ variant })} {...props}>
+      <button className={buttonClasses({ variant, size })} {...props}>
         {children}
       </button>
     </Link>
   ) : (
     <button
       onClick={handleClick}
-      className={buttonClasses({ variant })}
+      className={buttonClasses({ variant, size })}
       {...props}
     >
-      {variant === 'back' && icon && <>{icon}</>}{' '}
-      {/* Display the icon before children only when variant is "back" */}
-      <>{children}</>
-      {variant !== 'back' && icon && <>{icon}</>}{' '}
-      {/* Display the icon before children only when variant is "back" */}
+      {children}
     </button>
   );
 }
