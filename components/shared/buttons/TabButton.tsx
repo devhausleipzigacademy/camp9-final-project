@@ -1,18 +1,19 @@
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  onClickHandler?: () => void;
+  handleClick?: () => void;
   inactive?: boolean; // New prop to indicate if the tab is active
 }
 
 export default function TabButton({
   children,
   className,
-  onClickHandler,
+  handleClick,
   inactive,
   ...props
 }: ButtonProps) {
   return (
     <button
+      onClick={handleClick}
       className={
         `
         bg-yellow w-18 h-11 border-3

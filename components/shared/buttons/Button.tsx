@@ -40,7 +40,7 @@ interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonClasses> {
   children: React.ReactNode;
-  onClickHandler?: () => void;
+  handleClick?: () => void;
   icon?: React.ReactNode;
   href?: string;
   variant?:
@@ -58,19 +58,19 @@ export default function Button({
   className,
   href,
   icon,
-  onClickHandler,
+  handleClick,
   variant,
   ...props
 }: ButtonProps) {
   return href ? (
-    <Link onClick={onClickHandler} href={href} className="w-full">
+    <Link href={href} className="w-full">
       <button className={buttonClasses({ variant })} {...props}>
         {children}
       </button>
     </Link>
   ) : (
     <button
-      onClick={onClickHandler}
+      onClick={handleClick}
       className={buttonClasses({ variant })}
       {...props}
     >
