@@ -41,7 +41,9 @@ export default function PollCard({
       href={href}
     >
       <div className="px-2  flex items-center justify-center border-3 h-18 border-black rounded-md bg-yellow-light ">
-        <h1 className="body line-clamp-2">{children}</h1>
+        <h1 className="body">
+          {children.length > 50 ? children.slice(0, 238) + '...?' : children}
+        </h1>
       </div>
       <div className="flex justify-between items-center h-5  gap-1">
         {isOpen ? (
