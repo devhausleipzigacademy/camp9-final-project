@@ -52,7 +52,7 @@ export default function Button({
   href,
   handleClick,
   variant = 'primary',
-  size = 'large',
+  size = 'full',
   ...props
 }: ButtonProps) {
   return href ? (

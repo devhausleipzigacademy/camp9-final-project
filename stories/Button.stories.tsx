@@ -9,8 +9,9 @@ const meta: Meta<typeof Button> = {
   component: Button,
   tags: ['autodocs'],
   argTypes: {
-    onClick: { action: 'clicked', type: 'function' },
     children: { type: 'string' },
+    onClick: { table: { disable: true } }, // Disable onClick control
+    handleClick: { table: { disable: true } }, // Disable handleClick control
   },
 };
 
@@ -106,8 +107,8 @@ export const NextDisabled: Story = {
         <GrFormNext strokeWidth={2} />
       </>
     ),
-    disabled: true,
     size: 'large',
+    disabled: true,
   },
 };
 
