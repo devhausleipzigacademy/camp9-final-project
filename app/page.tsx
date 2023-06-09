@@ -1,7 +1,8 @@
-import Image from 'next/image';
-
 export default function Home() {
   return (
-    <h1 className="text-3xl text-center text-yellow-900">Consensus App </h1>
+    <>
+      <h1 className="title-black text-teal bg-yellow-light">Consensus App</h1>
+      <div className=" m-10 w-40 h-40 bg-teal rounded border-brutal shadow-brutal "></div>
+    </>
   );
 }
