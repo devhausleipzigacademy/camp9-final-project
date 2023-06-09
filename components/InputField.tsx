@@ -3,6 +3,7 @@
 import { ChangeEvent } from 'react';
 import { useState } from 'react';
 import React from 'react';
+import { clsx } from 'clsx';
 
 type InputFieldProps = {
   label?: string;
@@ -12,8 +13,9 @@ type InputFieldProps = {
   value?: string;
   type: 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url';
   width: 'full' | 'reduced';
-  abled: 'true' | 'false';
   register?: any;
+  error: Boolean;
+  errormessage?: string;
 };
 
 export const InputField = ({
@@ -33,12 +35,18 @@ export const InputField = ({
     <div>
       <label>
         {label}
+        <p className="[#FA9A5D]">{errormessage}</p>
         <input
-          className="h-11  {width:311px} border border-black rounded-md placeholder-#BCBCBC "
+          className={clsx(
+            'h-11 border border-black rounded-md placeholder-[#BCBCBC]',
+            width === 'full' ? 'width-[311px]' : 'width-[251px]',
+            error ? 'border-[#FA9A5D]' : 'border-black'
+          )}
           id={id}
           value={value}
           placeholder={placeholder}
           onChange={handleChange}
+          onFocus={e => (e.target.placeholder = '')}
         ></input>
       </label>
     </div>
