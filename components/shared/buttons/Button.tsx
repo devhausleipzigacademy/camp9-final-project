@@ -11,6 +11,7 @@ const buttonClasses = cva(
     'shadow-brutalist',
     'flex',
     'items-center',
+    'gap-1',
     'justify-center',
     'disabled:bg-white',
     'disabled:cursor-not-allowed',
@@ -20,19 +21,17 @@ const buttonClasses = cva(
   {
     variants: {
       variant: {
-        primary: ['bg-yellow'],
-        secondary: ['bg-peach'],
-        tertiary: ['bg-green'],
-      },
-      size: {
-        small: ['h-11', 'w-25', 'button-small'],
-        medium: ['h-11', 'w-40', 'button'],
-        large: ['h-15', 'w-full', 'button'],
+        login: ['bg-yellow', 'h-15', 'w-full', 'button'],
+        logout: ['bg-peach', 'h-15', 'w-full', 'button'],
+        signup: ['bg-peach', 'h-15', 'w-full', 'button'],
+        next: ['bg-yellow', 'h-11', 'w-40', 'button'],
+        back: ['bg-peach', 'h-11', 'w-25', 'button'],
+        'date&time': ['bg-peach', 'h-11', 'w-40', 'button'],
+        countdown: ['bg-peach', 'h-11', 'w-40', 'button'],
       },
     },
     defaultVariants: {
-      variant: 'primary',
-      size: 'large',
+      variant: 'login',
     },
   }
 );
@@ -41,28 +40,36 @@ interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonClasses> {
   children: React.ReactNode;
+  icon?: React.ReactNode;
   href?: string;
-  size?: 'small' | 'medium' | 'large';
-  variant?: 'primary' | 'secondary' | 'tertiary';
+  variant?:
+    | 'login'
+    | 'logout'
+    | 'signup'
+    | 'next'
+    | 'back'
+    | 'date&time'
+    | 'countdown';
 }
 
 export default function Button({
   children,
   className,
   href,
-  size,
+  icon,
   variant,
   ...props
 }: ButtonProps) {
   return href ? (
     <Link href={href} className="w-full">
-      <button className={buttonClasses({ variant, size })} {...props}>
+      <button className={buttonClasses({ variant })} {...props}>
         {children}
       </button>
     </Link>
   ) : (
-    <button className={buttonClasses({ variant, size, className })} {...props}>
-      {children}
+    <button className={buttonClasses({ variant })} {...props}>
+      <>{children}</>
+      <>{icon}</>
     </button>
   );
 }

@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Button from '../components/shared/buttons/Button';
+import { HiArrowUpRight } from 'react-icons/hi2';
 
 const meta: Meta<typeof Button> = {
   title: 'Button',
@@ -25,7 +26,12 @@ export const Disabled: Story = {
 
 export const Login: Story = {
   args: {
-    children: 'Login ↗',
+    children: (
+      <>
+        <h3>Login </h3>
+        <HiArrowUpRight strokeWidth={1} />
+      </>
+    ),
   },
 };
 
@@ -39,14 +45,14 @@ export const LoginDisabled: Story = {
 export const SignUp: Story = {
   args: {
     children: 'Sign up',
-    variant: 'secondary',
+    variant: 'signup',
   },
 };
 
 export const SignUpDisabled: Story = {
   args: {
     children: 'Sign up',
-    variant: 'secondary',
+    variant: 'signup',
     disabled: true,
   },
 };
@@ -54,14 +60,15 @@ export const SignUpDisabled: Story = {
 export const Logout: Story = {
   args: {
     children: 'Logout ↘',
-    variant: 'secondary',
+
+    variant: 'logout',
   },
 };
 
 export const LogoutDisabled: Story = {
   args: {
     children: 'Logout ↘',
-    variant: 'secondary',
+    variant: 'logout',
     disabled: true,
   },
 };
@@ -69,16 +76,14 @@ export const LogoutDisabled: Story = {
 export const Next: Story = {
   args: {
     children: 'Next >',
-    size: 'medium',
-    variant: 'primary',
+    variant: 'next',
   },
 };
 
 export const NextDisabled: Story = {
   args: {
     children: 'Next >',
-    size: 'medium',
-    variant: 'primary',
+    variant: 'next',
     disabled: true,
   },
 };
@@ -86,16 +91,13 @@ export const NextDisabled: Story = {
 export const Back: Story = {
   args: {
     children: '< Back',
-    size: 'small',
-    variant: 'secondary',
+    variant: 'back',
   },
 };
 
 export const BackDisabled: Story = {
   args: {
     children: '< Back',
-    size: 'small',
-    variant: 'secondary',
     disabled: true,
   },
 };
@@ -103,15 +105,13 @@ export const BackDisabled: Story = {
 export const DateTime: Story = {
   args: {
     children: 'Date & Time',
-    size: 'medium',
-    variant: 'primary',
+    variant: 'date&time',
   },
 };
 
 export const Countdown: Story = {
   args: {
     children: 'Countdown',
-    size: 'medium',
-    variant: 'secondary',
+    variant: 'countdown',
   },
 };
