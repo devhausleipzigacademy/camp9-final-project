@@ -1,10 +1,18 @@
+import Link from 'next/link';
+
 interface PollCardProps {
   children: string;
   dateInput: Date;
+  href: string;
   icon?: React.ReactNode;
 }
 
-export default function PollCard({ children, dateInput, icon }: PollCardProps) {
+export default function PollCard({
+  children,
+  dateInput,
+  icon,
+  href,
+}: PollCardProps) {
   const currentDate = new Date(); // Get the current date
 
   const date = new Date(dateInput); // Convert date input string to Date object
@@ -28,9 +36,12 @@ export default function PollCard({ children, dateInput, icon }: PollCardProps) {
   };
 
   return (
-    <section className="border-3 border-black rounded w-full flex flex-col p-4 justify-between bg-yellow shadow-brutal gap-2">
-      <div className="p-3 border-3 border-black rounded-md bg-yellow-light flex-1 flex items-center justify-center">
-        <h1 className="body overflow-hidden">{children}</h1>
+    <Link
+      className="border-3 h-28 border-black rounded w-full flex flex-col p-3 it justify-between bg-yellow gap-1 shadow-brutal "
+      href={href}
+    >
+      <div className="px-2 py-1 flex items-center justify-center border-3 h-18 border-black rounded-md bg-yellow-light ">
+        <h1 className="body line-clamp-2 ?">{children}</h1>
       </div>
       <div className="flex justify-between items-center overflow-auto gap-1">
         {isOpen ? (
@@ -70,6 +81,6 @@ export default function PollCard({ children, dateInput, icon }: PollCardProps) {
           </button>
         )}
       </div>
-    </section>
+    </Link>
   );
 }
