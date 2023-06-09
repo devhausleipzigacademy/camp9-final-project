@@ -1,3 +1,5 @@
+'use client';
+
 import { useRouter } from 'next/navigation';
 
 interface PollCardProps {
@@ -16,8 +18,7 @@ export default function PollCard({
   isOwner,
   isVoted,
 }: PollCardProps) {
-  // const router = useRouter();
-
+  const router = useRouter();
   const currentDate = new Date(); // Get the current date
 
   const date = new Date(dateInput); // Convert date input string to Date object
@@ -42,13 +43,13 @@ export default function PollCard({
 
   function handleClick() {
     if (!isOwner && isOpen) {
-      // router.push('/voting');
+      router.push('/voting');
     }
   }
 
   return (
     <div
-      className="border-3 border-black rounded w-full flex flex-col pt-3 px-3 pb-1  bg-yellow gap-1 shadow-brutal "
+      className="cursor-pointer border-3 border-black rounded w-full flex flex-col pt-3 px-3 pb-1  bg-yellow gap-1 shadow-brutal "
       onClick={handleClick}
     >
       <div className="px-2  flex items-center justify-center border-3 h-[66px] border-black rounded-md bg-yellow-light ">
