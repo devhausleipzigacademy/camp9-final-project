@@ -37,13 +37,13 @@ export default function PollCard({
 
   return (
     <Link
-      className="border-3 h-28 border-black rounded w-full flex flex-col p-3 it justify-between bg-yellow gap-1 shadow-brutal "
+      className="border-3 h-28 border-black rounded w-full flex flex-col pt-3 px-3 pb-1 it justify-between bg-yellow gap-1 shadow-brutal "
       href={href}
     >
-      <div className="px-2 py-1 flex items-center justify-center border-3 h-18 border-black rounded-md bg-yellow-light ">
-        <h1 className="body line-clamp-2 ?">{children}</h1>
+      <div className="px-2  flex items-center justify-center border-3 h-24 border-black rounded-md bg-yellow-light ">
+        <h1 className="body line-clamp-2">{children}</h1>
       </div>
-      <div className="flex justify-between items-center overflow-auto gap-1">
+      <div className="flex justify-between items-center  gap-1">
         {isOpen ? (
           <p className="small">
             Closes in

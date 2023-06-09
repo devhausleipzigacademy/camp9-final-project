@@ -24,6 +24,7 @@ export const New: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
     dateInput: faker.date.future(),
+    href: '/new',
     icon: (
       <>
         <h3>Vote</h3>
@@ -37,6 +38,7 @@ export const Pending: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
     dateInput: faker.date.future(),
+    href: '/details',
     icon: (
       <>
         <h3>Voted</h3>
@@ -50,6 +52,7 @@ export const Closed: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
     dateInput: faker.date.past(),
+    href: '/results',
     icon: (
       <>
         <h3>See Results</h3>
@@ -63,6 +66,7 @@ export const OwnOpen: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
     dateInput: faker.date.future(),
+    href: '/details',
   },
 };
 
@@ -70,5 +74,6 @@ export const OwnClosed: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
     dateInput: faker.date.past(),
+    href: '/results',
   },
 };
