@@ -1,4 +1,3 @@
-'use client';
 import { useRouter } from 'next/navigation';
 
 interface PollCardProps {
@@ -17,7 +16,7 @@ export default function PollCard({
   isOwner,
   isVoted,
 }: PollCardProps) {
-  const router = useRouter();
+  // const router = useRouter();
 
   const currentDate = new Date(); // Get the current date
 
@@ -43,7 +42,7 @@ export default function PollCard({
 
   function handleClick() {
     if (!isOwner && isOpen) {
-      router.push('/voting');
+      // router.push('/voting');
     }
   }
 
