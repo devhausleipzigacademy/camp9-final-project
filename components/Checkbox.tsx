@@ -16,7 +16,7 @@ export const Box = ({ variant }: BoxCheckedProps) => {
     {
       variants: {
         variant: {
-          primary: 'bg-tierblue',
+          primary: 'bg-teal',
           secondary: 'bg-peach',
           tertiary: 'bg-green',
         },
