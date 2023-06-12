@@ -13,22 +13,27 @@ module.exports = {
         green: '#4D9979',
         peach: '#FA9A5D',
         yellow: '#FEBF10',
-        'yellow-light': '#FFEDBC',
+        yellowlight: '#FFEDBC',
         grey: '#BCBCBC',
       },
-      borderWidth: {
-        3: '3px',
-      },
       boxShadow: {
-        brutalist: '-4px 4px 0px black',
+        shadow: '-4px 4px rgba(0, 0, 0, 0.9)',
+      },
+      borderRadius: {
+        round: '4px',
       },
       width: {
+        8.5: '31px',
         25: '6.25rem',
         18: '4.5rem',
       },
       height: {
+        8.5: '31px',
         15: '3.75rem',
-      }
+      },
+      borderWidth: {
+        3: '3px',
+      },
     },
     plugins: [],
   },
