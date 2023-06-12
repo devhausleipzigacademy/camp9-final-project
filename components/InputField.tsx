@@ -24,8 +24,9 @@ const InputField = forwardRef(
       label,
       width,
       error,
+      ...props // catch all other props
     }: InputFieldProps,
-    ref
+    ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     //   const inputValue = event.target.value;
@@ -39,11 +40,13 @@ const InputField = forwardRef(
           {error && <p className="body-accent">{error.message}</p>}
           <input
             className={clsx(
-              ' h-11 border border-black body rounded-md  placeholder-[body-light]',
+              'h-11 border border-black body rounded-md  placeholder-[body-light]',
               width === 'full' ? 'width-[311px]' : 'width-[251px]',
               error ? 'border-peach body-accent' : 'border-black body'
             )}
             placeholder={placeholder}
+            ref={ref}
+            {...props}
           ></input>
         </label>
       </div>

@@ -12,42 +12,39 @@ function SignUpForm() {
     mutate(data);
   };
 
-  console.log(isLoading);
+  const onSubmitError = (data: any) => {
+    mutate(data);
+  };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onSubmitError)}
       noValidate
       className="flex flex-col gap-5"
     >
-      <InputField label='username' width='full' type="username" error={errors.userName} {...register('userName')} />
-      {/* <input
-        placeholder={'Username'}
-        type="text"
-        id={'userName'}
+      <InputField
+        label="username"
+        width="full"
+        type="username"
+        error={errors.userName}
         {...register('userName')}
-      ></input>
-      {errors.userName && (
-        <p className="text-sm text-red-600">{errors.userName.message}</p>
-      )} */}
-      <input
-        placeholder={'Password'}
-        type={'password'}
-        id={'password'}
+      />
+      <InputField
+        label="password"
+        width="full"
+        type="password"
+        error={errors.password}
         {...register('password')}
-      ></input>
-      {errors.password && (
-        <p className="text-sm text-red-600">{errors.password.message}</p>
-      )}
-      <input
-        placeholder={'Confirm Password'}
-        type={'password'}
-        id={'confirmPassword'}
+      />
+
+      <InputField
+        label="confirm password"
+        type="password"
+        width="full"
+        error={errors.confirmPassword}
         {...register('confirmPassword')}
-      ></input>
-      {errors.confirmPassword && (
-        <p className="text-sm text-red-600">{errors.confirmPassword.message}</p>
-      )}
+      />
+
       <button type="submit" className="border-4 border-slate-800">
         Register
       </button>
