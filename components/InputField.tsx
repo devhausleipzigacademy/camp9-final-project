@@ -12,7 +12,7 @@ type InputFieldProps = {
   type: 'text' | 'number' | 'email' | 'password' | 'username';
   width: 'full' | 'reduced';
   error?: {
-    message: string;
+    message?: string;
   };
   abled: boolean;
 };
