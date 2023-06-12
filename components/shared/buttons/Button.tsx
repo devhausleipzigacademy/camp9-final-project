@@ -21,7 +21,7 @@ const buttonClasses = cva(
     'border-black',
     'button',
     'rounded',
-    'shadow-brutalist',
+    'shadow-shadow',
     'flex',
     'items-center',
     'gap-2',

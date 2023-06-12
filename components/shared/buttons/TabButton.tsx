@@ -21,7 +21,7 @@ export default function TabButton({
         button-small
         border-black
         rounded
-        shadow-brutalist
+        shadow-shadow
         disabled:bg-white
         disabled:cursor-not-allowed
         disabled:opacity-50
