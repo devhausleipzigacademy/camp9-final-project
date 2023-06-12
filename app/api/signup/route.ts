@@ -2,14 +2,12 @@ import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 
-
 interface IRequest extends NextRequest {
   json: () => Promise<SignUpUser>;
 }
 
 export async function POST(request: IRequest) {
   const { userName, password, confirmPassword } = await request.json();
-
 
   //this is the zod validation
   try {
@@ -20,7 +18,6 @@ export async function POST(request: IRequest) {
 
   //hashing the password
   const hashedPassword = await bcrypt.hash(password, 12);
-
 
   //this is the the user creation
   //the database has a unique requirement for the username

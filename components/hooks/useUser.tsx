@@ -14,6 +14,7 @@ async function signUpUser(user: SignUpUser) {
   const { data } = await axios.post('/api/signup', user, {
     withCredentials: true,
   });
+  console.log(data);
   return data;
 }
 

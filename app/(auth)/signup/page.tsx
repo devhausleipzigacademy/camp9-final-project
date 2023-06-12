@@ -1,4 +1,5 @@
 import SignUpForm from '@/components/shared/forms/SignUpForm';
+import Link from 'next/link';
 import React from 'react';
 
 function SignUp() {
@@ -8,6 +9,10 @@ function SignUp() {
         <p>Placeholder Image</p>
       </div>
       <SignUpForm />
+      <p className="text-center">Already have an Account?</p>
+      <Link href={'/login'} className="underline text-center">
+        Sign up!
+      </Link>
     </div>
   );
 }
