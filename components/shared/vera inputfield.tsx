@@ -8,23 +8,22 @@ type InputFieldProps = {
   label: string;
   placeholder?: string;
   //max?: number; // Limit the input value to a maximum of characters (max)
-  value?: string;
+  // value?: string;
   type: 'text' | 'number' | 'email' | 'password' | 'username';
   width: 'full' | 'reduced';
   error?: {
     message?: string;
   };
-  abled: boolean;
 };
 
-export const InputField = forwardRef(
+const InputField = forwardRef(
   (
     {
+      //forward ref to pass input to parent (form) and pass back the error to component (inputField)
       placeholder,
       label,
       width,
       error,
-      abled,
     }: InputFieldProps,
     ref
   ) => {
@@ -33,20 +32,16 @@ export const InputField = forwardRef(
     //   const truncatedValue = inputValue.slice(0, max);
     //   setValue(truncatedValue);
     // };
-
     return (
       <div>
-        <label
-          className={clsx(abled ? 'body-semibold' : 'body-semibold-disabled')}
-        >
+        <label className="body-semibold">
           {label}
           {error && <p className="body-accent">{error.message}</p>}
           <input
             className={clsx(
-              'p-[14px] h-11 body rounded-md placeholder-[body-light]',
+              ' h-11 border border-black body rounded-md  placeholder-[body-light]',
               width === 'full' ? 'width-[311px]' : 'width-[251px]',
-              error ? 'border-peach body-accent' : 'border-black body',
-              abled ? 'border-brutal' : 'border-brutal-disabled'
+              error ? 'border-peach body-accent' : 'border-black body'
             )}
             placeholder={placeholder}
           ></input>
