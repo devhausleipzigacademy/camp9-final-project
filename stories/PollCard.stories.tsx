@@ -13,7 +13,7 @@ const meta: Meta<typeof PollCard> = {
     dateInput: {
       control: 'date',
     },
-    icon: { table: { disable: true } },
+    icon: { control: { type: 'exclude' } }, // Exclude the icon control
   },
 };
 
