@@ -1,19 +1,16 @@
 import { Meta, StoryObj } from '@storybook/react';
 
 import PollCard from '../components/PollCard';
-import { HiArrowUpRight } from 'react-icons/hi2';
 import { faker } from '@faker-js/faker';
-import { HiCheck } from 'react-icons/hi2';
 
 const meta: Meta<typeof PollCard> = {
   title: 'PollCard',
   component: PollCard,
   tags: ['autodocs'],
   argTypes: {
-    dateInput: {
+    endDate: {
       control: 'date',
     },
-    icon: { control: { type: 'exclude' } }, // Exclude the icon control
   },
 };
 
@@ -23,57 +20,37 @@ type Story = StoryObj<typeof PollCard>;
 export const New: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: faker.date.future(),
-    href: '/new',
-    icon: (
-      <>
-        <h3>Vote</h3>
-        <HiArrowUpRight strokeWidth={1} />
-      </>
-    ),
+    endDate: faker.date.future(),
+    isVoted: false,
   },
 };
 
 export const Pending: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: faker.date.future(),
-    href: '/details',
-    icon: (
-      <>
-        <h3>Voted</h3>
-        <HiCheck strokeWidth={1} />
-      </>
-    ),
+    endDate: faker.date.future(),
+    isVoted: true,
   },
 };
 
 export const Closed: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: faker.date.past(),
-    href: '/results',
-    icon: (
-      <>
-        <h3>See Results</h3>
-        <HiArrowUpRight strokeWidth={1} />
-      </>
-    ),
+    endDate: faker.date.past(),
+    isVoted: true,
   },
 };
 
 export const OwnOpen: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: faker.date.future(),
-    href: '/details',
+    endDate: faker.date.future(),
   },
 };
 
 export const OwnClosed: Story = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur?',
-    dateInput: faker.date.past(),
-    
+    endDate: faker.date.past(),
   },
 };
