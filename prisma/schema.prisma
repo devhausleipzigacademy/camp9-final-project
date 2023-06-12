@@ -2,16 +2,66 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("POSTGRES_URL")
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl         = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  username String  @unique
-  password  String?
+  id                 Int      @id @default(autoincrement())
+  name               String   @unique
+  password           String
+  createdPolls       Poll[]
+  participatingPolls Poll[]   @relation("UserParticipatingInPoll")
+  votes              Vote[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @default(now()) @updatedAt
+}
+
+model Poll {
+  id           Int       @id @default(autoincrement())
+  description  String?
+  question     String
+  options      String[]
+  creator      User      @relation(fields: [creatorId], references: [id])
+  creatorId    Int
+  participants User[]    @relation("UserParticipatingInPoll")
+  votes        Vote[]
+  endDateTime  DateTime
+  anonymity    Anonymity
+  quorum       Int?
+  type         PollType
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @default(now()) @updatedAt
+}
+
+model Vote {
+  id        Int       @id @default(autoincrement())
+  answer    Boolean[]
+  poll      Poll      @relation(fields: [pollId], references: [id])
+  pollId    Int
+  User      User      @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now()) @updatedAt
+}
+
+enum PollType {
+  MultipleChoice //can choose between 1 and all of the options, eg A,B,C from A,B,C,D,E
+  SingleChoice //can choose a single option, eg A from A,B,C
+  //Open //no options, answer is just a string
+  // Rating //rates each option on a scale of 1 to 10, eg A-4, B-7, C-1 from A,B,C
+  // Ranking //ranks the options, eg A-2nd, B-1st, C-3rd from A,B,C
+}
+
+enum Anonymity {
+  Anonymous //no one knows who voted what
+  NonAnonymous //everyone knows who voted what -> achive this by putting quorum on 0
+  AnonymousUntilQuorum //no one knows who voted what until quorum is met
 }
