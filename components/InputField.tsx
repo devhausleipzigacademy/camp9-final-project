@@ -8,15 +8,15 @@ type InputFieldProps = {
   label: string;
   placeholder?: string;
   //max?: number; // Limit the input value to a maximum of characters (max)
-  value?: string;
+  // value?: string;
   type: 'text' | 'number' | 'email' | 'password' | 'username';
   width: 'full' | 'reduced';
   error?: {
-    message: string;
+    message?: string;
   };
 };
 
-export const InputField = forwardRef(
+const InputField = forwardRef(
   (
     {
       //forward ref to pass input to parent (form) and pass back the error to component (inputField)
@@ -32,7 +32,6 @@ export const InputField = forwardRef(
     //   const truncatedValue = inputValue.slice(0, max);
     //   setValue(truncatedValue);
     // };
-
     return (
       <div>
         <label className="body-semibold">

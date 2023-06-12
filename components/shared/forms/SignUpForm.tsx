@@ -1,5 +1,6 @@
 'use client';
 
+import InputField from '@/components/InputField';
 import { useSignUpMutation } from '@/components/hooks/useUser';
 import { SignUpUser } from '@/types/user/SignUpSchema';
 
@@ -19,7 +20,8 @@ function SignUpForm() {
       noValidate
       className="flex flex-col gap-5"
     >
-      <input
+      <InputField label='username' width='full' type="username" error={errors.userName} {...register('userName')} />
+      {/* <input
         placeholder={'Username'}
         type="text"
         id={'userName'}
@@ -27,7 +29,7 @@ function SignUpForm() {
       ></input>
       {errors.userName && (
         <p className="text-sm text-red-600">{errors.userName.message}</p>
-      )}
+      )} */}
       <input
         placeholder={'Password'}
         type={'password'}

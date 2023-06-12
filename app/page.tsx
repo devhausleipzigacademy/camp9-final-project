@@ -1,6 +1,6 @@
-import InputField from 'components/InputField';
+import InputField from "../components/InputField";
 
-export default function Home() {
+function Home() {
   return (
     <>
       <h1 className="title-black text-teal bg-yellow-light">Consensus App</h1>
@@ -9,3 +9,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home
