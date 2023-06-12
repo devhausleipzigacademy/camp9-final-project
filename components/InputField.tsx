@@ -14,6 +14,7 @@ type InputFieldProps = {
   error?: {
     message: string;
   };
+  abled: boolean;
 };
 
 export const InputField = forwardRef(
@@ -24,6 +25,7 @@ export const InputField = forwardRef(
       label,
       width,
       error,
+      abled,
     }: InputFieldProps,
     ref
   ) => {
@@ -35,14 +37,17 @@ export const InputField = forwardRef(
 
     return (
       <div>
-        <label className="body-semibold">
+        <label
+          className={clsx(abled ? 'body-semibold' : 'body-semibold-disabled')}
+        >
           {label}
           {error && <p className="body-accent">{error.message}</p>}
           <input
             className={clsx(
-              ' h-11 border border-black body rounded-md  placeholder-[body-light]',
+              'p-[14px] h-11 body rounded-md placeholder-[body-light]',
               width === 'full' ? 'width-[311px]' : 'width-[251px]',
-              error ? 'border-peach body-accent' : 'border-black body'
+              error ? 'border-peach body-accent' : 'border-black body',
+              abled ? 'border-brutal' : 'border-brutal-disabled'
             )}
             placeholder={placeholder}
           ></input>

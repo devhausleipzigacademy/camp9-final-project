@@ -4,56 +4,54 @@ import InputField from '../../components/InputField';
 storiesOf('InputField', module)
   .add('Default', () =>
     React.createElement(InputField, {
-      id: 'default',
+      label: 'Custom Label',
       type: 'text',
       width: 'full',
-      abled: 'true',
+      abled: true,
     })
   )
   .add('With custom label', () =>
     React.createElement(InputField, {
       label: 'Custom Label',
-      id: 'default',
       type: 'text',
       width: 'full',
-      abled: 'true',
+      abled: true,
     })
   )
 
   .add('With custom placeholder', () =>
     React.createElement(InputField, {
+      label: 'Custom Label',
       placeholder: 'Custom Placeholder',
-      id: 'default',
       type: 'text',
       width: 'full',
-      abled: 'true',
+      abled: true,
     })
   )
 
-  .add('With custom max', () =>
+  .add('disabled', () =>
     React.createElement(InputField, {
-      max: 40,
-      id: 'default',
+      label: 'Custom Label',
       type: 'text',
       width: 'full',
-      abled: 'true',
+      abled: false,
     })
   )
 
   .add('With reduced width', () =>
     React.createElement(InputField, {
-      id: 'default',
+      label: 'Custom Label',
       type: 'text',
       width: 'reduced',
-      abled: 'true',
+      abled: true,
     })
   )
-
-  .add('With disabled', () =>
+  .add('With error', () =>
     React.createElement(InputField, {
-      id: 'default',
-      type: 'text',
+      label: 'Custom Label',
+      type: 'password',
       width: 'full',
-      abled: 'false',
+      error: { message: 'Error message' },
+      abled: true,
     })
   );
