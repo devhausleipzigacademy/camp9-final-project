@@ -1,6 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Button from '../components/shared/buttons/Button';
-import { HiArrowDownRight, HiArrowUpRight } from 'react-icons/hi2';
+import {
+  HiOutlineArrowNarrowLeft,
+  HiOutlineArrowNarrowRight,
+} from 'react-icons/hi';
 
 import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
 
@@ -39,7 +42,7 @@ export const Login: Story = {
     children: (
       <>
         <h3>Login</h3>
-        <HiArrowUpRight strokeWidth={1} />
+        <HiOutlineArrowNarrowRight size={25} strokeWidth={2} />
       </>
     ),
     variant: 'primary',
@@ -52,7 +55,7 @@ export const LoginDisabled: Story = {
     children: (
       <>
         <h3>Login</h3>
-        <HiArrowUpRight strokeWidth={1} />
+        <HiOutlineArrowNarrowRight size={25} strokeWidth={2} />
       </>
     ),
     size: 'full',
@@ -79,8 +82,8 @@ export const Logout: Story = {
   args: {
     children: (
       <>
+        <HiOutlineArrowNarrowLeft size={25} strokeWidth={2} />
         <h3>Logout</h3>
-        <HiArrowDownRight strokeWidth={1} />
       </>
     ),
     variant: 'secondary',
@@ -92,8 +95,8 @@ export const LogoutDisabled: Story = {
   args: {
     children: (
       <>
+        <HiOutlineArrowNarrowLeft size={25} strokeWidth={2} />
         <h3>Logout</h3>
-        <HiArrowDownRight strokeWidth={1} />
       </>
     ),
     size: 'full',
@@ -106,7 +109,7 @@ export const Next: Story = {
     children: (
       <>
         <h3>Next</h3>
-        <GrFormNext strokeWidth={2} />
+        <GrFormNext size={24} strokeWidth={2} />
       </>
     ),
     variant: 'primary',
@@ -119,7 +122,7 @@ export const NextDisabled: Story = {
     children: (
       <>
         <h3>Next</h3>
-        <GrFormNext strokeWidth={2} />
+        <GrFormNext size={24} strokeWidth={2} />
       </>
     ),
     size: 'large',
@@ -131,7 +134,7 @@ export const Back: Story = {
   args: {
     children: (
       <>
-        <GrFormPrevious strokeWidth={2} />
+        <GrFormPrevious size={24} strokeWidth={2} />
         <h3>Back</h3>
       </>
     ),
@@ -144,7 +147,7 @@ export const BackDisabled: Story = {
   args: {
     children: (
       <>
-        <GrFormPrevious strokeWidth={2} />
+        <GrFormPrevious size={24} strokeWidth={2} />
         <h3>Back</h3>
       </>
     ),
@@ -166,6 +169,7 @@ export const DateTimeInactive: Story = {
     children: 'Date & Time',
     variant: 'primary',
     size: 'medium',
+    isActive: false,
   },
 };
 
@@ -182,5 +186,6 @@ export const CountdownInactive: Story = {
     children: 'Countdown',
     variant: 'secondary',
     size: 'medium',
+    isActive: false,
   },
 };

@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { VariantProps, cva } from 'class-variance-authority';
+import Link from 'next/link';
 
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -24,11 +24,12 @@ const buttonClasses = cva(
     'shadow-brutalist',
     'flex',
     'items-center',
-    'gap-1',
+    'gap-2',
     'justify-center',
     'disabled:bg-white',
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
+    'overflow-hidden',
   ], // Base button styles
   {
     variants: {

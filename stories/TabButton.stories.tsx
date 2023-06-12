@@ -13,6 +13,19 @@ const meta: Meta<typeof TabButton> = {
 export default meta;
 type Story = StoryObj<typeof TabButton>;
 
+export const Default: Story = {
+  args: {
+    children: 'default',
+  },
+};
+
+export const DefaultInactive: Story = {
+  args: {
+    children: 'default',
+    isActive: false,
+  },
+};
+
 export const New: Story = {
   args: {
     children: 'new',

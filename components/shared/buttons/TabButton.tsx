@@ -26,6 +26,7 @@ export default function TabButton({
         disabled:cursor-not-allowed
         disabled:opacity-50
         flex items-start justify-start p-1
+        overflow-hidden
         ${!isActive ? 'bg-opacity-0' : 'bg-opacity-100'}`}
       {...props}
     >
