@@ -1,38 +1,41 @@
-'use client';
-
 import React from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import ListFilterComponent from 'components/ListFilterComponent';
+import { PrismaClient } from '@prisma/client';
 
 export type PollRequest = {
   userId: string;
   filter: string;
 };
+const prisma = new PrismaClient();
 
 async function getPolls(pollRequest: PollRequest) {
-  const { data } = await axios.post('/api/pollactivity', pollRequest);
-  console.log(data);
-  return data;
+  const filteredNewPolls = await prisma.poll.findMany({
+    where: {
+      participants: {
+        some: {
+          id: +pollRequest.userId,
+        },
+      },
+      votes: {
+        none: {
+          userId: +pollRequest.userId,
+        },
+      },
+    },
+  });
+  return filteredNewPolls;
 }
 
-function Home() {
+async function Home() {
   //const { data: session, status } = useSession();
-
-  function handleFilter(filterOption: string) {
-    const userId = 'Hello'; //session?.user?.name as string;
-    const pollRequest = { userId, filter: filterOption };
-    getPolls(pollRequest);
-  }
+  const newPolls = await getPolls({ userId: 'Hello', filter: 'new' });
 
   return (
     <div>
-      <div>
-        <button onClick={() => handleFilter('new')}>new</button>
-        <button onClick={() => handleFilter('pending')}>pending</button>
-        <button onClick={() => handleFilter('closed')}>closed</button>
-        <button onClick={() => handleFilter('myPolls')}>my polls</button>
-      </div>
-      <div></div>
+      <ListFilterComponent />
+      {newPolls.map((poll) => ())}
     </div>
   );
 }

@@ -9,9 +9,11 @@ interface IRequest extends NextRequest {
 
 const prisma = new PrismaClient();
 
-export async function POST(request: IRequest) {
-  const { userId, filter } = await request.json();
-  console.log(userId, filter);
+export async function GET(request: IRequest) {
+  const { searchParams } = new URL(request.url);
+  const userId = searchParams.get('userId');
+  const filter = searchParams.get('filter');
+
   //new
   //Participating (true)
   //votes (false)
@@ -27,14 +29,19 @@ export async function POST(request: IRequest) {
   //created polls
 
   try {
-
     if (filter === 'new') {
-      const filteredNewPolls = await prisma.vote.findMany({
+      const filteredNewPolls = await prisma.poll.findMany({
         where: {
-          userId: +userId,
-        },
-        include: {
-          poll: true,
+          participants: {
+            some: {
+              id: +userId,
+            },
+          },
+          votes: {
+            none: {
+              userId: +userId,
+            },
+          },
         },
       });
       return NextResponse.json(filteredNewPolls, { status: 201 });
@@ -48,15 +55,28 @@ export async function POST(request: IRequest) {
               id: +userId,
             },
           },
+          votes: {
+            some: {
+              userId: +userId,
+            },
+          },
           endDateTime: {
             gt: new Date(now()),
           },
         },
         include: {
           votes: true,
+          participants: true,
         },
       });
-      return NextResponse.json(filteredPendingPolls, { status: 201 });
+
+      const updatedPendingPolls = filteredPendingPolls.map(poll => {
+        if (poll.votes.length < poll.participants.length) {
+          return poll;
+        }
+      });
+
+      return NextResponse.json(updatedPendingPolls, { status: 201 });
     }
 
     if (filter === 'closed') {
@@ -73,19 +93,26 @@ export async function POST(request: IRequest) {
         },
         include: {
           votes: true,
+          participants: true,
         },
       });
-      return NextResponse.json(filteredClosedPolls, { status: 201 });
+      const updatedClosedPolls = filteredClosedPolls.map(poll => {
+        if (poll.votes.length === poll.participants.length) {
+          return poll;
+        }
+      });
+
+      return NextResponse.json(updatedClosedPolls, { status: 201 });
     }
-    
+
     if (filter === 'myPolls') {
-        const filteredMyPolls = await prisma.poll.findMany({
-          where: {
-            creatorId: +userId,
-          },
-        });
-        return NextResponse.json(filteredMyPolls, { status: 201 });
-      }
+      const filteredMyPolls = await prisma.poll.findMany({
+        where: {
+          creatorId: +userId,
+        },
+      });
+      return NextResponse.json(filteredMyPolls, { status: 201 });
+    }
 
     // const newUser = await db.user.create({
     //   data: {
