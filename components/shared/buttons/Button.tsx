@@ -3,6 +3,18 @@
 import Link from 'next/link';
 import { VariantProps, cva } from 'class-variance-authority';
 
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonClasses> {
+  disabled?: boolean;
+  children: React.ReactNode;
+  handleClick?: () => void;
+  isActive?: boolean;
+  variant?: 'primary' | 'secondary';
+  size?: 'small' | 'medium' | 'large' | 'full';
+  href?: string;
+}
+
 const buttonClasses = cva(
   [
     'border-3',
@@ -17,7 +29,6 @@ const buttonClasses = cva(
     'disabled:bg-white',
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
-    'disable:shadow-brutalistDisabled',
   ], // Base button styles
   {
     variants: {
@@ -35,38 +46,28 @@ const buttonClasses = cva(
   }
 );
 
-interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonClasses> {
-  disabled?: boolean;
-  children: React.ReactNode;
-  handleClick?: () => void;
-  variant?: 'primary' | 'secondary';
-  size?: 'small' | 'medium' | 'large' | 'full';
-  href?: string;
-}
-
 export default function Button({
   children,
   className,
   href,
   handleClick,
+  isActive = true,
   variant = 'primary',
   size = 'full',
   ...props
 }: ButtonProps) {
+  const dynamicClasses = `${buttonClasses({ variant, size })} ${className} ${
+    !isActive ? 'bg-opacity-0' : 'bg-opacity-100'
+  }`;
+
   return href ? (
     <Link href={href} className="w-full">
-      <button className={buttonClasses({ variant, size })} {...props}>
+      <button className={dynamicClasses} {...props}>
         {children}
       </button>
     </Link>
   ) : (
-    <button
-      onClick={handleClick}
-      className={buttonClasses({ variant, size })}
-      {...props}
-    >
+    <button onClick={handleClick} className={dynamicClasses} {...props}>
       {children}
     </button>
   );

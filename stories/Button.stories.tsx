@@ -10,13 +10,29 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   argTypes: {
     children: { type: 'string' },
-    onClick: { table: { disable: true } }, 
-    handleClick: { table: { disable: true } }, 
+    onClick: { table: { disable: true } },
+    handleClick: { table: { disable: true } },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Button>;
+
+export const Default: Story = {
+  args: {
+    children: 'Default',
+    variant: 'primary',
+    size: 'full',
+  },
+};
+
+export const DefaultDisabled: Story = {
+  args: {
+    children: 'Default',
+    size: 'full',
+    disabled: true,
+  },
+};
 
 export const Login: Story = {
   args: {
@@ -56,7 +72,6 @@ export const SignUpDisabled: Story = {
   args: {
     children: 'Sign up',
     size: 'full',
-    inactive: true,
   },
 };
 
@@ -151,7 +166,6 @@ export const DateTimeInactive: Story = {
     children: 'Date & Time',
     variant: 'primary',
     size: 'medium',
-    inactive: true,
   },
 };
 
@@ -168,6 +182,5 @@ export const CountdownInactive: Story = {
     children: 'Countdown',
     variant: 'secondary',
     size: 'medium',
-    inactive: true,
   },
 };

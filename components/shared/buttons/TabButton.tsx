@@ -1,21 +1,22 @@
+'use client';
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   handleClick?: () => void;
-  inactive?: boolean; // New prop to indicate if the tab is active
+  isActive: boolean;
 }
 
 export default function TabButton({
   children,
   className,
   handleClick,
-  inactive,
+  isActive = true,
   ...props
 }: ButtonProps) {
   return (
     <button
       onClick={handleClick}
-      className={
-        `
+      className={`
         bg-yellow w-18 h-11 border-3
         button-small
         border-black
@@ -25,8 +26,7 @@ export default function TabButton({
         disabled:cursor-not-allowed
         disabled:opacity-50
         flex items-start justify-start p-1
-        ${inactive ? 'bg-white' : ''}` // Add conditional class for active style
-      }
+        ${!isActive ? 'bg-opacity-0' : 'bg-opacity-100'}`}
       {...props}
     >
       {children}

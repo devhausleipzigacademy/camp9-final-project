@@ -22,7 +22,7 @@ export const New: Story = {
 export const NewInactive: Story = {
   args: {
     children: 'new',
-    inactive: true,
+    isActive: false,
   },
 };
 
@@ -35,7 +35,7 @@ export const Pending: Story = {
 export const PendingInactive: Story = {
   args: {
     children: 'pending',
-    inactive: true,
+    isActive: false,
   },
 };
 
@@ -48,7 +48,7 @@ export const Closed: Story = {
 export const ClosedInactive: Story = {
   args: {
     children: 'closed',
-    inactive: true,
+    isActive: false,
   },
 };
 
@@ -62,6 +62,6 @@ export const MyPolls: Story = {
 export const MyPollsInactive: Story = {
   args: {
     children: 'my polls',
-    inactive: true,
+    isActive: false,
   },
 };
