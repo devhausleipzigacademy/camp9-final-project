@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { PollRequest } from 'app/home/page';
+import { now } from 'next-auth/client/_utils';
 import { NextRequest, NextResponse } from 'next/server';
 
 interface IRequest extends NextRequest {
@@ -26,8 +27,9 @@ export async function POST(request: IRequest) {
   //created polls
 
   try {
+
     if (filter === 'new') {
-      const filteredPolls = await prisma.vote.findMany({
+      const filteredNewPolls = await prisma.vote.findMany({
         where: {
           userId: +userId,
         },
@@ -35,8 +37,55 @@ export async function POST(request: IRequest) {
           poll: true,
         },
       });
-      return NextResponse.json(filteredPolls, { status: 201 });
+      return NextResponse.json(filteredNewPolls, { status: 201 });
     }
+
+    if (filter === 'pending') {
+      const filteredPendingPolls = await prisma.poll.findMany({
+        where: {
+          participants: {
+            some: {
+              id: +userId,
+            },
+          },
+          endDateTime: {
+            gt: new Date(now()),
+          },
+        },
+        include: {
+          votes: true,
+        },
+      });
+      return NextResponse.json(filteredPendingPolls, { status: 201 });
+    }
+
+    if (filter === 'closed') {
+      const filteredClosedPolls = await prisma.poll.findMany({
+        where: {
+          participants: {
+            some: {
+              id: +userId,
+            },
+          },
+          endDateTime: {
+            lte: new Date(now()),
+          },
+        },
+        include: {
+          votes: true,
+        },
+      });
+      return NextResponse.json(filteredClosedPolls, { status: 201 });
+    }
+    
+    if (filter === 'myPolls') {
+        const filteredMyPolls = await prisma.poll.findMany({
+          where: {
+            creatorId: +userId,
+          },
+        });
+        return NextResponse.json(filteredMyPolls, { status: 201 });
+      }
 
     // const newUser = await db.user.create({
     //   data: {
