@@ -10,9 +10,7 @@ export type PollRequest = {
 };
 
 async function getPolls(pollRequest: PollRequest) {
-  const { data } = await axios.get('/api/pollactivity', {
-    data: pollRequest,
-  });
+  const { data } = await axios.post('/api/pollactivity', pollRequest);
   console.log(data);
   return data;
 }

@@ -5,9 +5,9 @@ interface IRequest extends NextRequest {
   json: () => Promise<PollRequest>;
 }
 
-export async function GET(request: IRequest) {
-  const data = await request.json();
-  console.log(data);
+export async function POST(request: IRequest) {
+  const { userId, filter } = await request.json();
+  console.log(userId, filter);
   //new
   //Participating (true)
   //votes (false)
@@ -21,9 +21,6 @@ export async function GET(request: IRequest) {
 
   //my polls
   //created polls
-
-  //Request
-  // axios.get('/api/pollactivity', userId)
 
   try {
     // const newUser = await db.user.create({
