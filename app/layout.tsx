@@ -15,7 +15,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {children}
-        <footer>
+        <footer className="fixed bottom-6 w-full">
           <Navbar variant={'primary'} />
         </footer>
       </body>
