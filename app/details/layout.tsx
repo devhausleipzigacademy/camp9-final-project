@@ -4,7 +4,7 @@ export default function DetailsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-between w-full h-full bg-yellow p-8">
+    <div className="container flex flex-col items-center justify-between w-full h-full bg-yellow p-8">
       {children}
     </div>
   );
