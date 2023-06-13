@@ -10,9 +10,12 @@ interface IRequest extends NextRequest {
 const prisma = new PrismaClient();
 
 export async function GET(request: IRequest) {
-  const { searchParams } = new URL(request.url);
-  const userId = searchParams.get('userId');
-  const filter = searchParams.get('filter');
+  console.log('request', request);
+  const { searchParams } = await new URL(request.url);
+  console.log('searchParams', searchParams);
+  const userId = searchParams.get('userId') as string;
+  console.log('userId', userId);
+  const filter = searchParams.get('filter') as string;
 
   //new
   //Participating (true)
@@ -34,12 +37,12 @@ export async function GET(request: IRequest) {
         where: {
           participants: {
             some: {
-              id: +userId,
+              id: parseInt(userId),
             },
           },
           votes: {
             none: {
-              userId: +userId,
+              userId: parseInt(userId),
             },
           },
         },
@@ -52,12 +55,12 @@ export async function GET(request: IRequest) {
         where: {
           participants: {
             some: {
-              id: +userId,
+              id: parseInt(userId),
             },
           },
           votes: {
             some: {
-              userId: +userId,
+              userId: parseInt(userId),
             },
           },
           endDateTime: {
@@ -84,7 +87,7 @@ export async function GET(request: IRequest) {
         where: {
           participants: {
             some: {
-              id: +userId,
+              id: parseInt(userId),
             },
           },
           endDateTime: {
@@ -108,7 +111,7 @@ export async function GET(request: IRequest) {
     if (filter === 'myPolls') {
       const filteredMyPolls = await prisma.poll.findMany({
         where: {
-          creatorId: +userId,
+          creatorId: parseInt(userId),
         },
       });
       return NextResponse.json(filteredMyPolls, { status: 201 });
