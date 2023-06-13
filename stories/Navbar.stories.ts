@@ -2,7 +2,7 @@ import { Navbar } from '../components/shared/navbar/Navbar';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof Navbar> = {
-  title: 'Example/Navbar',
+  title: 'components/Navbar',
   component: Navbar,
   tags: ['autodocs'],
 };
