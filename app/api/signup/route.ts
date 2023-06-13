@@ -1,6 +1,6 @@
-import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
+import { SignUpUser, signUpSchema } from 'types/user/SignUpSchema';
 
 interface IRequest extends NextRequest {
   json: () => Promise<SignUpUser>;

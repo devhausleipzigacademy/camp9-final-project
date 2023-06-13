@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 
-import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
+import { SignUpUser, signUpSchema } from 'types/user/SignUpSchema';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
