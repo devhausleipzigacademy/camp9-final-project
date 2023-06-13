@@ -1,3 +1,5 @@
+'use client';
+
 import { Poll } from '@prisma/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { PollRequest } from 'app/home/page';
@@ -11,17 +13,12 @@ async function getPolls(pollRequest: PollRequest) {
   return data;
 }
 
-export function useFilterPollActivity() {
-  const [useFilter, setUseFilter] = useState('new');
-  const userId = '1';
-
-  const queryClient = useQueryClient();
-  queryClient.invalidateQueries([useFilter]);
-  
+export function useFilterPollActivity(filter: string) {
+  const userId = '8';
   const query = useQuery<Poll[], Error>({
-    queryKey: [useFilter],
-    queryFn: () => getPolls({ userId, filter: useFilter }),
+    queryKey: ['poll', filter],
+    queryFn: () => getPolls({ userId, filter }),
   });
 
-  return { query, queryClient, setUseFilter };
+  return { query };
 }

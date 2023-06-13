@@ -1,16 +1,13 @@
-import React from 'react';
-import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import ListFilterComponent from 'components/ListFilterComponent';
 import { PrismaClient } from '@prisma/client';
 import { useFilterPollActivity } from 'components/hooks/usePolls';
-import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 
 export type PollRequest = {
   userId: string;
   filter: string;
 };
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 // async function getPolls(pollRequest: PollRequest) {
 //   const filteredNewPolls = await prisma.poll.findMany({
@@ -33,13 +30,15 @@ const prisma = new PrismaClient();
 async function Home() {
   //const { data: session, status } = useSession();
   //const newPolls = await getPolls({ userId: 'Hello', filter: 'new' });
-
   const { query } = useFilterPollActivity();
+
+  if (query.isLoading) return <div>Loading...</div>;
+  if (query.isError) return <div>{query.isError}</div>;
 
   return (
     <div>
       <ListFilterComponent />
-      {query.data?.map(poll => (
+      {query.data.map(poll => (
         <p>{poll.description}</p>
       ))}
     </div>
