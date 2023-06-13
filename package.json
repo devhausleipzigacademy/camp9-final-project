@@ -35,6 +35,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@storybook/addon-essentials": "7.1.0-alpha.29",
     "@storybook/addon-interactions": "7.1.0-alpha.29",
     "@storybook/addon-links": "7.1.0-alpha.29",
@@ -47,9 +48,8 @@
     "eslint-plugin-storybook": "^0.6.12",
     "prisma": "^4.14.1",
     "storybook": "7.1.0-alpha.29",
-    "webpack": "^5.86.0",
-    "@faker-js/faker": "^8.0.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "webpack": "^5.86.0"
   },
   "eslintConfig": {
     "extends": [

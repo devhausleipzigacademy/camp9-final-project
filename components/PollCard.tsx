@@ -16,7 +16,7 @@ export default function PollCard({
   isOwner = false,
   isVoted,
 }: PollCardProps) {
-  // const router = useRouter();
+  const router = useRouter();
   const currentDate = new Date(); // Get the current date
 
   const date = new Date(endDate); // Get the end date of the poll
