@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-teal px-8 pt-[22px] pb-[25px] flex flex-col items-center justify-between h-screen">
         {children}
         <footer>
           <Navbar variant={'primary'} />
