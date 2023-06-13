@@ -36,7 +36,7 @@ const buttonClasses = cva(
       variant: {
         primary: ['bg-yellow'],
         secondary: ['bg-peach'],
-        tertiary: ['bg-lightgreen'],
+        tertiary: ['bg-green-light'],
         quaternary: ['bg-green'],
       },
       size: {
