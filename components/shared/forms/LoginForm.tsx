@@ -1,18 +1,19 @@
 'use client';
 
 import InputField from '@/components/InputField';
-import { useSignUpMutation } from '@/components/hooks/useUser';
-import { LoginSchema } from '@/types/user/LoginSchema';
+import { useLoginMutation } from '@/components/hooks/useLogin';
+import { LoginSchemaType } from '@/types/user/LoginSchema';
 
 function LoginForm() {
   const { mutate, isLoading, handleSubmit, register, errors } =
-    useSignUpMutation();
+    useLoginMutation();
 
-  const onSubmit = (data: LoginSchema) => {
+  const onSubmit = (data: LoginSchemaType) => {
     mutate(data);
   };
 
   const onSubmitError = (data: any) => {
+    console.log("error, data is:", data)
     mutate(data);
   };
 
