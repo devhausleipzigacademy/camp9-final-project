@@ -10,7 +10,7 @@ interface ButtonProps
   children: React.ReactNode;
   handleClick?: () => void;
   isActive?: boolean;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
   size?: 'small' | 'medium' | 'large' | 'full';
   href?: string;
 }
@@ -26,7 +26,7 @@ const buttonClasses = cva(
     'items-center',
     'gap-2',
     'justify-center',
-    'disabled:bg-white',
+    'disabled:bg-opacity-0',
     'disabled:cursor-not-allowed',
     'disabled:opacity-50',
     'overflow-hidden',
@@ -36,6 +36,8 @@ const buttonClasses = cva(
       variant: {
         primary: ['bg-yellow'],
         secondary: ['bg-peach'],
+        tertiary: ['bg-lightgreen'],
+        quaternary: ['bg-green'],
       },
       size: {
         small: ['h-11', 'w-25'],
