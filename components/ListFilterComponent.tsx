@@ -1,10 +1,15 @@
 'use client';
 
 import { Poll } from '@prisma/client';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { PollRequest } from 'app/home/page';
 import axios from 'axios';
-
+import { useFilterPollActivity } from './hooks/usePolls';
 
 async function getPolls(pollRequest: PollRequest) {
   const { data } = await axios.get('/api/pollactivity', {
@@ -14,25 +19,14 @@ async function getPolls(pollRequest: PollRequest) {
 }
 
 function ListFilterComponent() {
-  const { data: polls, isLoading } = useQuery<Poll[], Error>({
-    queryKey: ['polls'],
-    queryFn: () => getPolls({ userId: 'Hello', filter: 'new' }),
-  });
-  //tanStack + axios request
-  function handleFilter(filterOption: string) {
-    const userId = 'Hello'; //session?.user?.name as string;
-    const pollRequest = { userId, filter: filterOption };
-    getPolls(pollRequest);
-  }
-
-  const mutation = useMutation({})
+  const { useFilter } = useFilterPollActivity();
 
   return (
     <div>
-      <button onClick={() => handleFilter('new')}>new</button>
-      <button onClick={() => handleFilter('pending')}>pending</button>
-      <button onClick={() => handleFilter('closed')}>closed</button>
-      <button onClick={() => handleFilter('myPolls')}>my polls</button>
+      <button onClick={() => useFilter('new')}>new</button>
+      <button onClick={() => useFilter('pending')}>pending</button>
+      <button onClick={() => useFilter('closed')}>closed</button>
+      <button onClick={() => useFilter('myPolls')}>my polls</button>
     </div>
   );
 }
