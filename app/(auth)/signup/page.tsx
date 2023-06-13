@@ -11,7 +11,7 @@ function SignUp() {
       <SignUpForm />
       <p className="text-center">Already have an Account?</p>
       <Link href={'/login'} className="underline text-center">
-        Sign up!
+        Log in!
       </Link>
     </div>
   );
