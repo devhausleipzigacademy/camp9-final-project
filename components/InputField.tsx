@@ -7,6 +7,7 @@ import { ChangeEvent } from 'react';
 
 type InputFieldProps = {
   label: string;
+  showLabel: boolean;
   placeholder?: string;
   max?: number; // Limit the input value to a maximum of characters (max)
   value?: string;
@@ -27,6 +28,7 @@ export const InputField = forwardRef(
       width,
       error,
       disabled,
+      showLabel,
       ...props
     }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -46,7 +48,7 @@ export const InputField = forwardRef(
           width === 'full' ? 'w-[311px]' : 'w-[251px]'
         )}
       >
-        <span>{label}</span>
+        <span className={clsx(showLabel ? 'visible' : 'hidden')}>{label}</span>
         {error && <p className="body-accent ml-auto">{error.message}</p>}
         <input
           className={clsx(
