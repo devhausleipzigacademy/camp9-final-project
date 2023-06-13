@@ -1,18 +1,20 @@
-import React from 'react';
+import LoginForm from '@/components/shared/forms/LoginForm';
 import Link from 'next/link';
-import Form from './Form';
+import React from 'react';
 
-function page() {
+function SignUp() {
   return (
-    <div className="flex flex-col items-center bg-slate-400">
-      <img src=""></img>
-      <Form />
-      <p>Don't have an account yet?</p>
-      <Link href="/register">
-        <p>Sign up!</p>
+    <div className="w-full h-full flex flex-col p-4 bg-green">
+      <div className="w-[300px] h-[120px] border-4 border-solid rounded-sm border-slate-800 flex justify-center items-center">
+        <p>Placeholder Image</p>
+      </div>
+      <LoginForm />
+      <p className="text-center">Don't have an account?</p>
+      <Link href={'/signup'} className="underline text-center">
+        Sign up!
       </Link>
     </div>
   );
 }
 
-export default page;
+export default SignUp;
