@@ -10,6 +10,7 @@ import {
 import { PollRequest } from 'app/home/page';
 import axios from 'axios';
 import { useFilterPollActivity } from './hooks/usePolls';
+import { use, useState } from 'react';
 
 async function getPolls(pollRequest: PollRequest) {
   const { data } = await axios.get('/api/pollactivity', {
@@ -19,14 +20,17 @@ async function getPolls(pollRequest: PollRequest) {
 }
 
 function ListFilterComponent() {
-  const { useFilter } = useFilterPollActivity();
+  const { setUseFilter } = useFilterPollActivity();
 
+  function handleButtonFilter(filter: string) {
+    setUseFilter(filter);
+  }
   return (
     <div>
-      <button onClick={() => useFilter('new')}>new</button>
-      <button onClick={() => useFilter('pending')}>pending</button>
-      <button onClick={() => useFilter('closed')}>closed</button>
-      <button onClick={() => useFilter('myPolls')}>my polls</button>
+      <button onClick={() => handleButtonFilter('new')}>new</button>
+      <button onClick={() => handleButtonFilter('pending')}>pending</button>
+      <button onClick={() => handleButtonFilter('closed')}>closed</button>
+      <button onClick={() => handleButtonFilter('myPolls')}>my polls</button>
     </div>
   );
 }

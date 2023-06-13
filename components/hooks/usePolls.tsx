@@ -12,13 +12,13 @@ async function getPolls(pollRequest: PollRequest) {
 }
 
 export function useFilterPollActivity() {
-  const [filter, useFilter] = useState('new');
+  const [useFilter, setUseFilter] = useState('new');
   const userId = '1';
   const queryClient = useQueryClient();
   const query = useQuery<Poll[], Error>({
-    queryKey: [filter],
-    queryFn: () => getPolls({ userId, filter }),
+    queryKey: [useFilter],
+    queryFn: () => getPolls({ userId, filter: useFilter }),
   });
 
-  return { query, queryClient, useFilter };
+  return { query, queryClient, setUseFilter };
 }

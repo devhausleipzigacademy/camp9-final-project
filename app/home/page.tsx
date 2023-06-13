@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import ListFilterComponent from 'components/ListFilterComponent';
 import { PrismaClient } from '@prisma/client';
 import { useFilterPollActivity } from 'components/hooks/usePolls';
+import { useMutation } from '@tanstack/react-query';
 
 export type PollRequest = {
   userId: string;
@@ -32,10 +33,15 @@ const prisma = new PrismaClient();
 async function Home() {
   //const { data: session, status } = useSession();
   //const newPolls = await getPolls({ userId: 'Hello', filter: 'new' });
+
   const { query } = useFilterPollActivity();
+
   return (
     <div>
       <ListFilterComponent />
+      {query.data?.map(poll => (
+        <p>{poll.description}</p>
+      ))}
     </div>
   );
 }
