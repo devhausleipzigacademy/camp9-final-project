@@ -21,8 +21,16 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
+<<<<<<< HEAD
       "@/*": [
         "./*"
+=======
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/server/*": [
+        "server/*"
+>>>>>>> main
       ]
     },
     "noErrorTruncation": true,
