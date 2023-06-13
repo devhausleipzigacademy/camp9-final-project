@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 async function getPolls(pollRequest: PollRequest) {
-  const { data } = await axios.get('/api/pollactivity', {
+  const { data } = await axios.get<Poll[]>('/api/pollactivity', {
     params: pollRequest,
   });
   return data;
@@ -14,7 +14,10 @@ async function getPolls(pollRequest: PollRequest) {
 export function useFilterPollActivity() {
   const [useFilter, setUseFilter] = useState('new');
   const userId = '1';
+
   const queryClient = useQueryClient();
+  queryClient.invalidateQueries([useFilter]);
+  
   const query = useQuery<Poll[], Error>({
     queryKey: [useFilter],
     queryFn: () => getPolls({ userId, filter: useFilter }),
