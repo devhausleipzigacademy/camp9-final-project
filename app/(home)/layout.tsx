@@ -6,9 +6,13 @@ export default function HomeLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-between w-full h-full  bg-peach p-8">
-      {children}
-      <Navbar variant={'primary'} />
-    </div>
+    <>
+      <div className="flex flex-col items-center justify-between w-full h-full bg-peach">
+        {children}
+      </div>
+      <footer className="absolute bottom-8">
+        <Navbar variant={'primary'} />
+      </footer>
+    </>
   );
 }
