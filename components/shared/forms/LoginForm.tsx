@@ -5,7 +5,7 @@ import { useLoginMutation } from '@/components/hooks/useLogin';
 import { LoginSchemaType } from '@/types/user/LoginSchema';
 
 function LoginForm() {
-  const { mutate, isLoading, handleSubmit, register, errors } =
+  const { mutate, handleSubmit, register, errors } =
     useLoginMutation();
 
   const onSubmit = (data: LoginSchemaType) => {
@@ -28,6 +28,7 @@ function LoginForm() {
         width="full"
         type="username"
         error={errors.userName}
+        disabled={false}
         {...register('userName')}
       />
       <InputField
@@ -35,6 +36,7 @@ function LoginForm() {
         width="full"
         type="password"
         error={errors.password}
+        disabled={false}
         {...register('password')}
       />
 
