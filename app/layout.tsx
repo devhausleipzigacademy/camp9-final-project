@@ -1,5 +1,6 @@
 import { Navbar } from 'components/shared/navbar/Navbar';
 import './globals.css';
+import Provider from './provider';
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,10 +15,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
-        <footer className="fixed bottom-6 w-full">
-          <Navbar variant={'primary'} />
-        </footer>
+        <Provider>
+          {children}
+          <footer className="fixed bottom-6 w-full">
+            <Navbar variant={'primary'} />
+          </footer>
+        </Provider>
       </body>
     </html>
   );

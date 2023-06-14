@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import PreviewCheckbox from 'components/PreviewCheckbox';
+import PreviewCheckbox from 'components/shared/PreviewCheckbox';
 
 const meta: Meta<typeof PreviewCheckbox> = {
   title: 'Example/Preview checkbox',
