@@ -8,11 +8,13 @@ export default function DetailsLayout({
 }) {
   return (
     <>
-      <main className="container flex flex-col items-center justify-between min-h-screen bg-yellow p-8">
-        {children}
+      <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+        <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+          {children}
+        </div>
       </main>
-      
-      <footer className="flex w-[311px] justify-between items-center bottom-28 fixed">
+
+      <footer className="flex container px-8 justify-between items-center bottom-28 fixed">
         <Button size="small" variant="secondary">
           <GrFormPrevious size={24} strokeWidth={2} />
           <h3>Back</h3>

@@ -1,5 +1,5 @@
-import Button from "components/shared/buttons/Button";
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+import Button from 'components/shared/buttons/Button';
+import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
 
 export default function SettingsLayout({
   children,
@@ -8,18 +8,16 @@ export default function SettingsLayout({
 }) {
   return (
     <>
-      <main className="container flex flex-col items-center justify-between min-h-screen bg-yellow-light p-8">
-        {children}
+      <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+        <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+          {children}
+        </div>
       </main>
-      
-      <footer className="flex w-[311px] justify-between items-center bottom-28 fixed">
-        <Button size="small" variant="secondary">
-          <GrFormPrevious size={24} strokeWidth={2} />
-          <h3>Back</h3>
-        </Button>
-        <Button size="large">
-          <h3>Next</h3>
-          <GrFormNext size={24} strokeWidth={2} />
+
+      <footer className="flex container px-8 justify-between items-center bottom-28 fixed">
+        <Button size="full" variant="secondary">
+          <HiOutlineArrowNarrowLeft size={25} strokeWidth={2} />
+          <h3>Logout</h3>
         </Button>
       </footer>
     </>
