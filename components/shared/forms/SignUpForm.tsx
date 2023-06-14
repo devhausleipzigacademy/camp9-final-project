@@ -13,10 +13,6 @@ function SignUpForm() {
     mutate(data);
   };
 
-  const { ref: userNameRef } = register('userName');
-  const { ref: passwordRef } = register('password');
-  const { ref: confirmPasswordRef } = register('confirmPassword');
-
   console.log(isLoading);
 
   return (
@@ -27,6 +23,7 @@ function SignUpForm() {
     >
       <InputField
         label={'Username'}
+        showLabel={true}
         disabled={isLoading}
         width="full"
         key={'userName'}
@@ -37,21 +34,23 @@ function SignUpForm() {
       ></InputField>
       <InputField
         label={'Password'}
+        showLabel={true}
         disabled={isLoading}
         width="full"
         key={'password'}
         placeholder={'Password'}
         type={'password'}
-        ref={passwordRef}
+        {...register('password')}
       ></InputField>
       <InputField
         label={'Confirm Password'}
+        showLabel={true}
         disabled={isLoading}
         width="full"
         key={'confirmPassword'}
         placeholder={'Confirm Password'}
         type={'password'}
-        ref={confirmPasswordRef}
+        {...register('confirmPassword')}
       ></InputField>
       <button type="submit" className="border-4 border-slate-800">
         Register
