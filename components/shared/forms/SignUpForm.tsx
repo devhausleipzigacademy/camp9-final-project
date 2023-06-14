@@ -2,7 +2,6 @@
 
 import InputField from 'components/InputField';
 import { useSignUpMutation } from 'components/hooks/useUser';
-import { use, useRef } from 'react';
 import { SignUpUser } from 'types/user/SignUpSchema';
 
 function SignUpForm() {
@@ -12,8 +11,6 @@ function SignUpForm() {
   const onSubmit = (data: SignUpUser) => {
     mutate(data);
   };
-
-  console.log(isLoading);
 
   return (
     <form
@@ -31,7 +28,7 @@ function SignUpForm() {
         type="text"
         error={errors.userName}
         {...register('userName')}
-      ></InputField>
+      />
       <InputField
         label={'Password'}
         showLabel={true}
@@ -41,7 +38,7 @@ function SignUpForm() {
         placeholder={'Password'}
         type={'password'}
         {...register('password')}
-      ></InputField>
+      />
       <InputField
         label={'Confirm Password'}
         showLabel={true}
@@ -51,7 +48,7 @@ function SignUpForm() {
         placeholder={'Confirm Password'}
         type={'password'}
         {...register('confirmPassword')}
-      ></InputField>
+      />
       <button type="submit" className="border-4 border-slate-800">
         Register
       </button>
