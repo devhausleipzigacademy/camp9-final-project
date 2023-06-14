@@ -10,11 +10,8 @@ interface IRequest extends NextRequest {
 const prisma = new PrismaClient();
 
 export async function GET(request: IRequest) {
-  console.log('request', request);
   const { searchParams } = await new URL(request.url);
-  console.log('searchParams', searchParams);
   const userId = searchParams.get('userId') as string;
-  console.log('userId', userId);
   const filter = searchParams.get('filter') as string;
 
   //new
@@ -51,32 +48,17 @@ export async function GET(request: IRequest) {
     }
 
     if (filter === 'pending') {
-      const filteredPendingPolls = await prisma.poll.findMany({
+      const filteredPendingPolls = await prisma.vote.findMany({
         where: {
-          participants: {
-            some: {
-              id: parseInt(userId),
-            },
-          },
-          votes: {
-            some: {
-              userId: parseInt(userId),
-            },
-          },
-          endDateTime: {
-            gt: new Date(now()),
-          },
+          userId: parseInt(userId),
         },
         include: {
-          votes: true,
-          participants: true,
+          poll: true,
         },
       });
 
-      const updatedPendingPolls = filteredPendingPolls.map(poll => {
-        if (poll.votes.length < poll.participants.length) {
-          return poll;
-        }
+      const updatedPendingPolls = filteredPendingPolls.map(vote => {
+        return vote.poll;
       });
 
       return NextResponse.json(updatedPendingPolls, { status: 201 });
@@ -91,7 +73,7 @@ export async function GET(request: IRequest) {
             },
           },
           endDateTime: {
-            lte: new Date(now()),
+            lte: new Date(),
           },
         },
         include: {
@@ -102,9 +84,10 @@ export async function GET(request: IRequest) {
       const updatedClosedPolls = filteredClosedPolls.map(poll => {
         if (poll.votes.length === poll.participants.length) {
           return poll;
+        } else {
+          return poll;
         }
       });
-
       return NextResponse.json(updatedClosedPolls, { status: 201 });
     }
 
@@ -117,14 +100,8 @@ export async function GET(request: IRequest) {
       return NextResponse.json(filteredMyPolls, { status: 201 });
     }
 
-    // const newUser = await db.user.create({
-    //   data: {
-    //     userName,
-    //     password: hashedPassword,
-    //   },
-    // });
     return NextResponse.json('here are the polls', { status: 201 });
   } catch (err) {
-    return NextResponse.json('User already exists', { status: 422 });
+    return NextResponse.json('Failed to load', { status: 422 });
   }
 }

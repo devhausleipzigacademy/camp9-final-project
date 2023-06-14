@@ -14,7 +14,7 @@ async function getPolls(pollRequest: PollRequest) {
 }
 
 export function useFilterPollActivity(filter: string) {
-  const userId = '8';
+  const userId = '11';
   const query = useQuery<Poll[], Error>({
     queryKey: ['poll', filter],
     queryFn: () => getPolls({ userId, filter }),

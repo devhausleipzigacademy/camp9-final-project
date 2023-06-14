@@ -7,29 +7,29 @@ export type PollRequest = {
   userId: string;
   filter: string;
 };
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
-// async function getPolls(pollRequest: PollRequest) {
-//   const filteredNewPolls = await prisma.poll.findMany({
-//     where: {
-//       participants: {
-//         some: {
-//           id: +pollRequest.userId,
-//         },
-//       },
-//       votes: {
-//         none: {
-//           userId: +pollRequest.userId,
-//         },
-//       },
-//     },
-//   });
-//   return filteredNewPolls;
-// }
+async function getPolls(pollRequest: PollRequest) {
+  const filteredNewPolls = await prisma.poll.findMany({
+    where: {
+      participants: {
+        some: {
+          id: +pollRequest.userId,
+        },
+      },
+      votes: {
+        none: {
+          userId: +pollRequest.userId,
+        },
+      },
+    },
+  });
+  return filteredNewPolls;
+}
 
 async function Home() {
   //const { data: session, status } = useSession();
-  //const newPolls = await getPolls({ userId: 'Hello', filter: 'new' });
+  const newPolls = await getPolls({ userId: '11', filter: 'new' });
   // const { query } = useFilterPollActivity();
 
   // if (query.isLoading) return <div>Loading...</div>;
@@ -38,9 +38,9 @@ async function Home() {
   return (
     <div>
       <ListFilterComponent />
-      {/* {query.data.map(poll => (
+      {newPolls.map(poll => (
         <p>{poll.description}</p>
-      ))} */}
+      ))}
     </div>
   );
 }
