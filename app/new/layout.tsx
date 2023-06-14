@@ -1,4 +1,5 @@
 import Button from 'components/shared/buttons/Button';
+import TabButton from 'components/shared/buttons/TabButton';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 export default function NewPollLayout({
@@ -14,7 +15,7 @@ export default function NewPollLayout({
         </div>
       </main>
 
-      <footer className="flex container px-8 justify-between items-center bottom-28 fixed">
+      <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
         <Button size="small" variant="secondary">
           <GrFormPrevious size={24} strokeWidth={2} />
           <h3>Back</h3>
