@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.22.1",
+    "@faker-js/faker": "^8.0.2",
     "@headlessui/react": "^1.7.14",
     "@prisma/client": "^4.15.0",
     "@types/node": "20.2.5",
