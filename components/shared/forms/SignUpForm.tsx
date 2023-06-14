@@ -2,6 +2,7 @@
 
 import InputField from 'components/InputField';
 import { useSignUpMutation } from 'components/hooks/useUser';
+import { use, useRef } from 'react';
 import { SignUpUser } from 'types/user/SignUpSchema';
 
 function SignUpForm() {
@@ -11,6 +12,10 @@ function SignUpForm() {
   const onSubmit = (data: SignUpUser) => {
     mutate(data);
   };
+
+  const { ref: userNameRef } = register('userName');
+  const { ref: passwordRef } = register('password');
+  const { ref: confirmPasswordRef } = register('confirmPassword');
 
   console.log(isLoading);
 
@@ -28,28 +33,26 @@ function SignUpForm() {
         placeholder={'Username'}
         type="text"
         error={errors.userName}
+        {...register('userName')}
       ></InputField>
-      {errors.userName && (
-        <p className="text-sm text-red-600">{errors.userName.message}</p>
-      )}
-      <input
+      <InputField
+        label={'Password'}
+        disabled={isLoading}
+        width="full"
+        key={'password'}
         placeholder={'Password'}
         type={'password'}
-        id={'password'}
-        {...register('password')}
-      ></input>
-      {errors.password && (
-        <p className="text-sm text-red-600">{errors.password.message}</p>
-      )}
-      <input
+        ref={passwordRef}
+      ></InputField>
+      <InputField
+        label={'Confirm Password'}
+        disabled={isLoading}
+        width="full"
+        key={'confirmPassword'}
         placeholder={'Confirm Password'}
         type={'password'}
-        id={'confirmPassword'}
-        {...register('confirmPassword')}
-      ></input>
-      {errors.confirmPassword && (
-        <p className="text-sm text-red-600">{errors.confirmPassword.message}</p>
-      )}
+        ref={confirmPasswordRef}
+      ></InputField>
       <button type="submit" className="border-4 border-slate-800">
         Register
       </button>
