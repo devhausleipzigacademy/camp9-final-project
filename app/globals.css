@@ -120,7 +120,11 @@
   /* body {
         @apply m-12 p-4 ...
     }; */
-
+  .page {
+    padding-top: 2.5rem;
+    padding-left: 2rem;
+    padding-bottom: 1.25rem;
+  }
   .title-black {
     font-family: 'Poppins';
     font-weight: 900;
@@ -150,6 +154,12 @@
     font-weight: 600;
     font-size: 16px;
     color: black;
+  }
+  .body-semibold-disabled {
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+    color: #acacac;
   }
   .body-accent {
     font-family: 'Poppins';
@@ -204,6 +214,9 @@
 @layer utilities {
   .border-brutal {
     border: 3px solid #000000;
+  }
+  .border-brutal-disabled {
+    border: 3px solid #acacac;
   }
   .shadow-brutal {
     box-shadow: -4px 4px 0px rgba(0, 0, 0, 1);

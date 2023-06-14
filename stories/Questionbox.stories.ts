@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Questionbox } from '../components/Question';
 
 const meta: Meta<typeof Questionbox> = {
-  title: 'Example/Questionbox',
+  title: 'components/Questionbox',
   component: Questionbox,
   tags: ['autodocs'],
   argTypes: {},
