@@ -30,17 +30,17 @@ export type PollRequest = {
 async function Home() {
   //const { data: session, status } = useSession();
   //const newPolls = await getPolls({ userId: 'Hello', filter: 'new' });
-  const { query } = useFilterPollActivity();
+  // const { query } = useFilterPollActivity();
 
-  if (query.isLoading) return <div>Loading...</div>;
-  if (query.isError) return <div>{query.isError}</div>;
+  // if (query.isLoading) return <div>Loading...</div>;
+  // if (query.isError) return <div>{query.isError}</div>;
 
   return (
     <div>
       <ListFilterComponent />
-      {query.data.map(poll => (
+      {/* {query.data.map(poll => (
         <p>{poll.description}</p>
-      ))}
+      ))} */}
     </div>
   );
 }
