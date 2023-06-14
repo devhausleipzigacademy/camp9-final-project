@@ -8,6 +8,7 @@ import { ChangeEvent } from 'react';
 type InputFieldProps = {
   label: string;
   placeholder?: string;
+  rows?: number;
   max?: number; // Limit the input value to a maximum of characters (max)
   value?: string;
   type: 'text' | 'number' | 'email' | 'password' | 'username';
@@ -25,6 +26,7 @@ export const InputField = forwardRef(
       placeholder,
       label,
       width,
+      rows = 4,
       error,
       disabled,
       ...props
@@ -37,7 +39,6 @@ export const InputField = forwardRef(
       const truncatedValue = inputValue.slice(0, max);
       setValue(truncatedValue);
     };
-
     return (
       <label
         className={clsx(
@@ -60,7 +61,7 @@ export const InputField = forwardRef(
           ref={ref}
           {...props}
           disabled={disabled}
-          rows={5}
+          rows={rows}
           onChange={handleChange}
           value={value}
         ></textarea>
