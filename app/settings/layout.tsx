@@ -4,7 +4,7 @@ export default function SettingsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="container flex flex-col items-center justify-between w-full h-full bg-yellow-light p-8">
+    <div className="container flex flex-col items-center justify-between min-h-screen bg-yellow-light p-8">
       {children}
     </div>
   );
