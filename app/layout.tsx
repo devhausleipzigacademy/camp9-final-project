@@ -13,8 +13,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col items-center justify-between w-screen h-screen">
+      <body className="w-full flex flex-col items-center justify-between min-h-screen">
         {children}
+        {/* change the next line from true instead of children later */}
+        {true && (
+          <footer className="fixed bottom-8">
+            <Navbar variant={'primary'} />
+          </footer>
+        )}
       </body>
     </html>
   );
