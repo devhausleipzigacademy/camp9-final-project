@@ -1,10 +1,12 @@
 'use client';
-import { Anonymity, Poll } from '@prisma/client';
+import { Anonymity, PollType } from '@prisma/client';
 import PollDetailsCard from 'components/shared/PollDetailsCard';
 import PreviewCheckbox from 'components/shared/PreviewCheckbox';
 import ProgressBar from 'components/shared/ProgressBar';
-import { useGetPoll } from 'components/shared/hooks/usePoll';
+import Button from 'components/shared/buttons/Button';
+import { PollWithCount, useGetPoll } from 'components/shared/hooks/usePoll';
 import React, { useState } from 'react';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 function describeAnonLvl(lvl: number, quorum: number | null): string {
   switch (lvl) {
@@ -18,7 +20,13 @@ function describeAnonLvl(lvl: number, quorum: number | null): string {
   return 'Bad input.';
 }
 
-function parsePollData(pollData: Poll) {
+const pollTypeDescriptions = [
+  'Multiple choice (choose many)',
+  'Single choice (choose one)',
+];
+
+function parsePollData(pollData: PollWithCount) {
+  console.log(pollData);
   const parsedPoll = [
     {
       title: 'Poll Question',
@@ -34,9 +42,27 @@ function parsePollData(pollData: Poll) {
     },
     { title: 'Poll created on', body: pollData.createdAt.toString() },
     { title: 'Poll closes on', body: pollData.endDateTime.toString() },
-    { title: 'Poll progress', body: 'still have to figure this one out!' },
-    { title: 'Poll type', body: pollData.type },
-    { title: 'Voting options', body: pollData.options },
+    {
+      title: 'Poll progress',
+      body: `${pollData._count.votes} out of ${pollData._count.participants} participants voted.`,
+    },
+    {
+      title: 'Poll type',
+      body: pollTypeDescriptions[Object.keys(PollType).indexOf(pollData.type)],
+    },
+    {
+      title: 'Voting options',
+      body: (
+        <ul className="flex flex-col gap-2 py-1">
+          {pollData.options.map((option, index) => (
+            <li className="flex gap-2" key={index}>
+              <PreviewCheckbox />
+              <p>{option}</p>
+            </li>
+          ))}
+        </ul>
+      ),
+    },
   ];
   return parsedPoll;
 }
@@ -64,13 +90,23 @@ function PollDetails({ params }: { params: { id: string } }) {
             </PollDetailsCard>
           );
         })}
-        <nav className="flex justify-between fixed bottom-[108px]">
-          <button onClick={() => setPage(oldValue => oldValue - 1)}>
-            back!
-          </button>
-          <button onClick={() => setPage(oldValue => oldValue + 1)}>
-            next!
-          </button>
+        <nav className="flex justify-between fixed bottom-[108px] left-0 w-full px-8">
+          <Button
+            handleClick={() => setPage(oldValue => oldValue - 1)}
+            size="small"
+            variant="secondary"
+          >
+            <GrFormPrevious size={24} strokeWidth={2} />
+            {page == 1 ? 'Home' : 'Back'}
+          </Button>
+          <Button
+            handleClick={() => setPage(oldValue => oldValue + 1)}
+            size="large"
+            variant="tertiary"
+          >
+            {page >= 3 ? 'Home' : 'Next page'}
+            <GrFormNext size={24} strokeWidth={2} />
+          </Button>
         </nav>
       </div>
     );
@@ -78,20 +114,3 @@ function PollDetails({ params }: { params: { id: string } }) {
 }
 
 export default PollDetails;
-
-// <PollDetailsCard title="Your vote">
-//                 <ul className="flex flex-col gap-1">
-//                   <li className="flex gap-2">
-//                     <PreviewCheckbox isChecked={true} />
-//                     <p>voting option A</p>
-//                   </li>
-//                   <li className="flex gap-2">
-//                     <PreviewCheckbox />
-//                     <p>voting option B</p>
-//                   </li>
-//                   <li className="flex gap-2">
-//                     <PreviewCheckbox />
-//                     <p>voting option C</p>
-//                   </li>
-//                 </ul>
-//               </PollDetailsCard>

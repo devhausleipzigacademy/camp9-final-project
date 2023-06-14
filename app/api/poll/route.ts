@@ -18,6 +18,11 @@ export async function GET(request: NextRequest) {
       where: {
         id: pollId,
       },
+      include: {
+        _count: {
+          select: { participants: true, votes: true },
+        },
+      },
     });
     return NextResponse.json(poll, { status: 200 });
   } catch (err) {
