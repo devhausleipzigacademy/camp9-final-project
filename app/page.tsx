@@ -1,10 +1,16 @@
 import { Questionbox } from 'components/Question';
-
-export default function Home() {
+import Image from 'next/image';
+import GroupIllustration from '/public/images/Illustr_group_voting.png';
+export default function LandingPage() {
   return (
-    <>
-      <h1 className="title-black text-teal bg-yellow-light">Consensus App</h1>
-      <div className=" m-10 w-40 h-40 bg-green rounded border-brutal shadow-brutal "></div>
-    </>
+    <div className="">
+      <h1 className="logo">d'accord</h1>
+      <Image
+        src={GroupIllustration}
+        alt="illustratio of a group of people making decisions"
+        placeholder='blur'
+      />
+      <div className="text-white text-center text-lg font-medium">Vote secretly, reveal conditionally</div>
+    </div>
   );
 }

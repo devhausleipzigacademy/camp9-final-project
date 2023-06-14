@@ -13,10 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className='grid justify-center items-center h-screen bg-teal'>
         {children}
         <footer>
-          <Navbar variant={'primary'} />
         </footer>
       </body>
     </html>

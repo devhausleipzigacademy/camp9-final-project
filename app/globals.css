@@ -208,4 +208,20 @@
   .shadow-brutal {
     box-shadow: -4px 4px 0px rgba(0, 0, 0, 1);
   }
+  .logo {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 65px;
+    line-height: 98px;
+    text-align: center;
+
+    color: #febf10;
+
+    text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+      2px 2px #000000, -2px -2px #000000, 2px -2px #000000, -2px 2px #000000,
+      -4px 4px 0px #264653, -6px 6px 0px #2a9d8f, -8px 8px 0px #e9c46a,
+      -10px 10px 0px #e76f51;
+  }
+ 
 }
