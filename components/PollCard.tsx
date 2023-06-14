@@ -1,5 +1,7 @@
 'use client';
 
+'use client';
+
 import { useRouter } from 'next/navigation';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 
