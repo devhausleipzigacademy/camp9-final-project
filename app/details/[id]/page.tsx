@@ -64,7 +64,7 @@ function PollDetails({ params }: { params: { id: string } }) {
             </PollDetailsCard>
           );
         })}
-        <nav className="flex justify-between">
+        <nav className="flex justify-between fixed bottom-[108px]">
           <button onClick={() => setPage(oldValue => oldValue - 1)}>
             back!
           </button>
