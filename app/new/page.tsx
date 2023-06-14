@@ -1,24 +1,17 @@
-import InputField from 'components/InputField';
-import InputFieldComments from 'components/InputFieldComments';
+import CreatePoll from 'components/newPoll/CreatePoll';
+import React from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
 
-export default function NewPoll() {
+export default function App() {
+  const methods = useForm();
+  // const onSubmit = (data: any) => console.log(data);
+
   return (
-    <section className="flex flex-col gap-2">
-      <h1 className="title-black">Create a Poll</h1>
-      <InputField
-        label={'Question'}
-        showLabel={true}
-        type={'text'}
-        width={'full'}
-        disabled={false}
-      />
-      <InputFieldComments
-        label={'Comments'}
-        type={'text'}
-        width={'full'}
-        disabled={false}
-        rows={10}
-      />
-    </section>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        {/* <CreatePoll /> */}
+        <input type="submit" />
+      </form>
+    </FormProvider>
   );
 }
