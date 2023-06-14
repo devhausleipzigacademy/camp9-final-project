@@ -16,5 +16,6 @@ export const Placeholder: Story = {
     type: 'text',
     width: 'full',
     disabled: false,
+    showLabel: true,
   },
 };
