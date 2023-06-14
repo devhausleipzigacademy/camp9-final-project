@@ -4,7 +4,7 @@ export default function VotingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-between w-full h-full bg-green-light p-8">
+    <div className="container flex flex-col items-center justify-between min-h-screen bg-green-light p-8">
       {children}
     </div>
   );
