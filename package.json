@@ -10,7 +10,6 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "type": "module",
   "prisma": {
     "seed": "node --experimental-specifier-resolution=node --loader ts-node/esm prisma/seed.ts"
   },
@@ -35,7 +34,6 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2",
     "@storybook/addon-essentials": "7.1.0-alpha.29",
     "@storybook/addon-interactions": "7.1.0-alpha.29",
     "@storybook/addon-links": "7.1.0-alpha.29",
