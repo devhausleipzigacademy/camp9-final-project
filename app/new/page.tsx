@@ -10,6 +10,7 @@ export default function App() {
 
   return (
     <FormProvider {...methods}>
+      <h1 className="title-black">Create a Poll</h1>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <CreatePoll />
         <input type="submit" />
