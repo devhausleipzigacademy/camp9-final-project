@@ -5,7 +5,7 @@
 import { useRouter } from 'next/navigation';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 
-interface PollCardProps {
+interface PollCardProps extends React.HTMLAttributes<HTMLElement> {
   children: string;
   endDate: Date;
   isOwner: boolean;
@@ -17,6 +17,7 @@ export default function PollCard({
   endDate,
   isOwner = false,
   isVoted,
+  ...props
 }: PollCardProps) {
   const router = useRouter();
   const currentDate = new Date(); // Get the current date
