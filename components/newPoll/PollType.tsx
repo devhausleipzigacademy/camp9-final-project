@@ -1,6 +1,4 @@
-
-export default function PollTypetsx() {
-  return (
-    <div>PollTypetsx</div>
-  )
+'use client';
+export default function PollType() {
+  return <div>PollType</div>;
 }
