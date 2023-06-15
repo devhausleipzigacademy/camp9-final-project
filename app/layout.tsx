@@ -13,10 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='grid justify-center items-center h-screen bg-teal'>
+      <body className='grid h-screen items-center justify-between bg-teal mx-8 my-'>
         {children}
-        <footer>
-        </footer>
+   
       </body>
     </html>
   );
