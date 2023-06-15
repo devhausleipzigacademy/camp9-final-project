@@ -1,5 +1,7 @@
+'use client';
+
 import Button from 'components/shared/buttons/Button';
-import TabButton from 'components/shared/buttons/TabButton';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 export default function NewPollLayout({
@@ -7,11 +9,17 @@ export default function NewPollLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const methods = useForm();
+  const onSubmit = (data: any) => console.log(data);
+
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
         <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-          {children}
+          <FormProvider {...methods}>
+            <h1 className="title-black">Create a Poll</h1>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+          </FormProvider>
         </div>
       </main>
 

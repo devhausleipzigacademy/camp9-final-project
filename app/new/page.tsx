@@ -1,19 +1,31 @@
 'use client';
 
-import CreatePoll from 'components/newPoll/CreatePoll';
 import React from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 
 export default function App() {
-  const methods = useForm();
-  const onSubmit = (data: any) => console.log(data);
+
 
   return (
-    <FormProvider {...methods}>
+    <>
       <h1 className="title-black">Create a Poll</h1>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>
-        <CreatePoll />
-      </form>
-    </FormProvider>
+
+      <NestedInput />
+      <input type="submit" />
+    </>
+  );
+}
+
+function NestedInput() {
+  const { register } = useFormContext(); // retrieve all hook methods
+  return (
+    <>
+      <input {...register('test')} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <input {...register('test2')} />
+    </>
   );
 }
