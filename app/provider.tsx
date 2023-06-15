@@ -1,6 +1,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -25,7 +26,11 @@ function Provider({ children }: ProviderProps) {
         pauseOnHover
         theme="light"
       />
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <SessionProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </SessionProvider>
     </>
   );
 }
