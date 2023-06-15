@@ -26,7 +26,6 @@ const pollTypeDescriptions = [
 ];
 
 function parsePollData(pollData: PollWithCount) {
-  console.log(pollData);
   const parsedPoll = [
     {
       title: 'Poll Question',
