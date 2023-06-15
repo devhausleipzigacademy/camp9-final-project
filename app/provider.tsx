@@ -10,7 +10,7 @@ interface ProviderProps {
 }
 
 function Provider({ children }: ProviderProps) {
-  //The query client manages the caching and fetching of data queries within your application.
+  // The query client manages the caching and fetching of data queries within your application.
   const queryClient = new QueryClient();
   return (
     <>
@@ -26,7 +26,7 @@ function Provider({ children }: ProviderProps) {
         pauseOnHover
         theme="light"
       />
-      <SessionProvider>
+      <SessionProvider> {/* <-- next-auth authentication */}
         <QueryClientProvider client={queryClient}>
           {children}
         </QueryClientProvider>

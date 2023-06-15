@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       
-      async authorize(credentials) { // authorize has known typescript issue https://github.com/nextauthjs/next-auth/issues/2709
+      async authorize(credentials) { // <-- authorize has known typescript issue! https://github.com/nextauthjs/next-auth/issues/2709
         if (!credentials?.username || !credentials.password) {
           return null;
         }
