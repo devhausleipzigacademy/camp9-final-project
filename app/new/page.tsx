@@ -1,15 +1,17 @@
+'use client';
+
 import CreatePoll from 'components/newPoll/CreatePoll';
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 export default function App() {
   const methods = useForm();
-  // const onSubmit = (data: any) => console.log(data);
+  const onSubmit = (data: any) => console.log(data);
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
-        {/* <CreatePoll /> */}
+        <CreatePoll />
         <input type="submit" />
       </form>
     </FormProvider>
