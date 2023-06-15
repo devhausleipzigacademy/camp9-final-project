@@ -16,9 +16,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Provider>{children}</Provider>
-        <footer>
-          <Navbar variant={'primary'} />
-        </footer>
       </body>
     </html>
   );

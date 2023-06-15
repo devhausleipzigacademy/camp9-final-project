@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function Closed() {
-  return (
-    <div>
-      
-    </div>
-  )
+  return <div>hello from closed</div>;
 }
 
-export default Closed
+export default Closed;
