@@ -10,7 +10,6 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "type": "module",
   "prisma": {
     "seed": "node --experimental-specifier-resolution=node --loader ts-node/esm prisma/seed.ts"
   },
@@ -49,6 +48,7 @@
     "@storybook/testing-library": "0.0.14-next.2",
     "eslint": "8.41.0",
     "eslint-plugin-storybook": "^0.6.12",
+    "postcss": "8.4.24",
     "prisma": "^4.14.1",
     "storybook": "7.1.0-alpha.29",
     "ts-node": "^10.9.1",
