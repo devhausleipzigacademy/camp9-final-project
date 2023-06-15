@@ -1,40 +1,33 @@
-import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
-import { NextRequest, NextResponse } from 'next/server';
-import bcrypt from 'bcrypt';
+import { db } from "@/libs/db";
+import { hash } from "bcryptjs";
+import { NextResponse } from "next/server";
 
-interface IRequest extends NextRequest {
-  json: () => Promise<SignUpUser>;
-}
-
-export async function POST(request: IRequest) {
-  const { userName, password, confirmPassword } = await request.json();
-
-  //this is the zod validation
+export async function POST(req: Request) {
   try {
-    signUpSchema.parse({ userName, password, confirmPassword });
-  } catch (err) {
-    return NextResponse.json('Invalid user input', { status: 422 });
-  }
+    const { userName, password } = (await req.json()) as any;
+    const hashed_password = await hash(password, 12);
 
-  //hashing the password
-  const hashedPassword = await bcrypt.hash(password, 12);
+    console.log(password, userName, hashed_password)
+    
+    const user = await db.user.create({ // error here
+      data: {
+        name: userName,
+        password: hashed_password,
+      },
+    });
 
-  //this is the the user creation
-  //the database has a unique requirement for the username
-  //if the username already exists, the database will throw an error
-  //if the username doesn't exist, the user will be created
-  //I am handling the creation and checking for the username in sweep
-
-  //its commented out because we don't have a database yet
-  try {
-    // const newUser = await db.user.create({
-    //   data: {
-    //     userName,
-    //     password: hashedPassword,
-    //   },
-    // });
-    return NextResponse.json('User created', { status: 201 });
-  } catch (err) {
-    return NextResponse.json('User already exists', { status: 422 });
+    return NextResponse.json({
+      user: {
+        name: user.name,
+      },
+    });
+  } catch (error: any) {
+    return new NextResponse(
+      JSON.stringify({
+        status: "error",
+        message: error.message,
+      }),
+      { status: 500 }
+    );
   }
 }
