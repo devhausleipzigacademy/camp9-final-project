@@ -4,12 +4,9 @@ import React from 'react';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
 
 export default function App() {
-
-
   return (
     <>
-      <h1 className="title-black">Create a Poll</h1>
-
+      <br />
       <NestedInput />
       <input type="submit" />
     </>
@@ -21,8 +18,6 @@ function NestedInput() {
   return (
     <>
       <input {...register('test')} />
-      <br />
-      <br />
       <br />
       <br />
       <input {...register('test2')} />
