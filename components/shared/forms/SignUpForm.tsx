@@ -3,6 +3,7 @@
 import InputField from 'components/InputField';
 import { useSignUpMutation } from 'components/hooks/useUser';
 import { SignUpUser } from 'types/user/SignUpSchema';
+import Button from '../buttons/Button';
 
 function SignUpForm() {
   const { mutate, isLoading, handleSubmit, register, errors } =
@@ -33,6 +34,7 @@ function SignUpForm() {
         label={'Password'}
         showLabel={true}
         disabled={isLoading}
+        error={errors.password}
         width="full"
         key={'password'}
         placeholder={'Password'}
@@ -43,15 +45,16 @@ function SignUpForm() {
         label={'Confirm Password'}
         showLabel={true}
         disabled={isLoading}
+        error={errors.confirmPassword}
         width="full"
         key={'confirmPassword'}
         placeholder={'Confirm Password'}
         type={'password'}
         {...register('confirmPassword')}
       />
-      <button type="submit" className="border-4 border-slate-800">
-        Register
-      </button>
+      <Button type="submit" size="full" variant="secondary">
+        Sign Up
+      </Button>
     </form>
   );
 }
