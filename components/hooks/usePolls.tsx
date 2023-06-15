@@ -2,7 +2,7 @@
 
 import { Poll } from '@prisma/client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { PollRequest } from 'app/home/page';
+import { PollRequest } from 'app/(pollActivity)/page';
 import axios from 'axios';
 import { useState } from 'react';
 
