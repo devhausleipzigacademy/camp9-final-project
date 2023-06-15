@@ -20,7 +20,7 @@ export default function LandingPage() {
         <div className="text-white text-center text-xl font-medium my-3">Vote secretly, reveal conditionally</div>
         
       </div>
-      <div>
+      <div className='w-full'>
         <Button
           
           size="full"

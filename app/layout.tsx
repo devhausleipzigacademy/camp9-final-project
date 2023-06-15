@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='grid h-screen items-center justify-between bg-teal mx-8 my-'>
+      <body className='grid justify-center h-screen items-center bg-teal mx-8'>
         {children}
    
       </body>
