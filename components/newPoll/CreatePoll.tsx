@@ -5,10 +5,25 @@ export default function CreatePoll() {
   const { register } = useFormContext(); // retrieve all hook methods
   return (
     <>
-      <input required {...register('test')} />
-      <br />
-      <br />
-      <input required {...register('test2')} />
+      <div>Deadline</div>
+      <InputField
+        required
+        {...register('test3')}
+        label={'Create a poll'}
+        showLabel={false}
+        type={'text'}
+        width={'full'}
+        disabled={false}
+      />
+      <InputField
+        required
+        {...register('test3')}
+        label={'Create a poll'}
+        showLabel={false}
+        type={'text'}
+        width={'full'}
+        disabled={false}
+      />
     </>
   );
 }
