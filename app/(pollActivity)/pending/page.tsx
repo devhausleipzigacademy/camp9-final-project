@@ -25,7 +25,7 @@ async function Pending() {
   return (
     <div>
       {pendingPolls.map(poll => (
-        <p>{poll.description}</p>
+        <p key={poll.id}>{poll.description}</p>
       ))}
     </div>
   );

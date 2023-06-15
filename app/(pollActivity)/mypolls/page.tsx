@@ -14,12 +14,12 @@ async function getMyPolls(userId: string) {
 }
 
 async function MyPolls() {
-  const myPolls = await getMyPolls('8');
+  const myPolls = await getMyPolls('11');
   console.log(myPolls);
   return (
     <div>
       {myPolls.map(poll => (
-        <p>{poll.description}</p>
+        <p key={poll.id}>{poll.description}</p>
       ))}
     </div>
   );

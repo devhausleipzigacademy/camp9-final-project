@@ -26,7 +26,7 @@ async function New() {
   return (
     <div>
       {newPolls.map(poll => (
-        <p>{poll.description}</p>
+        <p key={poll.id}>{poll.description}</p>
       ))}
     </div>
   );
