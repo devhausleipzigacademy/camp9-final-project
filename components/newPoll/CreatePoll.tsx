@@ -1,21 +1,18 @@
-"use client"
+'use client';
 
-import { useFormContext } from 'react-hook-form';
 import InputField from '../InputField';
-import InputFieldComments from '../InputFieldComments';
 
 export default function CreatePoll() {
-  const { register } = useFormContext(); // retrieve all hook methods
   return (
     <>
-      <input {...register('test')} />
-      {/* <InputField
-        label={''}
+      <InputField
+        disabled={false}
+        label={'asdfs'}
         showLabel={false}
-        type={'number'}
+        type={'text'}
         width={'full'}
-        {...register('test')}
-      /> */}
+        ref={undefined}
+      />
     </>
   );
 }
