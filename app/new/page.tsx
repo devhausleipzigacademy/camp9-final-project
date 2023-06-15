@@ -53,7 +53,7 @@ export default function NewPollLayout({
             numberOfPages={steps.length}
           />
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
               {steps[currentStepIndex]}
             </form>
           </FormProvider>

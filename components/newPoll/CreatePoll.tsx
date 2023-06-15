@@ -4,7 +4,7 @@ import InputField from '../InputField';
 export default function CreatePoll() {
   const { register } = useFormContext(); // retrieve all hook methods
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <h3>Question & Details</h3>
       <InputField
         required
