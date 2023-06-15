@@ -1,6 +1,3 @@
-
-export default function PollTypetsx() {
-  return (
-    <div>PollTypetsx</div>
-  )
+export default function PollType() {
+  return <div>PollType</div>;
 }

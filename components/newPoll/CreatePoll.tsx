@@ -5,10 +5,10 @@ export default function CreatePoll() {
   const { register } = useFormContext(); // retrieve all hook methods
   return (
     <>
-      <input {...register('test')} />
+      <input required {...register('test')} />
       <br />
       <br />
-      <input {...register('test2')} />
+      <input required {...register('test2')} />
     </>
   );
 }

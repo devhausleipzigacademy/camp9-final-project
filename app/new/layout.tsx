@@ -1,6 +1,10 @@
 'use client';
 
 import ProgressBar from 'components/ProgressBar';
+import CreatePoll from 'components/newPoll/CreatePoll';
+import Deadline from 'components/newPoll/Deadline';
+import RevealConditions from 'components/newPoll/RevealConditions';
+import PollType from 'components/newPoll/PollType';
 import Button from 'components/shared/buttons/Button';
 import { useState } from 'react';
 import { useForm, FormProvider, useFormContext } from 'react-hook-form';
@@ -16,7 +20,12 @@ export default function NewPollLayout({
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
-    useMultiStepForm([<div>ONE</div>, <div>TWO</div>, <div>THREE</div>]);
+    useMultiStepForm([
+      <CreatePoll />,
+      <Deadline />,
+      <PollType />,
+      <RevealConditions />,
+    ]);
 
   const onSubmit = (data: any) => {
     if (isLastStep) {
@@ -41,8 +50,12 @@ export default function NewPollLayout({
             currentPage={currentStepIndex + 1}
             numberOfPages={steps.length}
           />
+          <br />
+          <br />
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
+              {steps[currentStepIndex]}
+            </form>
           </FormProvider>
         </div>
       </main>
