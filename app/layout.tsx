@@ -1,4 +1,3 @@
-import { Navbar } from 'components/shared/navbar/Navbar';
 import './globals.css';
 import Provider from './provider';
 

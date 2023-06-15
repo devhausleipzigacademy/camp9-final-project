@@ -17,8 +17,7 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": ".",
     "paths": {
-      "@/components/*": ["./*"],
-      "@/server/*": ["server/*"]
+      "@/*": ["./*"]
     },
     "noErrorTruncation": true,
     "plugins": [

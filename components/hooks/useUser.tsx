@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignUpUser, signUpSchema } from '@/components/types/user/SignUpSchema';
+import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
 
 /////////////////////
 // SignUp Mutation //
@@ -35,7 +35,7 @@ export function useSignUpMutation() {
       reset();
     },
     onError: error => {
-      toast.error('Something went wrong');
+      toast.error('User already exists!');
     },
   });
   return { register, errors, handleSubmit, ...mutation };

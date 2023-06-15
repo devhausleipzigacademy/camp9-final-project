@@ -17,41 +17,43 @@ function SignUpForm() {
     <form
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="flex flex-col gap-5"
+      className="flex flex-col gap-20"
     >
-      <InputField
-        label={'Username'}
-        showLabel={true}
-        disabled={isLoading}
-        width="full"
-        key={'userName'}
-        placeholder={'Username'}
-        type="text"
-        error={errors.userName}
-        {...register('userName')}
-      />
-      <InputField
-        label={'Password'}
-        showLabel={true}
-        disabled={isLoading}
-        error={errors.password}
-        width="full"
-        key={'password'}
-        placeholder={'Password'}
-        type={'password'}
-        {...register('password')}
-      />
-      <InputField
-        label={'Confirm Password'}
-        showLabel={true}
-        disabled={isLoading}
-        error={errors.confirmPassword}
-        width="full"
-        key={'confirmPassword'}
-        placeholder={'Confirm Password'}
-        type={'password'}
-        {...register('confirmPassword')}
-      />
+      <div className="flex flex-col gap-5">
+        <InputField
+          label={'Username'}
+          showLabel={true}
+          disabled={isLoading}
+          width="full"
+          key={'userName'}
+          placeholder={'Username'}
+          type="text"
+          error={errors.userName}
+          {...register('userName')}
+        />
+        <InputField
+          label={'Password'}
+          showLabel={true}
+          disabled={isLoading}
+          error={errors.password}
+          width="full"
+          key={'password'}
+          placeholder={'Password'}
+          type={'password'}
+          {...register('password')}
+        />
+        <InputField
+          label={'Confirm Password'}
+          showLabel={true}
+          disabled={isLoading}
+          error={errors.confirmPassword}
+          width="full"
+          key={'confirmPassword'}
+          placeholder={'Confirm Password'}
+          type={'password'}
+          {...register('confirmPassword')}
+        />
+      </div>
       <Button type="submit" size="full" variant="secondary">
         Sign Up
       </Button>

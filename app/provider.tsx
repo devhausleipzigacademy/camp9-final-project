@@ -24,6 +24,7 @@ function Provider({ children }: ProviderProps) {
         draggable
         pauseOnHover
         theme="light"
+        className={'toast-container'}
       />
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </>
