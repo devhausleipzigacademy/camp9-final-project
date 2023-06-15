@@ -3,7 +3,7 @@
 import React from 'react';
 
 function Error() {
-  return <div>Hi form error;</div>;
+  return <div></div>;
 }
 
 export default Error;
