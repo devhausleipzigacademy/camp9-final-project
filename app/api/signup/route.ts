@@ -7,8 +7,6 @@ export async function POST(req: Request) {
   try {
     const { userName, password, confirmPassword } = (await req.json()) as any;
     const hashed_password = await hash(password, 12);
-
-    console.log("API", userName, password)
     
     // server side data validation with zod
     try {
