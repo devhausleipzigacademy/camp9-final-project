@@ -3,10 +3,13 @@ import { useFormContext } from 'react-hook-form';
 
 export default function PollType() {
   const { register } = useFormContext();
-  const [numberOfOptions, setNumberOfOptions] = useState(0);
+  const [numberOfOptions, setNumberOfOptions] = useState(2);
 
   const handleAddOption = () => {
     setNumberOfOptions(numberOfOptions + 1);
+  };
+  const handleDeleteOption = () => {
+    setNumberOfOptions(numberOfOptions - 1);
   };
 
   return (
@@ -40,12 +43,14 @@ export default function PollType() {
           <input
             key={index}
             type="text"
-            data-group="lui"
             {...register(`options[${index}]`, { required: true })}
           />
         ))}
         <button type="button" onClick={handleAddOption}>
           Add Option
+        </button>
+        <button type="button" onClick={handleDeleteOption}>
+          Delete Option
         </button>
       </fieldset>
     </div>
