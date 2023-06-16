@@ -120,7 +120,11 @@
   /* body {
         @apply m-12 p-4 ...
     }; */
-
+  .page {
+    padding-top: 2.5rem;
+    padding-left: 2rem;
+    padding-bottom: 1.25rem;
+  }
   .title-black {
     font-family: 'Poppins';
     font-weight: 900;

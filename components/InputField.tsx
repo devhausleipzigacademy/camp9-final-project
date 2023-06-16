@@ -7,8 +7,9 @@ import { ChangeEvent } from 'react';
 
 type InputFieldProps = {
   label: string;
+  showLabel: boolean;
   placeholder?: string;
-  max?: number; // Limit the input value to a maximum of characters (max)
+  maxProp?: number; // Limit the input value to a maximum of characters (max)
   value?: string;
   type: 'text' | 'number' | 'email' | 'password' | 'username';
   width: 'full' | 'reduced';
@@ -21,12 +22,13 @@ type InputFieldProps = {
 const InputField = forwardRef(
   (
     {
-      max,
+      maxProp,
       placeholder,
       label,
       width,
       error,
       disabled,
+      showLabel,
       ...props
     }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -34,7 +36,7 @@ const InputField = forwardRef(
     const [value, setValue] = React.useState('');
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
       const inputValue = event.target.value;
-      const truncatedValue = inputValue.slice(0, max);
+      const truncatedValue = inputValue.slice(0, maxProp);
       setValue(truncatedValue);
     };
 
@@ -46,7 +48,7 @@ const InputField = forwardRef(
           width === 'full' ? 'w-[311px]' : 'w-[251px]'
         )}
       >
-        <span>{label}</span>
+        <span className={clsx(showLabel ? 'visible' : 'hidden')}>{label}</span>
         {error && <p className="body-accent ml-auto">{error.message}</p>}
         <input
           className={clsx(
