@@ -22,7 +22,10 @@ export async function POST(request: IRequest) {
     const newUser = await db.user.create({
       data: { name: userName, password: hashedPassword },
     });
-    return NextResponse.json('User created', { status: 201 });
+    return NextResponse.json(
+      { user: { id: newUser.id, username: newUser.name } },
+      { status: 201 }
+    );
   } catch (err) {
     return NextResponse.json('User already exists', { status: 422 });
   }
