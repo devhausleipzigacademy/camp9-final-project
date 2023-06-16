@@ -4,7 +4,7 @@ import React from 'react';
 
 async function SignUp() {
   return (
-    <div className="w-full h-full flex flex-col p-4 bg-red-200">
+    <div className="w-full h-full flex flex-col p-4 bg-yellow">
       <div className="w-[300px] h-[120px] border-4 border-solid rounded-sm border-slate-800 flex justify-center items-center">
         <p>Placeholder Image</p>
       </div>
