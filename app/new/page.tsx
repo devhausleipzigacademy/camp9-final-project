@@ -7,7 +7,7 @@ import Deadline from 'components/newPoll/Deadline';
 import RevealConditions from 'components/newPoll/RevealConditions';
 import AnswerOptions from 'components/newPoll/AnswerOptions';
 import Button from 'components/shared/buttons/Button';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
 import { useNewPollMutation } from 'hooks/useNewPoll';

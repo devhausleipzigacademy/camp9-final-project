@@ -2,9 +2,8 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
-import axios from 'axios';
-import { NewPoll, newPollSchema } from 'types/newPoll/newPollSchema';
+import axios, { AxiosError } from 'axios';
+import { NewPoll, NewPollSchema } from 'types/newPoll/NewPollSchema';
 
 async function signUpUser(poll: NewPoll) {
   const { data } = await axios.post('/api/new', poll, {
@@ -21,16 +20,16 @@ export function useNewPollMutation() {
     reset,
     handleSubmit,
   } = useForm<NewPoll>({
-    resolver: zodResolver(newPollSchema),
+    resolver: zodResolver(NewPollSchema),
   });
   const mutation = useMutation<NewPollResponse, AxiosError, NewPoll>({
     mutationFn: (poll: NewPoll) => signUpUser(poll),
     onSuccess: data => {
-      toast.success('Welcome to the club!');
+      toast.success('Poll created!');
       reset();
     },
     onError: error => {
-      toast.error('User already exists!');
+      toast.error('Something went wrong!');
     },
   });
   return { register, errors, handleSubmit, ...mutation };
