@@ -1,4 +1,3 @@
-import axios, { AxiosError } from 'axios';
 import { loginSchema, LoginSchemaType } from '@/types/user/LoginSchema';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
@@ -11,19 +10,12 @@ import { signIn } from 'next-auth/react';
 ////////////////////
 
 async function loginUser(user: LoginSchemaType) {
-  //signIn("Credentials")
-  // const { data } = await axios.post('/api/auth', user, {
-  //   withCredentials: true,
-  // });
-  console.log('user object in loginUser()', user);
   const res = await signIn('credentials', {
-    password: user.password,
-    username: user.userName,
+    ...user,
     redirect: false,
   });
 
   if (res?.error) {
-    console.log('fine until here');
     throw new Error(res.error);
   }
   return res;
@@ -33,19 +25,17 @@ export function useLoginMutation() {
   const {
     register,
     formState: { errors },
-    reset,
     handleSubmit,
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
   });
 
-  const mutation = useMutation<SignUpResponse, AxiosError, LoginSchemaType>({
+  const mutation = useMutation({
     mutationFn: (user: LoginSchemaType) => loginUser(user),
-    onSuccess: data => {
+    onSuccess: () => {
       toast.success('You have logged in successfully');
-      //reset();
     },
-    onError: error => {
+    onError: () => {
       toast.error('Log in failed');
     },
   });

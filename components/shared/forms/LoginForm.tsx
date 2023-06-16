@@ -5,16 +5,11 @@ import { useLoginMutation } from '@/components/hooks/useLogin';
 import { LoginSchemaType } from '@/types/user/LoginSchema';
 
 function LoginForm() {
+  // hook-form, toastify & tanstack-query are combined in custom hook useLoginMutation
   const { mutate, handleSubmit, register, errors } =
     useLoginMutation();
 
   const onSubmit = (data: LoginSchemaType) => {
-    console.log("data from loginform:", data);
-    mutate(data);
-  };
-
-  const onSubmitError = (data: any) => {
-    console.log("error, data is:", data)
     mutate(data);
   };
 
@@ -28,9 +23,9 @@ function LoginForm() {
         label="username"
         width="full"
         type="username"
-        error={errors.userName}
+        error={errors.username}
         disabled={false}
-        {...register('userName')}
+        {...register('username')}
       />
       <InputField
         label="password"
