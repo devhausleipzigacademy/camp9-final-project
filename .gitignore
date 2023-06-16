@@ -238,5 +238,3 @@ $RECYCLE.BIN/
 .env*.local
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,windows,node,nextjs,patch
-
-pnpm-lock.yaml

@@ -11,6 +11,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
 import { useNewPollMutation } from 'hooks/useNewPoll';
+import { SubmitHandler } from 'react-hook-form';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
@@ -38,7 +39,9 @@ export default function NewPollLayout() {
   const { handleSubmit, formState, reset } = methods;
   const { errors } = formState;
 
-  const onSubmit = (data: Prisma.PollCreateInput) => {
+  const onSubmit: SubmitHandler<
+    Omit<Prisma.PollCreateInput, 'creator'>
+  > = data => {
     if (isLastStep) {
       // Handle form submission for the last step
 
