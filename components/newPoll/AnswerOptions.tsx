@@ -21,7 +21,7 @@ export default function AnswerOptions() {
             width="reduced"
             placeholder="Option 1"
           ></InputField>
-          <Button children="-"></Button>
+          <Button className="button" children="-"></Button>
         </div>
         <div>
           <InputField
@@ -33,9 +33,9 @@ export default function AnswerOptions() {
             width="reduced"
             placeholder="Option 2"
           ></InputField>
-          <Button children="-"></Button>
+          <Button className="button" children="-"></Button>
         </div>
-        <Button variant="secondary" size="full" children="Answer +"></Button>
+        <Button variant="secondary" size="small" children="+ Option"></Button>
       </section>
     </div>
   );

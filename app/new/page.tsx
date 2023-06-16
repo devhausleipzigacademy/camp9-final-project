@@ -25,7 +25,7 @@ export default function NewPollLayout() {
     },
   });
 
-  const { mutate } = useNewPollMutation();
+  // const { mutate } = useNewPollMutation();
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm([
@@ -48,7 +48,7 @@ export default function NewPollLayout() {
           //  Create a new poll in the database
           // Additional logic for final submission
           console.log(data);
-          mutate(data);
+          // mutate(data);
           console.log('Poll created successfully!');
           reset(); // Clear the form fields
         } catch (error) {
