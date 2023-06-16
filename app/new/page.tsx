@@ -10,7 +10,12 @@ import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
-import { useNewPollMutation } from 'hooks/useNewPoll';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { NewPoll } from 'types/newPoll/NewPollSchema';
+import { useMutation } from '@tanstack/react-query';
+
+import { POSTReturnType as POSTNewPoll } from '../api/newPoll/route';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
@@ -25,10 +30,27 @@ export default function NewPollLayout() {
     },
   });
 
-  // const { mutate } = useNewPollMutation();
+  async function createNewPoll(poll: NewPoll) {
+    const { data } = await axios.post('/api/new', poll, {
+      withCredentials: true,
+    });
+
+    return data as POSTNewPoll;
+  }
+
+  // const { mutate } = useMutation(createNewPoll, {
+  //   onSuccess: data => {
+  //     toast.success('Poll created!');
+  //     reset();
+  //   },
+  //   onError: error => {
+  //     toast.error('Something went wrong!');
+  //   },
+  // });
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm([
+      <CreatePoll />,
       <CreatePoll />,
       <PollType />,
       <RevealConditions />,
@@ -41,6 +63,7 @@ export default function NewPollLayout() {
   const onSubmit: SubmitHandler<
     Omit<Prisma.PollCreateInput, 'creator'>
   > = data => {
+    console.table(data);
     if (isLastStep) {
       // Handle form submission for the last step
 
