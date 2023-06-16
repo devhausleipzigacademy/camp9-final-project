@@ -7,7 +7,6 @@ import Deadline from 'components/newPoll/Deadline';
 import RevealConditions from 'components/newPoll/RevealConditions';
 import PollType from 'components/newPoll/PollType';
 import Button from 'components/shared/buttons/Button';
-import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
@@ -32,11 +31,11 @@ export default function NewPollLayout() {
       <RevealConditions />,
       <Deadline />,
     ]);
-    
-    const { handleSubmit, formState, reset } = methods;
-    const { errors } = formState;
-    
-    const onSubmit = (data: any) => {
+
+  const { handleSubmit, formState, reset } = methods;
+  const { errors } = formState;
+
+  const onSubmit = (data: any) => {
     console.log(data);
     if (isLastStep) {
       // Handle form submission for the last step
@@ -71,12 +70,11 @@ export default function NewPollLayout() {
       </main>
 
       <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
-        {isFirstStep && (
-          <Button size="small" variant="secondary" onClick={back}>
-            <GrFormPrevious size={24} strokeWidth={2} />
-            <h3>Back</h3>
-          </Button>
-        )}
+        <Button size="small" variant="secondary" onClick={back}>
+          <GrFormPrevious size={24} strokeWidth={2} />
+          <h3>Back</h3>
+        </Button>
+
         <Button
           size="large"
           className="ml-auto"

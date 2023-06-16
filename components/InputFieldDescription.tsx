@@ -55,11 +55,11 @@ export const InputFieldDescription = forwardRef(
         <textarea
           rows={rows}
           className={clsx(
-            'p-[14px] body rounded-md placeholder-[body-light] w-full',
+            'p-[14px] body rounded-md placeholder-[body-light] w-full  bg-green-light',
             error?.message === undefined
               ? 'border-black body'
               : 'border-peach body-accent',
-            disabled ? 'border-brutal-disabled' : 'border-brutal'
+            disabled ? 'border-brutal-disabled' : ' border-3 border-dashed'
           )}
           placeholder={placeholder}
           ref={ref}

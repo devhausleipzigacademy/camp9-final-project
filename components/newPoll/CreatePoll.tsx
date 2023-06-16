@@ -8,29 +8,7 @@ export default function CreatePoll() {
   return (
     <div className="flex flex-col gap-4 w-full">
       <h3>Question & Details</h3>
-      <fieldset>
-        <legend>Please select your preferred contact method:</legend>
-        <div>
-          <label htmlFor="singleChoice">
-            Single Choice
-            <input
-              {...register('type', { required: true })}
-              type="radio"
-              value="singleChoice"
-              id="singleChoice"
-            />
-          </label>
-          <label htmlFor="multipleChoice">
-            Multiple Choice
-            <input
-              {...register('type', { required: true })}
-              type="radio"
-              value="multipleChoice"
-              id="multipleChoice"
-            />
-          </label>
-        </div>
-      </fieldset>
+
       <InputField
         required
         {...register('question', { required: true })}
@@ -39,6 +17,7 @@ export default function CreatePoll() {
         type={'text'}
         width={'full'}
         disabled={false}
+        placeholder="What is your favorite color?"
       />
       <InputFieldDescription
         {...register('description')}
@@ -47,7 +26,9 @@ export default function CreatePoll() {
         type={'text'}
         width={'full'}
         disabled={false}
-        rows={4}
+        rows={8}
+        placeholder="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        "
       />
     </div>
   );
