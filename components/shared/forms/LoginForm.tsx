@@ -3,16 +3,14 @@
 import InputField from '@/components/InputField';
 import { useLoginMutation } from '@/components/hooks/useLogin';
 import { LoginSchemaType } from '@/types/user/LoginSchema';
-import { signIn } from 'next-auth/react';
 
 function LoginForm() {
   const { mutate, handleSubmit, register, errors } =
     useLoginMutation();
 
   const onSubmit = (data: LoginSchemaType) => {
-    console.log(data);
+    console.log("data from loginform:", data);
     mutate(data);
-    // () => signIn();
   };
 
   const onSubmitError = (data: any) => {

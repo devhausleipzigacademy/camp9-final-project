@@ -15,10 +15,15 @@ async function loginUser(user: LoginSchemaType) {
   // const { data } = await axios.post('/api/auth', user, {
   //   withCredentials: true,
   // });
-  console.log("HI", user);
-  const res = await signIn('credentials', {password: user.password, username: user.userName, redirect: false})
+  console.log('user object in loginUser()', user);
+  const res = await signIn('credentials', {
+    password: user.password,
+    username: user.userName,
+    redirect: false,
+  });
 
   if (res?.error) {
+    console.log('fine until here');
     throw new Error(res.error);
   }
   return res;

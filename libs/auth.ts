@@ -22,17 +22,22 @@ export const authOptions: AuthOptions = {
         if (!credentials?.username || !credentials.password) {
           return null;
         }
-        console.log("OK until here");
-
+        
         const user = await db.user.findUnique({ // <-- get user object for username
           where: {
             name: credentials.username,
           },
         });
-
+        
         if (!user || !(await compare(credentials.password, user.password))) {
           return null;
         }
+        console.log("OK until here");
+        console.log({
+          id: user.id,
+          username: user.name,
+          password: user.password
+        });
 
         return {
           id: user.id,
