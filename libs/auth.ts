@@ -2,27 +2,29 @@
 
 import { db } from "@/libs/db";
 import { compare } from "bcryptjs";
-import type { NextAuthOptions } from "next-auth";
+import type { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
-      name: "Sign in",
+      name: "credentials",
       credentials: {
         username: { label: 'Username', type: 'text' },
         password: { label: 'Password', type: 'password' },
       },
       
       async authorize(credentials) { // <-- authorize has known typescript issue! https://github.com/nextauthjs/next-auth/issues/2709
+        // credentials object has no username, password, etc
         if (!credentials?.username || !credentials.password) {
           return null;
         }
+        console.log("OK until here");
 
-        const user = await db.user.findUnique({
+        const user = await db.user.findUnique({ // <-- get user object for username
           where: {
             name: credentials.username,
           },

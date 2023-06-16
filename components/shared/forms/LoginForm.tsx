@@ -10,9 +10,9 @@ function LoginForm() {
     useLoginMutation();
 
   const onSubmit = (data: LoginSchemaType) => {
+    console.log(data);
     mutate(data);
-    console.log("hi");
-    () => signIn();
+    // () => signIn();
   };
 
   const onSubmitError = (data: any) => {
@@ -22,7 +22,7 @@ function LoginForm() {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit, onSubmitError)}
+      onSubmit={handleSubmit(onSubmit)}
       noValidate
       className="flex flex-col gap-5"
     >
