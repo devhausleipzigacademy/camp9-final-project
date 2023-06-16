@@ -1,24 +1,31 @@
 'use client';
-import { Prisma } from '@prisma/client';
 
+import { Prisma } from '@prisma/client';
 import ProgressBar from 'components/ProgressBar';
 import CreatePoll from 'components/newPoll/CreatePoll';
 import Deadline from 'components/newPoll/Deadline';
 import RevealConditions from 'components/newPoll/RevealConditions';
 import AnswerOptions from 'components/newPoll/AnswerOptions';
 import Button from 'components/shared/buttons/Button';
-import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
+import { useNewPollMutation } from 'hooks/useNewPoll';
 
-export default function NewPollLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>();
-  const [isSubmitted, setIsSubmitted] = useState(false);
+export default function NewPollLayout() {
+  const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
+    defaultValues: {
+      description: '',
+      question: '',
+      options: [''],
+      endDateTime: new Date(),
+      anonymity: 'Anonymous',
+      quorum: 0,
+      type: 'MultipleChoice',
+    },
+  });
+
+  const { mutate } = useNewPollMutation();
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm([
@@ -28,16 +35,26 @@ export default function NewPollLayout({
       <Deadline />,
     ]);
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const { handleSubmit, formState, reset } = methods;
+  const { errors } = formState;
+
+  const onSubmit = (data: Prisma.PollCreateInput) => {
     if (isLastStep) {
       // Handle form submission for the last step
-      console.log(data);
 
-      // Additional logic for final submission
-      setIsSubmitted(true); // Set the submission status to true
-      methods.reset(); // Clear the form fields
-      window.alert('Poll created!'); // Show a success message
+      // Check if there are any validation errors
+      if (Object.keys(errors).length === 0) {
+        try {
+          //  Create a new poll in the database
+          // Additional logic for final submission
+          console.log(data);
+          mutate(data);
+          console.log('Poll created successfully!');
+          reset(); // Clear the form fields
+        } catch (error) {
+          console.error('Error creating a poll:', error);
+        }
+      }
     } else {
       next(); // Proceed to the next step
     }
@@ -53,7 +70,7 @@ export default function NewPollLayout({
             numberOfPages={steps.length}
           />
           <FormProvider {...methods}>
-            <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
+            <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
               {steps[currentStepIndex]}
             </form>
           </FormProvider>
@@ -61,16 +78,15 @@ export default function NewPollLayout({
       </main>
 
       <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
-        {isFirstStep && (
-          <Button size="small" variant="secondary" onClick={back}>
-            <GrFormPrevious size={24} strokeWidth={2} />
-            <h3>Back</h3>
-          </Button>
-        )}
+        <Button size="small" variant="secondary" onClick={back}>
+          <GrFormPrevious size={24} strokeWidth={2} />
+          <h3>Back</h3>
+        </Button>
+
         <Button
           size="large"
           className="ml-auto"
-          onClick={methods.handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmit)}
         >
           {isLastStep ? 'Create' : 'Next'}
           <GrFormNext size={24} strokeWidth={2} />
@@ -79,7 +95,6 @@ export default function NewPollLayout({
     </>
   );
 }
-
 // const pollData: Prisma.PollCreateInput = {
 //   creator: {
 //     connect: {

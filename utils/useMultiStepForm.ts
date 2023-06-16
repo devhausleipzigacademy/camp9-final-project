@@ -1,9 +1,13 @@
 'use client';
 
 import { ReactElement, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ro } from '@faker-js/faker';
 
 export function useMultiStepForm(steps: ReactElement[]) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+
+  const router = useRouter();
 
   function next() {
     setCurrentStepIndex(i => {
@@ -15,13 +19,20 @@ export function useMultiStepForm(steps: ReactElement[]) {
   }
 
   function back() {
-    setCurrentStepIndex(i => {
-      if (i <= 0) {
-        return i;
-      }
-      return i - 1;
-    });
+    if (currentStepIndex === 0) {
+      router.back();
+    }
+    setCurrentStepIndex(currentStepIndex - 1);
   }
+
+  // function back() {
+  //   setCurrentStepIndex(i => {
+  //     if (i <= 0) {
+  //       return i;
+  //     }
+  //     return i - 1;
+  //   });
+  // }
 
   function goTo(index: number) {
     setCurrentStepIndex(index);

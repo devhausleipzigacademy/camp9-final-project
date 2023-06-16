@@ -45,7 +45,7 @@ export const InputField = forwardRef(
         className={clsx(
           'flex flex-col',
           disabled ? 'body-semibold-disabled' : 'body-semibold',
-          width === 'full' ? 'w-[311px]' : 'w-[251px]'
+          width === 'full' ? 'w-full' : 'w-[251px]'
         )}
       >
         <span className={clsx(showLabel ? 'visible' : 'hidden')}>{label}</span>
