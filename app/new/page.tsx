@@ -35,17 +35,21 @@ export default function NewPollLayout() {
   const { handleSubmit, formState, reset } = methods;
   const { errors } = formState;
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = (data: Prisma.PollCreateInput) => {
     if (isLastStep) {
       // Handle form submission for the last step
-      console.log(data);
 
       // Check if there are any validation errors
       if (Object.keys(errors).length === 0) {
-        // Additional logic for final submission
-        reset(); // Clear the form fields
-        window.alert('Poll created!'); // Show a success message
+        try {
+          //  Create a new poll in the database
+          // Additional logic for final submission
+          console.table(data);
+          console.log('Poll created successfully!');
+          reset(); // Clear the form fields
+        } catch (error) {
+          console.error('Error creating a poll:', error);
+        }
       }
     } else {
       next(); // Proceed to the next step
