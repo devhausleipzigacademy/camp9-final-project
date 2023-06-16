@@ -18,11 +18,7 @@ export const Radiobutton = ({ variant }: BoxCheckedProps) => {
   }) => {
     event.currentTarget.classList.toggle('shadow-shadow');
     setChecked(!checked);
-    if (checked) {
-      event.currentTarget.classList.remove('translate-y-1', '-translate-x-1');
-    } else {
-      event.currentTarget.classList.add('translate-y-1', '-translate-x-1');
-    }
+    if(checked) {event.currentTarget.classList.remove('translate-y-1', '-translate-x-1')} else {event.currentTarget.classList.add('translate-y-1', '-translate-x-1');}
   };
   const boxclass = cva(
     [
@@ -40,7 +36,7 @@ export const Radiobutton = ({ variant }: BoxCheckedProps) => {
   );
 
   return (
-    <div type="radio" className={boxclass({ variant })} onClick={handleChange}>
+    <button className={boxclass({ variant })} onClick={handleChange}>
       {checked ? (
         <svg
           width="24"
@@ -67,7 +63,7 @@ export const Radiobutton = ({ variant }: BoxCheckedProps) => {
           <path d="" fill="black" stroke="black" strokeWidth="2" />
         </svg>
       )}
-    </div>
+    </button>
   );
 };
 
