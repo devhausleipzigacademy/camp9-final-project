@@ -2,7 +2,6 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
 import axios, { AxiosError } from 'axios';
 import { NewPoll, NewPollSchema } from 'types/newPoll/NewPollSchema';
 

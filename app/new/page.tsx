@@ -7,7 +7,7 @@ import Deadline from 'components/newPoll/Deadline';
 import RevealConditions from 'components/newPoll/RevealConditions';
 import PollType from 'components/newPoll/PollType';
 import Button from 'components/shared/buttons/Button';
-import { useForm, FormProvider } from 'react-hook-form';
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
 import { useNewPollMutation } from 'hooks/useNewPoll';
@@ -38,7 +38,9 @@ export default function NewPollLayout() {
   const { handleSubmit, formState, reset } = methods;
   const { errors } = formState;
 
-  const onSubmit = (data: Prisma.PollCreateInput) => {
+  const onSubmit: SubmitHandler<
+    Omit<Prisma.PollCreateInput, 'creator'>
+  > = data => {
     if (isLastStep) {
       // Handle form submission for the last step
 
