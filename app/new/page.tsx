@@ -10,7 +10,7 @@ import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
-import { useNewPollMutation } from 'hooks/useNewPollMutation';
+import { useNewPollMutation } from 'hooks/useNewPoll';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
