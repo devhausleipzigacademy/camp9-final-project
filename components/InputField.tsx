@@ -16,7 +16,7 @@ type InputFieldProps = {
   error?: {
     message?: string;
   };
-  disabled: boolean;
+  disabled?: boolean;
 };
 
 export const InputField = forwardRef(

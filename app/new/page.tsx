@@ -5,7 +5,7 @@ import ProgressBar from 'components/ProgressBar';
 import CreatePoll from 'components/newPoll/CreatePoll';
 import Deadline from 'components/newPoll/Deadline';
 import RevealConditions from 'components/newPoll/RevealConditions';
-import PollType from 'components/newPoll/PollType';
+import AnswerOptions from 'components/newPoll/AnswerOptions';
 import Button from 'components/shared/buttons/Button';
 import { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
@@ -23,7 +23,7 @@ export default function NewPollLayout({
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm([
       <CreatePoll />,
-      <PollType />,
+      <AnswerOptions />,
       <RevealConditions />,
       <Deadline />,
     ]);

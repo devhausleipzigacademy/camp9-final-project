@@ -33,7 +33,7 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
-    "components/newPoll/PollType.tsx"
+    "components/newPoll/AnswerOptions.tsx"
   ],
   "exclude": ["node_modules"]
 }
