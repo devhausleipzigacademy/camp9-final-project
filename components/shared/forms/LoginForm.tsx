@@ -3,6 +3,7 @@
 import InputField from '@/components/InputField';
 import { useLoginMutation } from '@/components/hooks/useLogin';
 import { LoginSchemaType } from '@/types/user/LoginSchema';
+import Button from '../buttons/Button';
 
 function LoginForm() {
   // hook-form, toastify & tanstack-query are combined in custom hook useLoginMutation
@@ -21,6 +22,7 @@ function LoginForm() {
     >
       <InputField
         label="username"
+        showLabel={true}
         width="full"
         type="username"
         error={errors.username}
@@ -29,6 +31,7 @@ function LoginForm() {
       />
       <InputField
         label="password"
+        showLabel={true}
         width="full"
         type="password"
         error={errors.password}
@@ -36,9 +39,9 @@ function LoginForm() {
         {...register('password')}
       />
 
-      <button type="submit" className="border-4 border-slate-800">
+      <Button type="submit" className="border-4 border-slate-800">
         Log in
-      </button>
+      </Button>
     </form>
   );
 }

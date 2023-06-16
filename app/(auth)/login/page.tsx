@@ -9,7 +9,7 @@ async function SignUp() {
         <p>Placeholder Image</p>
       </div>
       <LoginForm />
-      <p className="text-center">Don't have an account?</p>
+      <p className="text-center pt-5">Don't have an account?</p>
       <Link href={'/signup'} className="underline text-center">
         Sign up!
       </Link>
