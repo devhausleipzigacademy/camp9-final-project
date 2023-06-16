@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
-import React from 'react';
+import PollCard from 'components/pollActivity/PollCard';
+import React, { Children } from 'react';
 
 const prisma = new PrismaClient();
 
@@ -24,12 +25,18 @@ async function getNewPolls(userId: string) {
 async function New() {
   const newPolls = await getNewPolls('11');
   return (
-    <div>
+    <div className="overflow-y-scroll w-full min-w-full scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 ">
       {newPolls.map(poll => (
-        <p key={poll.id}>{poll.description}</p>
+        <PollCard
+          key={poll.id}
+          endTime={poll.endDateTime}
+          results="see results"
+          href="#"
+        >
+          {poll.question}
+        </PollCard>
       ))}
     </div>
   );
 }
-
 export default New;

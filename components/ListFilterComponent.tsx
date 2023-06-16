@@ -17,7 +17,7 @@ function ListFilterComponent() {
       </div>
       <div>
         {query.data?.map(poll => (
-          <p>{poll.description}</p>
+          <p key={poll.id}>{poll.description}</p>
         ))}
       </div>
     </div>

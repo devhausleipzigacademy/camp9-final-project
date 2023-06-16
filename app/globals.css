@@ -222,3 +222,22 @@
     box-shadow: -4px 4px 0px rgba(0, 0, 0, 1);
   }
 }
+.vertical-scroll::-webkit-scrollbar {
+  width: 2em;
+}
+
+.vertical-scroll::-webkit-scrollbar-track {
+  background: hsl(120 75% 50% / 1);
+  border-radius: 100vw;
+  margin-block: 0.5em;
+}
+
+.vertical-scroll::-webkit-scrollbar-thumb {
+  background: hsl(120 100% 20% / 1);
+  border: 0.25em solid hsl(120 75% 50% / 1);
+  border-radius: 100vw;
+}
+
+.vertical-scroll::-webkit-scrollbar-thumb:hover {
+  background: hsl(120 100% 10% / 1);
+}

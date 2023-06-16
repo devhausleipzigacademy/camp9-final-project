@@ -8,11 +8,21 @@ import Navbaritem from './NavbarItem';
 interface NavbarProps {
   variant: 'primary' | 'secondary';
   active?: boolean;
+  className?: string;
 }
-export const Navbar = ({ variant = 'primary', active }: NavbarProps) => {
+export const Navbar = ({
+  variant = 'primary',
+  active,
+  className,
+}: NavbarProps) => {
   return (
     <>
-      <nav className="flex justify-center">
+      <nav
+        className={clsx(
+          'flex justify-center items-center flex-col ',
+          className
+        )}
+      >
         <div
           className={clsx(
             'flex justify-around items-center w-[311px] h-[60px] rounded-round border-2 border-black border-solid shadow-shadow',
