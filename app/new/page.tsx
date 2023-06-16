@@ -10,6 +10,7 @@ import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
+import { useNewPollMutation } from 'hooks/useNewPollMutation';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
@@ -23,6 +24,8 @@ export default function NewPollLayout() {
       type: 'MultipleChoice',
     },
   });
+
+  const { mutate } = useNewPollMutation();
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm([
@@ -44,7 +47,8 @@ export default function NewPollLayout() {
         try {
           //  Create a new poll in the database
           // Additional logic for final submission
-          console.table(data);
+          console.log(data);
+          mutate(data);
           console.log('Poll created successfully!');
           reset(); // Clear the form fields
         } catch (error) {
