@@ -1,10 +1,6 @@
 import TestButton from '@/components/TestButton';
-import { authOptions } from '@/libs/auth';
-import { getServerSession } from 'next-auth';
 
-async function Home() {
-  const session = await getServerSession(authOptions);
-  console.log(session);
+function Home() {
   return (
     <>
       <h1 className="title-black text-teal bg-yellow-light">Consensus App</h1>

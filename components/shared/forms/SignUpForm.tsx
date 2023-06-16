@@ -1,8 +1,9 @@
 'use client';
 
-import InputField from '@/components/InputField';
-import { useSignUpMutation } from '@/components/hooks/useUser';
-import { SignUpUser } from '@/types/user/SignUpSchema';
+import InputField from 'components/InputField';
+import { useSignUpMutation } from 'components/hooks/useUser';
+import { SignUpUser } from 'types/user/SignUpSchema';
+import Button from '../buttons/Button';
 
 function SignUpForm() {
   const { mutate, isLoading, handleSubmit, register, errors } =
@@ -12,42 +13,50 @@ function SignUpForm() {
     mutate(data);
   };
 
-  const onSubmitError = (data: any) => {
-    mutate(data);
-  };
-
   return (
     <form
-      onSubmit={handleSubmit(onSubmit, onSubmitError)}
+      onSubmit={handleSubmit(onSubmit)}
       noValidate
-      className="flex flex-col gap-5"
+      className="flex flex-col gap-20"
     >
-      <InputField
-        label="username"
-        width="full"
-        type="username"
-        error={errors.userName}
-        {...register('userName')}
-      />
-      <InputField
-        label="password"
-        width="full"
-        type="password"
-        error={errors.password}
-        {...register('password')}
-      />
-
-      <InputField
-        label="confirm password"
-        type="password"
-        width="full"
-        error={errors.confirmPassword}
-        {...register('confirmPassword')}
-      />
-
-      <button type="submit" className="border-4 border-slate-800">
-        Register
-      </button>
+      <div className="flex flex-col gap-5">
+        <InputField
+          label={'Username'}
+          showLabel={true}
+          disabled={isLoading}
+          width="full"
+          key={'userName'}
+          placeholder={'Username'}
+          type="text"
+          error={errors.userName}
+          {...register('userName')}
+        />
+        <InputField
+          label={'Password'}
+          showLabel={true}
+          disabled={isLoading}
+          error={errors.password}
+          width="full"
+          key={'password'}
+          placeholder={'Password'}
+          type={'password'}
+          {...register('password')}
+        />
+        <InputField
+          label={'Confirm Password'}
+          showLabel={true}
+          disabled={isLoading}
+          error={errors.confirmPassword}
+          width="full"
+          key={'confirmPassword'}
+          placeholder={'Confirm Password'}
+          type={'password'}
+          {...register('confirmPassword')}
+        />
+      </div>
+      <Button type="submit" size="full" variant="secondary">
+        Sign Up
+      </Button>
     </form>
   );
 }

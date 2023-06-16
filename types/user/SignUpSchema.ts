@@ -12,7 +12,7 @@ export const signUpSchema = z
       .min(8, 'Password must be atleast 8 characters long.'),
   })
   .refine(data => data.password === data.confirmPassword, {
-    message: 'Passwords do not match.',
+    message: 'does not match',
     path: ['confirmPassword'],
   });
 
