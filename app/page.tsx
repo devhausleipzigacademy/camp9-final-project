@@ -4,9 +4,7 @@ import GroupIllustration from '/public/images/Illustr_group_voting.png';
 import Button from 'components/shared/buttons/Button';
 import React from 'react';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
-import { Router } from 'next/router';
-import {useRouter} from 'next/router'
-
+import Link from 'next/link';
 export default function LandingPage() {
   return (
     <>
@@ -21,29 +19,33 @@ export default function LandingPage() {
         
       </div>
       <div className='w-full'>
-        <Button
+        <Link href="/app/#" >
+          <Button
           
-          size="full"
-          variant="secondary"
-          className='my-4'
-        >
-          Sign up
-        </Button>
-        <Button
-        
-          size="full"
-          variant="primary"
-        >
-          <React.Fragment key=".0">
-            <h3>
-        Login
-            </h3>
-            <HiOutlineArrowNarrowRight
-        size={25}
-        strokeWidth={2}
-            />
-          </React.Fragment>
-        </Button>
+            size="full"
+            variant="secondary"
+            className='my-4'
+          >
+            Sign up
+          </Button>
+        </Link>
+        <Link href="/app/login/page">
+          <Button
+          
+            size="full"
+            variant="primary"
+          >
+            <React.Fragment key=".0">
+              <h3>
+          Login
+              </h3>
+              <HiOutlineArrowNarrowRight
+          size={25}
+          strokeWidth={2}
+              />
+            </React.Fragment>
+          </Button>
+        </Link>
             </div>
       </>
   );
