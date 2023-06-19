@@ -42,6 +42,7 @@ module.exports = {
       height: {
         8.5: '31px',
         15: '3.75rem',
+        18: '4.5rem',
       },
       borderWidth: {
         3: '3px',
