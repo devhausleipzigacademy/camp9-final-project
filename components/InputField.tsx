@@ -17,6 +17,7 @@ type InputFieldProps = {
     message?: string;
   };
   disabled?: boolean;
+  required?: boolean;
 };
 
 export const InputField = forwardRef(
@@ -29,6 +30,7 @@ export const InputField = forwardRef(
       error,
       disabled,
       showLabel,
+      required = false,
       ...props
     }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -51,6 +53,8 @@ export const InputField = forwardRef(
         <span className={clsx(showLabel ? 'visible' : 'hidden')}>{label}</span>
         {error && <p className="body-accent ml-auto">{error.message}</p>}
         <input
+          {...props}
+          required={required}
           className={clsx(
             'p-[14px] h-11 body rounded-md placeholder-[body-light] w-full',
             error?.message === undefined
@@ -60,7 +64,6 @@ export const InputField = forwardRef(
           )}
           placeholder={placeholder}
           ref={ref}
-          {...props}
           disabled={disabled}
           onChange={handleChange}
           value={value}

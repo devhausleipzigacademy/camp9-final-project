@@ -12,7 +12,6 @@ export default function CreatePoll() {
       <h3>Question & Details</h3>
 
       <InputField
-        required
         {...register('question', { required: true })}
         label={'Create a poll'}
         showLabel={false}

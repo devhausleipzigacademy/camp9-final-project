@@ -6,36 +6,42 @@ import InputField from '../InputField';
 
 export default function AnswerOptions() {
   const { register } = useFormContext(); // retrieve all hook methods
+
   return (
     <div>
       <section></section>
-      <hr></hr>
-      <section>
-        <div>
+      <hr className="border border-black"></hr>
+      <section className="flex flex-col justify-around overflow-scroll">
+        <div className="flex flex-row justify-between">
           <InputField
-            required
-            {...register('')}
+            {...register('options', { required: true })}
             type="text"
             label="Option 1"
             showLabel={false}
             width="reduced"
             placeholder="Option 1"
           ></InputField>
-          <Button className="button" children="-"></Button>
+          <Button size="xs" className="button" children="-"></Button>
         </div>
-        <div>
+        <div className="flex flex-row justify-between">
           <InputField
-            required
-            {...register('')}
+            {...register('options', { required: true })}
             type="text"
             label="Option 2"
             showLabel={false}
             width="reduced"
             placeholder="Option 2"
           ></InputField>
-          <Button className="button" children="-"></Button>
+          <Button size="xs" className="button" children="-"></Button>
         </div>
-        <Button variant="secondary" size="small" children="+ Option"></Button>
+        <div className="flex">
+          <Button
+            className="ml-auto"
+            variant="secondary"
+            size="small"
+            children="+ Option"
+          ></Button>
+        </div>
       </section>
     </div>
   );
