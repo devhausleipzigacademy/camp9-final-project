@@ -15,7 +15,7 @@ import axios from 'axios';
 import { NewPoll } from 'types/newPoll/NewPollSchema';
 import { useMutation } from '@tanstack/react-query';
 
-import { POSTReturnType as POSTNewPoll } from '../api/newPoll/route';
+import { POSTReturnType as POSTNewPoll } from '../api/new/route';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
@@ -48,7 +48,7 @@ export default function NewPollLayout() {
   //   },
   // });
 
-  const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
+  const { steps, currentStepIndex, isLastStep, back, next } =
     useMultiStepForm([
       <CreatePoll />,
       <CreatePoll />,
@@ -71,7 +71,6 @@ export default function NewPollLayout() {
       if (Object.keys(errors).length === 0) {
         try {
           //  Create a new poll in the database
-          // Additional logic for final submission
           console.log(data);
           // mutate(data);
           console.log('Poll created successfully!');
@@ -81,7 +80,7 @@ export default function NewPollLayout() {
         }
       }
     } else {
-      next(); // Proceed to the next step
+      next();
     }
   };
 
@@ -120,17 +119,4 @@ export default function NewPollLayout() {
     </>
   );
 }
-// const pollData: Prisma.PollCreateInput = {
-//   creator: {
-//     connect: {
-//       id: 1,
-//     },
-//   },
-//   description: '',
-//   question: '',
-//   options: [''],
-//   endDateTime: new Date(),
-//   anonymity: 'Anonymous',
-//   quorum: 0,
-//   type: 'MultipleChoice',
-// };
+
