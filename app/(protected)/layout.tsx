@@ -1,5 +1,7 @@
-import { Navbar } from 'components/shared/navbar/Navbar';
-import './globals.css';
+import React from 'react';
+import '../globals.css';
+import { Navbar } from '@/components/shared/navbar/Navbar';
+import Provider from '../provider';
 
 export const metadata = {
   title: 'Create Next App',
@@ -13,8 +15,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="w-full flex flex-col items-center justify-between h-screen">
-        {children}
+      <body className="w-full flex flex-col justify-between h-screen">
+        <Provider>{children}</Provider>
         {/* change the next line from true instead of children later */}
         {true && (
           <footer className="fixed bottom-8 container px-8">
