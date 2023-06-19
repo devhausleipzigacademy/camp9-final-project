@@ -1,32 +1,54 @@
+import InputField from 'components/InputField';
 import UserEdit from 'components/UserEdit';
 import React from 'react';
-// import { User } from '@prisma/client';
-
-// const testUser: User = {
-//     id: 1,
-//     name: 'nameTest',
-//     password: 'test',
-//     createdAt: new Date(),
-//     updatedAt: new Date(),
-// };
-
-// function read(){
-//     return testUser;
-// }
-
-// function write(date: User){
-// }
 
 function page() {
   return (
-    <div>
+    <div className="bg-yellow-light">
       <h2 className="title-bold">User Settings</h2>
-      <div>
-        <p className="body-semibold">Username</p>
-        <div>
-          <input type="" />
-          <UserEdit disabled={false} variant="pencil" children=''/>
+      <div className="mt-[60px]">
+        <div className="flex">
+          <InputField
+            label={'Username'}
+            showLabel={true}
+            type={'username'}
+            width={'reduced'}
+            disabled={false}
+            placeholder="<current username>"
+          />
+          <UserEdit disabled={false} variant="pencil" children="" />
         </div>
+      </div>
+      <div className=" my-4">
+        <div className="flex">
+          <InputField
+            label={'Password'}
+            showLabel={true}
+            type={'password'}
+            width={'reduced'}
+            disabled={false}
+            placeholder="<current password>"
+          />
+          <UserEdit disabled={false} variant="pencil" children="" />
+        </div>
+      </div>
+      <div className="mb-[107px]">
+        <div className="flex ">
+          <InputField
+            label={'Confirm Password'}
+            showLabel={true}
+            type={'password'}
+            width={'reduced'}
+            disabled={true}
+            placeholder="<password>"
+          />
+          <UserEdit disabled={false} variant="pencil" children="" />
+        </div>
+      </div>
+      <div className="flex justify-items-end">
+        <button className="border-brutal rounded-md p-4 flex-grow">
+          Log out
+        </button>
       </div>
     </div>
   );

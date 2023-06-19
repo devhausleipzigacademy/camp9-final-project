@@ -28,7 +28,7 @@ function userEdit({
   return (
     <div
       className={clsx(
-        'border-brutal shadow-brutal rounded-md flex items-center justify-center h-[44px] w-[44px] disabled:bg-opacity-0 disabled:opacity-50 disabled:pointer-events-none',
+        'border-brutal shadow-brutal rounded-md flex items-center justify-center h-[44px] w-[44px] mt-6 disabled:bg-opacity-0 disabled:opacity-50 disabled:pointer-events-none',
         variant === 'pencil' ? 'bg-yellow' : 'bg-green'
       )}
     >
