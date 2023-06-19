@@ -8,22 +8,22 @@ interface ButtonProps {
 }
 
 export default function TabButton({ children, href }: ButtonProps) {
-  const router = usePathname();
+  const pathname = usePathname();
   return (
     <NavLink
       href={href}
       className={`
-        bg-yellow w-18 h-11 border-3
+        w-18 h-11 border-3
         button-small
         border-black
         rounded
-        shadow-shadow
+       shadow-shadow
         disabled:bg-white
         disabled:cursor-not-allowed
         disabled:opacity-50
         flex items-start justify-start p-1
         overflow-hidden
-        ${router === href ? 'bg-yellow' : 'bg-white'}`}
+        ${pathname === href ? 'bg-yellow  shadow-shadow' : 'bg-peach '}`}
     >
       {children}
     </NavLink>

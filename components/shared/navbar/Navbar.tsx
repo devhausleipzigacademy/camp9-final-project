@@ -26,7 +26,7 @@ export const Navbar = ({
         <div
           className={clsx(
             'flex justify-around items-center w-[311px] h-[60px] rounded-round border-2 border-black border-solid shadow-shadow',
-            variant === 'primary' ? 'bg-green' : 'bg-teal'
+            variant === 'primary' ? 'bg-[#9FCC95]' : 'bg-teal'
           )}
         >
           <Navbaritem>

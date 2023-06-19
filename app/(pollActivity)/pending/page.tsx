@@ -25,14 +25,14 @@ async function Pending() {
 
   return (
     <div className="flex justify-center h-full">
-      <div className="overflow-y-scroll h-full scrollbar scrollbar-thumb-gray-900 scrollbar-track-gray-100 w-4/5">
+      <div className="overflow-y-scroll h-full w-[85%] scrollbar scrollbar-thumb-green-900 scrollbar-track-red-100">
         {pendingPolls.map(poll => (
           <PollCard
             className="mb-4"
             key={poll?.id}
             endTime={poll.endDateTime}
-            details="see Details"
-            href="#"
+            details="see details"
+            href="/pending"
           >
             {poll?.question}
           </PollCard>

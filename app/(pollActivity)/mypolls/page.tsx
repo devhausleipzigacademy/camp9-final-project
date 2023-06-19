@@ -16,20 +16,22 @@ async function getMyPolls(userId: string) {
 
 async function MyPolls() {
   const myPolls = await getMyPolls('11');
-  console.log(myPolls);
   return (
-    <>
-      {myPolls.map(poll => (
-        <PollCard
-          key={poll.id}
-          endTime={poll.endDateTime}
-          results="see results"
-          href="#"
-        >
-          {poll.question}
-        </PollCard>
-      ))}
-    </>
+    <div className="flex justify-center h-full">
+      <div className="overflow-y-scroll h-full w-[85%] scrollbar">
+        {myPolls.map(poll => (
+          <PollCard
+            className="mb-4"
+            key={poll?.id}
+            endTime={poll.endDateTime}
+            results="see results"
+            href="/mypolls"
+          >
+            {poll?.question}
+          </PollCard>
+        ))}
+      </div>
+    </div>
   );
 }
 

@@ -5,18 +5,18 @@ import React from 'react';
 type PollCardProps = {
   children: React.ReactNode;
   endTime?: Date;
-  vote?: string;
-  details?: string;
-  results?: string;
+  vote?: 'vote';
+  details?: 'see details';
+  results?: 'see results';
   href: string;
   className?: string;
 };
 
 function PollCard(props: PollCardProps) {
   return (
-    <div className={clsx('flex justify-center h-28', props.className)}>
+    <div className={clsx('flex justify-center ', props.className)}>
       <div className="bg-yellow p-3 pb-0 shadow-shadow border-3 border-black rounded-round ">
-        <div className="bg-yellow-light gap-4 w-64 border-black border-3 rounded-round p-1">
+        <div className="bg-yellow-light gap-4 w-64 h-auto border-black border-3 rounded-round p-1">
           {props.children}
         </div>
         <div className="flex justify-between items-center">

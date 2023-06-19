@@ -10,8 +10,10 @@ type PollActivityActionBarProps = {
 function PollActivityActionBar({ className }: PollActivityActionBarProps) {
   return (
     <div className={clsx('flex flex-col justify-around', className)}>
-      <h1 className="text-4xl text-center">Poll Activity</h1>
-      <div className="flex flex-row justify-center">
+      <h1 className="title-bold p-8 pb-0 flex justify-center pr-40">
+        Poll Activity
+      </h1>
+      <div className="flex gap-2  flex-row justify-center mb-5">
         <TabButton href="/new">new</TabButton>
         <TabButton href="/pending">pending</TabButton>
         <TabButton href="closed">closed</TabButton>
