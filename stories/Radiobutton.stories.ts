@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Radiobutton from 'components/Radiobutton';
+import Radiobutton from '../components/Radiobutton';
 const meta: Meta<typeof Radiobutton> = {
   title: 'components/Radiobutton',
   component: Radiobutton,
