@@ -25,6 +25,7 @@ function Provider({ children }: ProviderProps) {
         draggable
         pauseOnHover
         theme="light"
+        className={'toast-container'}
       />
       <SessionProvider> {/* <-- next-auth authentication */}
         <QueryClientProvider client={queryClient}>

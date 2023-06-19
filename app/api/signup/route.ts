@@ -1,39 +1,32 @@
-import { db } from "@/libs/db";
-import { signUpSchema } from "@/types/user/SignUpSchema";
-import { hash } from "bcryptjs";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
+import bcrypt from 'bcrypt';
+import { SignUpUser, signUpSchema } from 'types/user/SignUpSchema';
+import { db } from '@/libs/db';
 
-export async function POST(req: Request) {
+interface IRequest extends NextRequest {
+  json: () => Promise<SignUpUser>;
+}
+
+export async function POST(request: IRequest) {
+  const { userName, password, confirmPassword } = await request.json();
+
   try {
-    const { userName, password, confirmPassword } = (await req.json()) as any;
-    const hashed_password = await hash(password, 12);
-    
-    // server side data validation with zod
-    try {
-      signUpSchema.parse({ userName, password, confirmPassword });
-    } catch (err) {
-      return NextResponse.json('Invalid user input', { status: 422 });
-    }
+    signUpSchema.parse({ userName, password, confirmPassword });
+  } catch (err) {
+    return NextResponse.json('Invalid user input', { status: 422 });
+  }
 
-    const user = await db.user.create({
-      data: {
-        name: userName,
-        password: hashed_password,
-      },
-    });
+  const hashedPassword = await bcrypt.hash(password, 12);
 
-    return NextResponse.json({
-      user: {
-        name: user.name,
-      },
+  try {
+    const newUser = await db.user.create({
+      data: { name: userName, password: hashedPassword },
     });
-  } catch (error: any) {
-    return new NextResponse(
-      JSON.stringify({
-        status: "error",
-        message: error.message,
-      }),
-      { status: 500 }
+    return NextResponse.json(
+      { user: { id: newUser.id, username: newUser.name } },
+      { status: 201 }
     );
+  } catch (err) {
+    return NextResponse.json('User already exists', { status: 422 });
   }
 }
