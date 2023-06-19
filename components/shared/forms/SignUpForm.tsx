@@ -24,24 +24,30 @@ function SignUpForm() {
     >
       <InputField
         label="username"
+        showLabel={true}
         width="full"
         type="username"
         error={errors.userName}
+        disabled={false}
         {...register('userName')}
       />
       <InputField
         label="password"
+        showLabel={true}
         width="full"
         type="password"
         error={errors.password}
+        disabled={false}
         {...register('password')}
       />
 
       <InputField
         label="confirm password"
+        showLabel={true}
         type="password"
         width="full"
         error={errors.confirmPassword}
+        disabled={false}
         {...register('confirmPassword')}
       />
 

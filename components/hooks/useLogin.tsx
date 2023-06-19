@@ -36,7 +36,7 @@ export function useLoginMutation() {
       toast.success('You have logged in successfully');
     },
     onError: () => {
-      toast.error('Log in failed');
+      toast.error('Log in failed: account not found. Username or password incorrectly typed?');
     },
   });
   return { register, errors, handleSubmit, ...mutation };

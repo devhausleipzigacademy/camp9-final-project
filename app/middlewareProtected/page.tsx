@@ -1,6 +1,6 @@
 import React from 'react';
 
-function page() {
+function Page() {
   return (
     <>
       <div>You can only see me if you're signed in</div>
@@ -12,4 +12,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
