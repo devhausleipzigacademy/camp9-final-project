@@ -1,24 +1,30 @@
 'use client';
 
+import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import { toast } from 'react-toastify';
+import { useMutation } from '@tanstack/react-query';
 import { Prisma } from '@prisma/client';
+import axios from 'axios';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+import { NewPoll, NewPollSchema } from 'types/newPoll/NewPollSchema';
+import { useMultiStepForm } from 'utils/useMultiStepForm';
+
 import ProgressBar from 'components/ProgressBar';
 import CreatePoll from 'components/newPoll/CreatePoll';
 import Deadline from 'components/newPoll/Deadline';
 import RevealConditions from 'components/newPoll/RevealConditions';
 import PollType from 'components/newPoll/PollType';
 import Button from 'components/shared/buttons/Button';
-import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-import { useMultiStepForm } from 'utils/useMultiStepForm';
-import { toast } from 'react-toastify';
-import axios from 'axios';
-import { NewPoll } from 'types/newPoll/NewPollSchema';
-import { useMutation } from '@tanstack/react-query';
 
 import { POSTReturnType as POSTNewPoll } from '../api/new/route';
+import { useState } from 'react';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
+    resolver: zodResolver(NewPollSchema),
+    mode: 'onTouched',
     defaultValues: {
       description: '',
       question: '',
@@ -30,6 +36,7 @@ export default function NewPollLayout() {
     },
   });
 
+  // create a new poll
   async function createNewPoll(poll: NewPoll) {
     const { data } = await axios.post('/api/new', poll, {
       withCredentials: true,
@@ -47,23 +54,20 @@ export default function NewPollLayout() {
   //     toast.error('Something went wrong!');
   //   },
   // });
-
-  const { steps, currentStepIndex, isLastStep, back, next } =
-    useMultiStepForm([
-      <CreatePoll />,
-      <CreatePoll />,
-      <PollType />,
-      <RevealConditions />,
-      <Deadline />,
-    ]);
-
-  const { handleSubmit, formState, reset } = methods;
+  const { handleSubmit, formState, reset, trigger, watch } = methods;
   const { errors } = formState;
+
+  const { steps, currentStepIndex, isLastStep, back, next } = useMultiStepForm([
+    <CreatePoll />,
+    <PollType />,
+    <RevealConditions />,
+    <Deadline />,
+  ]);
 
   const onSubmit: SubmitHandler<
     Omit<Prisma.PollCreateInput, 'creator'>
   > = data => {
-    console.table(data);
+    // console.table(data);
     if (isLastStep) {
       // Handle form submission for the last step
 
@@ -71,7 +75,7 @@ export default function NewPollLayout() {
       if (Object.keys(errors).length === 0) {
         try {
           //  Create a new poll in the database
-          console.log(data);
+          console.table(data);
           // mutate(data);
           console.log('Poll created successfully!');
           reset(); // Clear the form fields
@@ -84,11 +88,23 @@ export default function NewPollLayout() {
     }
   };
 
+  function isDisabled() {
+    const dirtyFields = Object.keys(formState.dirtyFields);
+    const touchedFields = Object.keys(formState.touchedFields);
+    const errorFields = Object.keys(formState.errors);
+
+    // Check if any of the dirty or touched fields have validation errors
+    const hasInvalidFields =
+      dirtyFields.some(field => errorFields.includes(field)) ||
+      touchedFields.some(field => errorFields.includes(field));
+
+    return hasInvalidFields || !formState.isValid;
+  }
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
         <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-          <h1 className="title-black">Create a Poll</h1>
+          <h1 className="title-black self-start">Create a Poll</h1>
           <ProgressBar
             currentPage={currentStepIndex + 1}
             numberOfPages={steps.length}
@@ -111,6 +127,7 @@ export default function NewPollLayout() {
           size="large"
           className="ml-auto"
           onClick={handleSubmit(onSubmit)}
+          disabled={isDisabled()}
         >
           {isLastStep ? 'Create' : 'Next'}
           <GrFormNext size={24} strokeWidth={2} />
@@ -119,4 +136,3 @@ export default function NewPollLayout() {
     </>
   );
 }
-

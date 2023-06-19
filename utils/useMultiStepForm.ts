@@ -1,5 +1,3 @@
-'use client';
-
 import { ReactElement, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ro } from '@faker-js/faker';
