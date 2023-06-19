@@ -26,8 +26,10 @@ export function useLoginMutation() {
     register,
     formState: { errors },
     handleSubmit,
+    formState,
   } = useForm<LoginSchemaType>({
     resolver: zodResolver(loginSchema),
+    mode: 'onTouched',
   });
 
   const mutation = useMutation({
@@ -36,8 +38,10 @@ export function useLoginMutation() {
       toast.success('You have logged in successfully');
     },
     onError: () => {
-      toast.error('Log in failed: account not found. Username or password incorrectly typed?');
+      toast.error(
+        'Log in failed: account not found. Username or password incorrectly typed?'
+      );
     },
   });
-  return { register, errors, handleSubmit, ...mutation };
+  return { register, errors, handleSubmit, formState, ...mutation };
 }

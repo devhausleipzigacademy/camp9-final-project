@@ -1,7 +1,7 @@
 // https://codevoweb.com/setup-and-use-nextauth-in-nextjs-13-app-directory/
 
 import { db } from '@/libs/db';
-import { compare } from 'bcryptjs';
+import { compare } from 'bcrypt';
 import type { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
