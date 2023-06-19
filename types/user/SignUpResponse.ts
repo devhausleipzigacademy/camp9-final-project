@@ -1,0 +1,3 @@
+type SignUpResponse = {
+  token: string;
+};
