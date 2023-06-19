@@ -24,8 +24,10 @@ export function useSignUpMutation() {
     formState: { errors },
     reset,
     handleSubmit,
+    formState,
   } = useForm<SignUpUser>({
     resolver: zodResolver(signUpSchema),
+    mode: 'onTouched',
   });
 
   const mutation = useMutation<SignUpResponse, AxiosError, SignUpUser>({
@@ -38,5 +40,5 @@ export function useSignUpMutation() {
       toast.error('User already exists!');
     },
   });
-  return { register, errors, handleSubmit, ...mutation };
+  return { register, errors, handleSubmit, formState, ...mutation };
 }

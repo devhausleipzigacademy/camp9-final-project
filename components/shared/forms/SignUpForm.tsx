@@ -6,7 +6,7 @@ import { SignUpUser } from 'types/user/SignUpSchema';
 import Button from '../buttons/Button';
 
 function SignUpForm() {
-  const { mutate, isLoading, handleSubmit, register, errors } =
+  const { mutate, isLoading, handleSubmit, register, errors, formState } =
     useSignUpMutation();
 
   const onSubmit = (data: SignUpUser) => {
@@ -54,7 +54,12 @@ function SignUpForm() {
           {...register('confirmPassword')}
         />
       </div>
-      <Button type="submit" size="full" variant="secondary">
+      <Button
+        type="submit"
+        size="full"
+        variant="secondary"
+        disabled={Object.keys(formState.errors).length !== 0}
+      >
         Sign Up
       </Button>
     </form>
