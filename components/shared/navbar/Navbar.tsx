@@ -15,10 +15,10 @@ export const Navbar = ({ variant = 'primary', active }: NavbarProps) => {
   
   return (
     <>
-      <nav className="flex justify-center">
+      <nav className="flex justify-center container">
         <div
           className={clsx(
-            'flex justify-around items-center w-[311px] h-[60px] rounded-round border-2 border-black border-solid shadow-shadow',
+            'flex justify-around items-center w-full h-[60px] rounded-round border-2 border-black border-solid shadow-shadow',
             variant === 'primary' ? 'bg-green' : 'bg-teal'
           )}
         >

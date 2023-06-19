@@ -4,6 +4,7 @@ module.exports = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './stories/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -35,9 +36,16 @@ module.exports = {
       },
       width: {
         8.5: '31px',
+        25: '6.25rem',
+        18: '4.5rem',
       },
       height: {
         8.5: '31px',
+        15: '3.75rem',
+        18: '4.5rem',
+      },
+      borderWidth: {
+        3: '3px',
       },
     },
     plugins: [],
