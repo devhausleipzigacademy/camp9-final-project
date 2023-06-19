@@ -22,8 +22,8 @@ export default function PollType() {
             Single Choice
             <input
               {...register('type', { required: true })}
-              type="checkbox"
-              value="singleChoice"
+              type="radio"
+              value="SingleChoice"
               id="singleChoice"
             />
           </label>
@@ -31,8 +31,8 @@ export default function PollType() {
             Multiple Choice
             <input
               {...register('type', { required: true })}
-              type="checkbox"
-              value="multipleChoice"
+              type="radio"
+              value="MultipleChoice"
               id="multipleChoice"
             />
           </label>

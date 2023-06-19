@@ -1,9 +1,21 @@
+import { Anonymity, PollType } from '@prisma/client';
 import { NewPollSchema } from 'types/newPoll/NewPollSchema';
 import { ZodError } from 'zod';
 
 export type POSTReturnType = {
-    
-}
+  id: number;
+  description?: string;
+  question: string;
+  options: string[];
+  creatorId: number;
+  participants: number[];
+  endDateTime: string;
+  anonymity: Anonymity;
+  quorum?: number;
+  type: PollType;
+  createdAt: string;
+  updatedAt: string;
+};
 
 export async function POST(request: Request) {
   const data = await request.json();
