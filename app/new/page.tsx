@@ -19,13 +19,12 @@ import PollType from 'components/newPoll/PollType';
 import Button from 'components/shared/buttons/Button';
 
 import { POSTReturnType as POSTNewPoll } from '../api/new/route';
-import { useState } from 'react';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
     resolver: zodResolver(NewPollSchema),
     mode: 'onTouched',
-    defaultValues: {
+    /*     defaultValues: {
       description: '',
       question: '',
       options: [''],
@@ -33,10 +32,9 @@ export default function NewPollLayout() {
       anonymity: 'Anonymous',
       quorum: 0,
       type: 'MultipleChoice',
-    },
+    }, */
   });
 
-  // create a new poll
   async function createNewPoll(poll: NewPoll) {
     const { data } = await axios.post('/api/new', poll, {
       withCredentials: true,
@@ -54,29 +52,21 @@ export default function NewPollLayout() {
   //     toast.error('Something went wrong!');
   //   },
   // });
+
   const { handleSubmit, formState, reset, trigger, watch } = methods;
   const { errors } = formState;
 
-  const { steps, currentStepIndex, isLastStep, back, next } = useMultiStepForm([
-    <CreatePoll />,
-    <PollType />,
-    <RevealConditions />,
-    <Deadline />,
-  ]);
-
+  const { steps, currentStepIndex, isLastStep, back, next } = useMultiStepForm(
+    [<CreatePoll />, <PollType />, <RevealConditions />, <Deadline />],
+    methods
+  );
   const onSubmit: SubmitHandler<
     Omit<Prisma.PollCreateInput, 'creator'>
   > = data => {
-    // console.table(data);
+    console.table(data);
     if (isLastStep) {
-      // Handle form submission for the last step
-
-      // Check if there are any validation errors
       if (Object.keys(errors).length === 0) {
         try {
-          //  Create a new poll in the database
-          console.table(data);
-          // mutate(data);
           console.log('Poll created successfully!');
           reset(); // Clear the form fields
         } catch (error) {
@@ -88,51 +78,42 @@ export default function NewPollLayout() {
     }
   };
 
-  function isDisabled() {
-    const dirtyFields = Object.keys(formState.dirtyFields);
-    const touchedFields = Object.keys(formState.touchedFields);
-    const errorFields = Object.keys(formState.errors);
+  console.log(errors);
 
-    // Check if any of the dirty or touched fields have validation errors
-    const hasInvalidFields =
-      dirtyFields.some(field => errorFields.includes(field)) ||
-      touchedFields.some(field => errorFields.includes(field));
-
-    return hasInvalidFields || !formState.isValid;
-  }
   return (
     <>
-      <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
-        <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-          <h1 className="title-black self-start">Create a Poll</h1>
-          <ProgressBar
-            currentPage={currentStepIndex + 1}
-            numberOfPages={steps.length}
-          />
-          <FormProvider {...methods}>
-            <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+      <FormProvider {...methods}>
+        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+          <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+            <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+              <h1 className="title-black self-start">Create a Poll</h1>
+              <ProgressBar
+                currentPage={currentStepIndex + 1}
+                numberOfPages={steps.length}
+              />
               {steps[currentStepIndex]}
-            </form>
-          </FormProvider>
-        </div>
-      </main>
+            </div>
+          </main>
 
-      <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
-        <Button size="small" variant="secondary" onClick={back}>
-          <GrFormPrevious size={24} strokeWidth={2} />
-          <h3>Back</h3>
-        </Button>
+          <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
+            <Button size="small" variant="secondary" onClick={back}>
+              <GrFormPrevious size={24} strokeWidth={2} />
+              <h3>Back</h3>
+            </Button>
 
-        <Button
-          size="large"
-          className="ml-auto"
-          onClick={handleSubmit(onSubmit)}
-          disabled={isDisabled()}
-        >
-          {isLastStep ? 'Create' : 'Next'}
-          <GrFormNext size={24} strokeWidth={2} />
-        </Button>
-      </footer>
+            <Button
+              size="large"
+              className="ml-auto"
+              type={isLastStep ? 'submit' : 'button'}
+              onClick={!isLastStep ? next : undefined}
+              disabled={Object.keys(formState.errors).length !== 0}
+            >
+              {isLastStep ? 'Create' : 'Next'}
+              <GrFormNext size={24} strokeWidth={2} />
+            </Button>
+          </footer>
+        </form>
+      </FormProvider>
     </>
   );
 }
