@@ -1,4 +1,3 @@
-import { Questionbox } from 'components/Question';
 import Image from 'next/image';
 import GroupIllustration from '/public/images/Illustr_group_voting.png';
 import Button from 'components/shared/buttons/Button';
