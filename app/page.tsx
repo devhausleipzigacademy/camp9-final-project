@@ -11,7 +11,7 @@ export default function LandingPage() {
   return (
     <>
       <h1 className="logo">d'accord</h1>
-      <div className=''>
+      <div>
         <Image
           src={GroupIllustration}
           alt="illustratio of a group of people making decisions"
