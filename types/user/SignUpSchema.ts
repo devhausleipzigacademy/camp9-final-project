@@ -10,7 +10,7 @@ export const signUpSchema = z
     confirmPassword: z.string().min(8, 'do not match'),
   })
   .refine(data => data.password === data.confirmPassword, {
-    message: 'does not match',
+    message: 'repeat password',
     path: ['confirmPassword'],
   });
 
