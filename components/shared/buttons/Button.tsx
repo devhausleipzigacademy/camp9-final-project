@@ -2,7 +2,6 @@
 
 import { VariantProps, cva } from 'class-variance-authority';
 import Link from 'next/link';
-import { useState } from 'react';
 
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
