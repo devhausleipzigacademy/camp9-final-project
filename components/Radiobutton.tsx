@@ -36,7 +36,7 @@ export const Radiobutton = ({ variant }: BoxCheckedProps) => {
   );
 
   return (
-    <button className={boxclass({ variant })} onClick={handleChange}>
+    <div className={boxclass({ variant })} onClick={handleChange}>
       {checked ? (
         <svg
           width="24"
@@ -63,7 +63,7 @@ export const Radiobutton = ({ variant }: BoxCheckedProps) => {
           <path d="" fill="black" stroke="black" strokeWidth="2" />
         </svg>
       )}
-    </button>
+    </div>
   );
 };
 
