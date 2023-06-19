@@ -14,7 +14,7 @@ export default function LandingPage() {
       <div>
         <Image
           src={GroupIllustration}
-          alt="illustratio of a group of people making decisions"
+          alt="illustration of a group of people making decisions"
           placeholder='blur'
         />
         <div className="text-white text-center text-xl font-medium my-3">Vote secretly, reveal conditionally</div>
