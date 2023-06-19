@@ -2,7 +2,7 @@ import LoginForm from '@/components/shared/forms/LoginForm';
 import Link from 'next/link';
 import React from 'react';
 
-async function SignUp() {
+async function Login() {
   return (
     <div className="w-full h-full flex flex-col p-4 bg-yellow">
       <div className="w-[300px] h-[120px] border-4 border-solid rounded-sm border-slate-800 flex justify-center items-center">
@@ -17,4 +17,4 @@ async function SignUp() {
   );
 }
 
-export default SignUp;
+export default Login;
