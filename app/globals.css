@@ -124,6 +124,7 @@
     padding-top: 2.5rem;
     padding-left: 2rem;
     padding-bottom: 1.25rem;
+    padding-right: 2rem;
   }
   .title-black {
     font-family: 'Poppins';
@@ -245,4 +246,40 @@
     width: 0;
     background: transparent;
   }
+  .appName {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 65px;
+    line-height: 98px;
+    text-align: center;
+    color: #febf10;
+    text-shadow: -4px 4px 0px #000000;
+    -webkit-text-stroke: 2px black;
+  }
+}
+
+.toast-container {
+  --toastify-color-light: #ffedbc;
+  --toastify-color-dark: #2f9ca1;
+  --toastify-color-info: #038b91;
+  --toastify-color-success: #79cb65;
+  --toastify-color-warning: #febf10;
+  --toastify-color-error: #fa1911;
+  --toastify-color-transparent: rgba(255, 255, 255, 1);
+
+  --toastify-icon-color-info: var(--toastify-color-info);
+  --toastify-icon-color-success: var(--toastify-color-success);
+  --toastify-icon-color-warning: var(--toastify-color-warning);
+  --toastify-icon-color-error: var(--toastify-color-error);
+
+  --toastify-toast-width: 320px;
+  --toastify-toast-background: #febf10;
+  --toastify-toast-min-height: 64px;
+  --toastify-toast-max-height: 800px;
+  --toastify-font-family: 'Poppins';
+  --toastify-z-index: 9999;
+
+  --toastify-text-color-light: #000000;
+  --toastify-text-color-dark: #fff;
 }

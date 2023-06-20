@@ -1,5 +1,8 @@
-import './globals.css';
-import Provider from './provider';
+import React from 'react';
+import '../globals.css';
+
+import { Navbar } from '@/components/shared/navbar/Navbar';
+import Provider from '../provider';
 
 export const metadata = {
   title: 'Create Next App',
@@ -13,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="w-full flex flex-col justify-between h-screen">
         <Provider>{children}</Provider>
       </body>
     </html>

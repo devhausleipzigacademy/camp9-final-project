@@ -17,16 +17,11 @@ export const Navbar = ({
 }: NavbarProps) => {
   return (
     <>
-      <nav
-        className={clsx(
-          'flex justify-center items-center flex-col ',
-          className
-        )}
-      >
+      <nav className="flex justify-center container">
         <div
           className={clsx(
-            'flex justify-around items-center w-[311px] h-[60px] rounded-round border-2 border-black border-solid shadow-shadow',
-            variant === 'primary' ? 'bg-[#9FCC95]' : 'bg-teal'
+            'flex justify-around items-center w-full h-[60px] rounded-round border-2 border-black border-solid shadow-shadow',
+            variant === 'primary' ? 'bg-green' : 'bg-teal'
           )}
         >
           <Navbaritem>
