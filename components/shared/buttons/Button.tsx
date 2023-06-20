@@ -44,7 +44,7 @@ const buttonClasses = cva(
         xs: ['h-11', 'w-11'],
         small: ['h-11', 'w-1/3'],
         medium: ['h-11', 'w-1/2'],
-        large: ['h-11', 'w-2/3'],
+        large: ['h-11', 'w-3/5'],
         full: ['h-15', 'w-full'],
       },
     },
@@ -66,10 +66,8 @@ export default function Button({
   }`;
 
   return href ? (
-    <Link href={href} className="w-full">
-      <button className={dynamicClasses} {...props}>
-        {children}
-      </button>
+    <Link href={href} className={dynamicClasses}>
+      {children}
     </Link>
   ) : (
     <button onClick={handleClick} className={dynamicClasses} {...props}>
