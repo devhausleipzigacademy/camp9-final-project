@@ -6,7 +6,6 @@ import CreatePoll from '@/components/newPoll/CreatePoll';
 import Deadline from '@/components/newPoll/Deadline';
 import RevealConditions from '@/components/newPoll/RevealConditions';
 import { zodResolver } from '@hookform/resolvers/zod';
-import PollType from '@/components/newPoll/PollType';
 import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
 import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
@@ -18,6 +17,7 @@ import { useMutation } from '@tanstack/react-query';
 
 import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
 import { get } from 'http';
+import AnswerOptions from '@/components/newPoll/AnswerOptions';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
@@ -54,7 +54,7 @@ export default function NewPollLayout() {
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm(
-      [<CreatePoll />, <PollType />, <RevealConditions />, <Deadline />],
+      [<CreatePoll />, <AnswerOptions />, <RevealConditions />, <Deadline />],
       methods
     );
 
