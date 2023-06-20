@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import UserEdit from 'components/UserEdit';
+import UserEdit from 'components/SettingsButton';
 
 const meta: Meta<typeof UserEdit> = {
   title: 'UserEdit',

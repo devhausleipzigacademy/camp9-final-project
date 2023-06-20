@@ -1,13 +1,22 @@
+'use client';
 import InputField from 'components/InputField';
-import UserEdit from 'components/UserEdit';
+import UserEdit from 'components/SettingsButton';
 import React from 'react';
+import { useState } from 'react';
 
-function page() {
+type Icon = 'pencil' | 'check';
+
+function Settings() {
+  const [usernameEdit, setUsernameEdit] = useState<Icon>('pencil');
+  const [passwordEdit, setPasswordEdit] = useState<Icon>('pencil');
+  const [confirmPasswordEdit, setConfirmPasswordEdit] =
+    useState<Icon>('pencil');
+
   return (
     <div className="bg-yellow-light">
       <h2 className="title-bold">User Settings</h2>
-      <div className="mt-[60px]">
-        <div className="flex">
+      <div className="mt-[60px] flex">
+        <div className="flex gap-4">
           <InputField
             label={'Username'}
             showLabel={true}
@@ -16,11 +25,18 @@ function page() {
             disabled={false}
             placeholder="<current username>"
           />
-          <UserEdit disabled={false} variant="pencil" children="" />
+          <UserEdit
+            disabled={false}
+            variant={usernameEdit}
+            children=""
+            onClick={() => {
+              setUsernameEdit(usernameEdit === 'pencil' ? 'check' : 'pencil');
+            }}
+          />
         </div>
       </div>
-      <div className=" my-4">
-        <div className="flex">
+      <div className="my-4">
+        <div className="flex gap-4">
           <InputField
             label={'Password'}
             showLabel={true}
@@ -29,11 +45,18 @@ function page() {
             disabled={false}
             placeholder="<current password>"
           />
-          <UserEdit disabled={false} variant="pencil" children="" />
+          <UserEdit
+            disabled={false}
+            variant={passwordEdit}
+            children=""
+            onClick={() => {
+              setPasswordEdit(passwordEdit === 'pencil' ? 'check' : 'pencil');
+            }}
+          />
         </div>
       </div>
       <div className="mb-[107px]">
-        <div className="flex ">
+        <div className="flex gap-4 items-">
           <InputField
             label={'Confirm Password'}
             showLabel={true}
@@ -42,16 +65,20 @@ function page() {
             disabled={true}
             placeholder="<password>"
           />
-          <UserEdit disabled={false} variant="pencil" children="" />
+          <UserEdit
+            disabled={true}
+            variant={confirmPasswordEdit}
+            children=""
+            onClick={() => {
+              setConfirmPasswordEdit(
+                confirmPasswordEdit === 'pencil' ? 'check' : 'pencil'
+              );
+            }}
+          />
         </div>
-      </div>
-      <div className="flex justify-items-end">
-        <button className="border-brutal rounded-md p-4 flex-grow">
-          Log out
-        </button>
       </div>
     </div>
   );
 }
 
-export default page;
+export default Settings;

@@ -10,9 +10,6 @@ interface NavbarProps {
   active?: boolean;
 }
 export const Navbar = ({ variant = 'primary', active }: NavbarProps) => {
-  
-  
-  
   return (
     <>
       <nav className="flex justify-center container">
@@ -28,7 +25,7 @@ export const Navbar = ({ variant = 'primary', active }: NavbarProps) => {
           <Navbaritem>
             <IoIosAdd className="w-8.5 h-8.5" />
           </Navbaritem>
-          <Navbaritem hrefString='/settings'>
+          <Navbaritem hrefString="/settings">
             <HiUser className="w-8.5 h-8.5" />
           </Navbaritem>
         </div>

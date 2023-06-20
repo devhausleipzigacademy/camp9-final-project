@@ -8,7 +8,7 @@ export default function SettingsLayout({
 }) {
   return (
     <>
-      <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+      <main className="container flex flex-col items-center h-screen justify-between bg-yellow-light p-8">
         <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
           {children}
         </div>
