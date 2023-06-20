@@ -12,7 +12,7 @@ function SignUp() {
       <div className="flex flex-col justify-center">
         <p className="text-center body-semibold">Already have an Account?</p>
         <Link href={'/login'} className="underline text-center body-semibold">
-          Sign In!
+          Log in!
         </Link>
       </div>
     </div>

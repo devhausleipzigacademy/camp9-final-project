@@ -1,10 +1,9 @@
 import axios, { AxiosError } from 'axios';
-
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignUpUser, signUpSchema } from '@/types/user/SignUpSchema';
+import { SignUpUser, signUpSchema, SignUpResponse } from '@/types/user/AuthSchemata';
 
 /////////////////////
 // SignUp Mutation //
