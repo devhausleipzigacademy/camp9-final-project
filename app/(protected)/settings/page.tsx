@@ -1,7 +1,6 @@
 'use client';
 import InputField from 'components/InputField';
 import SettingsButton from 'components/shared/buttons/SettingsButton';
-import UserEdit from 'components/shared/buttons/SettingsButton';
 import React from 'react';
 import { useState } from 'react';
 
@@ -13,6 +12,7 @@ function Settings() {
   const [confirmPasswordEdit, setConfirmPasswordEdit] =
     useState<Icon>('pencil');
 
+
   return (
     <div className="bg-yellow-light">
       <h2 className="title-bold">User Settings</h2>
@@ -23,7 +23,7 @@ function Settings() {
             showLabel={true}
             type={'username'}
             width={'reduced'}
-            disabled={false}
+            disabled={usernameEdit === 'pencil'}
             placeholder="<current username>"
           />
           <SettingsButton
@@ -43,7 +43,7 @@ function Settings() {
             showLabel={true}
             type={'password'}
             width={'reduced'}
-            disabled={false}
+            disabled={passwordEdit === 'pencil'}
             placeholder="<current password>"
           />
           <SettingsButton
@@ -63,18 +63,8 @@ function Settings() {
             showLabel={true}
             type={'password'}
             width={'reduced'}
-            disabled={true}
+            disabled={passwordEdit === 'pencil'}
             placeholder="<password>"
-          />
-          <SettingsButton
-            disabled={true}
-            variant={confirmPasswordEdit}
-            children=""
-            onClick={() => {
-              setConfirmPasswordEdit(
-                confirmPasswordEdit === 'pencil' ? 'check' : 'pencil'
-              );
-            }}
           />
         </div>
       </div>
