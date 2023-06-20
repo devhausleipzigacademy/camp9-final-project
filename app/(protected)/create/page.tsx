@@ -2,11 +2,11 @@
 
 import { Prisma } from '@prisma/client';
 import ProgressBar from 'components/ProgressBar';
-import CreatePoll from 'components/newPoll/CreatePoll';
-import Deadline from 'components/newPoll/Deadline';
-import RevealConditions from 'components/newPoll/RevealConditions';
+import CreatePoll from '@/components/newPoll/CreatePoll';
+import Deadline from '@/components/newPoll/Deadline';
+import RevealConditions from '@/components/newPoll/RevealConditions';
 import { zodResolver } from '@hookform/resolvers/zod';
-import PollType from 'components/newPoll/PollType';
+import PollType from '@/components/newPoll/PollType';
 import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
 import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
