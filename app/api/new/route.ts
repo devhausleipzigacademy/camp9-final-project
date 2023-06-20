@@ -1,5 +1,5 @@
+import { NewPollSchema } from '@/types/newPoll/NewPollSchema';
 import { Anonymity, PollType } from '@prisma/client';
-import { NewPollSchema } from 'types/newPoll/NewPollSchema';
 import { ZodError } from 'zod';
 
 export type POSTReturnType = {

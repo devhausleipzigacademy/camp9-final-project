@@ -8,7 +8,7 @@ import { Prisma } from '@prisma/client';
 import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { NewPoll, NewPollSchema } from 'types/newPoll/NewPollSchema';
+import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
 
 import ProgressBar from 'components/ProgressBar';
