@@ -31,7 +31,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "components/newPoll/PollType.tsx"
   ],
   "exclude": ["node_modules"]
 }
