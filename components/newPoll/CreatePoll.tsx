@@ -1,6 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import InputField from '../InputField';
 import InputFieldDescription from 'components/InputFieldDescription';
+import RadioButton from 'components/Radiobutton';
 
 export default function CreatePoll() {
   const { register, formState, getValues } = useFormContext(); // retrieve all hook methods
@@ -30,6 +31,7 @@ export default function CreatePoll() {
         placeholder="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         "
       />
+      <RadioButton variant={'primary'} />
     </div>
   );
 }

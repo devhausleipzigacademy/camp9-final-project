@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+import CustomRadio from './CustomRadio';
 
 export default function PollType() {
   const { register } = useFormContext();
@@ -29,12 +30,7 @@ export default function PollType() {
           </label>
           <label htmlFor="multipleChoice">
             Multiple Choice
-            <input
-              {...register('type', { required: true })}
-              type="radio"
-              value="MultipleChoice"
-              id="multipleChoice"
-            />
+            <CustomRadio checked={false} />
           </label>
         </div>
       </fieldset>

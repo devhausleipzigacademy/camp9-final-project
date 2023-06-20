@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 
-import { POSTReturnType as POSTNewPoll } from '@/app/api/new/route';
+import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
 import { get } from 'http';
 
 export default function NewPollLayout() {
