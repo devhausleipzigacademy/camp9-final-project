@@ -4,7 +4,7 @@ import React from 'react';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { ChangeEvent } from 'react';
-import WarningSVG from '@/public/images/WarningSVG';
+import WarningSVG from '../public/images/WarningSVG';
 
 type InputFieldProps = {
   label: string;
