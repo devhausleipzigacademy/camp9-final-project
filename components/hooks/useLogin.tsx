@@ -1,9 +1,9 @@
-import { loginSchema, LoginSchemaType } from '@/types/user/LoginSchema';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
+import { loginSchema, LoginSchemaType } from '@/types/user/AuthSchemata';
 
 ////////////////////
 // Login Mutation //

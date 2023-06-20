@@ -2,8 +2,8 @@
 
 import InputField from '@/components/InputField';
 import { useLoginMutation } from '@/components/hooks/useLogin';
-import { LoginSchemaType } from '@/types/user/LoginSchema';
 import Button from '../buttons/Button';
+import { LoginSchemaType } from '@/types/user/AuthSchemata';
 
 function LoginForm() {
   // hook-form, toastify & tanstack-query are combined in custom hook useLoginMutation

@@ -2,7 +2,7 @@
 
 import InputField from 'components/InputField';
 import { useSignUpMutation } from 'components/hooks/useUser';
-import { SignUpUser } from 'types/user/SignUpSchema';
+import { SignUpUser } from '@/types/user/AuthSchemata';
 import Button from '../buttons/Button';
 
 function SignUpForm() {
@@ -28,8 +28,8 @@ function SignUpForm() {
           key={'userName'}
           placeholder={'Username'}
           type="text"
-          error={errors.userName}
-          {...register('userName')}
+          error={errors.username}
+          {...register('username')}
         />
         <InputField
           label={'Password'}
