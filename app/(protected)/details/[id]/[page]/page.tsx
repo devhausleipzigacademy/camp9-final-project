@@ -3,6 +3,8 @@ import { db } from 'app/libs/db';
 import PollDetailsCard from 'components/shared/PollDetailsCard';
 import PreviewCheckbox from 'components/shared/PreviewCheckbox';
 import React from 'react';
+import { authOptions } from '@/libs/auth';
+import { getServerSession } from 'next-auth/next';
 
 interface FullPollInfo extends Poll {
   votes: Vote[];
@@ -106,7 +108,12 @@ async function PollDetails({
   if (parseInt(params.page) <= 0 || parseInt(params.page) > 3) {
     throw new Error('Invalid page number.');
   }
-  const poll = await getPoll(parseInt(params.id), 10);
+  let userId = 10; //default user if no user is logged in
+  const session = await getServerSession(authOptions);
+  if (session && Number.isInteger(session.user.id)) {
+    userId = session.user.id;
+  }
+  const poll = await getPoll(parseInt(params.id), userId);
   const parsedPoll = parsePollData(poll);
   return (
     <div className="flex flex-col gap-4 mt-2">

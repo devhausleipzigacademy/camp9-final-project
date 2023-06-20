@@ -30,7 +30,7 @@ export default function PollDetailsLayout({
         numberOfPages={3}
       />
       {children}
-      <nav className="flex justify-between fixed bottom-[100px] left-0 w-full px-8">
+      <nav className="flex justify-between container gap-12 fixed bottom-[100px] left-0 w-full px-8">
         <Button size="small" variant="secondary" href={prevPageHref}>
           <GrFormPrevious size={24} strokeWidth={2} />
           {params.page == '1' ? 'Home' : 'Back'}
