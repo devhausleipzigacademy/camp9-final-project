@@ -113,6 +113,7 @@ async function PollDetails({
   if (session && Number.isInteger(session.user.id)) {
     userId = session.user.id;
   }
+  console.log('USER ID:' + userId);
   const poll = await getPoll(parseInt(params.id), userId);
   const parsedPoll = parsePollData(poll);
   return (
