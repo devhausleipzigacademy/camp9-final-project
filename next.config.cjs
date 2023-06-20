@@ -2,9 +2,10 @@
 
 const nextConfig = {
   async redirects() {
+    console.log('redirect!');
     return [
       {
-        source: '/details/:id',
+        source: '/details/:id*',
         destination: '/details/:id/1',
         permanent: true,
       },
