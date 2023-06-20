@@ -1,17 +1,27 @@
 'use client';
+
 import InputField from 'components/InputField';
 import SettingsButton from 'components/shared/buttons/SettingsButton';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios'
 
 type Icon = 'pencil' | 'check';
 
 function Settings() {
   const [usernameEdit, setUsernameEdit] = useState<Icon>('pencil');
   const [passwordEdit, setPasswordEdit] = useState<Icon>('pencil');
-  const [confirmPasswordEdit, setConfirmPasswordEdit] =
-    useState<Icon>('pencil');
 
+  async function getUsername(userID) {
+    try {
+      const response = await axios.get(`/api/getUsername`);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  getUsername("fdsf")
 
   return (
     <div className="bg-yellow-light">
