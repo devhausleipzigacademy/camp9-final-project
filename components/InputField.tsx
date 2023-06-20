@@ -17,7 +17,8 @@ type InputFieldProps = {
   error?: {
     message?: string;
   };
-  disabled: boolean;
+  disabled?: boolean;
+  required?: boolean;
 };
 
 const InputField = forwardRef(
@@ -30,6 +31,7 @@ const InputField = forwardRef(
       error,
       disabled,
       showLabel,
+      required = false,
       ...props
     }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -61,6 +63,8 @@ const InputField = forwardRef(
           )}
         </div>
         <input
+          {...props}
+          required={required}
           className={clsx(
             'p-[14px] h-11 body rounded-md placeholder-[body-light] w-full',
             error?.message === undefined
@@ -70,7 +74,6 @@ const InputField = forwardRef(
           )}
           placeholder={placeholder}
           ref={ref}
-          {...props}
           disabled={disabled}
           onChange={handleChange}
           value={value}

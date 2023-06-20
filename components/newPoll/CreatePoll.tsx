@@ -1,3 +1,5 @@
+'use client';
+
 import { useFormContext } from 'react-hook-form';
 import InputField from '../InputField';
 import InputFieldDescription from 'components/InputFieldDescription';
@@ -10,7 +12,6 @@ export default function CreatePoll() {
       <h3>Question & Details</h3>
 
       <InputField
-        required
         {...register('question', { required: true })}
         error={{ message: formState.errors.question?.message as string }}
         label={'Create a poll'}

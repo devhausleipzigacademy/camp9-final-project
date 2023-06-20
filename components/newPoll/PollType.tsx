@@ -4,7 +4,7 @@ import CustomRadio from './CustomRadio';
 
 export default function PollType() {
   const { register } = useFormContext();
-  const [numberOfOptions, setNumberOfOptions] = useState(1);
+  const [numberOfOptions, setNumberOfOptions] = useState(2);
 
   const handleAddOption = () => {
     setNumberOfOptions(numberOfOptions + 1);
@@ -33,6 +33,21 @@ export default function PollType() {
             <CustomRadio checked={false} />
           </label>
         </div>
+      </fieldset>
+      <fieldset>
+        {Array.from({ length: numberOfOptions }).map((_, index) => (
+          <input
+            key={index}
+            type="text"
+            {...register(`options[${index}]`, { required: true })}
+          />
+        ))}
+        <button type="button" onClick={handleAddOption}>
+          Add Option
+        </button>
+        <button type="button" onClick={handleDeleteOption}>
+          Delete Option
+        </button>
       </fieldset>
       <fieldset>
         {Array.from({ length: numberOfOptions }).map((_, index) => (

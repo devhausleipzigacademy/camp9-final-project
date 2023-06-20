@@ -12,7 +12,7 @@ interface ButtonProps
   handleClick?: () => void;
   isActive?: boolean;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
-  size?: 'small' | 'medium' | 'large' | 'full';
+  size?: 'xs' | 'small' | 'medium' | 'large' | 'full';
   href?: string;
 }
 
@@ -41,6 +41,7 @@ const buttonClasses = cva(
         quaternary: ['bg-green'],
       },
       size: {
+        xs: ['h-11', 'w-11'],
         small: ['h-11', 'w-2/5'],
         medium: ['h-11', 'w-1/2'],
         large: ['h-11', 'w-3/5'],
@@ -65,10 +66,8 @@ export default function Button({
   }`;
 
   return href ? (
-    <Link href={href} className="w-full">
-      <button className={dynamicClasses} {...props}>
-        {children}
-      </button>
+    <Link href={href} className={dynamicClasses}>
+      {children}
     </Link>
   ) : (
     <button onClick={handleClick} className={dynamicClasses} {...props}>
