@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default function LandingPage() {
   return (
     <>
-      <h1 className="logo">d'accord</h1>
+      <h1 className="landing-logo">d'accord</h1>
       <div>
         <Image
           src={GroupIllustration}
