@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-function Controller() {
+function ConsensusController() {
   const [value, setValue] = useState(80);
 
   useEffect(() => {
@@ -20,17 +20,17 @@ function Controller() {
           min="0"
           max="100"
           step="10"
-          list="values"
+          list="valuesConesnusController"
           value={value}
           id="rangeValue"
           onChange={e => setValue(parseInt(e.target.value))}
         />
 
         <p>
-          <output id="outputValue">{value}</output>
+          <output id="outputValue">{value}%</output>
         </p>
       </div>
-      <datalist id="values">
+      <datalist id="valuesConesnusController">
         <option value="0%" label="0%" />
         <option value="100%" label="100%" />
       </datalist>
@@ -38,4 +38,4 @@ function Controller() {
   );
 }
 
-export default Controller;
+export default ConsensusController;
