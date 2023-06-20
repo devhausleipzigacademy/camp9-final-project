@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
-import { SignUpUser, signUpSchema } from 'types/user/SignUpSchema';
+import { SignUpUser, signUpSchema } from '@/types/user/AuthSchemata';
 import { db } from '@/libs/db';
 
 interface IRequest extends NextRequest {
@@ -8,10 +8,10 @@ interface IRequest extends NextRequest {
 }
 
 export async function POST(request: IRequest) {
-  const { userName, password, confirmPassword } = await request.json();
+  const { username, password, confirmPassword } = await request.json();
 
   try {
-    signUpSchema.parse({ userName, password, confirmPassword });
+    signUpSchema.parse({ username, password, confirmPassword });
   } catch (err) {
     return NextResponse.json('Invalid user input', { status: 422 });
   }
@@ -20,7 +20,7 @@ export async function POST(request: IRequest) {
 
   try {
     const newUser = await db.user.create({
-      data: { name: userName, password: hashedPassword },
+      data: { name: username, password: hashedPassword },
     });
     return NextResponse.json(
       { user: { id: newUser.id, username: newUser.name } },
