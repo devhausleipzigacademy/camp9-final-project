@@ -16,7 +16,6 @@ import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
 
 import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
-import { get } from 'http';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
 
 export default function NewPollLayout() {
