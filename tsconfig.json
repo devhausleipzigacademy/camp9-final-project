@@ -19,6 +19,7 @@
     "paths": {
       "@/components/*": ["src/components/*"],
       "@/server/*": ["server/*"]
+      "@/*": ["./*"]
     },
     "noErrorTruncation": true,
     "plugins": [
