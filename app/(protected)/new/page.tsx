@@ -83,6 +83,8 @@ export default function NewPollLayout() {
     }
   };
 
+  // console.log(getValues());
+
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
