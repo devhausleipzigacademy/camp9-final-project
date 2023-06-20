@@ -18,7 +18,7 @@ import RevealConditions from 'components/newPoll/RevealConditions';
 import PollType from 'components/newPoll/PollType';
 import Button from 'components/shared/buttons/Button';
 
-import { POSTReturnType as POSTNewPoll } from '../api/new/route';
+import { POSTReturnType as POSTNewPoll } from '@/app/api/new/route';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
