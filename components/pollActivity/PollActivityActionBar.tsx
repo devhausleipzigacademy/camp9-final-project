@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 import TabButton from 'components/shared/buttons/TabButton';
-import Link from 'next/link';
-import React, { useState } from 'react';
 
 type PollActivityActionBarProps = {
   className?: string;
