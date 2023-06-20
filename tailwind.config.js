@@ -48,6 +48,6 @@ module.exports = {
         3: '3px',
       },
     },
-    plugins: [require('tailwind-scrollbar')({ nocompatible: true })],
+    plugins: [],
   },
 };
