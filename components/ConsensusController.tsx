@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function ConsensusController() {
   const [value, setValue] = useState(80);
+  
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const rangeValue = document.getElementById('rangeValue');
-    if (rangeValue) {
-      rangeValue.style.setProperty('background-size', `${value}%`);
+    if (inputRef.current) {
+      inputRef.current.style.setProperty('background-size', `${value}%`);
     }
   }, [value]);
 
@@ -24,6 +25,7 @@ function ConsensusController() {
           value={value}
           id="rangeValue"
           onChange={e => setValue(parseInt(e.target.value))}
+          ref={inputRef}
         />
 
         <p>
