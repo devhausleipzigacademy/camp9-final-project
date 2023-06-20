@@ -18,7 +18,7 @@ async function MyPolls() {
   const myPolls = await getMyPolls('11');
   return (
     <div className="flex justify-center h-full">
-      <div className="overflow-y-scroll h-full w-[85%] scrollbar">
+      <div className="overflow-y-auto h-[318px]w-[85%] scrollbar">
         {myPolls.map(poll => (
           <PollCard
             className="mb-4"

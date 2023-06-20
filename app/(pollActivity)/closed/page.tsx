@@ -38,16 +38,12 @@ async function Closed() {
     return (
       <div className=" flex flex-col justify-center">
         <h1>You dont have closedpolls</h1>
-        <img
-          src="https://www.boredpanda.com/blog/wp-content/uploads/2022/08/cats-making-funny-faces-pics-630dfbc4b0e10__700.jpg"
-          alt="#"
-        />
       </div>
     );
   }
   return (
     <div className="flex justify-center h-full">
-      <div className="overflow-y-scroll h-full w-[85%] scrollbar">
+      <div className="overflow-y-auto h-[318px] w-[85%] scrollbar">
         {closedPolls.map(poll => (
           <PollCard
             className="mb-4"
