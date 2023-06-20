@@ -19,6 +19,7 @@ export function useMultiStepForm(
     const fields = methods.watch();
     const keys = Object.keys(fields);
     const isStepValid = await methods.trigger(keys as any);
+
     if (!isStepValid) return;
     setCurrentStepIndex(i => {
       if (i >= steps.length) {
@@ -29,6 +30,15 @@ export function useMultiStepForm(
     });
   }
 
+  // function next() {
+  //   setCurrentStepIndex(i => {
+  //     if (i >= steps.length - 1) {
+  //       return i;
+  //     }
+  //     return i + 1;
+  //   });
+  // }
+
   function back() {
     if (currentStepIndex === 0) {
       router.back();
@@ -36,12 +46,18 @@ export function useMultiStepForm(
     setCurrentStepIndex(currentStepIndex - 1);
   }
 
+  // function back() {
+  //   setCurrentStepIndex(i => {
+  //     if (i <= 0) {
+  //       return i;
+  //     }
+  //     return i - 1;
+  //   });
+  // }
+
   function goTo(index: number) {
     setCurrentStepIndex(index);
   }
-  console.log('last step', currentStepIndex === steps.length - 1);
-  console.log('current Step', currentStepIndex);
-  console.log(' step length', steps.length);
 
   return {
     currentStepIndex,

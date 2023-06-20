@@ -3,14 +3,15 @@ import InputField from '../InputField';
 import InputFieldDescription from 'components/InputFieldDescription';
 
 export default function CreatePoll() {
-  const { register, formState } = useFormContext(); // retrieve all hook methods
-
+  const { register, formState, getValues } = useFormContext(); // retrieve all hook methods
+  // console.log(getValues().question)
   return (
     <div className="flex flex-col gap-4 w-full">
       <h3>Question & Details</h3>
 
       <InputField
         required
+        // value={getValues().question}
         {...register('question', { required: true })}
         error={{ message: formState.errors.question?.message as string }}
         label={'Create a poll'}
