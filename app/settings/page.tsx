@@ -78,6 +78,8 @@ function Settings() {
           />
         </div>
       </div>
+      <p className="body-accent">Username successfully changed!</p>
+      <p className="body-accent">Password successfully changed!</p>
     </div>
   );
 }
