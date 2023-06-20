@@ -5,24 +5,28 @@ import ProgressBar from 'components/ProgressBar';
 import CreatePoll from 'components/newPoll/CreatePoll';
 import Deadline from 'components/newPoll/Deadline';
 import RevealConditions from 'components/newPoll/RevealConditions';
+import { zodResolver } from '@hookform/resolvers/zod';
 import PollType from 'components/newPoll/PollType';
+import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
 import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { NewPoll } from 'types/newPoll/NewPollSchema';
 import { useMutation } from '@tanstack/react-query';
 
 import { POSTReturnType as POSTNewPoll } from '@/app/api/new/route';
+import { get } from 'http';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
+    resolver: zodResolver(NewPollSchema),
+    mode: 'onTouched',
     defaultValues: {
-      description: '',
-      question: '',
-      options: [''],
+      // description: '',
+      // question: '',
+      // options: [''],
       endDateTime: new Date(),
       anonymity: 'Anonymous',
       quorum: 0,
@@ -54,16 +58,13 @@ export default function NewPollLayout() {
       methods
     );
 
-  const { handleSubmit, formState, reset } = methods;
+  const { handleSubmit, formState, reset, getValues } = methods;
   const { errors } = formState;
 
   const onSubmit: SubmitHandler<
     Omit<Prisma.PollCreateInput, 'creator'>
   > = data => {
-    console.table(data);
     if (isLastStep) {
-      // Handle form submission for the last step
-
       // Check if there are any validation errors
       if (Object.keys(errors).length === 0) {
         try {
@@ -100,7 +101,12 @@ export default function NewPollLayout() {
       </main>
 
       <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
-        <Button size="small" variant="secondary" onClick={back}>
+        <Button
+          size="small"
+          variant="secondary"
+          onClick={back}
+          disabled={Object.keys(formState.errors).length !== 0}
+        >
           <GrFormPrevious size={24} strokeWidth={2} />
           <h3>Back</h3>
         </Button>
@@ -108,7 +114,8 @@ export default function NewPollLayout() {
         <Button
           size="large"
           className="ml-auto"
-          onClick={handleSubmit(onSubmit)}
+          onClick={!isLastStep ? next : handleSubmit(onSubmit)}
+          disabled={Object.keys(formState.errors).length !== 0}
         >
           {isLastStep ? 'Create' : 'Next'}
           <GrFormNext size={24} strokeWidth={2} />

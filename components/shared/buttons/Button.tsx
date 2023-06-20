@@ -41,9 +41,9 @@ const buttonClasses = cva(
         quaternary: ['bg-green'],
       },
       size: {
-        small: ['h-11', 'w-1/3'],
+        small: ['h-11', 'w-2/5'],
         medium: ['h-11', 'w-1/2'],
-        large: ['h-11', 'w-2/3'],
+        large: ['h-11', 'w-3/5'],
         full: ['h-15', 'w-full'],
       },
     },

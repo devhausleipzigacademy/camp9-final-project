@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 
 export default function PollType() {
   const { register } = useFormContext();
-  const [numberOfOptions, setNumberOfOptions] = useState(2);
+  const [numberOfOptions, setNumberOfOptions] = useState(0);
 
   const handleAddOption = () => {
     setNumberOfOptions(numberOfOptions + 1);

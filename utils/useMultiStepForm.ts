@@ -19,8 +19,9 @@ export function useMultiStepForm(
     const fields = methods.watch();
     const keys = Object.keys(fields);
     const isStepValid = await methods.trigger(keys as any);
-
-    if (!isStepValid) return;
+    if (!isStepValid) {
+      return;
+    }
     setCurrentStepIndex(i => {
       if (i >= steps.length) {
         return i;
@@ -39,9 +40,15 @@ export function useMultiStepForm(
   //   });
   // }
 
-  function back() {
+  async function back() {
+    const fields = methods.watch();
+    const keys = Object.keys(fields);
+    const isStepValid = await methods.trigger(keys as any);
     if (currentStepIndex === 0) {
       router.back();
+    }
+    if (!isStepValid) {
+      return;
     }
     setCurrentStepIndex(currentStepIndex - 1);
   }
