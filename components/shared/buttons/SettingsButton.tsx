@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 type Button = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-interface userEditProps extends Button {
+interface settingsButtonProps extends Button {
   disabled: boolean;
   variant: 'pencil' | 'check';
   children: React.ReactNode;
@@ -17,7 +17,7 @@ function SettingsButton({
   variant = 'pencil',
   children,
   onClick,
-}: userEditProps) {
+}: settingsButtonProps) {
   if (variant === 'pencil') {
     children = <RiPencilFill className="w-6 h-6" />;
   } else if (variant === 'check') {

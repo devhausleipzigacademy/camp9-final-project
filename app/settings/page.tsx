@@ -1,6 +1,7 @@
 'use client';
 import InputField from 'components/InputField';
-import UserEdit from 'components/SettingsButton';
+import SettingsButton from 'components/shared/buttons/SettingsButton';
+import UserEdit from 'components/shared/buttons/SettingsButton';
 import React from 'react';
 import { useState } from 'react';
 
@@ -25,7 +26,7 @@ function Settings() {
             disabled={false}
             placeholder="<current username>"
           />
-          <UserEdit
+          <SettingsButton
             disabled={false}
             variant={usernameEdit}
             children=""
@@ -45,7 +46,7 @@ function Settings() {
             disabled={false}
             placeholder="<current password>"
           />
-          <UserEdit
+          <SettingsButton
             disabled={false}
             variant={passwordEdit}
             children=""
@@ -65,7 +66,7 @@ function Settings() {
             disabled={true}
             placeholder="<password>"
           />
-          <UserEdit
+          <SettingsButton
             disabled={true}
             variant={confirmPasswordEdit}
             children=""
