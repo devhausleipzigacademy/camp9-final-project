@@ -56,7 +56,7 @@ function Settings() {
           />
         </div>
       </div>
-      <div className="mb-[107px]">
+      <div className="mb-4">
         <div className="flex gap-4 items-">
           <InputField
             label={'Confirm Password'}
@@ -77,9 +77,14 @@ function Settings() {
             }}
           />
         </div>
+        {/* ------Success Notification------ */}
       </div>
-      <p className="body-accent">Username successfully changed!</p>
-      <p className="body-accent">Password successfully changed!</p>
+      <p className="body-accent text-green text-center hidden">
+        Username successfully changed!
+      </p>
+      <p className="body-accent text-green text-center hidden">
+        Password successfully changed!
+      </p>
     </div>
   );
 }
