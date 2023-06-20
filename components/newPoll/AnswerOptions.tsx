@@ -1,48 +1,55 @@
 'use client';
 
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import Button from 'components/shared/buttons/Button';
 import InputField from '../InputField';
 
 export default function AnswerOptions() {
   const { register } = useFormContext(); // retrieve all hook methods
-
+  const [numOptions, setNumOptions] = useState(2);
+  const handleAddOption = () => {
+    setNumOptions(numOptions + 1);
+  };
+  const handleDeleteOption = () => {
+    setNumOptions(numOptions - 1);
+  };
   return (
-    <div>
-      <section></section>
+    <div className="flex flex-col">
+      <fieldset></fieldset>
       <hr className="border border-black"></hr>
-      <section className="flex flex-col justify-around overflow-scroll">
-        <div className="flex flex-row justify-between">
-          <InputField
-            {...register('options', { required: true })}
-            type="text"
-            label="Option 1"
-            showLabel={false}
-            width="reduced"
-            placeholder="Option 1"
-          ></InputField>
-          <Button size="xs" className="button" children="-"></Button>
-        </div>
-        <div className="flex flex-row justify-between">
-          <InputField
-            {...register('options', { required: true })}
-            type="text"
-            label="Option 2"
-            showLabel={false}
-            width="reduced"
-            placeholder="Option 2"
-          ></InputField>
-          <Button size="xs" className="button" children="-"></Button>
-        </div>
-        <div className="flex">
+      <fieldset className="flex flex-col justify-around">
+        {Array.from({ length: numOptions }).map((_, index) => (
+          <div className="flex flex-row justify-between my-1 overflow-scroll">
+            <InputField
+              {...register(`options[${index}]`, { required: true })}
+              key={index}
+              type="text"
+              label={`Option ${index + 1}`}
+              showLabel={false}
+              width="reduced"
+              placeholder={`Option ${index + 1}`}
+            ></InputField>
+            <Button
+              type="button"
+              size="xs"
+              className="button"
+              children="-"
+              onClick={handleDeleteOption}
+            ></Button>
+          </div>
+        ))}
+        <div className="flex my-1">
           <Button
+            type="button"
             className="ml-auto"
             variant="secondary"
             size="small"
             children="+ Option"
+            onClick={handleAddOption}
           ></Button>
         </div>
-      </section>
+      </fieldset>
     </div>
   );
 }
