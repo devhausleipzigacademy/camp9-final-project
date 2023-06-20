@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["src/components/*"],
-      "@/server/*": ["server/*"]
+      "@/server/*": ["server/*"],
+      "@/*": ["./*"]
     },
     "noErrorTruncation": true,
     "plugins": [

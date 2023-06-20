@@ -4,6 +4,7 @@ import React from 'react';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { ChangeEvent } from 'react';
+import WarningSVG from '@/public/images/WarningSVG';
 
 type InputFieldProps = {
   label: string;
@@ -20,7 +21,7 @@ type InputFieldProps = {
   required?: boolean;
 };
 
-export const InputField = forwardRef(
+const InputField = forwardRef(
   (
     {
       maxProp,
@@ -50,8 +51,17 @@ export const InputField = forwardRef(
           width === 'full' ? 'w-full' : 'w-[251px]'
         )}
       >
-        <span className={clsx(showLabel ? 'visible' : 'hidden')}>{label}</span>
-        {error && <p className="body-accent ml-auto">{error.message}</p>}
+        <div className="flex flex-row items-center justify-between mb-1">
+          <span className={clsx(showLabel ? 'visible' : 'hidden')}>
+            {label}
+          </span>
+          {error && (
+            <div className="flex flex-row gap-2 items-center">
+              <WarningSVG width="14px" height="14px" />{' '}
+              <p className="special-accent ml-auto">{error.message}</p>
+            </div>
+          )}
+        </div>
         <input
           {...props}
           required={required}
