@@ -21,7 +21,7 @@ export function useMultiStepForm(
     const isStepValid = await methods.trigger(keys as any);
     if (!isStepValid) return;
     setCurrentStepIndex(i => {
-      if (i >= steps.length - 1) {
+      if (i >= steps.length) {
         return i;
       }
 
@@ -36,18 +36,12 @@ export function useMultiStepForm(
     setCurrentStepIndex(currentStepIndex - 1);
   }
 
-  // function back() {
-  //   setCurrentStepIndex(i => {
-  //     if (i <= 0) {
-  //       return i;
-  //     }
-  //     return i - 1;
-  //   });
-  // }
-
   function goTo(index: number) {
     setCurrentStepIndex(index);
   }
+  console.log('last step', currentStepIndex === steps.length - 1);
+  console.log('current Step', currentStepIndex);
+  console.log(' step length', steps.length);
 
   return {
     currentStepIndex,
@@ -59,7 +53,4 @@ export function useMultiStepForm(
     isFirstStep: currentStepIndex !== 0,
     isLastStep: currentStepIndex === steps.length - 1,
   };
-}
-function trigger() {
-  throw new Error('Function not implemented.');
 }

@@ -24,15 +24,15 @@ export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
     resolver: zodResolver(NewPollSchema),
     mode: 'onTouched',
-    /*     defaultValues: {
-      description: '',
-      question: '',
-      options: [''],
+    defaultValues: {
+      // description: '',
+      // question: '',
+      // options: [''],
       endDateTime: new Date(),
       anonymity: 'Anonymous',
       quorum: 0,
       type: 'MultipleChoice',
-    }, */
+    },
   });
 
   async function createNewPoll(poll: NewPoll) {
@@ -63,57 +63,55 @@ export default function NewPollLayout() {
   const onSubmit: SubmitHandler<
     Omit<Prisma.PollCreateInput, 'creator'>
   > = data => {
-    console.table(data);
-    if (isLastStep) {
-      if (Object.keys(errors).length === 0) {
-        try {
-          console.log('Poll created successfully!');
-          reset(); // Clear the form fields
-        } catch (error) {
-          console.error('Error creating a poll:', error);
-        }
+    console.log(currentStepIndex, steps.length);
+
+    if (Object.keys(errors).length === 0) {
+      try {
+        console.table(data);
+        console.log('Poll created successfully!');
+      } catch (error) {
+        console.error('Error creating a poll:', error);
       }
-    } else {
-      next();
+      reset(); // Clear the form fields
     }
   };
 
-  console.log(errors);
+  console.log({ currentStepIndex });
+
+  // console.table(errors);s
 
   return (
-    <>
-      <FormProvider {...methods}>
-        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-          <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
-            <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-              <h1 className="title-black self-start">Create a Poll</h1>
-              <ProgressBar
-                currentPage={currentStepIndex + 1}
-                numberOfPages={steps.length}
-              />
-              {steps[currentStepIndex]}
-            </div>
-          </main>
+    <FormProvider {...methods}>
+      <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <div className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+            <h1 className="title-black self-start">Create a Poll</h1>
+            <ProgressBar
+              currentPage={currentStepIndex + 1}
+              numberOfPages={steps.length}
+            />
+            {steps[currentStepIndex]}
+          </div>
+        </div>
 
-          <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
-            <Button size="small" variant="secondary" onClick={back}>
-              <GrFormPrevious size={24} strokeWidth={2} />
-              <h3>Back</h3>
-            </Button>
+        <div className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
+          <Button size="small" variant="secondary" onClick={back}>
+            <GrFormPrevious size={24} strokeWidth={2} />
+            <h3>Back</h3>
+          </Button>
 
-            <Button
-              size="large"
-              className="ml-auto"
-              type={isLastStep ? 'submit' : 'button'}
-              onClick={!isLastStep ? next : undefined}
-              disabled={Object.keys(formState.errors).length !== 0}
-            >
-              {isLastStep ? 'Create' : 'Next'}
-              <GrFormNext size={24} strokeWidth={2} />
-            </Button>
-          </footer>
-        </form>
-      </FormProvider>
-    </>
+          <Button
+            size="large"
+            className="ml-auto"
+            type={currentStepIndex === steps.length ? 'submit' : 'button'}
+            onClick={currentStepIndex === steps.length ? undefined : next}
+            disabled={Object.keys(formState.errors).length !== 0}
+          >
+            {currentStepIndex >= steps.length - 1 ? 'Create' : 'Next'}
+            <GrFormNext size={24} strokeWidth={2} />
+          </Button>
+        </div>
+      </form>
+    </FormProvider>
   );
 }
