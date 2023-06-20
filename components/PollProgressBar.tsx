@@ -1,6 +1,14 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { Ref, forwardRef, useEffect, useRef } from 'react';
+
+interface Props extends React.HTMLProps<HTMLInputElement> {
+  ref: Ref<HTMLInputElement>;
+}
+
+const InputWithRef = forwardRef(({ ...props }: Props) => {
+  return <input {...props} ref={props.ref} />;
+});
 
 function PollProgressBar({
   votes,
@@ -10,21 +18,19 @@ function PollProgressBar({
   participants: number;
 }) {
   const valuePollProgression = Math.floor((votes / participants) * 100);
+  const ref = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const rangeValue = document.getElementById('rangeValuePollProgression');
-    if (rangeValue) {
-      rangeValue.style.setProperty(
-        'background-size',
-        `${valuePollProgression}%`
-      );
-    }
+    ref?.current?.style.setProperty(
+      'background-size',
+      `${valuePollProgression}%`
+    );
   }, [valuePollProgression]);
 
   return (
     <div className="w-full">
       <div className="flex flex-row justify-between items-center">
-        <input
+        <InputWithRef
           type="range"
           min="0"
           max="100"
@@ -32,6 +38,8 @@ function PollProgressBar({
           list="valuesPollProgression"
           value={valuePollProgression}
           id="rangeValuePollProgression"
+          onChange={() => {}}
+          ref={ref}
         />
 
         <p>

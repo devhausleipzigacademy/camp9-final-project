@@ -5,6 +5,8 @@ export default function Home() {
   return (
     <>
       <h1 className="title-black">Poll Activity</h1>
+      <ConsensusController />
+      <PollProgressBar votes={9} participants={90} />
     </>
   );
 }
