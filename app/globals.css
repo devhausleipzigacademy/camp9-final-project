@@ -238,7 +238,7 @@
       -4px 4px 0px #264653, -6px 6px 0px #2a9d8f, -8px 8px 0px #e9c46a,
       -10px 10px 0px #e76f51;
   }
-  .appname {
+  .appName {
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
@@ -251,30 +251,29 @@
     text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
       2px 2px #000000, -2px -2px #000000, 2px -2px #000000, -2px 2px #000000,
       -4px 4px 0px #000000;
+  }
+  .toast-container {
+    --toastify-color-light: #ffedbc;
+    --toastify-color-dark: #2f9ca1;
+    --toastify-color-info: #038b91;
+    --toastify-color-success: #79cb65;
+    --toastify-color-warning: #febf10;
+    --toastify-color-error: #fa1911;
+    --toastify-color-transparent: rgba(255, 255, 255, 1);
 
-    .toast-container {
-      --toastify-color-light: #ffedbc;
-      --toastify-color-dark: #2f9ca1;
-      --toastify-color-info: #038b91;
-      --toastify-color-success: #79cb65;
-      --toastify-color-warning: #febf10;
-      --toastify-color-error: #fa1911;
-      --toastify-color-transparent: rgba(255, 255, 255, 1);
+    --toastify-icon-color-info: var(--toastify-color-info);
+    --toastify-icon-color-success: var(--toastify-color-success);
+    --toastify-icon-color-warning: var(--toastify-color-warning);
+    --toastify-icon-color-error: var(--toastify-color-error);
 
-      --toastify-icon-color-info: var(--toastify-color-info);
-      --toastify-icon-color-success: var(--toastify-color-success);
-      --toastify-icon-color-warning: var(--toastify-color-warning);
-      --toastify-icon-color-error: var(--toastify-color-error);
+    --toastify-toast-width: 320px;
+    --toastify-toast-background: #febf10;
+    --toastify-toast-min-height: 64px;
+    --toastify-toast-max-height: 800px;
+    --toastify-font-family: 'Poppins';
+    --toastify-z-index: 9999;
 
-      --toastify-toast-width: 320px;
-      --toastify-toast-background: #febf10;
-      --toastify-toast-min-height: 64px;
-      --toastify-toast-max-height: 800px;
-      --toastify-font-family: 'Poppins';
-      --toastify-z-index: 9999;
-
-      --toastify-text-color-light: #000000;
-      --toastify-text-color-dark: #fff;
-    }
+    --toastify-text-color-light: #000000;
+    --toastify-text-color-dark: #fff;
   }
 }
