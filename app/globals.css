@@ -232,6 +232,30 @@
   .shadow-brutal {
     box-shadow: -4px 4px 0px rgba(0, 0, 0, 1);
   }
+  .scrollbar::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: #fa9a5d;
+    border: black 3px solid;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #9fcc95;
+    border-radius: 4px;
+    border: 3px solid black;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #3d6732;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
   .appName {
     font-family: 'Poppins';
     font-style: normal;
