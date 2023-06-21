@@ -6,6 +6,7 @@ import React from 'react';
 import { authOptions } from '@/libs/auth';
 import { getServerSession } from 'next-auth/next';
 import MoodDisplay from '@/components/MoodDisplay';
+import PollProgressBar from '@/components/PollProgressBar';
 
 interface FullPollInfo extends Poll {
   votes: Vote[];
@@ -59,7 +60,6 @@ function parsePollData(pollData: FullPollInfo): {
     moods.reduce((partialSum, mood) => partialSum + mood, 0) / moods.length;
   const avgMoodDescription =
     Object.keys(Mood)[Math.trunc(averageMood * 1.24)]?.toLowerCase();
-  console.log(averageMood);
   const parsedPoll = [
     [
       {
@@ -86,7 +86,18 @@ function parsePollData(pollData: FullPollInfo): {
     [
       {
         title: 'Poll progress',
-        body: `${pollData.votes.length} out of ${pollData._count.participants} participants voted.`,
+        body: (
+          <>
+            <p className="mb-2">
+              {pollData.votes.length} out of {pollData._count.participants}{' '}
+              participants voted.
+            </p>
+            <PollProgressBar
+              votes={pollData.votes.length}
+              participants={pollData._count.participants}
+            />
+          </>
+        ),
       },
       {
         title: 'Emotional Feedback',
