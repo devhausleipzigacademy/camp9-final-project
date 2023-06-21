@@ -20,7 +20,7 @@ type InputFieldProps = {
   disabled: boolean;
 };
 
-export const InputField = forwardRef(
+const InputField = forwardRef(
   (
     {
       maxProp,
