@@ -4,9 +4,6 @@ dependencies:
   '@auth/prisma-adapter':
     specifier: ^1.0.0
     version: 1.0.0(@prisma/client@4.15.0)
-  '@babel/core':
-    specifier: ^7.22.1
-    version: 7.22.5
   '@headlessui/react':
     specifier: ^1.7.14
     version: 1.7.15(react-dom@18.2.0)(react@18.2.0)
@@ -34,9 +31,6 @@ dependencies:
   axios:
     specifier: ^1.4.0
     version: 1.4.0
-  babel:
-    specifier: ^6.23.0
-    version: 6.23.0
   bcrypt:
     specifier: ^5.1.0
     version: 5.1.0
@@ -91,9 +85,6 @@ dependencies:
   zod:
     specifier: ^3.21.4
     version: 3.21.4
-  zustand:
-    specifier: ^4.3.8
-    version: 4.3.8(react@18.2.0)
 
 devDependencies:
   '@faker-js/faker':
@@ -4519,12 +4510,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /babel@6.23.0:
-    resolution: {integrity: sha512-ZDcCaI8Vlct8PJ3DvmyqUz+5X2Ylz3ZuuItBe/74yXosk2dwyVo/aN7MCJ8HJzhnnJ+6yP4o+lDgG9MBe91DLA==}
-    deprecated: In 6.x, the babel package has been deprecated in favor of babel-cli. Check https://opencollective.com/babel to support the Babel maintainers
-    hasBin: true
-    dev: false
 
   /bail@2.0.2:
     resolution: {integrity: sha512-0xO6mYd7JB2YesxDKplafRpsiOzPt9V02ddPCLbY1xYGPOX24NTyN50qnUxgCPcSoYMhKpAuBTjQoRZCAkUDRw==}
@@ -11000,22 +10985,6 @@ packages:
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
-
-  /zustand@4.3.8(react@18.2.0):
-    resolution: {integrity: sha512-4h28KCkHg5ii/wcFFJ5Fp+k1J3gJoasaIbppdgZFO4BPJnsNxL0mQXBSFgOgAdCdBj35aDTPvdAJReTMntFPGg==}
-    engines: {node: '>=12.7.0'}
-    peerDependencies:
-      immer: '>=9.0'
-      react: '>=16.8'
-    peerDependenciesMeta:
-      immer:
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      react: 18.2.0
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}

@@ -1,11 +1,17 @@
 import { db } from '@/libs/db';
 import { NextResponse } from 'next/server';
 
-export async function GET(x) {
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id')!;
+  console.log("BACKEND", id)
+
   const user = await db.user.findUnique({
     where: {
-      id: 32, // id of user `qwer`
+      id: +id, // id of user `qwer`
     },
   });
-  return NextResponse.json({ user });
+  
+  const username = user?.name
+  return NextResponse.json({ username });
 }
