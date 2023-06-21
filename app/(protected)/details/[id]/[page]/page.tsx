@@ -5,6 +5,7 @@ import PreviewCheckbox from 'components/shared/PreviewCheckbox';
 import React from 'react';
 import { authOptions } from '@/libs/auth';
 import { getServerSession } from 'next-auth/next';
+import MoodDisplay from '@/components/MoodDisplay';
 
 interface FullPollInfo extends Poll {
   votes: Vote[];
@@ -71,7 +72,13 @@ function parsePollData(pollData: FullPollInfo) {
     { title: 'Poll closes on', body: pollData.endDateTime.toString() },
     {
       title: 'Poll progress',
-      body: `${pollData._count.votes} out of ${pollData._count.participants} participants voted.`,
+      // body: `${pollData._count.votes} out of ${pollData._count.participants} participants voted.`,
+      body: (
+        <div>
+          <span>This is the result!</span>
+          <MoodDisplay averageMood={3.17} />
+        </div>
+      ),
     },
     {
       title: 'Poll type',
