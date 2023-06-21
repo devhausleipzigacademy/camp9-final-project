@@ -1,38 +1,31 @@
 'use client';
+import NavLink from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import React from 'react';
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
   children: React.ReactNode;
-  handleClick?: () => void;
-  isActive: boolean;
+  href: string;
 }
 
-export default function TabButton({
-  children,
-  className,
-  handleClick,
-  isActive = true,
-  ...props
-}: ButtonProps) {
+export default function TabButton({ children, href }: ButtonProps) {
+  const pathname = usePathname();
   return (
-    <button
-      onClick={handleClick}
+    <NavLink
+      href={href}
       className={`
-        bg-yellow min-w-[2.75rem] h-11 border-3
+        w-18 h-11 border-3
         button-small
         border-black
         rounded
-        shadow-shadow
+       shadow-shadow
         disabled:bg-white
         disabled:cursor-not-allowed
         disabled:opacity-50
         flex items-start justify-start p-1
-        overflow-hidden ${className}
-        ${!isActive ? 'bg-opacity-0' : 'bg-opacity-100'}`}
-      {...props}
+        overflow-hidden
+        ${pathname === href ? 'bg-yellow  shadow-shadow' : 'bg-peach '}`}
     >
       {children}
-    </button>
+    </NavLink>
   );
 }
