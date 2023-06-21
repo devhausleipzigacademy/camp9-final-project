@@ -58,7 +58,7 @@ function Settings() {
             type={'password'}
             width={'reduced'}
             disabled={passwordEdit === 'pencil'}
-            placeholder="<current password>"
+            placeholder="********"
           />
           <SettingsButton
             disabled={false}
@@ -78,7 +78,7 @@ function Settings() {
             type={'password'}
             width={'reduced'}
             disabled={passwordEdit === 'pencil'}
-            placeholder="<password>"
+            placeholder="********"
           />
         </div>
         {/* ------Success Notification------ */}
