@@ -210,6 +210,16 @@
     font-size: 12px;
     color: #fa9a5d;
   }
+  .emotionGradient {
+    background-image: linear-gradient(
+      to right,
+      #fa1911,
+      #fa9a5d,
+      #febf10,
+      #79cb65,
+      #4d9979
+    );
+  }
 }
 
 @layer utilities {
