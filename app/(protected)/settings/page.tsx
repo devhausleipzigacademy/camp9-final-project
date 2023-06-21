@@ -3,45 +3,29 @@
 import InputField from 'components/InputField';
 import SettingsButton from 'components/shared/buttons/SettingsButton';
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 
 type Icon = 'pencil' | 'check';
 
-interface SessionResponse {
-  data: {
-    user: {
-      id: {
-        sub: number;
-      };
-    };
-  };
-}
-
 function Settings() {
   const [usernameEdit, setUsernameEdit] = useState<Icon>('pencil');
   const [passwordEdit, setPasswordEdit] = useState<Icon>('pencil');
-  const { data } = useSession();
+  const { data } = useSession(); // <-- get user ID from session/JWT
+  const [username, setUsername] = useState('...'); // <-- username initially unknown
 
-  async function getUsername(userID: number) {
+  async function applyUsername(userID: number) {
     try {
-      // console.log(`/api/getUsername/${userID}`)
       const response = await axios.get('/api/getUsername', {
-        params: { id: userID },
+        params: { id: userID }, // <-- make get request to getUsername API with id as parameter
       });
-      // console.log(response);
-      console.log(response.data.username);
-      const username = response.data.username
-      return username
+      setUsername(response.data.username); // <--- set username if/once resolved
     } catch (error) {
       console.error(error);
     }
   }
 
-  // console.log('LOG1', data?.user.id.sub, status);
-
-  const x = getUsername(data?.user?.id.sub);
+  applyUsername(data?.user?.id.sub);
 
   return (
     <div className="bg-yellow-light">
@@ -54,7 +38,7 @@ function Settings() {
             type={'username'}
             width={'reduced'}
             disabled={usernameEdit === 'pencil'}
-            placeholder={x}
+            placeholder={username}
           />
           <SettingsButton
             disabled={false}
