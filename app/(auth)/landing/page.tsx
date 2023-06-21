@@ -9,7 +9,6 @@ export default function LandingPage() {
   return (
     <>
       <h1 className="landing-logo">d'accord</h1>
-      <h2>Landing</h2>
       <div>
         <Image
           src={GroupIllustration}
