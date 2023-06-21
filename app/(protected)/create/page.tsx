@@ -22,7 +22,7 @@ import AnswerOptions from '@/components/newPoll/AnswerOptions';
 import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
 import PollCreatedStatus from '@/components/newPoll/PollCreatedStatus';
-import ProgressBar from '@/components/ProgressBar';
+import ProgressBar from '@/components/shared/ProgressBar';
 
 export default function NewPoll() {
   // Form setup
@@ -40,6 +40,7 @@ export default function NewPoll() {
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
   const [pollSubmitted, setPollSubmitted] = useState(false); // Initialize as false
+  const [error, setError] = useState(false); // Error flag
 
   // API request to create a new poll
   async function createNewPoll(poll: NewPoll) {
@@ -62,6 +63,7 @@ export default function NewPoll() {
       setPollSubmitted(true); // Set pollSubmitted to true after successful response
     },
     onError: error => {
+      setError(true); // Set error flag to true
       toast.error(axios.isAxiosError(error) ? error.response?.data : error);
     },
   });
@@ -94,32 +96,40 @@ export default function NewPoll() {
     if (isLastStep) {
       if (Object.keys(errors).length === 0) {
         try {
+          // throw new Error('Error creating a poll');
           console.log(data);
           mutate(data);
           console.log('Poll created successfully!');
           reset(); // Clear the form fields
           next(); // Proceed to the next step
         } catch (error) {
+          setError(true); // Set error flag to true
           console.error('Error creating a poll:', error);
         }
+        next(); // Proceed to the next step
       }
     } else {
       next(); // Proceed to the next step
     }
   };
 
+  console.log(currentStepIndex, steps.length, pollSubmitted);
+
   return (
     <>
-      {pollSubmitted && (
-        <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+      <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+        {currentStepIndex === steps.length && pollSubmitted && (
           <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
             <PollCreatedStatus />,
           </div>
-        </main>
-      )}
-      {!pollSubmitted && (
-        <>
-          <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+        )}
+        {currentStepIndex === steps.length && error && (
+          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+            ERROR!
+          </div>
+        )}
+        {currentStepIndex <= steps.length - 1 && !pollSubmitted && !error && (
+          <>
             <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
               <h1 className="title-black self-start">{currentStepTitle}</h1>
 
@@ -134,31 +144,31 @@ export default function NewPoll() {
                 </form>
               </FormProvider>
             </div>
-          </main>
 
-          <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
-            <Button
-              size="small"
-              variant="secondary"
-              onClick={back}
-              disabled={Object.keys(formState.errors).length !== 0}
-            >
-              <GrFormPrevious size={24} strokeWidth={2} />
-              <h3>Back</h3>
-            </Button>
+            <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
+              <Button
+                size="small"
+                variant="secondary"
+                onClick={back}
+                disabled={Object.keys(formState.errors).length !== 0}
+              >
+                <GrFormPrevious size={24} strokeWidth={2} />
+                <h3>Back</h3>
+              </Button>
 
-            <Button
-              size="large"
-              className="ml-auto"
-              onClick={!isLastStep ? next : handleSubmit(onSubmit)}
-              disabled={Object.keys(formState.errors).length !== 0}
-            >
-              {isLastStep ? 'Create' : 'Next'}
-              <GrFormNext size={24} strokeWidth={2} />
-            </Button>
-          </footer>
-        </>
-      )}
+              <Button
+                size="large"
+                className="ml-auto"
+                onClick={!isLastStep ? next : handleSubmit(onSubmit)}
+                disabled={Object.keys(formState.errors).length !== 0}
+              >
+                {isLastStep ? 'Create' : 'Next'}
+                <GrFormNext size={24} strokeWidth={2} />
+              </Button>
+            </footer>
+          </>
+        )}
+      </main>
     </>
   );
 }
