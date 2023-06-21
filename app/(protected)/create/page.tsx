@@ -1,26 +1,28 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+
 import { Prisma } from '@prisma/client';
-import ProgressBar from 'components/ProgressBar';
-import CreatePoll from '@/components/newPoll/CreatePoll';
-import Deadline from '@/components/newPoll/Deadline';
-import RevealConditions from '@/components/newPoll/RevealConditions';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
-import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useMutation } from '@tanstack/react-query';
 
 import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
+import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
+
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
 import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
 import PollCreatedStatus from '@/components/newPoll/PollCreatedStatus';
-import { useEffect, useState } from 'react';
+import Button from '@/components/shared/buttons/Button';
+import Deadline from '@/components/newPoll/Deadline';
+import CreatePoll from '@/components/newPoll/CreatePoll';
+import ProgressBar from '@/components/ProgressBar';
+import RevealConditions from '@/components/newPoll/RevealConditions';
 
 export default function NewPoll() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
@@ -89,6 +91,7 @@ export default function NewPoll() {
           mutate(data);
           console.log('Poll created successfully!');
           reset(); // Clear the form fields
+          next(); // Proceed to the next step
         } catch (error) {
           console.error('Error creating a poll:', error);
         }
@@ -100,7 +103,7 @@ export default function NewPoll() {
 
   console.log(steps.length);
 
-  const pollSubmitted = isLastStep;
+  const pollSubmitted = currentStepIndex === steps.length;
 
   console.log({ currentStepIndex, steps, pollSubmitted });
 
@@ -119,10 +122,10 @@ export default function NewPoll() {
         <>
           <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
             <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-              <h1 className="title-black self-start">{currentStepTitle}</h1>{' '}
+              <h1 className="title-black self-start">{currentStepTitle}</h1>
               <ProgressBar
                 currentPage={currentStepIndex + 1}
-                numberOfPages={steps.length - 1}
+                numberOfPages={steps.length}
               />
               <FormProvider {...methods}>
                 <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
