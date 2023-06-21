@@ -3,18 +3,17 @@
 import { useFormContext } from 'react-hook-form';
 import InputField from '../InputField';
 import InputFieldDescription from 'components/InputFieldDescription';
-import RadioButton from 'components/Radiobutton';
 
 export default function CreatePoll({
   title = 'Create a Poll',
 }: NewPollComponentProps) {
-  const { register, formState, getValues } = useFormContext(); // retrieve all hook methods
+  const { register, formState } = useFormContext(); // retrieve all hook methods
 
   return (
     <div className="flex flex-col gap-4 w-full">
       <InputField
         {...register('question', { required: true })}
-        error={{ message: formState.errors.question?.message as string }}
+        error={formState.errors.question}
         label={'Create a poll'}
         showLabel={false}
         type={'text'}

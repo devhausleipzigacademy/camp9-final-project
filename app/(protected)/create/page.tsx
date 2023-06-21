@@ -121,9 +121,9 @@ export default function NewPoll() {
     }
   };
 
+  const isNotSubmitted = isFormInProgress && !pollSubmitted && !error;
   const isSubmittedWithoutError = isFormCompleted && !error && pollSubmitted;
   const isSubmittedWithError = isFormCompleted && error && !pollSubmitted;
-  const isNotSubmitted = isFormInProgress && !pollSubmitted && !error;
 
   return (
     <>

@@ -1,13 +1,17 @@
 'use client';
 
 import { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { FieldErrors, useFormContext } from 'react-hook-form';
 import Button from 'components/shared/buttons/Button';
 import InputField from '../InputField';
 
-export default function AnswerOptions({ title = "Answer Options" }: NewPollComponentProps) {
-  const { register } = useFormContext(); // retrieve all hook methods
+export default function AnswerOptions({
+  title = 'Answer Options',
+}: NewPollComponentProps) {
+  const { register, formState } = useFormContext(); // retrieve all hook methods
+
   const [numOptions, setNumOptions] = useState(2);
+
   const handleAddOption = () => {
     setNumOptions(numOptions + 1);
   };
@@ -29,6 +33,9 @@ export default function AnswerOptions({ title = "Answer Options" }: NewPollCompo
               showLabel={false}
               width="reduced"
               placeholder={`Option ${index + 1}`}
+              error={
+                (formState.errors.options as FieldErrors)?.[index] // Cast 'errors.options' as FieldErrors
+              }
             ></InputField>
             <Button
               type="button"
