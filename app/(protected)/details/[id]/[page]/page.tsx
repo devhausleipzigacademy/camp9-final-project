@@ -1,4 +1,4 @@
-import { Anonymity, Poll, PollType, Vote } from '@prisma/client';
+import { Anonymity, Mood, Poll, PollType, Vote } from '@prisma/client';
 import { db } from 'app/libs/db';
 import PollDetailsCard from 'components/shared/PollDetailsCard';
 import PreviewCheckbox from 'components/shared/PreviewCheckbox';
@@ -11,7 +11,6 @@ interface FullPollInfo extends Poll {
   votes: Vote[];
   _count: {
     participants: number;
-    votes: number;
   };
 }
 
@@ -22,15 +21,12 @@ async function getPoll(pollId: number, userId: number) {
     },
     include: {
       _count: {
-        select: { participants: true, votes: true },
+        select: { participants: true },
       },
-      votes: {
-        where: {
-          userId: userId,
-        },
-      },
+      votes: {},
     },
   });
+
   return poll;
 }
 
@@ -51,58 +47,103 @@ const pollTypeDescriptions = [
   'Single choice (choose one)',
 ];
 
-function parsePollData(pollData: FullPollInfo) {
+function parsePollData(pollData: FullPollInfo): {
+  title: string;
+  body: string | React.JSX.Element;
+  note?: string;
+}[][] {
+  const moods = pollData.votes.map(vote =>
+    Object.keys(Mood).indexOf(vote.mood)
+  );
+  const averageMood =
+    moods.reduce((partialSum, mood) => partialSum + mood, 0) / moods.length;
+  const avgMoodDescription =
+    Object.keys(Mood)[Math.trunc(averageMood * 1.24)]?.toLowerCase();
+  console.log(averageMood);
   const parsedPoll = [
-    {
-      title: 'Poll Question',
-      body: pollData.question.substring(0, 40) + '?',
-    },
-    {
-      title: 'Poll Description',
-      body: pollData.description || 'No description.',
-    },
-    {
-      title: 'Anonymity level',
-      body: describeAnonLvl(
-        Object.keys(Anonymity).indexOf(pollData.anonymity),
-        pollData.quorum
-      ),
-    },
-    { title: 'Poll created on', body: pollData.createdAt.toString() },
-    { title: 'Poll closes on', body: pollData.endDateTime.toString() },
-    {
-      title: 'Poll progress',
-      // body: `${pollData._count.votes} out of ${pollData._count.participants} participants voted.`,
-      body: (
-        <div>
-          <span>This is the result!</span>
-          <MoodDisplay averageMood={3.17} />
-        </div>
-      ),
-    },
-    {
-      title: 'Poll type',
-      body: pollTypeDescriptions[Object.keys(PollType).indexOf(pollData.type)]!,
-    },
-    {
-      title: pollData.votes[0] ? 'Your vote' : 'Voting options',
-      body: (
-        <ul className="flex flex-col gap-2 py-1">
-          {pollData.options.map((option, index) => (
-            <li className="flex gap-2" key={index}>
-              <PreviewCheckbox
-                type={pollData.type === 'SingleChoice' ? 'radio' : 'check'}
-                isChecked={!!pollData.votes[0]?.answer[index]}
-              />
-              <p>{option}</p>
-            </li>
-          ))}
-        </ul>
-      ),
-      note: pollData.votes[0]
-        ? ''
-        : 'You cannot vote on this poll as you are not assigned to it as a participant.',
-    },
+    [
+      {
+        title: 'Poll Question',
+        body: pollData.question.substring(0, 40) + '?',
+      },
+      {
+        title: 'Poll Description',
+        body: pollData.description || 'No description.',
+      },
+    ],
+    [
+      { title: 'Poll created on', body: pollData.createdAt.toString() },
+      { title: 'Poll closes on', body: pollData.endDateTime.toString() },
+
+      {
+        title: 'Anonymity level',
+        body: describeAnonLvl(
+          Object.keys(Anonymity).indexOf(pollData.anonymity),
+          pollData.quorum
+        ),
+      },
+    ],
+    [
+      {
+        title: 'Poll progress',
+        body: `${pollData.votes.length} out of ${pollData._count.participants} participants voted.`,
+      },
+      {
+        title: 'Emotional Feedback',
+        body: (
+          <div>
+            <p>
+              The average mood participants had while voting on this poll is{' '}
+              <span
+                className={
+                  'font-bold ' +
+                  (Math.trunc(averageMood * 1.25) === 0
+                    ? 'text-red'
+                    : Math.trunc(averageMood * 1.25) === 1
+                    ? 'text-peach'
+                    : Math.trunc(averageMood * 1.25) === 2
+                    ? 'text-yellow'
+                    : Math.trunc(averageMood * 1.25) === 3
+                    ? 'text-green-light'
+                    : 'text-green')
+                }
+              >
+                {avgMoodDescription}
+              </span>
+              .
+            </p>
+            <MoodDisplay averageMood={averageMood} />
+          </div>
+        ),
+      },
+    ],
+    [
+      {
+        title: 'Poll type',
+        body: pollTypeDescriptions[
+          Object.keys(PollType).indexOf(pollData.type)
+        ]!,
+      },
+      {
+        title: pollData.votes[0] ? 'Your vote' : 'Voting options',
+        body: (
+          <ul className="flex flex-col gap-2 py-1">
+            {pollData.options.map((option, index) => (
+              <li className="flex gap-2" key={index}>
+                <PreviewCheckbox
+                  type={pollData.type === 'SingleChoice' ? 'radio' : 'check'}
+                  isChecked={!!pollData.votes[0]?.answer[index]}
+                />
+                <p>{option}</p>
+              </li>
+            ))}
+          </ul>
+        ),
+        note: pollData.votes[0]
+          ? ''
+          : 'You cannot vote on this poll as you are not assigned to it as a participant.',
+      },
+    ],
   ];
   return parsedPoll;
 }
@@ -112,7 +153,7 @@ async function PollDetails({
 }: {
   params: { id: string; page: string };
 }) {
-  if (parseInt(params.page) <= 0 || parseInt(params.page) > 3) {
+  if (parseInt(params.page) <= 0 || parseInt(params.page) > 4) {
     throw new Error('Invalid page number.');
   }
   let userId = 10; //default user if no user is logged in
@@ -120,31 +161,22 @@ async function PollDetails({
   if (session && Number.isInteger(session.user.id)) {
     userId = session.user.id;
   }
-  console.log('USER ID:' + userId);
   const poll = await getPoll(parseInt(params.id), userId);
   const parsedPoll = parsePollData(poll);
   return (
     <div className="flex flex-col gap-4 mt-2">
-      {parsedPoll
-        .slice((parseInt(params.page) - 1) * 3, parseInt(params.page) * 3)
-        .map((pollItem, index) => {
-          return (
-            <PollDetailsCard
-              title={pollItem.title}
-              key={index}
-              note={pollItem.note}
-              bodyMaxH={
-                index === 1 && params.page === '1'
-                  ? '72px'
-                  : pollItem.note
-                  ? '184px'
-                  : '230px'
-              }
-            >
-              {pollItem.body}
-            </PollDetailsCard>
-          );
-        })}
+      {parsedPoll[parseInt(params.page) - 1]!.map((pollItem, index) => {
+        return (
+          <PollDetailsCard
+            title={pollItem.title}
+            key={index}
+            note={pollItem.note}
+            bodyMaxH="230px"
+          >
+            {pollItem.body}
+          </PollDetailsCard>
+        );
+      })}
     </div>
   );
 }

@@ -19,7 +19,7 @@ export default function PollDetailsLayout({
       ? '/'
       : `/details/${params.id}/${parseInt(params.page) - 1}`;
   const nextPageHref =
-    parseInt(params.page) >= 3
+    parseInt(params.page) >= 4
       ? '/'
       : `/details/${params.id}/${parseInt(params.page) + 1}`;
   return (
@@ -27,7 +27,7 @@ export default function PollDetailsLayout({
       <ProgressBar
         variant="tertiary"
         currentPage={parseInt(params.page)}
-        numberOfPages={3}
+        numberOfPages={4}
       />
       {children}
       <nav className="flex justify-between container gap-12 fixed bottom-[100px] left-0 w-full px-8">
@@ -36,7 +36,7 @@ export default function PollDetailsLayout({
           {params.page == '1' ? 'Home' : 'Back'}
         </Button>
         <Button size="large" variant="tertiary" href={nextPageHref}>
-          {params.page == '3' ? 'Home' : 'Next page'}
+          {params.page == '4' ? 'Home' : 'Next page'}
           <GrFormNext size={24} strokeWidth={2} />
         </Button>
       </nav>
