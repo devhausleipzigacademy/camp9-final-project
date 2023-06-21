@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import PollCard from 'components/pollActivity/PollCard';
-import Link from 'next/link';
+import Image from 'next/image';
 
 const prisma = new PrismaClient();
 
@@ -31,7 +31,12 @@ async function New() {
   if (newPolls.length === 0) {
     return (
       <div className=" flex flex-col justify-center items-center">
-        <img src="/images/flame-288.gif" className="w-[250px]"></img>
+        <Image
+          src="/images/flame-288.gif"
+          alt="newpolls"
+          width={250}
+          height={250}
+        ></Image>
         <h1 className="title-bold text-center">No polls to see.</h1>
       </div>
     );
@@ -41,17 +46,15 @@ async function New() {
     <div className="flex justify-center h-full">
       <div className="overflow-y-auto h-[318px] w-[85%] scrollbar">
         {newPolls.map(poll => (
-          <Link href={`/voting/${userId}/${poll.id}`}>
-            <PollCard
-              className="mb-4"
-              key={poll?.id}
-              endTime={poll.endDateTime}
-              vote="vote"
-              href="/new"
-            >
-              {poll?.question}
-            </PollCard>
-          </Link>
+          <PollCard
+            className="mb-4"
+            key={poll?.id}
+            endTime={poll.endDateTime}
+            vote="vote"
+            href={`/voting/${userId}/${poll.id}`}
+          >
+            {poll?.question}
+          </PollCard>
         ))}
       </div>
     </div>

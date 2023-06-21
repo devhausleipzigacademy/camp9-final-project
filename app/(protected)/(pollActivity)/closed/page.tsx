@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import PollCard from 'components/pollActivity/PollCard';
 import React from 'react';
+import Image from 'next/image';
 
 const prisma = new PrismaClient();
 
@@ -39,7 +40,12 @@ async function Closed() {
   if (closedPolls.length === 0) {
     return (
       <div className=" flex flex-col justify-center items-center">
-        <img src="/images/flame-288.gif" className="w-[250px]"></img>
+        <Image
+          src="/images/flame-288.gif"
+          alt="closedpoll"
+          width={250}
+          height={250}
+        ></Image>
         <h1 className="title-bold text-center">No polls to see.</h1>
       </div>
     );

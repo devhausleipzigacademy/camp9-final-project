@@ -1,4 +1,3 @@
-import ProgressBar from '@/components/shared/ProgressBar';
 import Button from 'components/shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 

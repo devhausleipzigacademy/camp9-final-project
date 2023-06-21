@@ -10,13 +10,14 @@ export default function Voting() {
   //extract the arguments from the URL
   const pathname = usePathname();
   const path = pathname.split('/');
+  const [step, setStep] = useState<number>(1);
 
   if (path[2] === undefined || path[3] === undefined) {
     return <>Sorry</>;
   }
   const { query } = useVotePollQuery(path[2], path[3]);
 
-  const [step, setStep] = useState<number>(1);
+  
 
   return (
     <>
