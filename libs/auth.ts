@@ -47,4 +47,13 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login', // <-- specify custom login page
   },
+  callbacks: {
+    jwt: async ({ token }) => {
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user = token.user;
+      return session;
+    },
+  },
 };
