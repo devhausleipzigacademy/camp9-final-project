@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { FieldErrors, useFormContext } from 'react-hook-form';
 import Button from 'components/shared/buttons/Button';
 import InputField from '../InputField';
@@ -8,9 +8,16 @@ import InputField from '../InputField';
 export default function AnswerOptions({
   title = 'Answer Options',
 }: NewPollComponentProps) {
-  const { register, formState } = useFormContext(); // retrieve all hook methods
+  const { register, formState, getValues, setValue } = useFormContext(); // retrieve all hook methods
 
-  const [numOptions, setNumOptions] = useState(2);
+  console.log(getValues());
+  const [numOptions, setNumOptions] = useState(
+    getValues('options')?.length || 1
+  );
+
+  // useEffect(() => {
+  //   setValue('options', getValues('options'));
+  // }, [numOptions]);
 
   const handleAddOption = () => {
     setNumOptions(numOptions + 1);
@@ -18,6 +25,10 @@ export default function AnswerOptions({
   const handleDeleteOption = () => {
     setNumOptions(numOptions - 1);
   };
+
+  console.log('options', getValues('options'));
+  console.log('numOptions', numOptions);
+
   return (
     <div className="flex flex-col">
       <fieldset></fieldset>
@@ -27,6 +38,7 @@ export default function AnswerOptions({
           <div className="flex flex-row justify-between my-1 overflow-scroll">
             <InputField
               {...register(`options[${index}]`, { required: true })}
+              value={getValues('options')?.[index]}
               key={index}
               type="text"
               label={`Option ${index + 1}`}
@@ -36,7 +48,7 @@ export default function AnswerOptions({
               error={
                 (formState.errors.options as FieldErrors)?.[index] // Cast 'errors.options' as FieldErrors
               }
-            ></InputField>
+            />
             <Button
               type="button"
               size="xs"

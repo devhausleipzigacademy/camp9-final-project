@@ -39,7 +39,7 @@ export default function NewPoll() {
 
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
-  const [pollSubmitted, setPollSubmitted] = useState(false); // Initialize as false
+  // const [pollSubmitted, setPollSubmitted] = useState(false); // Initialize as false
   const [error, setError] = useState(false); // Error flag
 
   // API request to create a new poll
@@ -60,10 +60,10 @@ export default function NewPoll() {
     onSuccess: data => {
       toast.success('Poll created!');
       reset();
-      setPollSubmitted(true); // Set pollSubmitted to true after successful response
+      // setPollSubmitted(true); // Set pollSubmitted to true after successful response
     },
     onError: error => {
-      setError(true); // Set error flag to true
+      // setError(true); // Set error flag to true
       toast.error(axios.isAxiosError(error) ? error.response?.data : error);
     },
   });
@@ -90,9 +90,9 @@ export default function NewPoll() {
   );
 
   // Update the current step title
-  useEffect(() => {
-    setCurrentStepTitle(steps[currentStepIndex]?.props.title); // Update the current step title
-  }, [currentStepIndex, steps]);
+  // useEffect(() => {
+  //   setCurrentStepTitle(steps[currentStepIndex]?.props.title); // Update the current step title
+  // }, [currentStepIndex, steps]);
 
   const { handleSubmit, formState, reset, getValues } = methods;
   const { errors } = formState;
@@ -121,26 +121,14 @@ export default function NewPoll() {
     }
   };
 
-  const isNotSubmitted = isFormInProgress && !pollSubmitted && !error;
-  const isSubmittedWithoutError = isFormCompleted && !error && pollSubmitted;
-  const isSubmittedWithError = isFormCompleted && error && !pollSubmitted;
+  // const isNotSubmitted = isFormInProgress && !pollSubmitted && !error;
+  const isFormCompletedWithoutError = isFormCompleted && !error;
+  const isFormCompletedWithError = isFormCompleted && error;
 
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
-        {isSubmittedWithoutError && (
-          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-            <PollCreatedStatus />,
-          </div>
-        )}
-
-        {isSubmittedWithError && (
-          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-            ERROR!
-          </div>
-        )}
-
-        {isNotSubmitted && (
+        {isFormInProgress && (
           <>
             <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
               <h1 className="title-black self-start">{currentStepTitle}</h1>
@@ -179,6 +167,17 @@ export default function NewPoll() {
               </Button>
             </footer>
           </>
+        )}
+
+        {isFormCompletedWithoutError && (
+          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+            <PollCreatedStatus />,
+          </div>
+        )}
+        {isFormCompletedWithError && (
+          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+            Error!!
+          </div>
         )}
       </main>
     </>
