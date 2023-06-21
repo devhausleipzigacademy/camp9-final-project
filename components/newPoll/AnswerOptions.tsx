@@ -10,7 +10,6 @@ export default function AnswerOptions({
 }: NewPollComponentProps) {
   const { register, formState, getValues, setValue } = useFormContext(); // retrieve all hook methods
 
-  console.log(getValues());
   const [numOptions, setNumOptions] = useState(
     getValues('options')?.length || 1
   );
@@ -24,9 +23,6 @@ export default function AnswerOptions({
     // remove the given index from the array
     options.splice(numOptions - 1, 1);
   };
-
-  console.log('options', getValues('options'));
-  console.log('numOptions', numOptions);
 
   return (
     <div className="flex flex-col">

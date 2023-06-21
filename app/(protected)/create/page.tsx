@@ -39,7 +39,6 @@ export default function NewPoll() {
 
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
-  // const [pollSubmitted, setPollSubmitted] = useState(false); // Initialize as false
   const [error, setError] = useState(false); // Error flag
 
   // API request to create a new poll
@@ -60,10 +59,8 @@ export default function NewPoll() {
     onSuccess: data => {
       toast.success('Poll created!');
       reset();
-      // setPollSubmitted(true); // Set pollSubmitted to true after successful response
     },
     onError: error => {
-      // setError(true); // Set error flag to true
       toast.error(axios.isAxiosError(error) ? error.response?.data : error);
     },
   });
@@ -88,11 +85,6 @@ export default function NewPoll() {
     ],
     methods
   );
-
-  // Update the current step title
-  // useEffect(() => {
-  //   setCurrentStepTitle(steps[currentStepIndex]?.props.title); // Update the current step title
-  // }, [currentStepIndex, steps]);
 
   const { handleSubmit, formState, reset, getValues } = methods;
   const { errors } = formState;
