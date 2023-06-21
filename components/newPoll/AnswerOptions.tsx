@@ -15,15 +15,14 @@ export default function AnswerOptions({
     getValues('options')?.length || 1
   );
 
-  // useEffect(() => {
-  //   setValue('options', getValues('options'));
-  // }, [numOptions]);
-
   const handleAddOption = () => {
     setNumOptions(numOptions + 1);
   };
   const handleDeleteOption = () => {
     setNumOptions(numOptions - 1);
+    const options = getValues('options');
+    // remove the given index from the array
+    options.splice(numOptions - 1, 1);
   };
 
   console.log('options', getValues('options'));
@@ -49,13 +48,16 @@ export default function AnswerOptions({
                 (formState.errors.options as FieldErrors)?.[index] // Cast 'errors.options' as FieldErrors
               }
             />
-            <Button
-              type="button"
-              size="xs"
-              className="button"
-              children="-"
-              onClick={handleDeleteOption}
-            ></Button>
+            {/* render from the second option on */}
+            {index > 0 && (
+              <Button
+                type="button"
+                size="xs"
+                className="button"
+                children="-"
+                onClick={handleDeleteOption}
+              ></Button>
+            )}
           </div>
         ))}
         <div className="flex my-1">
