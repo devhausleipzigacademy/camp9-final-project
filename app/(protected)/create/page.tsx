@@ -113,22 +113,27 @@ export default function NewPoll() {
     }
   };
 
-  console.log(currentStepIndex, steps.length, pollSubmitted);
+  const isSubmittedWithoutError = currentStepIndex === steps.length && !error;
+  const isSubmittedWithError = currentStepIndex === steps.length && error;
+  const isNotSubmitted =
+    currentStepIndex <= steps.length - 1 && !pollSubmitted && !error;
 
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
-        {currentStepIndex === steps.length && pollSubmitted && (
+        {isSubmittedWithoutError && (
           <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
             <PollCreatedStatus />,
           </div>
         )}
-        {currentStepIndex === steps.length && error && (
+
+        {isSubmittedWithError && (
           <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
             ERROR!
           </div>
         )}
-        {currentStepIndex <= steps.length - 1 && !pollSubmitted && !error && (
+
+        {isNotSubmitted && (
           <>
             <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
               <h1 className="title-black self-start">{currentStepTitle}</h1>
