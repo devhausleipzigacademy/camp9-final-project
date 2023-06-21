@@ -39,20 +39,27 @@ export default function NewPoll() {
 
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
+  const [pollSubmitted, setPollSubmitted] = useState(false); // Initialize as false
 
   // API request to create a new poll
   async function createNewPoll(poll: NewPoll) {
-    const { data } = await axios.post('/api/create', poll, {
-      withCredentials: true,
-    });
-    console.log(data);
-    return data as POSTNewPoll;
+    try {
+      const { data } = await axios.post('/api/create', poll, {
+        withCredentials: true,
+      });
+      console.log(data);
+      return data as POSTNewPoll;
+    } catch (error) {
+      console.error('Error creating a poll:', error);
+      throw error;
+    }
   }
 
   const { mutate } = useMutation(createNewPoll, {
     onSuccess: data => {
       toast.success('Poll created!');
       reset();
+      setPollSubmitted(true); // Set pollSubmitted to true after successful response
     },
     onError: error => {
       toast.error(axios.isAxiosError(error) ? error.response?.data : error);
@@ -100,12 +107,6 @@ export default function NewPoll() {
       next(); // Proceed to the next step
     }
   };
-
-  const pollSubmitted = currentStepIndex === steps.length;
-
-  console.log({ currentStepIndex, steps, pollSubmitted });
-  console.log(steps.length);
-  // console.log(getValues());
 
   return (
     <>
