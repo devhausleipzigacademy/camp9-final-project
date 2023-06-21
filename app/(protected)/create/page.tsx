@@ -18,7 +18,7 @@ import { useMutation } from '@tanstack/react-query';
 import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
 
-export default function NewPollLayout() {
+export default function NewPoll() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
     resolver: zodResolver(NewPollSchema),
     mode: 'onTouched',
@@ -34,22 +34,22 @@ export default function NewPollLayout() {
   });
 
   async function createNewPoll(poll: NewPoll) {
-    const { data } = await axios.post('/api/new', poll, {
+    const { data } = await axios.post('/api/create', poll, {
       withCredentials: true,
     });
-
+    console.log(data);
     return data as POSTNewPoll;
   }
 
-  // const { mutate } = useMutation(createNewPoll, {
-  //   onSuccess: data => {
-  //     toast.success('Poll created!');
-  //     reset();
-  //   },
-  //   onError: error => {
-  //     toast.error('Something went wrong!');
-  //   },
-  // });
+  const { mutate } = useMutation(createNewPoll, {
+    onSuccess: data => {
+      toast.success('Poll created!');
+      reset();
+    },
+    onError: error => {
+      toast.error(axios.isAxiosError(error) ? error.response?.data : error);
+    },
+  });
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm(
@@ -70,7 +70,7 @@ export default function NewPollLayout() {
           //  Create a new poll in the database
           // Additional logic for final submission
           console.log(data);
-          // mutate(data);
+          mutate(data);
           console.log('Poll created successfully!');
           reset(); // Clear the form fields
         } catch (error) {

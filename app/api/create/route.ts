@@ -20,13 +20,31 @@ export type POSTReturnType = {
 export async function POST(request: Request) {
   const data = await request.json();
   try {
-    const validData = NewPollSchema.parse(data);
+    const validation = NewPollSchema.safeParse(data);
 
-    const prismaData = {
-      hello: 123,
-    };
+    console.log(validation);
 
-    return new Response(JSON.stringify(prismaData), { status: 200 });
+    if (validation.success) {
+      const validData = validation.data;
+      console.log(validData);
+
+      return new Response(JSON.stringify(validData), { status: 200 });
+    } else {
+      const validationError = validation.error;
+      throw validationError;
+    }
+
+    // if (!validData.success) {
+    //   throw validData.error;
+    // }
+
+    // if (validData.success) {
+    //   console.log(validData.data);
+    // }
+
+    // const prismaData = {
+    //   hello: 123,
+    // };
   } catch (error) {
     if (error instanceof ZodError) {
       return new Response(error.message, { status: 422 });
