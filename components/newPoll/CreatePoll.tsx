@@ -5,12 +5,14 @@ import InputField from '../InputField';
 import InputFieldDescription from 'components/InputFieldDescription';
 import RadioButton from 'components/Radiobutton';
 
-export default function CreatePoll() {
+export default function CreatePoll({
+  title = 'Create a Poll',
+}: NewPollComponentProps) {
   const { register, formState, getValues } = useFormContext(); // retrieve all hook methods
+
   return (
     <div className="flex flex-col gap-4 w-full">
-      <h3>Question & Details</h3>
-
+      <h3>{title}</h3>
       <InputField
         {...register('question', { required: true })}
         error={{ message: formState.errors.question?.message as string }}

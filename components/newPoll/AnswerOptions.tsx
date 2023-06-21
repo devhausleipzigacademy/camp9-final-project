@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import Button from 'components/shared/buttons/Button';
 import InputField from '../InputField';
 
-export default function AnswerOptions() {
+export default function AnswerOptions({ title }: NewPollComponentProps) {
   const { register } = useFormContext(); // retrieve all hook methods
   const [numOptions, setNumOptions] = useState(2);
   const handleAddOption = () => {

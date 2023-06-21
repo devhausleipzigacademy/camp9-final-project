@@ -1,11 +1,11 @@
 'use client';
 
-export default function Deadline({
-  title = 'Deadline',
+export default function AddParticipants({
+  title = 'Add Participants',
 }: NewPollComponentProps) {
   return (
     <div className="flex flex-col gap-4 w-full">
-      <h3>Deadline</h3>
+      <h3>Add Participants</h3>
     </div>
   );
 }

@@ -17,6 +17,10 @@ import { useMutation } from '@tanstack/react-query';
 
 import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
+import AddParticipants from '@/components/newPoll/AddParticipants';
+import Review from '@/components/newPoll/Review';
+import PollCreatedStatus from '@/components/newPoll/PollCreatedStatus';
+import { useEffect, useState } from 'react';
 
 export default function NewPoll() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
@@ -32,6 +36,8 @@ export default function NewPoll() {
       type: 'MultipleChoice',
     },
   });
+
+  const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
 
   async function createNewPoll(poll: NewPoll) {
     const { data } = await axios.post('/api/create', poll, {
@@ -53,9 +59,22 @@ export default function NewPoll() {
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm(
-      [<CreatePoll />, <AnswerOptions />, <RevealConditions />, <Deadline />],
+      [
+        <CreatePoll title="Create a Poll" />,
+        <AnswerOptions title="Answer Options" />,
+        <RevealConditions title="Reveal Conditions" />,
+        <Deadline title="Deadline" />,
+        <AddParticipants title="Add Participants" />,
+        <Review title="Review & Submit"/>,
+        <PollCreatedStatus  />,
+      ],
       methods
     );
+
+
+  useEffect(() => {
+    setCurrentStepTitle(steps[currentStepIndex]?.props.title); // Update the current step title
+  }, [currentStepIndex, steps]);
 
   const { handleSubmit, formState, reset, getValues } = methods;
   const { errors } = formState;
@@ -88,7 +107,7 @@ export default function NewPoll() {
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
         <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-          <h1 className="title-black self-start">Create a Poll</h1>
+          <h1 className="title-black self-start">{currentStepTitle}</h1>{' '}
           <ProgressBar
             currentPage={currentStepIndex + 1}
             numberOfPages={steps.length}
