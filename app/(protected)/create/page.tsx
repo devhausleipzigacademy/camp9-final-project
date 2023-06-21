@@ -69,7 +69,15 @@ export default function NewPoll() {
   });
 
   // Multi step form setup
-  const { steps, currentStepIndex, isLastStep, back, next } = useMultiStepForm(
+  const {
+    steps,
+    currentStepIndex,
+    isLastStep,
+    isFormInProgress,
+    isFormCompleted,
+    back,
+    next,
+  } = useMultiStepForm(
     [
       <CreatePoll title="Create a Poll" />,
       <AnswerOptions title="Answer Options" />,
@@ -113,10 +121,9 @@ export default function NewPoll() {
     }
   };
 
-  const isSubmittedWithoutError = currentStepIndex === steps.length && !error;
-  const isSubmittedWithError = currentStepIndex === steps.length && error;
-  const isNotSubmitted =
-    currentStepIndex <= steps.length - 1 && !pollSubmitted && !error;
+  const isSubmittedWithoutError = isFormCompleted && !error && pollSubmitted;
+  const isSubmittedWithError = isFormCompleted && error && !pollSubmitted;
+  const isNotSubmitted = isFormInProgress && !pollSubmitted && !error;
 
   return (
     <>
