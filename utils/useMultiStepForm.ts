@@ -31,15 +31,6 @@ export function useMultiStepForm(
     });
   }
 
-  // function next() {
-  //   setCurrentStepIndex(i => {
-  //     if (i >= steps.length - 1) {
-  //       return i;
-  //     }
-  //     return i + 1;
-  //   });
-  // }
-
   async function back() {
     const fields = methods.watch();
     const keys = Object.keys(fields);
@@ -52,15 +43,6 @@ export function useMultiStepForm(
     }
     setCurrentStepIndex(currentStepIndex - 1);
   }
-
-  // function back() {
-  //   setCurrentStepIndex(i => {
-  //     if (i <= 0) {
-  //       return i;
-  //     }
-  //     return i - 1;
-  //   });
-  // }
 
   function goTo(index: number) {
     setCurrentStepIndex(index);

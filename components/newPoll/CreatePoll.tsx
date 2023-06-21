@@ -12,7 +12,6 @@ export default function CreatePoll({
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <h3>{title}</h3>
       <InputField
         {...register('question', { required: true })}
         error={{ message: formState.errors.question?.message as string }}
@@ -34,7 +33,6 @@ export default function CreatePoll({
         placeholder="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         "
       />
-      <RadioButton variant={'primary'} />
     </div>
   );
 }

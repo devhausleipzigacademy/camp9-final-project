@@ -57,20 +57,17 @@ export default function NewPoll() {
     },
   });
 
-  const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
-    useMultiStepForm(
-      [
-        <CreatePoll title="Create a Poll" />,
-        <AnswerOptions title="Answer Options" />,
-        <RevealConditions title="Reveal Conditions" />,
-        <Deadline title="Deadline" />,
-        <AddParticipants title="Add Participants" />,
-        <Review title="Review & Submit"/>,
-        <PollCreatedStatus  />,
-      ],
-      methods
-    );
-
+  const { steps, currentStepIndex, isLastStep, back, next } = useMultiStepForm(
+    [
+      <CreatePoll title="Create a Poll" />,
+      <AnswerOptions title="Answer Options" />,
+      <RevealConditions title="Reveal Conditions" />,
+      <Deadline title="Deadline" />,
+      <AddParticipants title="Add Participants" />,
+      <Review title="Review & Submit" />,
+    ],
+    methods
+  );
 
   useEffect(() => {
     setCurrentStepTitle(steps[currentStepIndex]?.props.title); // Update the current step title
@@ -101,46 +98,63 @@ export default function NewPoll() {
     }
   };
 
+  console.log(steps.length);
+
+  const pollSubmitted = isLastStep;
+
+  console.log({ currentStepIndex, steps, pollSubmitted });
+
   // console.log(getValues());
 
   return (
     <>
-      <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
-        <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-          <h1 className="title-black self-start">{currentStepTitle}</h1>{' '}
-          <ProgressBar
-            currentPage={currentStepIndex + 1}
-            numberOfPages={steps.length}
-          />
-          <FormProvider {...methods}>
-            <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-              {steps[currentStepIndex]}
-            </form>
-          </FormProvider>
-        </div>
-      </main>
+      {pollSubmitted && (
+        <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+            <PollCreatedStatus />,
+          </div>
+        </main>
+      )}
+      {!pollSubmitted && (
+        <>
+          <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+            <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+              <h1 className="title-black self-start">{currentStepTitle}</h1>{' '}
+              <ProgressBar
+                currentPage={currentStepIndex + 1}
+                numberOfPages={steps.length - 1}
+              />
+              <FormProvider {...methods}>
+                <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+                  {steps[currentStepIndex]}
+                </form>
+              </FormProvider>
+            </div>
+          </main>
 
-      <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
-        <Button
-          size="small"
-          variant="secondary"
-          onClick={back}
-          disabled={Object.keys(formState.errors).length !== 0}
-        >
-          <GrFormPrevious size={24} strokeWidth={2} />
-          <h3>Back</h3>
-        </Button>
+          <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
+            <Button
+              size="small"
+              variant="secondary"
+              onClick={back}
+              disabled={Object.keys(formState.errors).length !== 0}
+            >
+              <GrFormPrevious size={24} strokeWidth={2} />
+              <h3>Back</h3>
+            </Button>
 
-        <Button
-          size="large"
-          className="ml-auto"
-          onClick={!isLastStep ? next : handleSubmit(onSubmit)}
-          disabled={Object.keys(formState.errors).length !== 0}
-        >
-          {isLastStep ? 'Create' : 'Next'}
-          <GrFormNext size={24} strokeWidth={2} />
-        </Button>
-      </footer>
+            <Button
+              size="large"
+              className="ml-auto"
+              onClick={!isLastStep ? next : handleSubmit(onSubmit)}
+              disabled={Object.keys(formState.errors).length !== 0}
+            >
+              {isLastStep ? 'Create' : 'Next'}
+              <GrFormNext size={24} strokeWidth={2} />
+            </Button>
+          </footer>
+        </>
+      )}
     </>
   );
 }
