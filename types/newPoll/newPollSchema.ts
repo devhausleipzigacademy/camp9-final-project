@@ -8,8 +8,7 @@ export const NewPollSchema = z.object({
   endDateTime: z.date().or(z.string()),
   anonymity: z.enum(['Anonymous', 'Non-Anonymous']).optional(),
   quorum: z.number().int().min(0).max(100).optional(),
-  type: z.enum(['MultipleChoice', 'SingleChoice', 'YesNo']),
+  type: z.enum(['MultipleChoice', 'SingleChoice']),
 });
 
 export type NewPoll = z.infer<typeof NewPollSchema>;
- 

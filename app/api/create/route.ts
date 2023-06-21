@@ -56,21 +56,21 @@ export async function POST(request: Request) {
           //   type: validData.type,
           // },
           data: {
-            description: 'Sample poll',
-            question: 'What is your favorite color?',
-            options: ['Red', 'Blue', 'Green'],
+            question: validData.question,
+            description: validData.description,
+            options: validData.options?.map(option => option),
             creator: {
               connect: {
-                id: 8,
+                id: 8, // dummy data
               },
             },
             participants: {
-              connect: [{ id: 9 }, { id: 10 }],
+              connect: [{ id: 9 }, { id: 10 }], // dummy data
             },
-            endDateTime: '2023-06-30T23:59:59Z',
-            anonymity: 'Anonymous',
-            quorum: 50,
-            type: 'MultipleChoice',
+            endDateTime: validData.endDateTime,
+            anonymity: Anonymity.Anonymous, // dummy data
+            quorum: validData.quorum,
+            type: validData.type,
           },
         });
 
