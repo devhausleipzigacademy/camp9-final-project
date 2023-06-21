@@ -11,7 +11,7 @@ function getPollData(userID: string, pollID: string) {
 }
 
 //useQuery to call the axios get request
-export function getVotePollQuery(userId: string, pollId: string) {
+export function useVotePollQuery(userId: string, pollId: string) {
   const query = useQuery({
     queryKey: ['votePoll', userId],
     queryFn: () => getPollData(userId, pollId),

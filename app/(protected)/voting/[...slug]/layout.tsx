@@ -1,3 +1,4 @@
+import ProgressBar from '@/components/shared/ProgressBar';
 import Button from 'components/shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
@@ -7,12 +8,9 @@ export default function VotingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <main className="container flex flex-col items-center justify-between min-h-screen bg-green-light p-8">
-        {children}
-      </main>
-
-      <footer className="flex w-[311px] justify-between items-center bottom-28 fixed">
+    <div className="page bg-green-light">
+      <main className="flex flex-col justify-between">{children}</main>
+      <footer className="flex flex-row justify-between items-center">
         <Button size="small" variant="secondary">
           <GrFormPrevious size={24} strokeWidth={2} />
           <h3>Back</h3>
@@ -22,6 +20,6 @@ export default function VotingLayout({
           <GrFormNext size={24} strokeWidth={2} />
         </Button>
       </footer>
-    </>
+    </div>
   );
 }
