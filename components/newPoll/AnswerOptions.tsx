@@ -35,8 +35,17 @@ export default function AnswerOptions({
       options.splice(1, options.length - 1);
       setValue('options', options);
       setNumOptions(1);
+    } else {
+      setNumOptions(2);
     }
   }, [isSingleChoice]);
+
+  // if the number of options is less than 2, then set the type to single choice
+  useEffect(() => {
+    if (numOptions < 2) {
+      setValue('type', 'SingleChoice');
+    }
+  }, [numOptions]);
 
   return (
     <div className="flex flex-col gap-5">
