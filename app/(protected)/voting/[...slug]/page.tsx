@@ -39,12 +39,8 @@ export default function Voting() {
         <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
           <div className="flex flex-row justify-between">
             <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
-            <input type="checkbox" id="anonymity" className="w-3" />
+            <input type="checkbox" id="anonymity" className="checkmarkBox" />
           </div>
-          <CheckboxWithLabel
-            variant="primary"
-            label={query.data?.data.anonymity?.toString() ?? ''}
-          />
         </fieldset>
 
         <fieldset
