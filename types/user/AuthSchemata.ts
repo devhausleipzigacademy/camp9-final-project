@@ -6,11 +6,12 @@ export const usernameSchema = z.object({
     .min(3, 'Username must be at least 3 characters long.')
     .max(20, 'Username must be less than 20 characters long.'),
 });
-export type UserType = z.infer<typeof loginSchema>;
+export type UsernameType = z.infer<typeof usernameSchema>;
 
 export const passwordSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters long.'),
 });
+export type PasswordType = z.infer<typeof passwordSchema>;
 
 export const passwordConfirmSchema = passwordSchema
   .extend({
@@ -22,6 +23,7 @@ export const passwordConfirmSchema = passwordSchema
     message: 'repeat password',
     path: ['confirmPassword'],
   });
+export type PasswordConfirmType = z.infer<typeof passwordConfirmSchema>;
 
 export const loginSchema = usernameSchema.merge(passwordSchema);
 export type LoginSchemaType = z.infer<typeof loginSchema>;
