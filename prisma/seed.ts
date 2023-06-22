@@ -10,7 +10,6 @@ async function createMockData() {
     const polls = await createPolls(numPolls);
     const users = await prisma.user.findMany();
     await createVotesForPolls(polls, users);
-    console.log('Mock data seeded successfully');
   } catch (err) {
     console.error(err);
   } finally {

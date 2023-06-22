@@ -48,6 +48,7 @@ model Vote {
   pollId    Int
   User      User      @relation(fields: [userId], references: [id])
   userId    Int
+  mood Mood @default(Beaming)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
 }
@@ -64,4 +65,12 @@ enum Anonymity {
   Anonymous //no one knows who voted what
   NonAnonymous //everyone knows who voted what -> achive this by putting quorum on 0
   AnonymousUntilQuorum //no one knows who voted what until quorum is met
+}
+
+enum Mood {
+Miserable
+Unhappy
+Unsure
+Happy
+Beaming
 }
