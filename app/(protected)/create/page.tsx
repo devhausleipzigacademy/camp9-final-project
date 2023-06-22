@@ -86,6 +86,11 @@ export default function NewPoll() {
     methods
   );
 
+  // Update currentStepTitle when the index changes
+  useEffect(() => {
+    setCurrentStepTitle(steps[currentStepIndex]?.props.title);
+  }, [currentStepIndex, steps]);
+
   const { handleSubmit, formState, reset, getValues } = methods;
   const { errors } = formState;
 

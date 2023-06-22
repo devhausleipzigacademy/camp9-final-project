@@ -26,7 +26,15 @@ export default function AnswerOptions({
 
   return (
     <div className="flex flex-col">
-      <fieldset></fieldset>
+      <fieldset>
+        <legend className="text-lg font-semibold">{title}</legend>
+        <div className="flex flex-row justify-between my-1">
+          <input
+            className="w-full p-2 border border-black rounded-md"
+            type="radio"
+          />
+        </div>
+      </fieldset>
       <hr className="border border-black"></hr>
       <fieldset className="flex flex-col justify-around">
         {Array.from({ length: numOptions }).map((_, index) => (
