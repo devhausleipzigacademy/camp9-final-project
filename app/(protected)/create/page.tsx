@@ -25,6 +25,7 @@ import Review from '@/components/newPoll/Review';
 import PollCreatedStatus from '@/components/newPoll/PollCreatedStatus';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
+import { title } from 'process';
 
 export default function NewPoll() {
   // Form setup
@@ -41,7 +42,6 @@ export default function NewPoll() {
 
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
-  const [error, setError] = useState(false); // Error flag
 
   // API request to create a new poll
   async function createNewPoll(poll: CreateNewPoll) {
@@ -56,7 +56,7 @@ export default function NewPoll() {
     }
   }
 
-  const { mutate } = useMutation(createNewPoll, {
+  const { mutate, isLoading, isError, isSuccess } = useMutation(createNewPoll, {
     onSuccess: () => {
       toast.success('Poll created!');
       reset();
@@ -104,7 +104,6 @@ export default function NewPoll() {
           reset(); // Clear the form fields
           next(); // Proceed to the next step
         } catch (error) {
-          setError(true); // Set error flag to true
           console.error('Error creating a poll:', error);
         }
         next(); // Proceed to the next step
@@ -113,10 +112,6 @@ export default function NewPoll() {
       next(); // Proceed to the next step
     }
   };
-
-  // const isNotSubmitted = isFormInProgress && !pollSubmitted && !error;
-  const isFormCompletedWithoutError = isFormCompleted && !error;
-  const isFormCompletedWithError = isFormCompleted && error;
 
   return (
     <>
@@ -161,13 +156,18 @@ export default function NewPoll() {
             </footer>
           </>
         )}
+        {isLoading && (
+          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+            Is Loading!!
+          </div>
+        )}
 
-        {isFormCompletedWithoutError && (
+        {isSuccess && (
           <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
             <PollCreatedStatus />,
           </div>
         )}
-        {isFormCompletedWithError && (
+        {isError && (
           <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
             Error!!
           </div>
