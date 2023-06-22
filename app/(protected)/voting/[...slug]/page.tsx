@@ -30,7 +30,12 @@ export default function Voting() {
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           {options?.map(option => (
             <Questionbox key={'1'} variant="secondary">
-              <Radio variant="primary" />
+              <Radio
+                variant="primary"
+                id={option}
+                name="option"
+                value={option}
+              />
               <label className="w-[228px]" htmlFor={option}>
                 {option}
               </label>
@@ -43,7 +48,7 @@ export default function Voting() {
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           {options?.map(option => (
             <Questionbox key={'2'} variant="secondary">
-              <Radio
+              <Checkboxinput
                 variant="primary"
                 id={option}
                 name="option"
@@ -111,8 +116,9 @@ export default function Voting() {
             <input type="checkbox" id="quorum" className="checkmarkBox" />
           </div>
         </fieldset>
-        <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-        </fieldset>
+        <fieldset
+          className={clsx(step === 2 ? 'visible' : 'hidden')}
+        ></fieldset>
         {typeofPoll}
         <button
           type="submit"
