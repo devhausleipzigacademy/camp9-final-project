@@ -1,15 +1,11 @@
 import { ReactElement, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
-import { Prisma } from '@prisma/client';
+import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 
 export function useMultiStepForm(
   steps: ReactElement[],
-  methods: UseFormReturn<
-    Omit<Prisma.PollCreateInput, 'creator'>,
-    any,
-    undefined
-  >
+  methods: UseFormReturn<CreateNewPoll, any, undefined>
 ) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 

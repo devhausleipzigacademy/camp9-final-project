@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 
-import { Prisma } from '@prisma/client';
+import { Poll } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
@@ -11,11 +11,12 @@ import { useMultiStepForm } from 'utils/useMultiStepForm';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
-import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
+import {
+  CreateNewPollSchema,
+  CreateNewPoll,
+} from '@/types/newPoll/CreatePollSchema';
 
 import Button from '@/components/shared/buttons/Button';
-import CreatePoll from '@/components/newPoll/CreatePoll';
 import Deadline from '@/components/newPoll/Deadline';
 import RevealConditions from '@/components/newPoll/RevealConditions';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
@@ -23,17 +24,17 @@ import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
 import PollCreatedStatus from '@/components/newPoll/PollCreatedStatus';
 import ProgressBar from '@/components/shared/ProgressBar';
-import { get } from 'http';
+import CreatePoll from '@/components/newPoll/CreatePoll';
 
 export default function NewPoll() {
   // Form setup
-  const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
-    resolver: zodResolver(NewPollSchema),
+  const methods = useForm<CreateNewPoll>({
+    resolver: zodResolver(CreateNewPollSchema),
     mode: 'onTouched',
     defaultValues: {
       endDateTime: new Date(),
       anonymity: 'Anonymous',
-      // quorum: 80,
+      quorum: '80',
       type: 'MultipleChoice',
     },
   });
@@ -43,13 +44,12 @@ export default function NewPoll() {
   const [error, setError] = useState(false); // Error flag
 
   // API request to create a new poll
-  async function createNewPoll(poll: NewPoll) {
+  async function createNewPoll(poll: CreateNewPoll) {
     try {
-      const { data } = await axios.post('/api/create', poll, {
+      const { data } = await axios.post<Poll>('/api/create', poll, {
         withCredentials: true,
       });
-      console.log(data);
-      return data as POSTNewPoll;
+      return data;
     } catch (error) {
       console.error('Error creating a poll:', error);
       throw error;
@@ -95,10 +95,12 @@ export default function NewPoll() {
   const { handleSubmit, formState, reset, getValues } = methods;
   const { errors } = formState;
 
+  console.log(getValues());
+
+  console.log(formState.errors);
+
   // Form submission handler
-  const onSubmit: SubmitHandler<
-    Omit<Prisma.PollCreateInput, 'creator'>
-  > = data => {
+  const onSubmit: SubmitHandler<CreateNewPoll> = data => {
     if (isLastStep) {
       if (Object.keys(errors).length === 0) {
         try {

@@ -1,28 +1,14 @@
-import { NewPollSchema } from '@/types/newPoll/NewPollSchema';
-import { Anonymity, PollType, PrismaClient } from '@prisma/client';
+import { Anonymity, PrismaClient } from '@prisma/client';
 import { ZodError } from 'zod';
 
-const prisma = new PrismaClient();
+import { CreateNewPollSchema } from '@/types/newPoll/CreatePollSchema';
 
-export type POSTReturnType = {
-  id: number;
-  description?: string;
-  question: string;
-  options: string[];
-  creatorId: number;
-  participants: number[];
-  endDateTime: string;
-  anonymity: Anonymity;
-  quorum?: number;
-  type: PollType;
-  createdAt: string;
-  updatedAt: string;
-};
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   const data = await request.json();
   try {
-    const validation = NewPollSchema.safeParse(data);
+    const validation = CreateNewPollSchema.safeParse(data);
 
     console.log(validation);
 
@@ -69,14 +55,14 @@ export async function POST(request: Request) {
             },
             endDateTime: validData.endDateTime,
             anonymity: Anonymity.Anonymous, // dummy data
-            quorum: validData.quorum,
+            quorum: +validData.quorum,
             type: validData.type,
           },
         });
 
         console.log('Poll created: ', createdPoll);
 
-        return new Response(JSON.stringify(validData), { status: 200 });
+        return new Response(JSON.stringify(createdPoll), { status: 200 });
       } catch (error) {
         console.error('Error creating poll', error);
 

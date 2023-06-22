@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
-import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
+import { NewPoll, NewPollSchema } from '@/types/newPoll/CreatePollSchema';
 
 async function createNewPoll(poll: NewPoll) {
   const { data } = await axios.post('/api/new', poll, {

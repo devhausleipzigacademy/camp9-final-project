@@ -1,13 +1,12 @@
 'use client';
-import { NewPoll } from '@/types/newPoll/NewPollSchema';
-import Radio from 'components/Radiobutton';
+import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 import { useFormContext } from 'react-hook-form';
 
 export default function RevealConditions({
   title = 'Reveal Conditions',
 }: NewPollComponentProps) {
   const { register, formState, getValues, setValue } =
-    useFormContext<NewPoll>(); // retrieve all hook methods
+    useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
   const quorum = getValues().quorum;
 
