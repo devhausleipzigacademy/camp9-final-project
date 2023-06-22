@@ -122,7 +122,7 @@ export default function NewPoll() {
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
         {isFormInProgress && (
           <>
-            <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+            <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
               <h1 className="title-black self-start">{currentStepTitle}</h1>
 
               <ProgressBar
@@ -131,13 +131,13 @@ export default function NewPoll() {
               />
 
               <FormProvider {...methods}>
-                <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+                <form className="w-full mt-5" onSubmit={handleSubmit(onSubmit)}>
                   {steps[currentStepIndex]}
                 </form>
               </FormProvider>
             </div>
 
-            <footer className="flex container gap-8 px-8 justify-between items-center bottom-28 fixed">
+            <footer className="flex container gap-10 px-8 justify-between items-center bottom-28 fixed">
               <Button
                 size="small"
                 variant="secondary"
