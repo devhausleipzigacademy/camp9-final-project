@@ -1,42 +1,24 @@
 'use client';
 
-import { useState } from 'react';
-import { BoxCheckedProps } from './Question';
-import { cva } from 'class-variance-authority';
+import React, { useState } from 'react';
 
-export const Radio = ({ variant }: BoxCheckedProps) => {
-  const [checked, setChecked] = useState(false);
-  const handleChange = (e: any) => {
-    e.currentTarget.classList.toggle('shadow-brutal');
-    setChecked(!checked);
-    if (checked) {
-      e.currentTarget.classList.remove('translate-y-1', '-translate-x-1');
-    } else {
-      e.currentTarget.classList.add('translate-y-1', '-translate-x-1');
-    }
-  };
-  const boxclass = cva(
-    [
-      'w-[34px] h-[34px] flex justify-center items-center shadow-brutal rounded-round ml-4 mb-4 border-solid border-black border-2',
-    ],
-    {
-      variants: {
-        variant: {
-          primary: 'bg-teal',
-          secondary: 'bg-peach',
-          tertiary: 'bg-green',
-        },
-      },
-    }
-  );
-
+const RadioButton = ({ name, id, value, onChange, checked, text }: any) => {
   return (
-    <div className={boxclass({ variant })} onClick={handleChange}>
-      {checked && (
-        <img src='public/images/radio-fill.png'></img>
-        )}
-    </div>
+    <label htmlFor={id} className="radio-label">
+      <input
+        className="radio-input"
+        type="radio"
+        name={name}
+        id={id}
+        value={value}
+        onChange={onChange}
+        checked={checked}
+      />
+      <span
+        className="custom-radio"
+      />
+    </label>
   );
 };
 
-export default Radio;
+export default RadioButton;
