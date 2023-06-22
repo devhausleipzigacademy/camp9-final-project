@@ -1,5 +1,8 @@
-type CheckboxinputProps = {
+export type CheckboxinputProps = {
   variant: 'primary' | 'secondary' | 'tertiary';
+  id: string;
+  name: string;
+  value: string;
 };
 
 import { cva } from 'class-variance-authority';

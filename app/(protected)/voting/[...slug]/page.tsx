@@ -1,8 +1,8 @@
 'use client';
 
-import CheckboxWithLabel from '@/components/CheckboxWithLabel';
-import { Checkboxinput } from '@/components/Checkboxinput';
+import { Checkboxinput } from '@/components/CheckboxInput';
 import Questionbox from '@/components/Question';
+import Radio from '@/components/Radiobutton';
 import { useVotePollQuery } from '@/components/hooks/usePoll';
 import ProgressBar from '@/components/shared/ProgressBar';
 import { PollType } from '@prisma/client';
@@ -29,10 +29,12 @@ export default function Voting() {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           {options?.map(option => (
-            <div>
-              <label htmlFor={option}>{option}</label>
-              <input type="checkbox" id={option} />
-            </div>
+            <Questionbox key={'1'} variant="secondary">
+              <Radio variant="primary" />
+              <label className="w-[228px]" htmlFor={option}>
+                {option}
+              </label>
+            </Questionbox>
           ))}
         </fieldset>
       );
@@ -40,8 +42,16 @@ export default function Voting() {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           {options?.map(option => (
-            <Questionbox variant="secondary">
-              <label htmlFor={option}>{option}</label>
+            <Questionbox key={'2'} variant="secondary">
+              <Radio
+                variant="primary"
+                id={option}
+                name="option"
+                value={option}
+              />
+              <label className="w-[228px]" htmlFor={option}>
+                {option}
+              </label>
             </Questionbox>
           ))}
         </fieldset>
@@ -73,13 +83,11 @@ export default function Voting() {
     <>
       <h1 className="title-black text-left">{header}</h1>
       <ProgressBar numberOfPages={3} currentPage={step} />
+
       <form>
-        <legend className="body-semibold">
-          Voting conditions
-          <br />
-          <div className="description">
-            <span className="font-bold">Please check</span> you understand the
-            poll conditions
+        <legend>
+          <div className="small leading-9">
+            Multi choice, select many as you want
           </div>
         </legend>
 
@@ -102,6 +110,8 @@ export default function Voting() {
             </label>
             <input type="checkbox" id="quorum" className="checkmarkBox" />
           </div>
+        </fieldset>
+        <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
         </fieldset>
         {typeofPoll}
         <button
