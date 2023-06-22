@@ -49,7 +49,7 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     async session({ session, token }) {
-      session.user.id = token; // <-- write token id object to session (?)
+      session.user.id = token.sub; // <-- write token id object to session (?)
       return session;
     },
   },

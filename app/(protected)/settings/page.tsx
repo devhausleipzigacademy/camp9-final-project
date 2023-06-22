@@ -5,16 +5,21 @@ import SettingsButton from 'components/shared/buttons/SettingsButton';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { useEditUsernameMutation } from '@/components/hooks/useEditUsername';
+import { UsernameType } from '@/types/user/AuthSchemata';
 
 type Icon = 'pencil' | 'check';
 
 function Settings() {
   const [usernameEdit, setUsernameEdit] = useState<Icon>('pencil');
   const [passwordEdit, setPasswordEdit] = useState<Icon>('pencil');
-  const { data } = useSession(); // <-- get user ID from session/JWT
   const [username, setUsername] = useState('...'); // <-- username initially unknown
 
-  async function applyUsername(userID: number) {
+  const { data } = useSession(); // <-- get user ID object from session/JWT
+  const userID = data?.user?.id;
+
+  (async function () {
+    // <-- function expression to immediatley update username
     try {
       const response = await axios.get('/api/getUsername', {
         params: { id: userID }, // <-- make get request to getUsername API with id as parameter
@@ -23,31 +28,42 @@ function Settings() {
     } catch (error) {
       console.error(error);
     }
-  }
+  })();
 
-  applyUsername(data?.user?.id.sub);
+  const { mutate, isLoading, handleSubmit, register, errors, formState } =
+    useEditUsernameMutation();
+
+  const onSubmit = (data: any) => {
+    mutate({ ...data, userID });
+    console.log('FRONTEND: onSubmit triggered', data);
+    setUsernameEdit('pencil');
+  };
 
   return (
     <div className="bg-yellow-light">
       <h2 className="title-bold">User Settings</h2>
       <div className="mt-[60px] flex">
         <div className="flex gap-4">
-          <InputField
-            label={'Username'}
-            showLabel={true}
-            type={'username'}
-            width={'reduced'}
-            disabled={usernameEdit === 'pencil'}
-            placeholder={username}
-          />
-          <SettingsButton
-            disabled={false}
-            variant={usernameEdit}
-            children=""
-            onClick={() => {
-              setUsernameEdit(usernameEdit === 'pencil' ? 'check' : 'pencil');
-            }}
-          />
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+            <InputField
+              label={'Username'}
+              showLabel={true}
+              type={'username'}
+              width={'reduced'}
+              disabled={usernameEdit === 'pencil'}
+              placeholder={username}
+              {...register('username')}
+            />
+            <SettingsButton
+              disabled={false}
+              variant={usernameEdit}
+              children=""
+              type="submit"
+              onClick={() => {
+                setUsernameEdit('check');
+              }}
+            />
+          </form>
         </div>
       </div>
       <div className="my-4">

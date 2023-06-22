@@ -25,7 +25,7 @@ function SettingsButton({
   }
 
   return (
-    <div
+    <button
       className={clsx(
         'border-brutal shadow-brutal rounded-md flex items-center justify-center h-[44px] w-[44px] mt-5',
         variant === 'pencil' ? 'bg-yellow' : 'bg-green',
@@ -34,7 +34,7 @@ function SettingsButton({
       onClick={onClick}
     >
       {children}
-    </div>
+    </button>
   );
 }
 
