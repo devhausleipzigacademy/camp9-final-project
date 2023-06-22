@@ -10,7 +10,7 @@ export default function CreatePoll({
   const { register, formState } = useFormContext(); // retrieve all hook methods
 
   return (
-    <div className="flex flex-col gap-4 w-full">
+    <div className="flex flex-col gap-8 w-full">
       <InputField
         {...register('question', { required: true })}
         error={formState.errors.question}
@@ -19,7 +19,7 @@ export default function CreatePoll({
         type={'text'}
         width={'full'}
         disabled={false}
-        placeholder="What is your favorite color?"
+        placeholder="Question"
       />
       <InputFieldDescription
         {...register('description')}
@@ -29,8 +29,7 @@ export default function CreatePoll({
         width={'full'}
         disabled={false}
         rows={8}
-        placeholder="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        "
+        placeholder="Description (optional)"
       />
     </div>
   );

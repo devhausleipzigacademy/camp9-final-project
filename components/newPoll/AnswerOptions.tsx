@@ -47,8 +47,9 @@ export default function AnswerOptions({
             {/* render from the second option on */}
             {index > 0 && (
               <Button
+                variant="secondary"
                 type="button"
-                size="xs"
+                size="xxs"
                 className="button"
                 children="-"
                 onClick={handleDeleteOption}
@@ -59,9 +60,9 @@ export default function AnswerOptions({
         <div className="flex my-1">
           <Button
             type="button"
+            size="xs"
             className="ml-auto"
             variant="secondary"
-            size="small"
             children="+ Option"
             onClick={handleAddOption}
           ></Button>
