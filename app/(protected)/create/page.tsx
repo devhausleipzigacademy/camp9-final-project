@@ -1,6 +1,6 @@
 'use client';
 
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import ProgressBar from 'components/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
 import Deadline from '@/components/newPoll/Deadline';
@@ -13,10 +13,16 @@ import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useMutation } from '@tanstack/react-query';
+import {
+  QueryClientProvider,
+  useMutation,
+  QueryClient,
+  useQuery,
+} from '@tanstack/react-query';
 
 import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
+import AddParticipants from '@/components/newPoll/AddParticipants';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({
@@ -53,7 +59,13 @@ export default function NewPollLayout() {
 
   const { steps, currentStepIndex, isFirstStep, isLastStep, back, next } =
     useMultiStepForm(
-      [<CreatePoll />, <AnswerOptions />, <RevealConditions />, <Deadline />],
+      [
+        <CreatePoll />,
+        <AnswerOptions />,
+        <RevealConditions />,
+        <Deadline />,
+        <AddParticipants />,
+      ],
       methods
     );
 
