@@ -1,5 +1,6 @@
 'use client';
 
+import CheckboxWithLabel from '@/components/CheckboxWithLabel';
 import { useVotePollQuery } from '@/components/hooks/usePoll';
 import ProgressBar from '@/components/shared/ProgressBar';
 import clsx from 'clsx';
@@ -16,8 +17,6 @@ export default function Voting() {
     return <>Sorry</>;
   }
   const { query } = useVotePollQuery(path[2], path[3]);
-
-  
 
   return (
     <>
@@ -38,10 +37,14 @@ export default function Voting() {
         </p>
 
         <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-          <input type="checkbox" id="anonymity" />
-          <label htmlFor="anonymity">Anonymity</label>
-          <input type="checkbox" id="quorum" />
-          <label htmlFor="quorum">Quorum</label>
+          <div className="flex flex-row justify-between">
+            <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
+            <input type="checkbox" id="anonymity" className="w-3" />
+          </div>
+          <CheckboxWithLabel
+            variant="primary"
+            label={query.data?.data.anonymity?.toString() ?? ''}
+          />
         </fieldset>
 
         <fieldset
