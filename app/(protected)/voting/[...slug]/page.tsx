@@ -1,6 +1,8 @@
 'use client';
 
 import CheckboxWithLabel from '@/components/CheckboxWithLabel';
+import { Checkboxinput } from '@/components/Checkboxinput';
+import Questionbox from '@/components/Question';
 import { useVotePollQuery } from '@/components/hooks/usePoll';
 import ProgressBar from '@/components/shared/ProgressBar';
 import clsx from 'clsx';
@@ -37,12 +39,10 @@ export default function Voting() {
         </p>
 
         <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-          <div className="flex flex-row justify-between">
+          <Questionbox variant="secondary">
             <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
-            <input type="checkbox" id="anonymity" className="checkmarkBox" />
-          </div>
+          </Questionbox>
         </fieldset>
-
         <fieldset
           className={clsx(
             step === 3 && query.data?.data.type === 'SingleChoice'
@@ -50,10 +50,14 @@ export default function Voting() {
               : 'hidden'
           )}
         >
-          <input type="checkbox" id="anonymity2" />
-          <label htmlFor="anonymity">Anonymity2</label>
-          <input type="checkbox" id="quorum2" />
-          <label htmlFor="quorum">Quorum2</label>
+          <div className="flex flex-col justify-between gap-12">
+            <Questionbox variant="secondary">
+              <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
+            </Questionbox>
+            <Questionbox variant="secondary">
+              <label htmlFor="quorum">{query.data?.data.quorum}</label>
+            </Questionbox>
+          </div>
         </fieldset>
 
         <fieldset
@@ -63,10 +67,14 @@ export default function Voting() {
               : 'hidden'
           )}
         >
-          <input type="checkbox" id="anonymity2" />
-          <label htmlFor="anonymity">Anonymity2</label>
-          <input type="checkbox" id="quorum2" />
-          <label htmlFor="quorum">Quorum2</label>
+          <div className="flex flex-col justify-between gap-12">
+            <Questionbox variant="secondary">
+              <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
+            </Questionbox>
+            <Questionbox variant="secondary">
+              <label htmlFor="quorum">{query.data?.data.quorum}</label>
+            </Questionbox>
+          </div>
         </fieldset>
 
         <button
