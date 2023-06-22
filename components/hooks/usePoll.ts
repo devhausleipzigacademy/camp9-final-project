@@ -1,6 +1,8 @@
 import { Poll } from '@prisma/client';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
+import { useForm } from 'react-hook-form';
+
 
 //axios get request to get the data from the database
 function getPollData(userID: string, pollID: string) {
@@ -18,3 +20,18 @@ export function useVotePollQuery(userId: string, pollId: string) {
   });
   return { query };
 }
+
+type VoteResponse = {
+  message: string;
+};
+
+type myVote = {
+  id: number;
+  answer: boolean[];
+  pollId: number;
+  userId: number;
+};
+
+
+
+

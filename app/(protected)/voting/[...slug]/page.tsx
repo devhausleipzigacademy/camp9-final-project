@@ -1,14 +1,27 @@
 'use client';
 
-import CheckboxWithLabel from '@/components/CheckboxWithLabel';
-import { Checkboxinput } from '@/components/Checkboxinput';
-import Questionbox from '@/components/Question';
 import { useVotePollQuery } from '@/components/hooks/usePoll';
+import { superSidekickHoock } from '@/components/hooks/useVote';
 import ProgressBar from '@/components/shared/ProgressBar';
-import { PollType } from '@prisma/client';
+import Button from '@/components/shared/buttons/Button';
+import { useMutation } from '@tanstack/react-query';
+import axios, { AxiosError } from 'axios';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+
+type VoteResponse = {
+  message: string;
+};
+
+type myVote = {
+  id: number;
+  answer: boolean[];
+  pollId: number;
+  userId: number;
+};
 
 export default function Voting() {
   //extract the arguments from the URL
@@ -21,98 +34,73 @@ export default function Voting() {
   }
   const { query } = useVotePollQuery(path[2], path[3]);
 
-  function handlePollInformation(
-    type: PollType | undefined,
-    options: string[] | undefined
-  ) {
-    if (type === 'SingleChoice') {
-      return (
-        <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
-          {options?.map(option => (
-            <div>
-              <label htmlFor={option}>{option}</label>
-              <input type="checkbox" id={option} />
-            </div>
-          ))}
-        </fieldset>
-      );
-    } else if (type === 'MultipleChoice') {
-      return (
-        <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
-          {options?.map(option => (
-            <Questionbox variant="secondary">
-              <label htmlFor={option}>{option}</label>
-            </Questionbox>
-          ))}
-        </fieldset>
-      );
-    }
-  }
+  const { typeOfPoll, header, buttons, anonymity } = superSidekickHoock({
+    query,
+    step,
+    setStep,
+  });
 
-  const typeofPoll = handlePollInformation(
-    query.data?.data.type,
-    query.data?.data.options
-  );
+  // async function sendPoll(vote: myVote) {
+  //   const { data } = await axios.post('/api/voting', vote, {
+  //     withCredentials: true,
+  //   });
+  // }
 
-  function headerDisplay(steps: number) {
-    switch (steps) {
-      case 1:
-        return 'Question';
-      case 2:
-        return 'Voting conditions';
-      case 3:
-        return 'Voting';
-      case 4:
-        return 'Thanks for voting';
-    }
-  }
+  // function useSendVote() {
+  //   const {
+  //     register,
+  //     formState: { errors },
+  //     reset,
+  //     handleSubmit,
+  //     formState,
+  //   } = useForm<myVote>({
+  //     resolver: zodResolver(),
+  //     mode: 'onTouched',
+  //   });
 
-  const header = headerDisplay(step);
+  //   const mutation = useMutation<VoteResponse, AxiosError, myVote>({
+  //     mutationFn: (vote: myVote) => sendPoll(vote),
+  //   });
+  //   return { mutation, register, errors, handleSubmit, formState };
+  // }
 
   return (
-    <>
-      <h1 className="title-black text-left">{header}</h1>
-      <ProgressBar numberOfPages={3} currentPage={step} />
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-2">
+        <h1 className="title-black text-left">{header}</h1>
+        <ProgressBar numberOfPages={3} currentPage={step} />
+      </div>
+      <div
+        className={clsx(
+          'flex flex-col gap-4',
+          step === 1 ? 'visible' : 'hidden'
+        )}
+      >
+        <div className="questionVote w-full h-auto p-2 border-3 border-solid border-black bg-peach rounded-md">
+          {query.data?.data.question}
+        </div>
+        <div>
+          <h2 className="body-semibold">Description:</h2>
+          <p className="body text-justify">{query.data?.data.description}</p>
+        </div>
+      </div>
+
       <form>
-        <legend className="body-semibold">
-          Voting conditions
-          <br />
-          <div className="description">
-            <span className="font-bold">Please check</span> you understand the
-            poll conditions
-          </div>
-        </legend>
-
-        <p className={clsx(step === 1 ? 'visible' : 'hidden')}>
-          {query.data?.data.description}
-        </p>
-
-        <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-          <div className="flex flex-row justify-between">
-            <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
-            <input type="checkbox" id="anonymity" className="checkmarkBox" />
-          </div>
-        </fieldset>
-
-        <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-          <div className="flex flex-row justify-between">
-            <label htmlFor="quorum">
-              Reveal information when {query.data?.data.quorum} participants
-              reached a quorum
-            </label>
-            <input type="checkbox" id="quorum" className="checkmarkBox" />
-          </div>
-        </fieldset>
-        {typeofPoll}
-        <button
+        {anonymity}
+        {typeOfPoll}
+        <Button
+          size="medium"
+          variant="quaternary"
           type="submit"
-          className={clsx(step === 3 ? 'visible' : 'hidden')}
+          className={clsx(
+            'fixed container bottom-28 right-5',
+            step === 3 ? 'visble' : 'hidden'
+          )}
         >
           Submit
-        </button>
+        </Button>
       </form>
-      <button onClick={() => setStep(step - 1)}>Back</button>
-      <button onClick={() => setStep(step + 1)}>Next</button>
-    </>
+      {buttons}
+    </div>
   );
 }

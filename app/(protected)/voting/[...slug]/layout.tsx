@@ -7,18 +7,8 @@ export default function VotingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="page bg-green-light">
-      <main className="flex flex-col justify-between">{children}</main>
-      <footer className="flex flex-row justify-between items-center">
-        <Button size="small" variant="secondary">
-          <GrFormPrevious size={24} strokeWidth={2} />
-          <h3>Back</h3>
-        </Button>
-        <Button size="large">
-          <h3>Next</h3>
-          <GrFormNext size={24} strokeWidth={2} />
-        </Button>
-      </footer>
+    <div className="page bg-[#9FCC95]">
+      <main className="flex flex-col justify-between h-full">{children}</main>
     </div>
   );
 }

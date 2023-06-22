@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="w-full flex flex-col justify-between">
+      <body className="w-full flex flex-col justify-between h-full bg-[#9FCC95]">
         <Provider>{children}</Provider>
         {/* change the next line from true instead of children later */}
         {true && (

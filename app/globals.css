@@ -210,6 +210,12 @@
     font-size: 12px;
     color: #fa9a5d;
   }
+  .questionVote {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 18px;
+    color: black;
+  }
   .emotionGradient {
     background-image: linear-gradient(
       to right,
