@@ -23,6 +23,7 @@ import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
 import PollCreatedStatus from '@/components/newPoll/PollCreatedStatus';
 import ProgressBar from '@/components/shared/ProgressBar';
+import { get } from 'http';
 
 export default function NewPoll() {
   // Form setup
@@ -32,7 +33,7 @@ export default function NewPoll() {
     defaultValues: {
       endDateTime: new Date(),
       anonymity: 'Anonymous',
-      quorum: 0,
+      // quorum: 80,
       type: 'MultipleChoice',
     },
   });
