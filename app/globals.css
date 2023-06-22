@@ -440,6 +440,101 @@
     border: 3px solid #000000;
     color: black;
   }
+  /* ======================== */
+  /* Calendar CSS */
+  /* ======================== */
+  .react-calendar {
+    max-width: 100%;
+    @apply description shadow-brutal;
+    border: 3px solid #000000;
+  }
+  .react-calendar--doubleView {
+    width: 700px;
+  }
+  .react-calendar--doubleView .react-calendar__viewContainer {
+    display: flex;
+  }
+  .react-calendar--doubleView .react-calendar__viewContainer > * {
+    width: 50%;
+    margin: 0.5em;
+  }
+  .react-calendar,
+  .react-calendar *,
+  .react-calendar *:before,
+  .react-calendar *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  .react-calendar button {
+    margin: 0;
+    outline: none;
+  }
+  .react-calendar button:enabled:hover {
+    cursor: pointer;
+  }
+  .react-calendar__navigation {
+    display: flex;
+    height: 44px;
+    margin-bottom: 1em;
+    gap: 16px;
+  }
+  .react-calendar__navigation button {
+    min-width: 44px;
+    @apply shadow-brutal border-brutal;
+  }
+  .react-calendar__navigation__next-button,
+  .react-calendar__navigation__prev-button {
+    @apply bg-teal;
+    font-size: 2rem;
+    line-height: 2rem;
+  }
+  .react-calendar__year-view__months,
+  .react-calendar__month-view {
+    min-height: 188px;
+  }
+
+  .react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    margin-bottom: 4px;
+  }
+  .react-calendar__month-view__weekNumbers .react-calendar__tile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .react-calendar__month-view__days__day--neighboringMonth {
+    @apply text-teal;
+  }
+  .react-calendar__tile {
+    width: 30px;
+    padding: 0px;
+    background: none;
+    text-align: center;
+    margin: 4px;
+    box-sizing: border-box;
+    border: 3px transparent solid;
+  }
+  .react-calendar__tile:disabled {
+    @apply text-peach;
+  }
+  .react-calendar__tile:enabled:hover,
+  .react-calendar__tile:enabled:focus {
+    @apply border-brutal;
+  }
+  .react-calendar__tile--now {
+    border: 3px #ffedbc solid;
+  }
+  .react-calendar--selectRange .react-calendar__tile--hover {
+    background-color: #e6e6e6;
+  }
+  .react-calendar__navigation__label__labelText {
+    text-transform: uppercase;
+    @apply body;
+  }
+
   .toast-container {
     --toastify-color-light: #ffedbc;
     --toastify-color-dark: #2f9ca1;
