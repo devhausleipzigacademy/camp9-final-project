@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useEditUsernameMutation } from '@/components/hooks/useEditUsername';
+import { useEditPasswordMutation } from '@/components/hooks/useEditPassword';
 
 type Icon = 'pencil' | 'check';
 
@@ -29,40 +30,58 @@ function Settings() {
     }
   })();
 
-  const { mutate, handleSubmit, register, errors } = useEditUsernameMutation();
+  const {
+    mutate: mutateU,
+    handleSubmit: handleSubmitU,
+    register: registerU,
+    errors: errorsU,
+  } = useEditUsernameMutation();
 
   const onUsernameSubmit = (data: any) => {
-    mutate({ ...data, userID });
+    mutateU({ ...data, userID });
     setUsernameEdit('pencil');
+  };
+
+  const {
+    mutate: mutateP,
+    handleSubmit: handleSubmitP,
+    register: registerP,
+    errors: errorsP,
+  } = useEditPasswordMutation();
+
+  const onPasswordSubmit = (data: any) => {
+    mutateP({ ...data, userID });
+    setPasswordEdit('pencil');
   };
 
   return (
     <div className="bg-yellow-light">
       <h2 className="title-bold">User Settings</h2>
-      <div className="mt-[60px] flex">
-        <form className="flex gap-4" onSubmit={handleSubmit(onUsernameSubmit)}>
-          <InputField
-            label={'Username'}
-            showLabel={true}
-            type={'username'}
-            width={'reduced'}
-            disabled={usernameEdit === 'pencil'}
-            placeholder={username}
-            error={errors.username}
-            {...register('username')}
-          />
-          <SettingsButton
-            disabled={false}
-            variant={usernameEdit}
-            children=""
-            type="submit"
-            onClick={() => {
-              setUsernameEdit('check');
-            }}
-          />
-        </form>
-      </div>
-      <div className="my-4">
+      <form
+        className="flex gap-4 mt-[60px]"
+        onSubmit={handleSubmitU(onUsernameSubmit)}
+      >
+        <InputField
+          label={'Username'}
+          showLabel={true}
+          type={'username'}
+          width={'reduced'}
+          disabled={usernameEdit === 'pencil'}
+          placeholder={username}
+          error={errorsU.username}
+          {...registerU('username')}
+        />
+        <SettingsButton
+          disabled={false}
+          variant={usernameEdit}
+          children=""
+          type="submit"
+          onClick={() => {
+            setUsernameEdit('check');
+          }}
+        />
+      </form>
+      <form onSubmit={handleSubmitP(onPasswordSubmit)}>
         <div className="flex gap-4">
           <InputField
             label={'Password'}
@@ -70,37 +89,32 @@ function Settings() {
             type={'password'}
             width={'reduced'}
             disabled={passwordEdit === 'pencil'}
+            error={errorsP.password}
             placeholder="********"
+            {...registerP('password')}
           />
           <SettingsButton
             disabled={false}
             variant={passwordEdit}
             children=""
+            type="submit"
             onClick={() => {
-              setPasswordEdit(passwordEdit === 'pencil' ? 'check' : 'pencil');
+              console.log('click');
+              setPasswordEdit('check');
             }}
           />
         </div>
-      </div>
-      <div className="mb-4">
-        <div className="flex gap-4 items-">
-          <InputField
-            label={'Confirm Password'}
-            showLabel={true}
-            type={'password'}
-            width={'reduced'}
-            disabled={passwordEdit === 'pencil'}
-            placeholder="********"
-          />
-        </div>
-        {/* ------Success Notification------ */}
-      </div>
-      <p className="body-accent text-green text-center hidden">
-        Username successfully changed!
-      </p>
-      <p className="body-accent text-green text-center hidden">
-        Password successfully changed!
-      </p>
+        <InputField
+          label={'Confirm Password'}
+          showLabel={true}
+          type={'password'}
+          width={'reduced'}
+          disabled={passwordEdit === 'pencil'}
+          error={errorsP.confirmPassword}
+          placeholder="********"
+          {...registerP('confirmPassword')}
+        />
+      </form>
     </div>
   );
 }

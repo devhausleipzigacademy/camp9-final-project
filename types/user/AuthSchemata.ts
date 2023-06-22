@@ -13,7 +13,7 @@ export const passwordSchema = z.object({
 });
 export type PasswordType = z.infer<typeof passwordSchema>;
 
-export const passwordConfirmSchema = passwordSchema
+export const confirmPasswordSchema = passwordSchema
   .extend({
     confirmPassword: z
       .string()
@@ -23,13 +23,13 @@ export const passwordConfirmSchema = passwordSchema
     message: 'repeat password',
     path: ['confirmPassword'],
   });
-export type PasswordConfirmType = z.infer<typeof passwordConfirmSchema>;
+export type ConfirmPasswordType = z.infer<typeof confirmPasswordSchema>;
 
 export const loginSchema = usernameSchema.merge(passwordSchema);
 export type LoginSchemaType = z.infer<typeof loginSchema>;
 
 export const signUpSchema = usernameSchema.merge(
-  passwordConfirmSchema.innerType() // <-- innerType fix https://stackoverflow.com/a/74672929
+  confirmPasswordSchema.innerType() // <-- innerType fix https://stackoverflow.com/a/74672929
 );
 export type SignUpUser = z.infer<typeof signUpSchema>;
 
