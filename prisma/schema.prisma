@@ -48,7 +48,7 @@ model Vote {
   pollId    Int
   User      User      @relation(fields: [userId], references: [id])
   userId    Int
-  Mood Mood
+  mood Mood @default(Beaming)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
 }
@@ -68,9 +68,9 @@ enum Anonymity {
 }
 
 enum Mood {
-Beaming
-Happy
-Unsure
-Unhappy
 Miserable
+Unhappy
+Unsure
+Happy
+Beaming
 }
