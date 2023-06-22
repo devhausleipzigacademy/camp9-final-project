@@ -86,37 +86,10 @@ export default function Voting() {
       </div>
 
       <form>
-        <legend className="body-semibold">
-          Voting conditions
-          <br />
-          <div className="description">
-            <span className="font-bold">Please check</span> you understand the
-            poll conditions
-          </div>
-        </legend>
-
-        <p className={clsx(step === 1 ? 'visible' : 'hidden')}>
-          {query.data?.data.description}
-        </p>
-
-        <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-          <div className="flex flex-row justify-between">
-            <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
-            <input type="checkbox" id="anonymity" className="checkmarkBox" />
-          </div>
-        </fieldset>
-
-        <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-          <div className="flex flex-row justify-between">
-            <label htmlFor="quorum">
-              Reveal information when {query.data?.data.quorum} participants
-              reached a quorum
-            </label>
-            <input type="checkbox" id="quorum" className="checkmarkBox" />
-          </div>
-        </fieldset>
-        {typeofPoll}
-        <button
+        {anonymity}
+        {typeOfPoll}
+        <Button
+          size="medium"
           type="submit"
           className={clsx(
             'fixed container bottom-28 right-5',

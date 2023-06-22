@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import Questionbox from '../Question';
 import Button from '../shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import Radio from '../Radiobutton';
+import { Checkboxinput } from '../CheckboxInput';
 
 interface SideKickProps {
   query: UseQueryResult<AxiosResponse<Poll, any>, unknown>;
@@ -21,10 +23,17 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           {options?.map(option => (
-            <div>
-              <label htmlFor={option}>{option}</label>
-              <input type="checkbox" id={option} />
-            </div>
+            <Questionbox key={'1'} variant="secondary">
+              <Radio
+                variant="primary"
+                id={option}
+                name="option"
+                value={option}
+              />
+              <label className="w-[228px]" htmlFor={option}>
+                {option}
+              </label>
+            </Questionbox>
           ))}
         </fieldset>
       );
@@ -32,8 +41,16 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           {options?.map(option => (
-            <Questionbox variant="secondary">
-              <label htmlFor={option}>{option}</label>
+            <Questionbox key={'2'} variant="secondary">
+              <Checkboxinput
+                variant="primary"
+                id={option}
+                name="option"
+                value={option}
+              />
+              <label className="w-[228px]" htmlFor={option}>
+                {option}
+              </label>
             </Questionbox>
           ))}
         </fieldset>
