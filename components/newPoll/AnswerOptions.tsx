@@ -11,7 +11,7 @@ export default function AnswerOptions({
   const { register, formState, getValues, setValue } = useFormContext(); // retrieve all hook methods
 
   const [numOptions, setNumOptions] = useState(
-    getValues('options')?.length || 1
+    getValues('options')?.length || 2
   );
 
   const handleAddOption = () => {
@@ -24,14 +24,43 @@ export default function AnswerOptions({
     options.splice(numOptions - 1, 1);
   };
 
+  // if the number of options is less than 2, then disable the + Option button
+  const isSingleChoice = getValues('type') === 'SingleChoice';
+
+  // if is single choice, then delete all other options from array
+  useEffect(() => {
+    if (isSingleChoice) {
+      // render only one input field
+      const options = getValues('options');
+      options.splice(1, options.length - 1);
+      setValue('options', options);
+      setNumOptions(1);
+    }
+  }, [isSingleChoice]);
+
   return (
     <div className="flex flex-col">
       <fieldset>
-        <legend className="text-lg font-semibold">{title}</legend>
-        <div className="flex flex-row justify-between my-1">
+        <div className="flex justify-between items-center">
+          <label className="text-black" htmlFor="singleChoice">
+            Single Choice
+          </label>
           <input
-            className="w-full p-2 border border-black rounded-md"
+            {...register('type')}
             type="radio"
+            id="singleChoice"
+            value="SingleChoice"
+          />
+        </div>
+        <div className="flex justify-between items-center">
+          <label className="text-black" htmlFor="multipleChoice">
+            Multiple Choice
+          </label>
+          <input
+            {...register('type')}
+            type="radio"
+            id="multipleChoice"
+            value="MultipleChoice"
           />
         </div>
       </fieldset>
@@ -65,16 +94,18 @@ export default function AnswerOptions({
             )}
           </div>
         ))}
-        <div className="flex my-1">
-          <Button
-            type="button"
-            size="xs"
-            className="ml-auto"
-            variant="secondary"
-            children="+ Option"
-            onClick={handleAddOption}
-          ></Button>
-        </div>
+        {!isSingleChoice && (
+          <div className="flex my-1">
+            <Button
+              type="button"
+              size="xs"
+              className="ml-auto"
+              variant="secondary"
+              children="+ Option"
+              onClick={handleAddOption}
+            ></Button>
+          </div>
+        )}
       </fieldset>
     </div>
   );
