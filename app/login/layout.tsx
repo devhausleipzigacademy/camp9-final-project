@@ -1,7 +1,7 @@
 import Button from 'components/shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
-export default function LandingLayout({
+export default function LoginLayout({
   children,
 }: {
   children: React.ReactNode;
