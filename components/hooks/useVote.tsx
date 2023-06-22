@@ -41,7 +41,7 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           {options?.map(option => (
-            <Questionbox key={'2'} variant="secondary">
+            <Questionbox key={option} variant="secondary">
               <Checkboxinput
                 variant="primary"
                 id={option}
