@@ -19,7 +19,7 @@ export default function LandingPage() {
         
       </div>
       <div className='w-full'>
-        <Link href="/app/#" >
+        <Link href="/signup" >
           <Button
           
             size="full"
@@ -29,7 +29,7 @@ export default function LandingPage() {
             Sign up
           </Button>
         </Link>
-        <Link href="/app/login/page">
+        <Link href="/login ">
           <Button
           
             size="full"
