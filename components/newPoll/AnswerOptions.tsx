@@ -39,8 +39,8 @@ export default function AnswerOptions({
   }, [isSingleChoice]);
 
   return (
-    <div className="flex flex-col">
-      <fieldset className="flex flex-col font-semibold mb-7 gap-10">
+    <div className="flex flex-col gap-5">
+      <fieldset className="flex flex-col font-semibold  gap-5">
         <div className="flex justify-between items-center ">
           <label className="text-black" htmlFor="singleChoice">
             Single Choice
@@ -65,9 +65,9 @@ export default function AnswerOptions({
         </div>
       </fieldset>
       <hr className="border border-black"></hr>
-      <fieldset className="flex flex-col justify-around">
+      <fieldset className="flex flex-col gap-5 justify-around">
         {Array.from({ length: numOptions }).map((_, index) => (
-          <div className="flex flex-row justify-between my-1 overflow-scroll">
+          <div className="flex flex-row justify-between overflow-scroll">
             <InputField
               {...register(`options[${index}]`, { required: true })}
               value={getValues('options')?.[index]}
