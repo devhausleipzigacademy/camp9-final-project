@@ -5,6 +5,7 @@ import { Checkboxinput } from '@/components/Checkboxinput';
 import Questionbox from '@/components/Question';
 import { useVotePollQuery } from '@/components/hooks/usePoll';
 import ProgressBar from '@/components/shared/ProgressBar';
+import { PollType } from '@prisma/client';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -20,10 +21,58 @@ export default function Voting() {
   }
   const { query } = useVotePollQuery(path[2], path[3]);
 
+  function handlePollInformation(
+    type: PollType | undefined,
+    options: string[] | undefined
+  ) {
+    if (type === 'SingleChoice') {
+      return (
+        <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
+          {options?.map(option => (
+            <div>
+              <label htmlFor={option}>{option}</label>
+              <input type="checkbox" id={option} />
+            </div>
+          ))}
+        </fieldset>
+      );
+    } else if (type === 'MultipleChoice') {
+      return (
+        <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
+          {options?.map(option => (
+            <Questionbox variant="secondary">
+              <label htmlFor={option}>{option}</label>
+            </Questionbox>
+          ))}
+        </fieldset>
+      );
+    }
+  }
+
+  const typeofPoll = handlePollInformation(
+    query.data?.data.type,
+    query.data?.data.options
+  );
+
+  function headerDisplay(steps: number) {
+    switch (steps) {
+      case 1:
+        return 'Question';
+      case 2:
+        return 'Voting conditions';
+      case 3:
+        return 'Voting';
+      case 4:
+        return 'Thanks for voting';
+    }
+  }
+
+  const header = headerDisplay(step);
+
   return (
     <>
-      <h1 className="title-black text-left">Question</h1>
-      <ProgressBar numberOfPages={5} currentPage={step} />
+      <h1 className="title-black text-left">{header}</h1>
+      <ProgressBar numberOfPages={3} currentPage={step} />
       <form>
         <legend className="body-semibold">
           Voting conditions
@@ -39,44 +88,22 @@ export default function Voting() {
         </p>
 
         <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-          <Questionbox variant="secondary">
+          <div className="flex flex-row justify-between">
             <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
-          </Questionbox>
-        </fieldset>
-        <fieldset
-          className={clsx(
-            step === 3 && query.data?.data.type === 'SingleChoice'
-              ? 'visible'
-              : 'hidden'
-          )}
-        >
-          <div className="flex flex-col justify-between gap-12">
-            <Questionbox variant="secondary">
-              <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
-            </Questionbox>
-            <Questionbox variant="secondary">
-              <label htmlFor="quorum">{query.data?.data.quorum}</label>
-            </Questionbox>
+            <input type="checkbox" id="anonymity" className="checkmarkBox" />
           </div>
         </fieldset>
 
-        <fieldset
-          className={clsx(
-            step === 3 && query.data?.data.type === 'MultipleChoice'
-              ? 'visible'
-              : 'hidden'
-          )}
-        >
-          <div className="flex flex-col justify-between gap-12">
-            <Questionbox variant="secondary">
-              <label htmlFor="anonymity">{query.data?.data.anonymity}</label>
-            </Questionbox>
-            <Questionbox variant="secondary">
-              <label htmlFor="quorum">{query.data?.data.quorum}</label>
-            </Questionbox>
+        <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
+          <div className="flex flex-row justify-between">
+            <label htmlFor="quorum">
+              Reveal information when {query.data?.data.quorum} participants
+              reached a quorum
+            </label>
+            <input type="checkbox" id="quorum" className="checkmarkBox" />
           </div>
         </fieldset>
-
+        {typeofPoll}
         <button
           type="submit"
           className={clsx(step === 3 ? 'visible' : 'hidden')}
