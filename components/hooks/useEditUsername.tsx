@@ -26,7 +26,7 @@ export function useEditUsernameMutation() {
   });
 
   const mutation = useMutation<SignUpResponse, AxiosError, UsernameType>({
-    mutationFn: async (newUsernameAndID: Object) => {
+    mutationFn: async (newUsernameAndID: Object) => { // <-- FIX: this type should be more specific
       const { data } = await axios.post(
         '/api/updateUsername',
         newUsernameAndID,
@@ -34,12 +34,11 @@ export function useEditUsernameMutation() {
           withCredentials: true,
         }
       );
-      console.log(data);
       return data;
     },
     onSuccess: data => {
+      reset({}); // <-- FIX: doesn't actually reset field
       toast.success('Username successfully updated');
-      reset();
     },
     onError: error => {
       toast.error('Username update failed');
@@ -48,5 +47,3 @@ export function useEditUsernameMutation() {
 
   return { register, errors, handleSubmit, formState, ...mutation };
 }
-
-axios.post
