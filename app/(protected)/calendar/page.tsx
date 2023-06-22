@@ -2,10 +2,12 @@
 import Button from '@/components/shared/buttons/Button';
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import './calendar.css';
+import TimePicker from 'react-time-picker';
 
 function page() {
   const [value, onChange] = useState(new Date());
+  const [time, onChangeTime] = useState('10:00');
   const [isCountdown, setIsCountdown] = useState(true);
   return (
     <main className="px-8 py-10 bg-teal h-[667px]">
@@ -27,16 +29,19 @@ function page() {
       {isCountdown ? (
         <></>
       ) : (
-        <Calendar
-          className="shadow-brutal p-4 bg-yellow"
-          prev2Label={null}
-          next2Label={null}
-          minDetail="year"
-          minDate={new Date()}
-          showFixedNumberOfWeeks={true}
-          onChange={() => {}}
-          value={value}
-        />
+        <>
+          <Calendar
+            className="shadow-brutal p-4 bg-yellow"
+            prev2Label={null}
+            next2Label={null}
+            minDetail="year"
+            minDate={new Date()}
+            showFixedNumberOfWeeks={true}
+            onChange={() => {}}
+            value={value}
+          />
+          <TimePicker onChange={() => {}} value={time} />
+        </>
       )}
     </main>
   );
