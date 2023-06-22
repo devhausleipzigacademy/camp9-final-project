@@ -40,8 +40,8 @@ export default function AnswerOptions({
 
   return (
     <div className="flex flex-col">
-      <fieldset>
-        <div className="flex justify-between items-center">
+      <fieldset className="flex flex-col font-semibold mb-7 gap-10">
+        <div className="flex justify-between items-center ">
           <label className="text-black" htmlFor="singleChoice">
             Single Choice
           </label>
