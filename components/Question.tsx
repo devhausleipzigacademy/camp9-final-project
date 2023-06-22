@@ -1,5 +1,5 @@
 import React from 'react';
-import { Checkboxinput } from './Checkboxinput';
+import { Checkboxinput } from './CheckboxInput';
 import { cva } from 'class-variance-authority';
 
 export type BoxCheckedProps = {
@@ -10,7 +10,7 @@ export type BoxCheckedProps = {
 export const Questionbox = ({ variant, children }: BoxCheckedProps) => {
   const questionboxClass = cva(
     [
-      'w-[300px] h-[59px] gap-2 px-2.5 shadow-shadow rounded-round flex items-center border-solid border-black border-2',
+      'w-[300px] shadow-shadow rounded-round p-2 flex items-center border-solid border-black border-2 justify-around mb-5',
     ],
     {
       variants: {
@@ -22,12 +22,7 @@ export const Questionbox = ({ variant, children }: BoxCheckedProps) => {
       },
     }
   );
-  return (
-    <div className={questionboxClass({ variant })}>
-      <Checkboxinput variant="secondary" />
-      {children}
-    </div>
-  );
+  return <div className={questionboxClass({ variant })}>{children}</div>;
 };
 
 export default Questionbox;
