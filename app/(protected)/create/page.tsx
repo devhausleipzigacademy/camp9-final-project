@@ -25,7 +25,6 @@ import Review from '@/components/newPoll/Review';
 import PollCreatedStatus from '@/components/newPoll/PollCreatedStatus';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
-import { title } from 'process';
 
 export default function NewPoll() {
   // Form setup
@@ -67,25 +66,18 @@ export default function NewPoll() {
   });
 
   // Multi step form setup
-  const {
-    steps,
-    currentStepIndex,
-    isLastStep,
-    isFormInProgress,
-    isFormCompleted,
-    back,
-    next,
-  } = useMultiStepForm(
-    [
-      <CreatePoll title="Create a Poll" />,
-      <AnswerOptions title="Answer Options" />,
-      <RevealConditions title="Reveal Conditions" />,
-      <Deadline title="Deadline" />,
-      <AddParticipants title="Add Participants" />,
-      <Review title="Review & Submit" />,
-    ],
-    methods
-  );
+  const { steps, currentStepIndex, isLastStep, isFormInProgress, back, next } =
+    useMultiStepForm(
+      [
+        <CreatePoll title="Create a Poll" />,
+        <AnswerOptions title="Answer Options" />,
+        <RevealConditions title="Reveal Conditions" />,
+        <Deadline title="Deadline" />,
+        <AddParticipants title="Add Participants" />,
+        <Review title="Review & Submit" />,
+      ],
+      methods
+    );
 
   // Update currentStepTitle when the index changes
   useEffect(() => {
@@ -157,8 +149,9 @@ export default function NewPoll() {
           </>
         )}
         {isLoading && (
-          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-            Is Loading!!
+          <div className=" flex flex-col justify-center items-center">
+            <img src="/images/flame-288.gif" className="w-[250px]"></img>
+            <h1 className="title-bold text-center">Loading...</h1>
           </div>
         )}
 
