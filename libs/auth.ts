@@ -48,9 +48,14 @@ export const authOptions: AuthOptions = {
     signIn: '/login', // <-- specify custom login page
   },
   callbacks: {
-    async session({ session, token }) {
-      session.user.id = token.sub; // <-- write token id object to session (?)
-      return session;
+    //async session({ session, token }) {
+      //session.user.id = token.sub; // <-- write token id object to session (?)
+    jwt: async ({ token }) => {
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user = token.user;
+      return session; //
     },
   },
 };
