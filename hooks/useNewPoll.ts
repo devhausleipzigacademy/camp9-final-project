@@ -3,13 +3,15 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
-import { NewPoll, NewPollSchema } from '@/types/newPoll/CreatePollSchema';
+import {
+  CreateNewPoll,
+  CreateNewPollSchema,
+} from '@/types/newPoll/CreatePollSchema';
 
-async function createNewPoll(poll: NewPoll) {
+async function createNewPoll(poll: CreateNewPoll) {
   const { data } = await axios.post('/api/new', poll, {
     withCredentials: true,
   });
-  console.log(data);
   return data;
 }
 
@@ -19,11 +21,11 @@ export function useNewPollMutation() {
     formState: { errors },
     reset,
     handleSubmit,
-  } = useForm<NewPoll>({
-    resolver: zodResolver(NewPollSchema),
+  } = useForm<CreateNewPoll>({
+    resolver: zodResolver(CreateNewPollSchema),
   });
-  const mutation = useMutation<NewPollResponse, AxiosError, NewPoll>({
-    mutationFn: (poll: NewPoll) => createNewPoll(poll),
+  const mutation = useMutation<NewPollResponse, AxiosError, CreateNewPoll>({
+    mutationFn: (poll: CreateNewPoll) => createNewPoll(poll),
     onSuccess: data => {
       toast.success('Poll created!');
       reset();

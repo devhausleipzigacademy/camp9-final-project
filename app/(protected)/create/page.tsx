@@ -57,7 +57,7 @@ export default function NewPoll() {
   }
 
   const { mutate } = useMutation(createNewPoll, {
-    onSuccess: data => {
+    onSuccess: () => {
       toast.success('Poll created!');
       reset();
     },
@@ -95,19 +95,12 @@ export default function NewPoll() {
   const { handleSubmit, formState, reset, getValues } = methods;
   const { errors } = formState;
 
-  console.log(getValues());
-
-  console.log(formState.errors);
-
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
     if (isLastStep) {
       if (Object.keys(errors).length === 0) {
         try {
-          // throw new Error('Error creating a poll');
-          console.log(data);
           mutate(data);
-          console.log('Poll created successfully!');
           reset(); // Clear the form fields
           next(); // Proceed to the next step
         } catch (error) {

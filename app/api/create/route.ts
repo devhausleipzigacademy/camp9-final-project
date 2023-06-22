@@ -1,82 +1,45 @@
-import { Anonymity, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { ZodError } from 'zod';
 
-import { CreateNewPollSchema } from '@/types/newPoll/CreatePollSchema';
+import {
+  CreateNewPoll,
+  CreateNewPollSchema,
+} from '@/types/newPoll/CreatePollSchema';
+import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-  const data = await request.json();
+  const data = (await request.json()) as CreateNewPoll;
   try {
-    const validation = CreateNewPollSchema.safeParse(data);
+    CreateNewPollSchema.parse(data);
 
-    console.log(validation);
-
-    if (validation.success) {
-      const validData = validation.data;
-      console.log(validData);
-
-      try {
-        const createdPoll = await prisma.poll.create({
-          // data: {
-          //   description: validData.description,
-          //   question: validData.question,
-          //   options: {
-          //     create: validData.options.map(option => ({
-          //       option,
-          //     })),
-          //   },
-          //   creator: {
-          //     connect: {
-          //       id: validData.creatorId,
-          //     },
-          //   },
-          //   participants: {
-          //     connect: validData.participants.map(participant => ({
-          //       id: participant,
-          //     })),
-          //   },
-          //   endDateTime: validData.endDateTime,
-          //   anonymity: validData.anonymity,
-          //   quorum: validData.quorum,
-          //   type: validData.type,
-          // },
-          data: {
-            question: validData.question,
-            description: validData.description,
-            options: validData.options?.map(option => option),
-            creator: {
-              connect: {
-                id: 8, // dummy data
-              },
-            },
-            participants: {
-              connect: [{ id: 9 }, { id: 10 }], // dummy data
-            },
-            endDateTime: validData.endDateTime,
-            anonymity: Anonymity.Anonymous, // dummy data
-            quorum: +validData.quorum,
-            type: validData.type,
+    const createdPoll = await prisma.poll.create({
+      data: {
+        question: data.question,
+        description: data.description,
+        options: data.options?.map(option => option),
+        creator: {
+          connect: {
+            id: 8, // dummy data
           },
-        });
-
-        console.log('Poll created: ', createdPoll);
-
-        return new Response(JSON.stringify(createdPoll), { status: 200 });
-      } catch (error) {
-        console.error('Error creating poll', error);
-
-        return new Response('Internal Server Error', { status: 500 });
-      }
-    } else {
-      const validationError = validation.error;
-      throw validationError;
-    }
+        },
+        participants: {
+          connect: [{ id: 9 }, { id: 10 }], // dummy data
+        },
+        endDateTime: data.endDateTime,
+        anonymity: data.anonymity,
+        quorum: +data.quorum,
+        type: data.type,
+      },
+    });
   } catch (error) {
     if (error instanceof ZodError) {
-      return new Response(error.message, { status: 422 });
+      return NextResponse.json(error.issues, { status: 400 });
     }
 
-    return new Response('Internal Server Error', { status: 500 });
+    return NextResponse.json('Internal Server Error', { status: 500 });
   }
+
+  return NextResponse.json('Poll created', { status: 201 });
 }
