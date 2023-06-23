@@ -84,6 +84,7 @@ export default function NewPoll() {
   }, [currentStepIndex, steps]);
 
   const { handleSubmit, formState, reset, getValues } = methods;
+
   const { errors } = formState;
 
   // Form submission handler
