@@ -137,7 +137,7 @@ export function superSidekickHoock({
                 variant="primary"
                 id="anonymity"
                 value="anonymity"
-                {...register(anonymity)}
+                {...register('checkbox')}
               />
             </div>
             <p className="description-light">No username will be revealed</p>
@@ -158,7 +158,7 @@ export function superSidekickHoock({
                 variant="primary"
                 id="nonanonymity"
                 value="nonanonymity"
-                {...register(anonymity)}
+                {...register('checkbox')}
               />
             </div>
             <p className="description-light max-w-[270px]">
@@ -182,7 +182,7 @@ export function superSidekickHoock({
                 variant="primary"
                 id="anonymityuntilquorum"
                 value="anonymityuntilquorum"
-                {...register(anonymity)}
+                {...register('checkbox')}
               />
             </div>
             <p className="description-light max-w-[270px]">

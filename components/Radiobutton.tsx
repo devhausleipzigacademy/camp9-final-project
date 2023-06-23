@@ -2,8 +2,11 @@
 
 import { cva } from 'class-variance-authority';
 import { CheckboxinputProps } from './CheckboxInput';
+import { forwardRef } from 'react';
 
-export const Radio = ({ variant, id, name, value }: CheckboxinputProps) => {
+type Ref = HTMLInputElement;
+
+export const Radio = forwardRef<Ref, CheckboxinputProps>((props, ref) => {
   const boxclass = cva(['checkmarkRadio '], {
     variants: {
       variant: {
@@ -17,12 +20,12 @@ export const Radio = ({ variant, id, name, value }: CheckboxinputProps) => {
   return (
     <input
       type="radio"
-      id={id}
-      name={name}
-      value={value}
-      className={boxclass({ variant })}
+      id={props.id}
+      ref={ref}
+      value={props.value}
+      className={boxclass({ variant: props.variant })}
     ></input>
   );
-};
+});
 
 export default Radio;

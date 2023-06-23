@@ -1,3 +1,6 @@
+import { cva } from 'class-variance-authority';
+import { forwardRef } from 'react';
+
 export type CheckboxinputProps = {
   variant: 'primary' | 'secondary' | 'tertiary';
   id: string;
@@ -5,18 +8,26 @@ export type CheckboxinputProps = {
   value: string;
 };
 
-import { cva } from 'class-variance-authority';
+export type Ref = HTMLInputElement;
 
-export const Checkboxinput = ({ variant }: CheckboxinputProps) => {
-  const checkclass = cva(['checkmarkBox'], {
-    variants: {
-      variant: {
-        primary: 'bg-peach',
-        secondary: 'bg-teal',
-        tertiary: 'bg-green',
+export const Checkboxinput = forwardRef<Ref, CheckboxinputProps>(
+  (props, ref) => {
+    const checkclass = cva(['checkmarkBox'], {
+      variants: {
+        variant: {
+          primary: 'bg-peach',
+          secondary: 'bg-teal',
+          tertiary: 'bg-green',
+        },
       },
-    },
-  });
+    });
 
-  return <input  type="checkbox" className={checkclass({ variant })} />;
-};
+    return (
+      <input
+        ref={ref}
+        type="checkbox"
+        className={checkclass({ variant: props.variant })}
+      />
+    );
+  }
+);
