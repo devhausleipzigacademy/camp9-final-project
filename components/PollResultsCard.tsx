@@ -1,9 +1,5 @@
 'use client';
-
 import clsx from 'clsx';
-import Image from 'next/image';
-
-// question needs to be taken via useContext?
 
 interface PollResultsCardProps extends React.HTMLAttributes<HTMLElement> {
   pollQuestion: string;

@@ -7,9 +7,23 @@ import PollResultsCard from '@/components/PollResultsCard';
 import Button from '@/components/shared/buttons/Button';
 import Image from 'next/legacy/image';
 import { useState } from 'react';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 export default function Results() {
   const [cardIndex, setCardIndex] = useState(0);
+
+  function incrementValue() {
+    if (cardIndex < 4) {
+      setCardIndex(cardIndex + 1);
+    } else console.log('now add Link to homepage via useRouter');
+  }
+  function decrementValue() {
+    if (cardIndex === 0) {
+      console.log('go back to closed poll site');
+    } else {
+      setCardIndex(cardIndex - 1);
+    }
+  }
 
   //the following have to be taken by useContext or else
   const pollQuestion =
@@ -42,7 +56,7 @@ export default function Results() {
   }
 
   const cards = [
-    //1.svg+text
+    //0.svg+text
     <PollResultsCard
       pollQuestion={slicedPollQuestionStart(pollQuestion, 60)}
       endDate={new Date()}
@@ -66,7 +80,7 @@ export default function Results() {
       </PollResultsCard.Content>
     </PollResultsCard>,
 
-    //2.question=description
+    //1.question=description
     <PollResultsCard
       pollQuestion={slicedPollQuestionStart(pollQuestion, 34)}
       endDate={new Date()}
@@ -76,11 +90,19 @@ export default function Results() {
         <p className="body-semibold mb-5">
           ...{slicedPollQuestionEnd(pollQuestion, 34)}
         </p>
-        <p className="body">{pollDescription}</p>
+        <p className="body-light text-black">{pollDescription}</p>
       </PollResultsCard.Content>
+      <div className="text-right mt-3 mr-1">
+        <p className="small items-end">
+          created on <strong>XX/XX/XXXX</strong>
+        </p>
+        <p className="small">
+          closed on <strong>XX/XX/XXXX</strong>
+        </p>
+      </div>
     </PollResultsCard>,
 
-    //3.voting conditions
+    //2.voting conditions
     <PollResultsCard
       pollQuestion={slicedPollQuestionStart(pollQuestion, 34)}
       endDate={new Date()}
@@ -89,31 +111,36 @@ export default function Results() {
       <PollResultsCard.Content className="h-[260px]">
         <p className="body-semibold mb-4">Voting Conditions</p>
         <div className="flex items-center gap-2">
-          {/* <CheckboxWithLabel variant={'primary'} label={''}></CheckboxWithLabel> */}
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body">{pollType}</p>
+          <p className="body-light text-black">{pollType}</p>
         </div>
-        <div className="flex items-center gap-2 my-[26px]">
-          {/* <CheckboxWithLabel variant={'primary'} label={''}></CheckboxWithLabel> */}
+        <div className="flex items-center gap-2 my-[20px]">
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body">{numberOfParticipants}</p>
+          <p className="body-light text-black">{numberOfParticipants}</p>
         </div>
         <div className="flex gap-2">
-          {/* <CheckboxWithLabel variant={'primary'} label={''}></CheckboxWithLabel> */}
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body">{anonymityLevel}</p>
+          <p className="body-light text-black">{anonymityLevel}</p>
         </div>
       </PollResultsCard.Content>
+      <div className="text-right mt-3 mr-1">
+        <p className="small items-end">
+          created on <strong>XX/XX/XXXX</strong>
+        </p>
+        <p className="small">
+          closed on <strong>XX/XX/XXXX</strong>
+        </p>
+      </div>
     </PollResultsCard>,
 
-    //4.answers+percantages
+    //3.answers+percantages
     //sort options by percentages or by appearence in the poll?
     <PollResultsCard
       pollQuestion={slicedPollQuestionStart(pollQuestion, 34)}
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[260px] overflow-y-auto">
+      <PollResultsCard.Content className="h-[310px] overflow-y-auto">
         <div className="mb-5">
           <p className="body-light text-black mb-3">
             1: Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -129,7 +156,7 @@ export default function Results() {
       </PollResultsCard.Content>
     </PollResultsCard>,
 
-    //5.mood
+    //4.mood
     <PollResultsCard
       pollQuestion={slicedPollQuestionStart(pollQuestion, 34)}
       endDate={new Date()}
@@ -146,13 +173,35 @@ export default function Results() {
           <MoodDisplay averageMood={4}></MoodDisplay>
         </div>
       </PollResultsCard.Content>
+      <div className="text-right mt-3 mr-1">
+        <p className="small items-end">
+          created on <strong>XX/XX/XXXX</strong>
+        </p>
+        <p className="small">
+          closed on <strong>XX/XX/XXXX</strong>
+        </p>
+      </div>
     </PollResultsCard>,
   ];
 
   return (
-    <>
-      <h1 className="title-black text-left mt-2 mb-10">Poll Results</h1>
-      {cards[4]}
-    </>
+    <div>
+      <main className="container flex flex-col h-screen justify-between bg-peach-light p-8">
+        <div className="mb-36 w-full flex flex-col justify-between">
+          <h1 className="title-black text-left mt-2 mb-10">Poll Results</h1>
+          {cards[cardIndex]}
+        </div>
+      </main>
+      <footer className="flex container px-8 justify-between bottom-28 fixed">
+        <Button size="small" variant="secondary" onClick={decrementValue}>
+          <GrFormPrevious size={24} strokeWidth={2} />
+          <h3>Back</h3>
+        </Button>
+        <Button size="medium" variant="tertiary" onClick={incrementValue}>
+          <h3>Next</h3>
+          <GrFormNext size={24} strokeWidth={2} />
+        </Button>
+      </footer>
+    </div>
   );
 }
