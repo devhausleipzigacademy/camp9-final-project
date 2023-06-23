@@ -7,6 +7,7 @@ import Button from '../shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import Radio from '../Radiobutton';
 import { Checkboxinput } from '../CheckboxInput';
+import Image from 'next/image';
 
 interface SideKickProps {
   query: UseQueryResult<AxiosResponse<Poll, any>, unknown>;
@@ -117,7 +118,7 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       case 'Anonymous':
         return (
           <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-            <p className="small mb-2">
+            <p className="small mb-2 mt-4">
               <span className="small-bold">Please check</span> you understand
               the poll conditions
             </p>
@@ -132,17 +133,17 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
                 value="anonymity"
               />
             </div>
-            <p className="description">No username will be revealed</p>
+            <p className="description-light">No username will be revealed</p>
           </fieldset>
         );
       case 'NonAnonymous':
         return (
           <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-            <p className="small mb-2">
+            <p className="small mb-2 mt-4">
               <span className="small-bold">Please check</span> you understand
               the poll conditions
             </p>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between items-center">
               <label htmlFor="anonymity" className="body-semibold">
                 No Anonymity
               </label>
@@ -153,7 +154,7 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
                 value="nonanonymity"
               />
             </div>
-            <p className="description max-w-[270px]">
+            <p className="description-light max-w-[270px]">
               The usernames and their votes will be revealed at the end of the
               voting period.
             </p>
@@ -162,11 +163,11 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       case 'AnonymousUntilQuorum':
         return (
           <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
-            <p className="small mb-2">
+            <p className="small mb-2 mt-4">
               <span className="small-bold">Please check</span> you understand
               the poll conditions
             </p>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-row justify-between items-center">
               <label htmlFor="anonymity" className="body-semibold">
                 Anonymity until quorum
               </label>
@@ -177,7 +178,7 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
                 value="anonymityuntilquorum"
               />
             </div>
-            <p className="description max-w-[270px]">
+            <p className="description-light max-w-[270px]">
               The usernames will be revealed when {quorum} participants reached
               a consesus.
             </p>
@@ -239,5 +240,20 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
     }
   }
   const buttons = handleButtons(step);
-  return { typeOfPoll, header, buttons, anonymity };
+
+  function handleLoading() {
+    if (query.isLoading) {
+      return (
+        <Image
+          src="/images/flame-dreaming-of-unicorns.gif"
+          alt="loading "
+          width={280}
+          height={280}
+        ></Image>
+      );
+    }
+  }
+  const isLoading = handleLoading();
+
+  return { typeOfPoll, header, buttons, anonymity, isLoading };
 }

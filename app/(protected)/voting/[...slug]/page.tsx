@@ -32,11 +32,12 @@ export default function Voting() {
   }
   const { query } = useVotePollQuery(path[2], path[3]);
 
-  const { typeOfPoll, header, buttons, anonymity } = superSidekickHoock({
-    query,
-    step,
-    setStep,
-  });
+  const { typeOfPoll, header, buttons, anonymity, isLoading } =
+    superSidekickHoock({
+      query,
+      step,
+      setStep,
+    });
 
   // async function sendPoll(vote: myVote) {
   //   const { data } = await axios.post('/api/voting', vote, {
@@ -62,6 +63,14 @@ export default function Voting() {
   //   return { mutation, register, errors, handleSubmit, formState };
   // }
 
+  if (query.isLoading)
+    return (
+      <div className="mt-20">
+        <h2 className="title-bold">Looking for your poll!</h2>
+        <div>{isLoading}</div>
+      </div>
+    );
+
   return (
     <div className="flex flex-col ">
       <div className="flex flex-col ">
@@ -70,7 +79,7 @@ export default function Voting() {
       </div>
       <div
         className={clsx(
-          'flex flex-col gap-4',
+          'flex flex-col gap-4 mt-4',
           step === 1 ? 'visible' : 'hidden'
         )}
       >
@@ -78,9 +87,11 @@ export default function Voting() {
           {query.data?.data.question}
         </div>
         <div>
-          <h2 className="body-semibold">Description:</h2>
+          <h2 className="description-semibold">Description:</h2>
           <div className="overflow-y-auto h-[200px] scrollbar">
-            <p className="body text-justify">{query.data?.data.description}</p>
+            <p className="description-light text-justify">
+              {query.data?.data.description}
+            </p>
           </div>
         </div>
       </div>

@@ -192,6 +192,20 @@
     font-size: 14px;
     color: black;
   }
+  .description-light {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size: 14px;
+    color: black;
+  }
+
+  .description-semibold {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 16px;
+    color: black;
+  }
+
   .small {
     font-family: 'Poppins';
     font-weight: 500;
