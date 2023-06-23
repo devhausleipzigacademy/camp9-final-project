@@ -247,7 +247,7 @@
     font-family: 'Poppins';
     font-weight: 500;
     font-size: 14px;
-    @apply shadow-brutal p-4 bg-yellow;
+    @apply shadow-brutal px-4 py-2 bg-yellow;
   }
   .calendar .react-calendar__year-view__months__month {
     text-transform: uppercase;
@@ -305,7 +305,7 @@
 
   .calendar .react-calendar__year-view__months,
   .calendar .react-calendar__month-view {
-    min-height: 223px;
+    min-height: 211px;
   }
 
   .calendar .react-calendar__month-view__weekdays {
@@ -329,10 +329,11 @@
   }
 
   .calendar .react-calendar__tile {
-    padding: 3px;
+    padding: 2px;
     background: none;
     text-align: center;
     box-sizing: border-box;
+    border: 3px transparent solid;
   }
 
   .calendar .react-calendar__tile:disabled {

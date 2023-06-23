@@ -113,7 +113,7 @@ export default function NewPoll() {
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
         {isIdle && (
           <>
-            <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
+            <div className="mb-36 w-full flex flex-col items-center justify-between">
               <h1 className="title-black self-start">{currentStepTitle}</h1>
 
               <ProgressBar

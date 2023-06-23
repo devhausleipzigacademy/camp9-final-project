@@ -49,7 +49,7 @@ export default function Deadline({
   console.log(register);
   console.log(endDateTime);
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="flex flex-col gap-4 items-center">
       <Select
         {...register('endDateTime', { required: true })}
         value={endDateTime as Date}
