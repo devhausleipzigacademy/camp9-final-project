@@ -1,16 +1,14 @@
 'use client';
 
+import Questionbox from '@/components/Question';
 import { useVotePollQuery } from '@/components/hooks/usePoll';
 import { superSidekickHoock } from '@/components/hooks/useVote';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
-import { useMutation } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 type VoteResponse = {
   message: string;
@@ -65,8 +63,8 @@ export default function Voting() {
   // }
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-2">
+    <div className="flex flex-col ">
+      <div className="flex flex-col ">
         <h1 className="title-black text-left">{header}</h1>
         <ProgressBar numberOfPages={3} currentPage={step} />
       </div>

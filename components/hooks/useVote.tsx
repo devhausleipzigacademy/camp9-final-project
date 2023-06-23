@@ -22,37 +22,69 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
     if (type === 'SingleChoice') {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
-          {options?.map(option => (
-            <Questionbox key={'1'} variant="secondary">
+          <p className="small leading-3">Single choice, select only one</p>
+          <div className="overflow-y-auto  h-[360px] scrollbarteal">
+            {options?.map(option => (
+              <Questionbox key={'1'} variant="secondary">
+                <Radio
+                  variant="primary"
+                  id={option}
+                  name="option"
+                  value={option}
+                />
+                <label className="w-[228px]" htmlFor={option}>
+                  {option}
+                </label>
+              </Questionbox>
+            ))}
+            <Questionbox variant="secondary">
               <Radio
-                variant="primary"
-                id={option}
+                variant="secondary"
+                id="option"
                 name="option"
-                value={option}
+                value="option"
               />
-              <label className="w-[228px]" htmlFor={option}>
-                {option}
+              <label className="w-[228px] text-center" htmlFor="abstain">
+                Abstain
               </label>
             </Questionbox>
-          ))}
+          </div>
         </fieldset>
       );
     } else if (type === 'MultipleChoice') {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
-          {options?.map(option => (
-            <Questionbox key={option} variant="secondary">
+          <p className="small small leading-10 ml-2">
+            {' '}
+            Multi choice, select many as you want
+          </p>
+          <div className="overflow-y-auto  h-[360px] scrollbarteal">
+            {options?.map(option => (
+              <Questionbox key={option} variant="secondary">
+                <Checkboxinput
+                  variant="primary"
+                  id={option}
+                  name="option"
+                  value={option}
+                />
+                <label className="w-[228px]" htmlFor={option}>
+                  {option}
+                </label>
+              </Questionbox>
+            ))}
+
+            <Questionbox variant="secondary" desabled>
               <Checkboxinput
                 variant="primary"
-                id={option}
+                id="abstain"
                 name="option"
-                value={option}
+                value="option"
               />
-              <label className="w-[228px]" htmlFor={option}>
-                {option}
+              <label className="w-[228px] text-center" htmlFor="abstain">
+                Abstain
               </label>
             </Questionbox>
-          ))}
+          </div>
         </fieldset>
       );
     }

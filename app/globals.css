@@ -238,6 +238,7 @@
   .shadow-brutal {
     box-shadow: -4px 4px 0px rgba(0, 0, 0, 1);
   }
+
   .scrollbar::-webkit-scrollbar {
     width: 15px;
   }
@@ -262,6 +263,31 @@
     width: 0;
     background: transparent;
   }
+
+  .scrollbarteal::-webkit-scrollbar {
+    width: 15px;
+  }
+  .scrollbarteal::-webkit-scrollbar-track {
+    border-radius: 4px;
+    background: #9fcc95;
+    border: black 3px solid;
+  }
+
+  .scrollbarteal::-webkit-scrollbar-thumb {
+    background: #038b91;
+    border-radius: 4px;
+    border: 3px solid black;
+  }
+
+  .scrollbarteal::-webkit-scrollbar-thumb:hover {
+    background: #3d6732;
+  }
+
+  .scrollbarteal-hidden::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+
   .appName {
     font-family: 'Poppins';
     font-style: normal;
@@ -433,6 +459,7 @@ option {
 /* ======================== */
 
 .checkmarkBox {
+  background-color: #038b91;
   -webkit-appearance: none;
   width: 34px;
   height: 34px;
@@ -455,6 +482,7 @@ option {
 }
 
 .checkmarkRadio {
+  background-color: #038b91;
   -webkit-appearance: none;
   width: 34px;
   height: 34px;

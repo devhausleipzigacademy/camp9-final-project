@@ -7,8 +7,8 @@ export const Radio = ({ variant, id, name, value }: CheckboxinputProps) => {
   const boxclass = cva(['checkmarkRadio '], {
     variants: {
       variant: {
-        primary: 'bg-teal',
-        secondary: 'bg-peach',
+        primary: 'bg-peach',
+        secondary: 'bg-teal',
         tertiary: 'bg-green',
       },
     },
