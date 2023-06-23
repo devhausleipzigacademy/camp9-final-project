@@ -19,7 +19,14 @@ async function getNewPolls(userId: string) {
       },
     },
   });
-  return filteredNewPolls;
+
+  const checkDatePolls = filteredNewPolls.filter(poll => {
+    if (poll.endDateTime < new Date()) {
+      return false;
+    }
+    return true;
+  });
+  return checkDatePolls;
 }
 
 async function New() {

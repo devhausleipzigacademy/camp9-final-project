@@ -17,7 +17,13 @@ async function getPendingPolls(userId: string) {
   const updatedPendingPolls = filteredPendingPolls.map(vote => {
     return vote.poll;
   });
-  return updatedPendingPolls;
+  const checkDatePolls = updatedPendingPolls.filter(poll => {
+    if (poll.endDateTime < new Date()) {
+      return false;
+    }
+    return true;
+  });
+  return checkDatePolls;
 }
 
 async function Pending() {
