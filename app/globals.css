@@ -473,6 +473,7 @@ option {
 /* ======================== */
 
 .checkmarkBox {
+  margin-right: 5px;
   background-color: #038b91;
   -webkit-appearance: none;
   width: 34px;
@@ -496,6 +497,7 @@ option {
 }
 
 .checkmarkRadio {
+  margin-right: 5px;
   background-color: #038b91;
   -webkit-appearance: none;
   width: 34px;

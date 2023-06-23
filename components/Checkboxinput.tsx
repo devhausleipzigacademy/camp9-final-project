@@ -10,24 +10,26 @@ export type CheckboxinputProps = {
 
 export type Ref = HTMLInputElement;
 
-export const Checkboxinput = forwardRef<Ref, CheckboxinputProps>(
-  (props, ref) => {
-    const checkclass = cva(['checkmarkBox'], {
-      variants: {
-        variant: {
-          primary: 'bg-peach',
-          secondary: 'bg-teal',
-          tertiary: 'bg-green',
-        },
+const ref = (
+  { variant, id, name, value }: CheckboxinputProps,
+  ref: React.ForwardedRef<HTMLInputElement>
+) => {
+  const checkclass = cva(['checkmarkBox'], {
+    variants: {
+      variant: {
+        primary: 'bg-peach',
+        secondary: 'bg-teal',
+        tertiary: 'bg-green',
       },
-    });
+    },
+  });
+  return (
+    <input
+      ref={ref}
+      type="checkbox"
+      className={checkclass({ variant: variant })}
+    />
+  );
+};
 
-    return (
-      <input
-        ref={ref}
-        type="checkbox"
-        className={checkclass({ variant: props.variant })}
-      />
-    );
-  }
-);
+export const Checkboxinput = forwardRef(ref);

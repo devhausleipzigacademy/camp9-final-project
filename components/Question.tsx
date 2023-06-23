@@ -15,7 +15,7 @@ export const Questionbox = ({
 }: BoxCheckedProps) => {
   const questionboxClass = cva(
     [
-      'w-[285px] ml-[5px] shadow-shadow rounded-round p-2 flex items-center border-solid border-black border-2 justify-around mb-5',
+      'ml-1.5 mr-2.5 shadow-shadow rounded-round p-2 flex items-center border-solid border-black border-2 justify-around mb-5',
     ],
     {
       variants: {
@@ -31,9 +31,10 @@ export const Questionbox = ({
     }
   );
   return (
-    <div className={questionboxClass({ variant, desabled })}>{children}</div>
+    <div>
+      <div className={questionboxClass({ variant, desabled })}>{children}</div>
+    </div>
   );
 };
 
 export default Questionbox;
-

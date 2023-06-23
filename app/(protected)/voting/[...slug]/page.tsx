@@ -32,11 +32,12 @@ export default function Voting() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { query } = useVotePollQuery(path[2], path[3]);
 
   if (path[2] === undefined || path[3] === undefined) {
     return <>Sorry</>;
   }
-  const { query } = useVotePollQuery(path[2], path[3]);
+ 
 
   const { typeOfPoll, header, buttons, anonymity, isLoading } =
     superSidekickHoock({
