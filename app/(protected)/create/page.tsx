@@ -54,38 +54,43 @@ export default function NewPoll() {
     }
   }
 
-  const { mutate, isLoading, isError, isSuccess } = useMutation(createNewPoll, {
-    onSuccess: () => {
-      toast.success('Poll created!');
-      reset();
-    },
-    onError: error => {
-      toast.error(axios.isAxiosError(error) ? error.response?.data : error);
-    },
-  });
+  const { mutate, isLoading, isError, isSuccess, isIdle } = useMutation(
+    createNewPoll,
+    {
+      onSuccess: () => {
+        toast.success('Poll created!');
+        reset();
+      },
+      onError: error => {
+        toast.error(axios.isAxiosError(error) ? error.response?.data : error);
+      },
+    }
+  );
 
   // Multi step form setup
-  const { steps, currentStepIndex, isLastStep, isFormInProgress, back, next } =
+  const { step, steps, currentStepIndex, isLastStep, back, next } =
     useMultiStepForm(
       [
         <CreatePoll title="Create a Poll" />,
         <AnswerOptions title="Answer Options" />,
         <RevealConditions title="Reveal Conditions" />,
         <Deadline title="Deadline" />,
-        <AddParticipants title="Add Participants" />,
         <Review title="Review & Submit" />,
+        <AddParticipants title="Add Participants" />,
       ],
       methods
     );
 
   // Update currentStepTitle when the index changes
   useEffect(() => {
-    setCurrentStepTitle(steps[currentStepIndex]?.props.title);
+    setCurrentStepTitle(step?.props.title);
   }, [currentStepIndex, steps]);
 
   const { handleSubmit, formState, reset, getValues } = methods;
 
   const { errors } = formState;
+
+  console.log(isIdle);
 
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
@@ -105,10 +110,14 @@ export default function NewPoll() {
     }
   };
 
+  console.log('values', getValues());
+
+  console.log('errors', formState.errors);
+
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
-        {isFormInProgress && (
+        {isIdle && (
           <>
             <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
               <h1 className="title-black self-start">{currentStepTitle}</h1>
@@ -120,7 +129,7 @@ export default function NewPoll() {
 
               <FormProvider {...methods}>
                 <form className="w-full mt-5" onSubmit={handleSubmit(onSubmit)}>
-                  {steps[currentStepIndex]}
+                  {step}
                 </form>
               </FormProvider>
             </div>
@@ -149,48 +158,45 @@ export default function NewPoll() {
           </>
         )}
 
-        {isLoading && (
+        {!isIdle && (
           <div className="flex flex-col gap-y-12 justify-center items-center mt-14">
-            <h1 className="title-bold text-center">Loading...</h1>
-            <img
-              alt="Flame dreaming of unicorns"
-              src="/images/flame-dreaming-of-unicorns.gif"
-              className="px-12"
-            ></img>
+            {isLoading && (
+              <>
+                <h1 className="title-bold text-center">Loading...</h1>
+                <img
+                  alt="Flame dreaming of unicorns"
+                  src="/images/flame-dreaming-of-unicorns.gif"
+                  className="px-12"
+                ></img>
+              </>
+            )}
+
+            {isSuccess && (
+              <>
+                <h1 className="title-bold text-center">
+                  Your poll has been created!
+                </h1>
+                <img
+                  src="./images/Results.png"
+                  alt="Results"
+                  className="px-12"
+                ></img>
+              </>
+            )}
+
+            {isError && (
+              <>
+                <h1 className="title-bold text-center">
+                  Something went wrong...
+                </h1>
+                <img
+                  alt="Flame dreaming of unicorns"
+                  src="/images/flame-dreaming-of-unicorns.gif"
+                  className="px-12"
+                ></img>
+              </>
+            )}
           </div>
-        )}
-
-        {isSuccess && (
-          <>
-            <div className="flex flex-col gap-y-12 justify-center items-center mt-14">
-              <h1 className="title-bold text-center">
-                Your poll has been created!
-              </h1>
-              <img src="./images/Results.png" alt="Results" className="px-12" />
-            </div>
-            <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
-              <Button size="full" href="/" className="py-6">
-                Next
-              </Button>
-            </footer>
-          </>
-        )}
-
-        {isError && (
-          <>
-            <div className="flex flex-col gap-y-12 justify-center items-center mt-14">
-              <h1 className="title-bold text-center">
-                Woops! Something went wrong.
-              </h1>
-              {/* <img src="/images/flame-479.gif" className="w-[280px]"></img> */}
-              <img src="/images/SomethingWentWrong.png" className="px-12"></img>
-            </div>
-            <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
-              <Button size="full" href="/create" className="py-6">
-                Try Again
-              </Button>
-            </footer>
-          </>
         )}
       </main>
     </>

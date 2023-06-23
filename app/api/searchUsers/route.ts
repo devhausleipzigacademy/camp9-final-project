@@ -24,7 +24,6 @@ export async function GET(request: IRequest) {
 */
   //const { queryString } = queryUsersModel.parse(data);
   if (queryString !== null) {
-    console.log(queryString);
     const users = await db.user.findMany({
       where: {
         name: {

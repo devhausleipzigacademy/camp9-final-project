@@ -49,7 +49,5 @@ export function useMultiStepForm(
     next,
     back,
     isLastStep: currentStepIndex === steps.length - 1,
-    isFormCompleted: currentStepIndex === steps.length,
-    isFormInProgress: currentStepIndex >= 0 && currentStepIndex < steps.length,
   };
 }

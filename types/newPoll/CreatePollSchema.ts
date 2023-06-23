@@ -15,6 +15,7 @@ export const CreateNewPollSchema = z.object({
       message: 'quorum must be between 0 and 100',
     }
   ),
+  // participants: z.array(z.string()).min(1, 'at least 1 participant'),
   type: z.enum(['MultipleChoice', 'SingleChoice']),
 });
 
