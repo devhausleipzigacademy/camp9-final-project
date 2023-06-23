@@ -6,8 +6,8 @@ import './calendar.css';
 import TimePicker from 'react-time-picker';
 
 function page() {
-  const [value, onChange] = useState(new Date());
-  const [time, onChangeTime] = useState('10:00');
+  const [date, onChange] = useState(new Date());
+  const [time, onChangeTime] = useState(new Date());
   const [isCountdown, setIsCountdown] = useState(true);
   return (
     <main className="px-8 py-10 bg-teal h-[667px]">
@@ -37,8 +37,8 @@ function page() {
             minDetail="year"
             minDate={new Date()}
             showFixedNumberOfWeeks={true}
-            onChange={() => {}}
-            value={value}
+            onChange={() => console.log('New date is: ', date)}
+            value={date}
           />
           <TimePicker onChange={() => {}} value={time} />
         </>
