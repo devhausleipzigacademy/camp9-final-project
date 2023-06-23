@@ -6,20 +6,22 @@ import PollProgressBar from '@/components/PollProgressBar';
 import PollResultsCard from '@/components/PollResultsCard';
 import Button from '@/components/shared/buttons/Button';
 import Image from 'next/legacy/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
 export default function Results() {
   const [cardIndex, setCardIndex] = useState(0);
+  const router = useRouter();
 
   function incrementValue() {
     if (cardIndex < 4) {
       setCardIndex(cardIndex + 1);
-    } else console.log('now add Link to homepage via useRouter');
+    } else router.push('/new');
   }
   function decrementValue() {
     if (cardIndex === 0) {
-      console.log('go back to closed poll site');
+      router.push('/closed');
     } else {
       setCardIndex(cardIndex - 1);
     }
@@ -145,13 +147,17 @@ export default function Results() {
           <p className="body-light text-black mb-3">
             1: Lorem ipsum dolor sit amet, consectetur adipiscing
           </p>
-          <PollProgressBar votes={7} participants={10} />
+          <div className="w-[250px]">
+            <PollProgressBar votes={7} participants={10} />
+          </div>
         </div>
         <div>
           <p className="body-light text-black mb-3">
             2: Lorem ipsum dolor sit amet, consectetur adipiscing
           </p>
-          <PollProgressBar votes={3} participants={10} />
+          <div className="w-[250px]">
+            <PollProgressBar votes={3} participants={10} />
+          </div>
         </div>
       </PollResultsCard.Content>
     </PollResultsCard>,

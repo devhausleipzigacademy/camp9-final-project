@@ -53,7 +53,7 @@ async function Closed() {
             key={poll?.id}
             endTime={poll?.endDateTime}
             results="see results"
-            href="/closed"
+            href={`/results/${poll?.id}`}
           >
             {poll?.question}
           </PollCard>
