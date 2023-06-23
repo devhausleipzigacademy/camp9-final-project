@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import Button from 'components/shared/buttons/Button';
+import Button from '../shared/buttons/Button';
 import InputField from '../InputField';
 
 export default function AnswerOptions() {

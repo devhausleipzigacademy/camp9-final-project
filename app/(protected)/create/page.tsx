@@ -70,6 +70,7 @@ export default function NewPollLayout() {
     );
 
   const { handleSubmit, formState, reset, getValues } = methods;
+
   const { errors } = formState;
 
   const onSubmit: SubmitHandler<
