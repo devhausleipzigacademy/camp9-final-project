@@ -22,9 +22,11 @@ import RevealConditions from '@/components/newPoll/RevealConditions';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
 import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
-import PollCreatedStatus from '@/components/newPoll/PollCreatedStatus';
+import StatusSuccessful from '@/components/newPoll/StatusSuccessful';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
+import StatusError from '@/components/newPoll/StatusError';
+import { FiCheckSquare } from 'react-icons/fi';
 
 export default function NewPoll() {
   // Form setup
@@ -148,22 +150,48 @@ export default function NewPoll() {
             </footer>
           </>
         )}
+
         {isLoading && (
-          <div className=" flex flex-col justify-center items-center">
-            <img src="/images/flame-288.gif" className="w-[250px]"></img>
-            <h1 className="title-bold text-center">Loading...</h1>
+          <div className="flex flex-col justify-center items-center">
+            <img
+              src="/images/flame-dreaming-of-unicorns.gif"
+              className="w-[280px]"
+            ></img>
+            <h1 className="title-bold">Loading...</h1>
           </div>
         )}
 
         {isSuccess && (
           <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-            <PollCreatedStatus />,
+            <div className="mt-16 w-full flex flex-col gap-y-14 overflow-x-hidden overflow-y-scroll items-center justify-between">
+              <h1 className="title-black text-center">
+                Your poll has been created!
+              </h1>
+              <div className="bg-yellow rounded-3xl">
+                <FiCheckSquare size={116} strokeWidth={1.5} />
+              </div>
+            </div>
+            <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
+              <Button size="full" href="/" className="py-6">
+                Next
+              </Button>
+            </footer>
           </div>
         )}
         {isError && (
-          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-            Error!!
-          </div>
+          <>
+            <div className="flex flex-col justify-center items-center">
+              <img src="/images/flame-479.gif" className="w-[280px]"></img>
+              <h1 className="title-bold text-center">
+                Woops! Something went wrong.
+              </h1>
+            </div>
+            <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
+              <Button size="full" href="/create" className="py-6">
+                Try Again
+              </Button>
+            </footer>
+          </>
         )}
       </main>
     </>
