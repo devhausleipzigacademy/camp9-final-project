@@ -3,7 +3,11 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { SignUpUser, signUpSchema, SignUpResponse } from '@/types/user/AuthSchemata';
+import {
+  SignUpUser,
+  signUpSchema,
+  SignUpResponse,
+} from '@/types/user/AuthSchemata';
 
 /////////////////////
 // SignUp Mutation //
@@ -13,7 +17,6 @@ async function signUpUser(user: SignUpUser) {
   const { data } = await axios.post('/api/signup', user, {
     withCredentials: true,
   });
-  console.log(data);
   return data;
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../globals.css';
-import { Navbar } from '@/components/shared/navbar/Navbar';
+import { Navbar } from 'components/shared/navbar/Navbar';
 import Provider from '../provider';
 
 export const metadata = {
@@ -19,7 +19,7 @@ export default function RootLayout({
         <Provider>{children}</Provider>
         {/* change the next line from true instead of children later */}
         {true && (
-          <footer className="fixed bottom-8 container px-8">
+          <footer className="fixed bottom-6 container px-8">
             <Navbar variant={'primary'} />
           </footer>
         )}
