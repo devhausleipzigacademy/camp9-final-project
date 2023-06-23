@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@ashwinthomas/react-time-picker-dropdown':
+    specifier: ^1.0.4
+    version: 1.0.4(react-dom@18.2.0)(react@18.2.0)
   '@auth/prisma-adapter':
     specifier: ^1.0.0
     version: 1.0.0(@prisma/client@4.15.0)
@@ -88,6 +91,9 @@ dependencies:
   tailwindcss:
     specifier: 3.3.2
     version: 3.3.2(ts-node@10.9.1)
+  time-picker-scroll:
+    specifier: ^0.1.2
+    version: 0.1.2(react-dom@18.2.0)(react@18.2.0)
   typescript:
     specifier: 5.0.4
     version: 5.0.4
@@ -161,6 +167,16 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.18
+
+  /@ashwinthomas/react-time-picker-dropdown@1.0.4(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-7jWXBAPgppDsuYnKdmtgRsAOMCTBCcOgLV7jM4Z9IjW4rs4uvI/Q0YD4H2cQjDcDHuZAh3GFNDxa4ATvaooVzg==}
+    peerDependencies:
+      react: ^18.2.0
+      react-dom: ^18.2.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@auth/core@0.8.1:
     resolution: {integrity: sha512-WudBmZudZ/cvykxHV5hIwrYsd7AlETQ535O7w3sSiiumT28+U9GvBb8oSRtfzxpW9rym3lAdfeTJqGA8U4FecQ==}
@@ -10594,6 +10610,17 @@ packages:
       readable-stream: 2.3.8
       xtend: 4.0.2
     dev: true
+
+  /time-picker-scroll@0.1.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-KSmyaz5kyB2eXapnYkfnZv0cMl/wUYvHbK5e0CB4Sq0zCClbxvet8t6cA4GbM1FaYSxE6FSYy0DuSGvXUrzqBA==}
+    peerDependencies:
+      react: '>=0.14.0 <17.0.0'
+      react-dom: '>=0.14.0 <17.0.0'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /timers-browserify@2.0.12:
     resolution: {integrity: sha512-9phl76Cqm6FhSX9Xe1ZUAMLtm1BLkKj2Qd5ApyWkXzsMRaA7dgr81kf4wJmQf/hAvg8EEyJxDo3du/0KlhPiKQ==}
