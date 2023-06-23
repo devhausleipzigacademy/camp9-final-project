@@ -42,7 +42,7 @@ export default function NewPoll() {
   const [username, setUsername] = useState('...'); // <-- username initially unknown
 
   const { data } = useSession(); // <-- get user ID object from session/JWT
-  console.log(data);
+  // console.log(data);
   const userID = data?.user?.id; // <-- FIX: type error
 
   // func expression immediately updates username
@@ -57,7 +57,7 @@ export default function NewPoll() {
     }
   })();
 
-  console.log(username);
+  // console.log(username);
 
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
@@ -128,6 +128,8 @@ export default function NewPoll() {
       next(); // Proceed to the next step
     }
   };
+
+  console.log(getValues());
 
   return (
     <>

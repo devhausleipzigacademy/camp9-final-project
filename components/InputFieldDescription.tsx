@@ -35,13 +35,6 @@ export const InputFieldDescription = forwardRef(
     }: TextAreaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>
   ) => {
-    const [value, setValue] = React.useState('');
-    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-      const inputValue = event.target.value;
-      const truncatedValue = inputValue.slice(0, maxProp);
-      setValue(truncatedValue);
-    };
-
     return (
       <label
         className={clsx(
@@ -65,8 +58,7 @@ export const InputFieldDescription = forwardRef(
           ref={ref}
           {...props}
           disabled={disabled}
-          onChange={handleChange}
-          value={value}
+          value={props.value}
         ></textarea>
       </label>
     );
