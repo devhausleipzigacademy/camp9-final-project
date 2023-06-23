@@ -1,0 +1,3 @@
+type NewPollResponse = {
+  token: string;
+};

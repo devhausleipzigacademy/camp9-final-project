@@ -4,12 +4,12 @@ import React from 'react';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
 import { ChangeEvent } from 'react';
-import WarningSVG from '@/public/images/WarningSVG';
 
-type InputFieldProps = {
+type TextAreaProps = {
   label: string;
   showLabel: boolean;
   placeholder?: string;
+  rows: number;
   maxProp?: number; // Limit the input value to a maximum of characters (max)
   value?: string;
   type: 'text' | 'number' | 'email' | 'password' | 'username';
@@ -17,27 +17,26 @@ type InputFieldProps = {
   error?: {
     message?: string;
   };
-  disabled?: boolean;
-  required?: boolean;
+  disabled: boolean;
 };
 
-const InputField = forwardRef(
+export const InputFieldDescription = forwardRef(
   (
     {
       maxProp,
       placeholder,
       label,
       width,
+      rows = 4,
       error,
       disabled,
       showLabel,
-      required = false,
       ...props
-    }: InputFieldProps,
-    ref: React.ForwardedRef<HTMLInputElement>
+    }: TextAreaProps,
+    ref: React.ForwardedRef<HTMLTextAreaElement>
   ) => {
     const [value, setValue] = React.useState('');
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
       const inputValue = event.target.value;
       const truncatedValue = inputValue.slice(0, maxProp);
       setValue(truncatedValue);
@@ -51,36 +50,27 @@ const InputField = forwardRef(
           width === 'full' ? 'w-full' : 'w-[251px]'
         )}
       >
-        <div className="flex flex-row items-center justify-between mb-1">
-          <span className={clsx(showLabel ? 'visible' : 'hidden')}>
-            {label}
-          </span>
-          {error && (
-            <div className="flex flex-row gap-2 items-center">
-              <WarningSVG width="14px" height="14px" />{' '}
-              <p className="special-accent ml-auto">{error.message}</p>
-            </div>
-          )}
-        </div>
-        <input
-          {...props}
-          required={required}
+        <span className={clsx(showLabel ? 'visible' : 'hidden')}>{label}</span>
+        {error && <p className="body-accent ml-auto">{error.message}</p>}
+        <textarea
+          rows={rows}
           className={clsx(
-            'p-[14px] h-11 body rounded-md placeholder-[body-light] w-full',
+            'p-[14px] body rounded-md placeholder-[body-light] w-full  bg-green-light',
             error?.message === undefined
               ? 'border-black body'
               : 'border-peach body-accent',
-            disabled ? 'border-brutal-disabled' : 'border-brutal'
+            disabled ? 'border-brutal-disabled' : ' border-3 border-dashed'
           )}
           placeholder={placeholder}
           ref={ref}
+          {...props}
           disabled={disabled}
           onChange={handleChange}
           value={value}
-        ></input>
+        ></textarea>
       </label>
     );
   }
 );
 
-export default InputField;
+export default InputFieldDescription;
