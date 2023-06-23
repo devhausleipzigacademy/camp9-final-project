@@ -20,7 +20,7 @@ export default function PollResultsCard({
 }: PollResultsCardProps) {
   return (
     <div className="cursor-pointer border-3 border-black rounded h-[370px] w-full pt-3 px-3 pb-1  bg-yellow gap-1 ">
-      <h2 className="body-semibold">{pollQuestion}</h2>
+      <h2 className="body-semibold mb-2">{pollQuestion}</h2>
       {children}
     </div>
   );

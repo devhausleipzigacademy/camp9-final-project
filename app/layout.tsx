@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="grid justify-center h-screen items-center bg-teal mx-8">
+      <body className="grid justify-center h-screen items-center">
         {children}
       </body>
     </html>

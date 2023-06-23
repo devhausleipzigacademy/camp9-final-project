@@ -1,6 +1,8 @@
 'use client';
 
 import Checkbox from '@/components/Checkbox';
+import MoodDisplay from '@/components/MoodDisplay';
+import PollProgressBar from '@/components/PollProgressBar';
 import PollResultsCard from '@/components/PollResultsCard';
 import Button from '@/components/shared/buttons/Button';
 import Image from 'next/legacy/image';
@@ -105,13 +107,25 @@ export default function Results() {
     </PollResultsCard>,
 
     //4.answers+percantages
+    //sort options by percentages or by appearence in the poll?
     <PollResultsCard
       pollQuestion={slicedPollQuestionStart(pollQuestion, 34)}
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[260px]">
-        placeholder
+      <PollResultsCard.Content className="h-[260px] overflow-y-auto">
+        <div className="mb-5">
+          <p className="body-light text-black mb-3">
+            1: Lorem ipsum dolor sit amet, consectetur adipiscing
+          </p>
+          <PollProgressBar votes={7} participants={10} />
+        </div>
+        <div>
+          <p className="body-light text-black mb-3">
+            2: Lorem ipsum dolor sit amet, consectetur adipiscing
+          </p>
+          <PollProgressBar votes={3} participants={10} />
+        </div>
       </PollResultsCard.Content>
     </PollResultsCard>,
 
@@ -121,12 +135,16 @@ export default function Results() {
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[260px] flex flex-col ">
-        <p>The average mood of this poll’s voters is:</p>
-        {/* <Button className="mt-4 " size="medium">
-          mood
-        </Button> */}
-        <p>mood bar with icons</p>
+      <PollResultsCard.Content className="h-[260px]  ">
+        <p className="text-start description">
+          The average mood of this poll’s voters is:
+        </p>
+        <div className="flex flex-col items-center gap-4 mt-9">
+          <div className="shadow-brutal border-brutal w-28 h-8 body text-center item-center rounded-sm">
+            happy
+          </div>
+          <MoodDisplay averageMood={4}></MoodDisplay>
+        </div>
       </PollResultsCard.Content>
     </PollResultsCard>,
   ];
@@ -134,7 +152,7 @@ export default function Results() {
   return (
     <>
       <h1 className="title-black text-left mt-2 mb-10">Poll Results</h1>
-      {cards[3]}
+      {cards[4]}
     </>
   );
 }
