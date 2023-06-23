@@ -18,5 +18,5 @@ export const Checkboxinput = ({ variant }: CheckboxinputProps) => {
     },
   });
 
-  return <input type="checkbox" className={checkclass({ variant })} />;
+  return <input  type="checkbox" className={checkclass({ variant })} />;
 };

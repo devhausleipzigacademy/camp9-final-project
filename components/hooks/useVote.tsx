@@ -8,14 +8,21 @@ import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import Radio from '../Radiobutton';
 import { Checkboxinput } from '../CheckboxInput';
 import Image from 'next/image';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 
 interface SideKickProps {
   query: UseQueryResult<AxiosResponse<Poll, any>, unknown>;
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  register: UseFormRegister<FieldValues>;
 }
 
-export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
+export function superSidekickHoock({
+  query,
+  step,
+  setStep,
+  register,
+}: SideKickProps) {
   function handlePollInformation(
     type: PollType | undefined,
     options: string[] | undefined
@@ -129,8 +136,8 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
               <Checkboxinput
                 variant="primary"
                 id="anonymity"
-                name="option"
                 value="anonymity"
+                {...register(anonymity)}
               />
             </div>
             <p className="description-light">No username will be revealed</p>
@@ -150,8 +157,8 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
               <Checkboxinput
                 variant="primary"
                 id="nonanonymity"
-                name="option"
                 value="nonanonymity"
+                {...register(anonymity)}
               />
             </div>
             <p className="description-light max-w-[270px]">
@@ -174,8 +181,8 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
               <Checkboxinput
                 variant="primary"
                 id="anonymityuntilquorum"
-                name="option"
                 value="anonymityuntilquorum"
+                {...register(anonymity)}
               />
             </div>
             <p className="description-light max-w-[270px]">

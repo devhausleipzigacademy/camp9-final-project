@@ -9,6 +9,7 @@ import Button from '@/components/shared/buttons/Button';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 type VoteResponse = {
   message: string;
@@ -26,6 +27,11 @@ export default function Voting() {
   const pathname = usePathname();
   const path = pathname.split('/');
   const [step, setStep] = useState<number>(1);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   if (path[2] === undefined || path[3] === undefined) {
     return <>Sorry</>;
@@ -37,31 +43,18 @@ export default function Voting() {
       query,
       step,
       setStep,
+      register,
     });
 
-  // async function sendPoll(vote: myVote) {
-  //   const { data } = await axios.post('/api/voting', vote, {
-  //     withCredentials: true,
-  //   });
-  // }
+  /// submit function to the hook
 
-  // function useSendVote() {
-  //   const {
-  //     register,
-  //     formState: { errors },
-  //     reset,
-  //     handleSubmit,
-  //     formState,
-  //   } = useForm<myVote>({
-  //     resolver: zodResolver(),
-  //     mode: 'onTouched',
-  //   });
+  function onSubmit(data) {
+    console.log(data);
+  }
+  /////fronted
+  // 1 useform hook to send the data to the backend
 
-  //   const mutation = useMutation<VoteResponse, AxiosError, myVote>({
-  //     mutationFn: (vote: myVote) => sendPoll(vote),
-  //   });
-  //   return { mutation, register, errors, handleSubmit, formState };
-  // }
+  //// banckend
 
   if (query.isLoading)
     return (
@@ -95,8 +88,7 @@ export default function Voting() {
           </div>
         </div>
       </div>
-
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {anonymity}
         {typeOfPoll}
         <Button
