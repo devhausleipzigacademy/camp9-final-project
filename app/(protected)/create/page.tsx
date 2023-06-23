@@ -1,7 +1,7 @@
 'use client';
 
 import { Prisma, User } from '@prisma/client';
-import ProgressBar from 'components/ProgressBar';
+import ProgressBar from 'components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
 import Deadline from '@/components/newPoll/Deadline';
 import RevealConditions from '@/components/newPoll/RevealConditions';
