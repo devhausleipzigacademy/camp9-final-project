@@ -13,8 +13,8 @@ export default function RootLayout({
   return (
     <html lang="en">
         <body className="w-full flex flex-col justify-between h-screen">
+        {/* </body><body className="grid justify-center h-screen items-center bg-teal mx-8"> */}
         {children}
-   
       </body>
     </html>
   );
