@@ -68,29 +68,27 @@ export default function NewPoll() {
   );
 
   // Multi step form setup
-  const { steps, currentStepIndex, isLastStep, isFormInProgress, back, next } =
+  const { step, steps, currentStepIndex, isLastStep, back, next } =
     useMultiStepForm(
       [
         <CreatePoll title="Create a Poll" />,
         <AnswerOptions title="Answer Options" />,
         <RevealConditions title="Reveal Conditions" />,
         <Deadline title="Deadline" />,
-        <Review title="Review & Submit" />,
         <AddParticipants title="Add Participants" />,
+        <Review title="Review & Submit" />,
       ],
       methods
     );
 
   // Update currentStepTitle when the index changes
   useEffect(() => {
-    setCurrentStepTitle(steps[currentStepIndex]?.props.title);
+    setCurrentStepTitle(step?.props.title);
   }, [currentStepIndex, steps]);
 
   const { handleSubmit, formState, reset, getValues } = methods;
 
   const { errors } = formState;
-
-  console.log(isIdle);
 
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
@@ -110,10 +108,6 @@ export default function NewPoll() {
     }
   };
 
-  console.log('values', getValues());
-
-  console.log('errors', formState.errors);
-
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
@@ -129,7 +123,7 @@ export default function NewPoll() {
 
               <FormProvider {...methods}>
                 <form className="w-full mt-5" onSubmit={handleSubmit(onSubmit)}>
-                  {steps[currentStepIndex]}
+                  {step}
                 </form>
               </FormProvider>
             </div>
