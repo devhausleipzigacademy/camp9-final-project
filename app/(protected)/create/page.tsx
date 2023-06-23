@@ -109,7 +109,7 @@ export default function NewPoll() {
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
-        {isFormInProgress && (
+        {!isFormInProgress && (
           <>
             <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
               <h1 className="title-black self-start">{currentStepTitle}</h1>
@@ -151,38 +151,40 @@ export default function NewPoll() {
         )}
 
         {isLoading && (
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col gap-y-12 justify-center items-center mt-14">
+            <h1 className="title-bold text-center">Loading...</h1>
             <img
+              alt="Flame dreaming of unicorns"
               src="/images/flame-dreaming-of-unicorns.gif"
-              className="w-[280px]"
+              className="px-12"
             ></img>
-            <h1 className="title-bold">Loading...</h1>
           </div>
         )}
 
         {isSuccess && (
-          <div className="mb-36 w-full gap-4 flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-            <div className="mt-16 w-full flex flex-col gap-y-14 overflow-x-hidden overflow-y-scroll items-center justify-between">
-              <h1 className="title-black text-center">
+          <>
+            <div className="flex flex-col gap-y-12 justify-center items-center mt-14">
+              <h1 className="title-bold text-center">
                 Your poll has been created!
               </h1>
-              <img src="./images/Results.png" alt="Image of Poll Created" />
+              <img src="./images/Results.png" alt="Results" className="px-12" />
             </div>
             <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
               <Button size="full" href="/" className="py-6">
                 Next
               </Button>
             </footer>
-          </div>
+          </>
         )}
 
         {isError && (
           <>
-            <div className="flex flex-col justify-center items-center">
-              <img src="/images/flame-479.gif" className="w-[280px]"></img>
+            <div className="flex flex-col gap-y-12 justify-center items-center mt-14">
               <h1 className="title-bold text-center">
                 Woops! Something went wrong.
               </h1>
+              {/* <img src="/images/flame-479.gif" className="w-[280px]"></img> */}
+              <img src="/images/SomethingWentWrong.png" className="px-12"></img>
             </div>
             <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
               <Button size="full" href="/create" className="py-6">
