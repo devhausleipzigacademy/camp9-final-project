@@ -104,12 +104,10 @@ export default function NewPoll() {
     }
   };
 
-  console.log(formState.errors);
-
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
-        {!isFormInProgress && (
+        {isFormInProgress && (
           <>
             <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
               <h1 className="title-black self-start">{currentStepTitle}</h1>

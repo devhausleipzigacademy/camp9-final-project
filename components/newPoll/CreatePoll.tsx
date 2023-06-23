@@ -10,12 +10,6 @@ export default function CreatePoll({
 }: NewPollComponentProps) {
   const { register, formState, getValues } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
-  console.log(getValues().endDateTime);
-  // convert date into string and extract the date
-  const date = new Date(getValues().endDateTime).toLocaleDateString();
-
-  console.log(date);
-
   return (
     <div className="flex flex-col gap-8 w-full">
       <InputField
