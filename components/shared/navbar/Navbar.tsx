@@ -30,7 +30,7 @@ export const Navbar = ({
           <Navbaritem>
             <IoIosAdd className="w-8.5 h-8.5" />
           </Navbaritem>
-          <Navbaritem>
+          <Navbaritem hrefString="/settings">
             <HiUser className="w-8.5 h-8.5" />
           </Navbaritem>
         </div>
