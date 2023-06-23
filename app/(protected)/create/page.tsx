@@ -68,7 +68,7 @@ export default function NewPoll() {
   );
 
   // Multi step form setup
-  const { step, steps, currentStepIndex, isLastStep, back, next } =
+  const { steps, currentStepIndex, isLastStep, isFormInProgress, back, next } =
     useMultiStepForm(
       [
         <CreatePoll title="Create a Poll" />,
@@ -83,7 +83,7 @@ export default function NewPoll() {
 
   // Update currentStepTitle when the index changes
   useEffect(() => {
-    setCurrentStepTitle(step?.props.title);
+    setCurrentStepTitle(steps[currentStepIndex]?.props.title);
   }, [currentStepIndex, steps]);
 
   const { handleSubmit, formState, reset, getValues } = methods;
@@ -129,7 +129,7 @@ export default function NewPoll() {
 
               <FormProvider {...methods}>
                 <form className="w-full mt-5" onSubmit={handleSubmit(onSubmit)}>
-                  {step}
+                  {steps[currentStepIndex]}
                 </form>
               </FormProvider>
             </div>
@@ -181,6 +181,11 @@ export default function NewPoll() {
                   alt="Results"
                   className="px-12"
                 ></img>
+                <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
+                  <Button size="full" href="/" className="py-6">
+                    Next
+                  </Button>
+                </footer>
               </>
             )}
 
@@ -194,6 +199,12 @@ export default function NewPoll() {
                   src="/images/flame-dreaming-of-unicorns.gif"
                   className="px-12"
                 ></img>
+
+                <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
+                  <Button size="full" href="/create" className="py-6">
+                    Try Again
+                  </Button>
+                </footer>
               </>
             )}
           </div>
