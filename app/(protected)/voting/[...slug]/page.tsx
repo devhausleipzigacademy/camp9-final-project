@@ -79,7 +79,9 @@ export default function Voting() {
         </div>
         <div>
           <h2 className="body-semibold">Description:</h2>
-          <p className="body text-justify">{query.data?.data.description}</p>
+          <div className="overflow-y-auto h-[200px] scrollbar">
+            <p className="body text-justify">{query.data?.data.description}</p>
+          </div>
         </div>
       </div>
 
@@ -87,10 +89,11 @@ export default function Voting() {
         {anonymity}
         {typeOfPoll}
         <Button
-          size="medium"
+          size="small"
           type="submit"
+          variant="quaternary"
           className={clsx(
-            'fixed container bottom-28 right-5',
+            'fixed container bottom-28 right-8',
             step === 3 ? 'visble' : 'hidden'
           )}
         >

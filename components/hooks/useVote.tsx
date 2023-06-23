@@ -99,7 +99,7 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       case 1:
         return 'Question';
       case 2:
-        return 'Voting conditions';
+        return 'Voting Conditions';
       case 3:
         return 'Voting';
       case 4:
@@ -117,11 +117,20 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       case 'Anonymous':
         return (
           <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
+            <p className="small mb-2">
+              <span className="small-bold">Please check</span> you understand
+              the poll conditions
+            </p>
             <div className="flex flex-row justify-between">
               <label htmlFor="anonymity" className="body-semibold">
-                {query.data?.data.anonymity}
+                Full anonymity
               </label>
-              <input type="checkbox" id="anonymity" className="checkmarkBox" />
+              <Checkboxinput
+                variant="primary"
+                id="anonymity"
+                name="option"
+                value="anonymity"
+              />
             </div>
             <p className="description">No username will be revealed</p>
           </fieldset>
@@ -129,13 +138,22 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       case 'NonAnonymous':
         return (
           <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
+            <p className="small mb-2">
+              <span className="small-bold">Please check</span> you understand
+              the poll conditions
+            </p>
             <div className="flex flex-row justify-between">
               <label htmlFor="anonymity" className="body-semibold">
-                {query.data?.data.anonymity}
+                No Anonymity
               </label>
-              <input type="checkbox" id="anonymity" className="checkmarkBox" />
+              <Checkboxinput
+                variant="primary"
+                id="nonanonymity"
+                name="option"
+                value="nonanonymity"
+              />
             </div>
-            <p className="description">
+            <p className="description max-w-[270px]">
               The usernames and their votes will be revealed at the end of the
               voting period.
             </p>
@@ -144,13 +162,22 @@ export function superSidekickHoock({ query, step, setStep }: SideKickProps) {
       case 'AnonymousUntilQuorum':
         return (
           <fieldset className={clsx(step === 2 ? 'visible' : 'hidden')}>
+            <p className="small mb-2">
+              <span className="small-bold">Please check</span> you understand
+              the poll conditions
+            </p>
             <div className="flex flex-row justify-between">
               <label htmlFor="anonymity" className="body-semibold">
-                {query.data?.data.anonymity}
+                Anonymity until quorum
               </label>
-              <input type="checkbox" id="anonymity" className="checkmarkBox" />
+              <Checkboxinput
+                variant="primary"
+                id="anonymityuntilquorum"
+                name="option"
+                value="anonymityuntilquorum"
+              />
             </div>
-            <p className="description">
+            <p className="description max-w-[270px]">
               The usernames will be revealed when {quorum} participants reached
               a consesus.
             </p>
