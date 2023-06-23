@@ -42,7 +42,7 @@ const buttonClasses = cva(
       },
       size: {
         xs: ['h-11', 'w-11'],
-        small: ['h-11', 'w-1/3'],
+        small: ['h-11', 'w-2/5'],
         medium: ['h-11', 'w-1/2'],
         large: ['h-11', 'w-3/5'],
         full: ['h-15', 'w-full'],

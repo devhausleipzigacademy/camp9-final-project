@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
-import { NewPoll, NewPollSchema } from 'types/newPoll/NewPollSchema';
+import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
 
-async function signUpUser(poll: NewPoll) {
+async function createNewPoll(poll: NewPoll) {
   const { data } = await axios.post('/api/new', poll, {
     withCredentials: true,
   });
@@ -23,7 +23,7 @@ export function useNewPollMutation() {
     resolver: zodResolver(NewPollSchema),
   });
   const mutation = useMutation<NewPollResponse, AxiosError, NewPoll>({
-    mutationFn: (poll: NewPoll) => signUpUser(poll),
+    mutationFn: (poll: NewPoll) => createNewPoll(poll),
     onSuccess: data => {
       toast.success('Poll created!');
       reset();
