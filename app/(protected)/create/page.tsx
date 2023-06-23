@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 
 import { Poll } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -37,6 +38,26 @@ export default function NewPoll() {
       type: 'MultipleChoice',
     },
   });
+
+  const [username, setUsername] = useState('...'); // <-- username initially unknown
+
+  const { data } = useSession(); // <-- get user ID object from session/JWT
+  console.log(data);
+  const userID = data?.user?.id; // <-- FIX: type error
+
+  // func expression immediately updates username
+  (async function () {
+    try {
+      const response = await axios.get('/api/getUsername', {
+        params: { id: userID }, // <-- make get request to getUsername API with id as parameter
+      });
+      setUsername(response.data.username); // <--- set username if/once resolved
+    } catch (error) {
+      console.error(error);
+    }
+  })();
+
+  console.log(username);
 
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
@@ -190,7 +211,9 @@ export default function NewPoll() {
                 </h1>
                 <img
                   alt="Flame dreaming of unicorns"
-                  src="/images/flame-dreaming-of-unicorns.gif"
+                  // src="/images/flame-dreaming-of-unicorns.gif"
+                  // src="/images/SomethingWentWrong.png"
+                  src="/images/fatal-error.png"
                   className="px-12"
                 ></img>
 
