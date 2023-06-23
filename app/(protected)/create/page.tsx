@@ -90,8 +90,6 @@ export default function NewPoll() {
 
   const { errors } = formState;
 
-  console.log(isIdle);
-
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
     if (isLastStep) {
@@ -109,10 +107,6 @@ export default function NewPoll() {
       next(); // Proceed to the next step
     }
   };
-
-  console.log('values', getValues());
-
-  console.log('errors', formState.errors);
 
   return (
     <>
