@@ -1,3 +1,5 @@
+'use client';
+
 import Button from 'components/shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 
@@ -6,10 +8,7 @@ export default function ResultsLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-  function clickNextButton(){
-
-  }
+  function clickNextButton() {}
 
   return (
     <div>

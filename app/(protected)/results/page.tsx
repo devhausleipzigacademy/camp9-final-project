@@ -123,9 +123,9 @@ export default function Results() {
     >
       <PollResultsCard.Content className="h-[260px] flex flex-col ">
         <p>The average mood of this poll’s voters is:</p>
-        <Button className="mt-4 " size="medium">
+        {/* <Button className="mt-4 " size="medium">
           mood
-        </Button>
+        </Button> */}
         <p>mood bar with icons</p>
       </PollResultsCard.Content>
     </PollResultsCard>,
@@ -134,7 +134,7 @@ export default function Results() {
   return (
     <>
       <h1 className="title-black text-left mt-2 mb-10">Poll Results</h1>
-      {cards[0]}
+      {cards[3]}
     </>
   );
 }
