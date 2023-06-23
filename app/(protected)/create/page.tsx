@@ -22,11 +22,8 @@ import RevealConditions from '@/components/newPoll/RevealConditions';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
 import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
-import StatusSuccessful from '@/components/newPoll/StatusSuccessful';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
-import StatusError from '@/components/newPoll/StatusError';
-import { FiCheckSquare } from 'react-icons/fi';
 
 export default function NewPoll() {
   // Form setup
@@ -107,6 +104,8 @@ export default function NewPoll() {
     }
   };
 
+  console.log(formState.errors);
+
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
@@ -167,9 +166,7 @@ export default function NewPoll() {
               <h1 className="title-black text-center">
                 Your poll has been created!
               </h1>
-              <div className="bg-yellow rounded-3xl">
-                <FiCheckSquare size={116} strokeWidth={1.5} />
-              </div>
+              <img src="./images/Results.png" alt="Image of Poll Created" />
             </div>
             <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
               <Button size="full" href="/" className="py-6">
@@ -178,6 +175,7 @@ export default function NewPoll() {
             </footer>
           </div>
         )}
+
         {isError && (
           <>
             <div className="flex flex-col justify-center items-center">

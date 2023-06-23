@@ -24,29 +24,6 @@ export default function AnswerOptions({
     options.splice(numOptions - 1, 1);
   };
 
-  // if the number of options is less than 2, then disable the + Option button
-  const isSingleChoice = getValues('type') === 'SingleChoice';
-
-  // if is single choice, then delete all other options from array
-  useEffect(() => {
-    if (isSingleChoice) {
-      // render only one input field
-      const options = getValues('options');
-      options.splice(1, options.length - 1);
-      setValue('options', options);
-      setNumOptions(1);
-    } else {
-      setNumOptions(2);
-    }
-  }, [isSingleChoice]);
-
-  // if the number of options is less than 2, then set the type to single choice
-  useEffect(() => {
-    if (numOptions < 2) {
-      setValue('type', 'SingleChoice');
-    }
-  }, [numOptions]);
-
   return (
     <div className="flex flex-col gap-5">
       <fieldset className="flex flex-col font-semibold  gap-5">
@@ -90,20 +67,19 @@ export default function AnswerOptions({
                 (formState.errors.options as FieldErrors)?.[index] // Cast 'errors.options' as FieldErrors
               }
             />
-            {/* render from the second option on */}
-            {index > 0 && (
-              <Button
-                variant="secondary"
-                type="button"
-                size="xxs"
-                className="button"
-                children="-"
-                onClick={handleDeleteOption}
-              ></Button>
-            )}
+
+            <Button
+              variant="secondary"
+              type="button"
+              size="xxs"
+              className="button"
+              children="-"
+              onClick={handleDeleteOption}
+            ></Button>
           </div>
         ))}
-        {!isSingleChoice && (
+
+        {
           <div className="flex my-1">
             <Button
               type="button"
@@ -114,7 +90,7 @@ export default function AnswerOptions({
               onClick={handleAddOption}
             ></Button>
           </div>
-        )}
+        }
       </fieldset>
     </div>
   );
