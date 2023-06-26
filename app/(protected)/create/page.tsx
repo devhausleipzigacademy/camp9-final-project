@@ -136,7 +136,7 @@ export default function NewPoll() {
       <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
         {isIdle && (
           <>
-            <div className="mb-40 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between  pr-8 ">
+            <div className="mb-[156px] w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between  pr-8 ">
               <div className="self-start pl-8 w-full ">
                 <h1 className="title-black">{currentStepTitle}</h1>
 
