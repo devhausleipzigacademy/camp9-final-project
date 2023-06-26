@@ -1,5 +1,6 @@
 'use client';
 
+import { Checkboxinput } from '@/components/CheckboxInput';
 import Questionbox from '@/components/Question';
 import { useVotePollQuery } from '@/components/hooks/usePoll';
 import { superSidekickHoock } from '@/components/hooks/useVote';
@@ -8,8 +9,8 @@ import Button from '@/components/shared/buttons/Button';
 
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useRef, useState } from 'react';
+import { Controller, useController, useForm } from 'react-hook-form';
 import { string } from 'zod';
 
 type VoteResponse = {
@@ -36,12 +37,7 @@ export default function Voting() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      checkbox: '',
-      radio: '',
-    },
-  });
+  } = useForm({});
 
   const { typeOfPoll, header, buttons, anonymity, isLoading } =
     superSidekickHoock({
@@ -50,8 +46,6 @@ export default function Voting() {
       setStep,
       register,
     });
-
- 
 
   function onSubmit(data) {
     console.log(data);
@@ -90,6 +84,7 @@ export default function Voting() {
         </div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="checkbox1">Checkbox1</label>
         {anonymity}
         {typeOfPoll}
         <Button

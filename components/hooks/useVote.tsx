@@ -10,16 +10,11 @@ import { Checkboxinput } from '../CheckboxInput';
 import Image from 'next/image';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 
-interface CheckAndRadio extends FieldValues {
-  checkbox: string;
-  radio: string;
-}
-
 interface SideKickProps {
   query: UseQueryResult<AxiosResponse<Poll, any>, unknown>;
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  register: UseFormRegister<CheckAndRadio>;
+  register: UseFormRegister<FieldValues>;
 }
 
 export function superSidekickHoock({
@@ -43,7 +38,6 @@ export function superSidekickHoock({
                   variant="primary"
                   id={option}
                   name="option"
-                  value={option}
                   type="radio"
                 />
                 <label className="w-[228px]" htmlFor={option}>
@@ -56,7 +50,6 @@ export function superSidekickHoock({
                 variant="secondary"
                 id="option"
                 name="option"
-                value="option"
                 type="radio"
               />
               <label className="w-[228px] text-center" htmlFor="abstain">
@@ -76,12 +69,10 @@ export function superSidekickHoock({
           <div className="overflow-y-auto  h-[360px] scrollbarteal">
             {options?.map(option => (
               <Questionbox key={option} variant="secondary">
-                <Checkboxinput
-                  variant="primary"
-                  id={option}
-                  name="option"
-                  value={option}
+                <input
                   type="checkbox"
+                  {...register(`multipleChoice[${option}]`)}
+                  className="checkmarkBox"
                 />
                 <label className="w-[228px]" htmlFor={option}>
                   {option}
@@ -89,13 +80,11 @@ export function superSidekickHoock({
               </Questionbox>
             ))}
 
-            <Questionbox variant="secondary" desabled>
-              <Checkboxinput
-                variant="primary"
-                id="abstain"
-                name="option"
-                value="option"
+            <Questionbox variant="secondary">
+              <input
                 type="checkbox"
+                {...register('Abstain')}
+                className="checkmarkBox"
               />
               <label className="w-[228px] text-center" htmlFor="abstain">
                 Abstain
@@ -142,16 +131,10 @@ export function superSidekickHoock({
               <label htmlFor="anonymity" className="body-semibold">
                 Full anonymity
               </label>
-              <Checkboxinput
-                variant="primary"
-                id="anonymity"
-                value="anonymity"
+              <input
                 type="checkbox"
-                {...register('checkbox', {
-                  onChange(event) {
-                    console.log(event.target.value);
-                  },
-                })}
+                {...register('Anonymous', { required: true })}
+                className="checkmarkBox"
               />
             </div>
             <p className="description-light">No username will be revealed</p>
@@ -165,19 +148,13 @@ export function superSidekickHoock({
               the poll conditions
             </p>
             <div className="flex flex-row justify-between items-center">
-              <label htmlFor="anonymity" className="body-semibold">
+              <label htmlFor={anonymity} className="body-semibold">
                 No Anonymity
               </label>
-              <Checkboxinput
+              <input
                 type="checkbox"
-                variant="primary"
-                id="checkbox"
-                value="nonanonymity"
-                {...register('checkbox', {
-                  onChange(event) {
-                    console.log(event.target.value);
-                  },
-                })}
+                {...register('NonAnynymous', { required: true })}
+                className="checkmarkBox"
               />
             </div>
             <p className="description-light max-w-[270px]">
@@ -197,16 +174,10 @@ export function superSidekickHoock({
               <label htmlFor="anonymity" className="body-semibold">
                 Anonymity until quorum
               </label>
-              <Checkboxinput
+              <input
                 type="checkbox"
-                variant="primary"
-                id="anonymityuntilquorum"
-                value="anonymityuntilquorum"
-                {...register('checkbox', {
-                  onChange(event) {
-                    console.log(event);
-                  },
-                })}
+                {...register('AnonymousUntilQuorum', { required: true })}
+                className="checkmarkBox"
               />
             </div>
             <p className="description-light max-w-[270px]">
