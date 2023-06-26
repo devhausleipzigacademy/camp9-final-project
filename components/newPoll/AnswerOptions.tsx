@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FieldErrors, useFormContext } from 'react-hook-form';
 import Button from 'components/shared/buttons/Button';
 import InputField from '../InputField';
@@ -8,7 +8,7 @@ import InputField from '../InputField';
 export default function AnswerOptions({
   title = 'Answer Options',
 }: NewPollComponentProps) {
-  const { register, formState, getValues, setValue } = useFormContext(); // retrieve all hook methods
+  const { register, formState, getValues } = useFormContext(); // retrieve all hook methods
 
   const [numOptions, setNumOptions] = useState(
     getValues('options')?.length || 2
