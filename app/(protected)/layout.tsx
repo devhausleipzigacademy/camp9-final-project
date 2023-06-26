@@ -13,5 +13,9 @@ export default function ProtectedLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <Provider>{children}</Provider>;
+  return (
+    <div>
+      <Provider>{children}</Provider>
+    </div>
+  );
 }
