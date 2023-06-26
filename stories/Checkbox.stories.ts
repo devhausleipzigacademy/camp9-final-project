@@ -16,13 +16,13 @@ export const Primary: Story = {
     variant: 'primary',
   },
 };
-export const Secondary: Story = {
-  args: {
-    variant: 'secondary',
-  },
-};
-export const Tertiary: Story = {
-  args: {
-    variant: 'tertiary',
-  },
-};
+// export const Secondary: Story = {
+//   args: {
+//     variant: 'secondary',
+//   },
+// };
+// export const Tertiary: Story = {
+//   args: {
+//     variant: 'tertiary',
+//   },
+// };
