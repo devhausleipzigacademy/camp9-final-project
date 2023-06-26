@@ -7,20 +7,20 @@ import { z } from 'zod';
 export const usernameSchema = z.object({
   username: z
     .string()
-    .min(3, 'Username must be at least 3 characters long.')
-    .max(20, 'Username must be less than 20 characters long.'),
+    .min(3, '3 characters or more')
+    .max(20, '20 characters or less'),
 });
 export type UsernameType = z.infer<typeof usernameSchema>;
 
 export const passwordSchema = z.object({
-  password: z.string().min(8, 'Password must be at least 8 characters long.'),
+  password: z.string().min(8, '8 characters or more'),
 });
 export type PasswordType = z.infer<typeof passwordSchema>;
 
 export const confirmPasswordSchema = z.object({
   confirmPassword: z
     .string()
-    .min(8, 'Password must be at least 8 characters long.'),
+    .min(8, '8 characters or more'),
 });
 export type ConfirmPasswordType = z.infer<typeof confirmPasswordSchema>;
 
