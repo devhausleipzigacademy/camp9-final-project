@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import { HiUser } from 'react-icons/hi2';
 
 export default function AddParticipants() {
-  const { register, formState, getValues } = useFormContext(); // retrieve all hook methods
+  const { register, formState, getValues, setValue } = useFormContext(); // retrieve all hook methods
   const [participants, setParticipants] = useState([]);
   let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
@@ -24,21 +24,23 @@ export default function AddParticipants() {
     });
     return data;
   }
+
   const { data, isError, isLoading } = useQuery<User[]>(
     ['searchUsers', query],
     searchUsers
-  ); //query already filters people by input string
+  );
+  //console.log(getValues());
 
   // const queryClient = useQueryClient()
-  // queryClient.invalidateQueries('searchUsers')//restet cached "stale" data so next request will me made new
-
-  useEffect(() => {
-    register('participants');
-  }, [register]);
+  // queryClient.invalidateQueries('searchUsers')//resets cached "stale" data so next request will me made new
 
   return (
     <div className="">
-      <Combobox value={selectedUser} onChange={setSelectedUser}>
+      <Combobox
+        value={selectedUser}
+        onChange={setSelectedUser}
+        //{...register(`participants[]`)}
+      >
         <div className="flex flex-row h-12 justify-around ">
           <Button
             className=""
@@ -50,6 +52,7 @@ export default function AddParticipants() {
             onClick={() => {
               setParticipants([...participants, selectedUser]);
               setSelectedUser(null);
+              //setValue('participants', participants);
             }}
           ></Button>
           <Combobox.Input
@@ -76,8 +79,8 @@ export default function AddParticipants() {
             ))}
         </Combobox.Options>
       </Combobox>
-      <div>
-        <div className="my-4">
+      <div className="flex flex-col">
+        <div className="my-4 h-[253px] overflow-y-auto scrollbar w-[308px]">
           {participants.map(participant => {
             return (
               <div
@@ -105,7 +108,7 @@ export default function AddParticipants() {
           })}
         </div>
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row justify-end">
         <p>{numParticipants} people selected</p>
         <div className="flex flex-row ml-2">
           {participants.map(participant => {
