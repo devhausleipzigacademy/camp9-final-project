@@ -1,12 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
-
 export { default } from 'next-auth/middleware';
 
 export const config = {
   matcher: [
-    // <-- matched paths are route protected
-    '/middlewareProtected',
-    '/alsoprotected',
+    // \/-- matched paths are route protected
+    '/closed',
+    '/mypolls',
+    '/new',
+    '/pending',
+    '/create',
+    '/details/:path*',
+    '/results',
+    '/settings',
+    '/voting',
   ],
 };
 

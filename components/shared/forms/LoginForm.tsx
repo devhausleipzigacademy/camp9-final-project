@@ -4,15 +4,20 @@ import InputField from '@/components/InputField';
 import { useLoginMutation } from '@/components/hooks/useLogin';
 import Button from '../buttons/Button';
 import { LoginSchemaType } from '@/types/user/AuthSchemata';
+import { redirect } from 'next/navigation';
 
 function LoginForm() {
   // hook-form, toastify & tanstack-query are combined in custom hook useLoginMutation
-  const { mutate, handleSubmit, isLoading, register, errors, formState } =
+  const { mutate, handleSubmit, isLoading, register, isSuccess,  errors, formState } =
     useLoginMutation();
 
   const onSubmit = (data: LoginSchemaType) => {
     mutate(data);
   };
+
+  if (isSuccess === true) {
+    redirect('/new')
+  }
 
   return (
     <form

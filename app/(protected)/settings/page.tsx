@@ -16,7 +16,7 @@ function Settings() {
   const [username, setUsername] = useState('...'); // <-- username initially unknown
 
   const { data } = useSession(); // <-- get user ID object from session/JWT
-  console.log(data)
+  // console.log(data)
   const userID = data?.user?.id; // <-- FIX: type error
 
   // func expression immediately updates username
