@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { string } from 'zod';
 
 type VoteResponse = {
   message: string;
@@ -26,18 +27,21 @@ export default function Voting() {
   //extract the arguments from the URL
   const pathname = usePathname();
   const path = pathname.split('/');
+  const userId = path[2]!;
+  const pollId = path[3]!;
+  const { query } = useVotePollQuery(userId, pollId);
+
   const [step, setStep] = useState<number>(1);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const { query } = useVotePollQuery(path[2], path[3]);
-
-  if (path[2] === undefined || path[3] === undefined) {
-    return <>Sorry</>;
-  }
- 
+  } = useForm({
+    defaultValues: {
+      checkbox: '',
+      radio: '',
+    },
+  });
 
   const { typeOfPoll, header, buttons, anonymity, isLoading } =
     superSidekickHoock({
@@ -47,15 +51,11 @@ export default function Voting() {
       register,
     });
 
-  /// submit function to the hook
+ 
 
   function onSubmit(data) {
     console.log(data);
   }
-  /////fronted
-  // 1 useform hook to send the data to the backend
-
-  //// banckend
 
   if (query.isLoading)
     return (

@@ -6,12 +6,13 @@ export type CheckboxinputProps = {
   id: string;
   name: string;
   value: string;
+  type: string;
 };
 
 export type Ref = HTMLInputElement;
 
 const ref = (
-  { variant, id, name, value }: CheckboxinputProps,
+  { variant, type }: CheckboxinputProps,
   ref: React.ForwardedRef<HTMLInputElement>
 ) => {
   const checkclass = cva(['checkmarkBox'], {
@@ -24,11 +25,7 @@ const ref = (
     },
   });
   return (
-    <input
-      ref={ref}
-      type="checkbox"
-      className={checkclass({ variant: variant })}
-    />
+    <input ref={ref} type={type} className={checkclass({ variant: variant })} />
   );
 };
 
