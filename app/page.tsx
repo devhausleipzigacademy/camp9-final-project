@@ -4,6 +4,7 @@ import Button from 'components/shared/buttons/Button';
 import React from 'react';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import Link from 'next/link';
+
 export default function LandingPage() {
   return (
     <>
@@ -12,40 +13,27 @@ export default function LandingPage() {
         <Image
           src={GroupIllustration}
           alt="illustration of a group of people making decisions"
-          placeholder='blur'
+          placeholder="blur"
         />
-        <div className="text-white text-center text-xl font-medium my-3">Vote secretly, reveal conditionally</div>
-        
+        <div className="text-white text-center text-xl font-medium my-3">
+          Vote secretly, reveal conditionally
+        </div>
       </div>
-      <div className='w-full'>
-        <Link href="/app/#" >
-          <Button
-          
-            size="full"
-            variant="secondary"
-            className='my-4'
-          >
+      <div className="w-full">
+        <Link href="/signup">
+          <Button size="full" variant="secondary" className="my-4">
             Sign up
           </Button>
         </Link>
-        <Link href="/app/login/page">
-          <Button
-          
-            size="full"
-            variant="primary"
-          >
+        <Link href="/login">
+          <Button size="full" variant="primary">
             <React.Fragment key=".0">
-              <h3>
-          Login
-              </h3>
-              <HiOutlineArrowNarrowRight
-          size={25}
-          strokeWidth={2}
-              />
+              <h3>Login</h3>
+              <HiOutlineArrowNarrowRight size={25} strokeWidth={2} />
             </React.Fragment>
           </Button>
         </Link>
-            </div>
-      </>
+      </div>
+    </>
   );
 }
