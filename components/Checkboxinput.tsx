@@ -4,15 +4,16 @@ import { forwardRef } from 'react';
 export type CheckboxinputProps = {
   variant: 'primary' | 'secondary' | 'tertiary';
   id: string;
-  name: string;
-  value: string;
   type: string;
+  value?: string;
+  onClick: () => void;
+  defaultChecked: boolean;
 };
 
 export type Ref = HTMLInputElement;
 
 const ref = (
-  { variant, type }: CheckboxinputProps,
+  { variant, type, onClick, defaultChecked }: CheckboxinputProps,
   ref: React.ForwardedRef<HTMLInputElement>
 ) => {
   const checkclass = cva(['checkmarkBox'], {
@@ -25,7 +26,13 @@ const ref = (
     },
   });
   return (
-    <input ref={ref} type={type} className={checkclass({ variant: variant })} />
+    <input
+      ref={ref}
+      onClick={onClick}
+      type={type}
+      className={checkclass({ variant: variant })}
+      defaultChecked={defaultChecked}
+    />
   );
 };
 
