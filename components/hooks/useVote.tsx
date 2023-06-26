@@ -15,6 +15,7 @@ interface SideKickProps {
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
   register: UseFormRegister<FieldValues>;
+  abstain?: boolean;
 }
 
 export function superSidekickHoock({
@@ -22,6 +23,7 @@ export function superSidekickHoock({
   step,
   setStep,
   register,
+  abstain,
 }: SideKickProps) {
   function handlePollInformation(
     type: PollType | undefined,
@@ -33,12 +35,12 @@ export function superSidekickHoock({
           <p className="small leading-3">Single choice, select only one</p>
           <div className="overflow-y-auto w-[19.3rem]  h-[360px] scrollbarteal">
             {options?.map(option => (
-              <Questionbox key={'1'} variant="secondary">
-                <Radio
-                  variant="primary"
-                  id={option}
-                  name="option"
+              <Questionbox key={option} variant="secondary">
+                <input
                   type="radio"
+                  {...register('option')}
+                  value={option}
+                  className="checkmarkBox"
                 />
                 <label className="w-[228px]" htmlFor={option}>
                   {option}
@@ -46,11 +48,11 @@ export function superSidekickHoock({
               </Questionbox>
             ))}
             <Questionbox variant="secondary">
-              <Radio
-                variant="secondary"
-                id="option"
-                name="option"
+              <input
                 type="radio"
+                {...register('option')}
+                value="abstain"
+                className="checkmarkBox"
               />
               <label className="w-[228px] text-center" htmlFor="abstain">
                 Abstain
@@ -68,7 +70,13 @@ export function superSidekickHoock({
           </p>
           <div className="overflow-y-auto  h-[360px] scrollbarteal">
             {options?.map(option => (
-              <Questionbox key={option} variant="secondary">
+              <div
+                key={option}
+                className={clsx(
+                  'bg-peach rounded-round p-2 mx-2 mb-5 border-solid border-black border-2 flex flex-row justify-between items-center ',
+                  abstain ? 'opacity-50' : 'visible'
+                )}
+              >
                 <input
                   type="checkbox"
                   {...register(`multipleChoice[${option}]`)}
@@ -77,19 +85,19 @@ export function superSidekickHoock({
                 <label className="w-[228px]" htmlFor={option}>
                   {option}
                 </label>
-              </Questionbox>
+              </div>
             ))}
 
-            <Questionbox variant="secondary">
+            <div className="bg-peach rounded-round p-2 mx-2 mb-5 items-center border-solid border-black border-2 flex flex-row justify-between ">
               <input
                 type="checkbox"
-                {...register('Abstain')}
+                {...register('abstain')}
                 className="checkmarkBox"
               />
               <label className="w-[228px] text-center" htmlFor="abstain">
                 Abstain
               </label>
-            </Questionbox>
+            </div>
           </div>
         </fieldset>
       );
