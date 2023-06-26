@@ -74,7 +74,7 @@ const InputField = forwardRef(
           )}
           placeholder={placeholder}
           ref={ref}
-          // disabled={disabled}
+          disabled={disabled}
           // onChange={handleChange}
           // value={value}
         ></input>
