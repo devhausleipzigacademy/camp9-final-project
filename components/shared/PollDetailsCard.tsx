@@ -20,7 +20,7 @@ function PollDetailsCard({ title, children, note, bodyMaxH }: Props) {
         {children}
       </div>
       {note && (
-        <p className=" bg-yellow small px-3 py-[6px] border-t-[3px] border-t-black">
+        <p className=" bg-yellow small px-3 py-[6px] border-t-[3px] border-t-black overflow-auto">
           {note}
         </p>
       )}

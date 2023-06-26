@@ -3,36 +3,35 @@
 import { useFormContext } from 'react-hook-form';
 import InputField from '../InputField';
 import InputFieldDescription from 'components/InputFieldDescription';
-import RadioButton from 'components/Radiobutton';
+import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 
-export default function CreatePoll() {
-  const { register, formState, getValues } = useFormContext(); // retrieve all hook methods
+export default function CreatePoll({
+  title = 'Create a Poll',
+}: NewPollComponentProps) {
+  const { register, formState, getValues } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <h3>Question & Details</h3>
-
+    <div className="flex flex-col gap-8 w-full">
       <InputField
         {...register('question', { required: true })}
-        error={{ message: formState.errors.question?.message as string }}
-        label={'Create a poll'}
+        error={formState.errors.question}
+        label={'Question'}
         showLabel={false}
         type={'text'}
         width={'full'}
         disabled={false}
-        placeholder="What is your favorite color?"
+        placeholder="Your Question"
       />
       <InputFieldDescription
         {...register('description')}
-        label={'Create a poll'}
+        label={'Description'}
         showLabel={false}
         type={'text'}
         width={'full'}
         disabled={false}
-        rows={8}
-        placeholder="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        "
+        rows={10}
+        placeholder="Description (optional)"
       />
-      <RadioButton variant={'primary'} />
     </div>
   );
 }

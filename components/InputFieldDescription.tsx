@@ -3,7 +3,6 @@
 import React from 'react';
 import { clsx } from 'clsx';
 import { forwardRef } from 'react';
-import { ChangeEvent } from 'react';
 
 type TextAreaProps = {
   label: string;
@@ -35,13 +34,6 @@ export const InputFieldDescription = forwardRef(
     }: TextAreaProps,
     ref: React.ForwardedRef<HTMLTextAreaElement>
   ) => {
-    const [value, setValue] = React.useState('');
-    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-      const inputValue = event.target.value;
-      const truncatedValue = inputValue.slice(0, maxProp);
-      setValue(truncatedValue);
-    };
-
     return (
       <label
         className={clsx(
@@ -55,7 +47,7 @@ export const InputFieldDescription = forwardRef(
         <textarea
           rows={rows}
           className={clsx(
-            'p-[14px] body rounded-md placeholder-[body-light] w-full  bg-green-light',
+            'p-[14px] body rounded-md placeholder-[body-light] w-full  bg-green-light scrollbar',
             error?.message === undefined
               ? 'border-black body'
               : 'border-peach body-accent',
@@ -65,8 +57,7 @@ export const InputFieldDescription = forwardRef(
           ref={ref}
           {...props}
           disabled={disabled}
-          onChange={handleChange}
-          value={value}
+          value={props.value}
         ></textarea>
       </label>
     );
