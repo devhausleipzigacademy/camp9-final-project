@@ -6,10 +6,6 @@ export default function Review({
 }: NewPollComponentProps) {
   const { register, formState, getValues } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
-  console.log(getValues());
-
-  const date = new Date(getValues().endDateTime).toLocaleDateString();
-
   return (
     <div className="flex flex-col gap-4 w-full">
       <h2 className="font-semibold">
@@ -30,7 +26,10 @@ export default function Review({
       </h2>
       <h2 className="font-semibold">
         Deadline:
-        <span className="text-white"> {date}</span>
+        <span className="text-white">
+          {' '}
+          {getValues().endDateTime.toLocaleString()}
+        </span>
       </h2>
       <h2 className="font-semibold">
         Reveal Conditions:

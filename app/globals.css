@@ -341,7 +341,8 @@
   }
 
   .calendar .react-calendar__tile:enabled:hover,
-  .calendar .react-calendar__tile:enabled:focus {
+  .calendar .react-calendar__tile:enabled:focus,
+  .calendar .react-calendar__tile--range {
     border: 3px solid #000000;
   }
 
