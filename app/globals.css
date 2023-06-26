@@ -305,7 +305,7 @@
 
   .calendar .react-calendar__year-view__months,
   .calendar .react-calendar__month-view {
-    min-height: 211px;
+    min-height: 187px;
   }
 
   .calendar .react-calendar__month-view__weekdays {
@@ -329,7 +329,6 @@
   }
 
   .calendar .react-calendar__tile {
-    padding: 2px;
     background: none;
     text-align: center;
     box-sizing: border-box;

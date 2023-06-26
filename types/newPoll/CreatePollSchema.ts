@@ -4,7 +4,9 @@ export const CreateNewPollSchema = z.object({
   question: z.string().min(3, 'at least 3 characters long'),
   description: z.string().optional(),
   options: z.array(z.string().min(3, 'at least 3 characters')),
-  endDateTime: z.date().or(z.string()),
+  endDateTime: z.date().min(new Date(), {
+    message: 'Deadline must be in the future!',
+  }),
   anonymity: z.enum(['Anonymous', 'NonAnonymous']),
   quorum: z.string().refine(
     val => {

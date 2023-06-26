@@ -5,6 +5,7 @@ import React, { useRef } from 'react';
 import { useState, useEffect } from 'react';
 import { Calendar } from 'react-calendar';
 import { UseFormRegister, useFormContext } from 'react-hook-form';
+import { HiExclamationTriangle } from 'react-icons/hi2';
 import TimePicker from 'react-time-picker';
 
 export default function Deadline({
@@ -30,7 +31,9 @@ export default function Deadline({
         parseInt(hoursAndMinutes[1]!),
         0
       );
-      setValue('endDateTime', newDateTime);
+      setValue('endDateTime', newDateTime, {
+        shouldValidate: true,
+      });
     }
   }
 
@@ -42,11 +45,13 @@ export default function Deadline({
       selectedDate.getMonth(),
       selectedDate.getDate()
     );
-    setValue('endDateTime', newDateTime);
+    setValue('endDateTime', newDateTime, {
+      shouldValidate: true,
+    });
   }
   // JSX return statement
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-3 items-center">
       <Calendar
         className="calendar"
         prev2Label={null}
@@ -82,6 +87,15 @@ export default function Deadline({
           onInvalidChange={() => setValue('endDateTime', endDateTime)}
         />
       )}
+      <div
+        className={
+          'description bg-peach border-brutal shadow-brutal p-2 flex gap-1 items-center ' +
+          (!formState.errors.endDateTime && 'hidden')
+        }
+      >
+        <HiExclamationTriangle className="h-5 w-5" />
+        {formState.errors.endDateTime?.message}
+      </div>
     </div>
   );
 }

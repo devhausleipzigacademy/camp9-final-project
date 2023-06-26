@@ -27,11 +27,13 @@ import CreatePoll from '@/components/newPoll/CreatePoll';
 
 export default function NewPoll() {
   // Form setup
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),
     mode: 'onTouched',
     defaultValues: {
-      endDateTime: new Date(),
+      endDateTime: tomorrow,
       anonymity: 'Anonymous',
       quorum: '80',
       type: 'MultipleChoice',
@@ -128,7 +130,7 @@ export default function NewPoll() {
               </FormProvider>
             </div>
 
-            <footer className="flex container gap-10 px-8 justify-between items-center bottom-28 fixed">
+            <footer className="flex container gap-10 px-8 justify-between items-center bottom-[100px] fixed">
               <Button
                 size="small"
                 variant="secondary"
