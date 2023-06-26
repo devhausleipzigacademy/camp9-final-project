@@ -26,6 +26,7 @@ function PollProgressBar({
     <div className="w-full">
       <div className="flex flex-row justify-between items-center">
         <input
+          readOnly={true}
           type="range"
           min="0"
           max="100"
