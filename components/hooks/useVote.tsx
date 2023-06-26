@@ -81,6 +81,7 @@ export function superSidekickHoock({
                   type="checkbox"
                   {...register(`multipleChoice[${option}]`)}
                   className="checkmarkBox"
+                  disabled={abstain}
                 />
                 <label className="w-[228px]" htmlFor={option}>
                   {option}
@@ -93,6 +94,7 @@ export function superSidekickHoock({
                 type="checkbox"
                 {...register('abstain')}
                 className="checkmarkBox"
+               
               />
               <label className="w-[228px] text-center" htmlFor="abstain">
                 Abstain
