@@ -1,5 +1,4 @@
 import React from 'react';
-import { Checkboxinput } from './CheckboxInput';
 import { cva } from 'class-variance-authority';
 
 export type BoxCheckedProps = {

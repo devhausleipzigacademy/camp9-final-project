@@ -4,6 +4,7 @@ import { useVotePollQuery } from '@/components/hooks/usePoll';
 import { superSidekickHoock } from '@/components/hooks/useVote';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
+import { empty } from '@prisma/client/runtime';
 
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
@@ -21,6 +22,14 @@ type myVote = {
   userId: number;
 };
 
+type UserAnswer = {
+  abstain: boolean;
+  multipleChoice: { [key: string]: boolean };
+  Anonymous: boolean;
+  NonAnonymous: boolean;
+  AnonymousUntilQuorum: boolean;
+};
+
 export default function Voting() {
   //extract the arguments from the URL
   const pathname = usePathname();
@@ -35,7 +44,6 @@ export default function Voting() {
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
   } = useForm({});
   const abstain = watch('abstain');
   const { typeOfPoll, header, buttons, anonymity, isLoading } =
@@ -47,8 +55,20 @@ export default function Voting() {
       abstain,
     });
 
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit(data: UserAnswer) {
+    const userAnswerArray = Object.values(data.multipleChoice);
+    if (abstain) {
+      for (let i = 0; i < userAnswerArray.length; i++) {
+        userAnswerArray[i] = false;
+      }
+    }
+
+    const userVote = {
+      answer: userAnswerArray,
+      pollId: Number(pollId),
+      userId: Number(userId),
+    };
+    console.log(userVote);
   }
 
   if (query.isLoading)
