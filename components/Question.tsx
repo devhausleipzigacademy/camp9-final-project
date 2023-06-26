@@ -15,7 +15,7 @@ export const Questionbox = ({
 }: BoxCheckedProps) => {
   const questionboxClass = cva(
     [
-      'ml-1.5 mr-2.5 shadow-shadow rounded-round p-2 flex items-center border-solid border-black border-2 justify-around mb-5',
+      'ml-1 mr-1 shadow-shadow rounded-round p-2 flex items-center border-solid border-black border-2 justify-around mb-5',
     ],
     {
       variants: {

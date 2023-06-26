@@ -31,7 +31,7 @@ export function superSidekickHoock({
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           <p className="small leading-3">Single choice, select only one</p>
-          <div className="overflow-y-auto  h-[360px] scrollbarteal">
+          <div className="overflow-y-auto w-[19.3rem]  h-[360px] scrollbarteal">
             {options?.map(option => (
               <Questionbox key={'1'} variant="secondary">
                 <Radio
