@@ -4,14 +4,19 @@ import InputField from 'components/InputField';
 import { useSignUpMutation } from 'components/hooks/useUser';
 import { SignUpUser } from '@/types/user/AuthSchemata';
 import Button from '../buttons/Button';
+import { redirect } from 'next/navigation';
 
 function SignUpForm() {
-  const { mutate, isLoading, handleSubmit, register, errors, formState } =
+  const { mutate, isLoading, handleSubmit, register, errors, isSuccess, formState } =
     useSignUpMutation();
 
   const onSubmit = (data: SignUpUser) => {
     mutate(data);
   };
+
+  if (isSuccess === true) {
+    redirect('/login')
+  }
 
   return (
     <form
