@@ -23,13 +23,14 @@ export default function AnswerOptions() {
   console.log(getValues());
 
   const onChangeCondition = (e: any) => {
-    const { name } = e.target;
-
-    if (name === 'Single Choice') {
+    console.log(e.target.value);
+    if (e.target.value === 'SingleChoice') {
       setType({ SingleChoice: true, MultipleChoice: false });
+      setValue('type', 'SingleChoice');
     }
-    if (name === 'Multiple Choice') {
+    if (e.target.value === 'MultipleChoice') {
       setType({ SingleChoice: false, MultipleChoice: true });
+      setValue('type', 'MultipleChoice');
     }
   };
   return (
@@ -38,27 +39,19 @@ export default function AnswerOptions() {
         <div className="flex flex-row justify-between body-semibold">
           <label className="align-middle">Single Choice</label>
           <RadioButton
-            name="Single Choice"
             value={'SingleChoice'}
-            onChange={onChangeCondition}
             checked={type.SingleChoice}
-            onClick={() => {
-              setValue('type', 'SingleChoice');
-            }}
-            // {...register('type')}
+            {...register('type')}
+            onChange={onChangeCondition}
           ></RadioButton>
         </div>
         <div className="flex flex-row justify-between body-semibold items-center mb-2">
           <label>Multiple Choice</label>
           <RadioButton
-            name="Multiple Choice"
-            value={'Multiple Choice'}
-            onChange={onChangeCondition}
+            value={'MultipleChoice'}
             checked={type.MultipleChoice}
-            onClick={() => {
-              setValue('type', 'MultipleChoice');
-            }}
-            //{...register('type')}
+            {...register('type')}
+            onChange={onChangeCondition}
           ></RadioButton>
         </div>
       </fieldset>

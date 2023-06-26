@@ -6,7 +6,7 @@ import CreatePoll from '@/components/newPoll/CreatePoll';
 import Deadline from '@/components/newPoll/Deadline';
 import RevealConditions from '@/components/newPoll/RevealConditions';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { NewPoll, NewPollSchema } from '@/types/newPoll/newPollSchema';
+
 import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
@@ -23,6 +23,7 @@ import {
 import { POSTReturnType as POSTNewPoll } from '@/app/api/create/route';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
 import AddParticipants from '@/components/newPoll/AddParticipants';
+import { NewPoll, NewPollSchema } from '@/types/newPoll/NewPollSchema';
 
 export default function NewPollLayout() {
   const methods = useForm<Omit<Prisma.PollCreateInput, 'creator'>>({

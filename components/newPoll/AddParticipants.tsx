@@ -11,11 +11,10 @@ import { HiUser } from 'react-icons/hi2';
 
 export default function AddParticipants() {
   const { register, formState, getValues, setValue } = useFormContext(); // retrieve all hook methods
-  const [participants, setParticipants] = useState([]);
+  const [participants, setParticipants] = useState<string[]>([]);
   let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
-  const [selectedUser, setSelectedUser] = useState<null | User>(null); //selected user from combobox
-
+  const [selectedUser, setSelectedUser] = useState<null | string>(null); //selected user from combobox
   async function searchUsers() {
     const { data } = await axios.get('/api/searchUsers', {
       params: {
@@ -29,20 +28,16 @@ export default function AddParticipants() {
     ['searchUsers', query],
     searchUsers
   );
-  //console.log(getValues());
 
   // const queryClient = useQueryClient()
   // queryClient.invalidateQueries('searchUsers')//resets cached "stale" data so next request will me made new
 
   return (
     <div className="">
-      <Combobox
-        value={selectedUser}
-        onChange={setSelectedUser}
-        //{...register(`participants[]`)}
-      >
+      <Combobox value={selectedUser} onChange={setSelectedUser}>
         <div className="flex flex-row h-12 justify-around ">
           <Button
+            {...register('participants')}
             className=""
             disabled={selectedUser === null}
             children="+"
@@ -50,9 +45,11 @@ export default function AddParticipants() {
             variant="secondary"
             type="button"
             onClick={() => {
-              setParticipants([...participants, selectedUser]);
+              setParticipants(prev => {
+                return [...prev, selectedUser!];
+              });
+              setValue('participants', [...participants, selectedUser!]);
               setSelectedUser(null);
-              //setValue('participants', participants);
             }}
           ></Button>
           <Combobox.Input
@@ -71,7 +68,6 @@ export default function AddParticipants() {
             data.map(user => (
               <Combobox.Option
                 className={'px-[14px] py-1 body'}
-                key={user.id}
                 value={user.name}
               >
                 {user.name}
@@ -95,10 +91,9 @@ export default function AddParticipants() {
                 <button
                   className=" text-black  body border-2 shadow border-black rounded-md px-[7px] py-[0px]"
                   onClick={() => {
-                    setParticipants(
-                      participants.splice(participants.indexOf(participant, 1))
+                    setParticipants(prev =>
+                      prev.filter(p => p !== participant)
                     );
-                    console.log(participants);
                   }}
                 >
                   -
