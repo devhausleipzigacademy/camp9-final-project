@@ -1,5 +1,5 @@
 import { Anonymity, Mood, Poll, PollType, Vote } from '@prisma/client';
-import { db } from 'app/libs/db';
+import { db } from '@/libs/db';
 import PollDetailsCard from 'components/shared/PollDetailsCard';
 import PreviewCheckbox from 'components/shared/PreviewCheckbox';
 import React from 'react';
