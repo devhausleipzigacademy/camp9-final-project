@@ -5,23 +5,31 @@ import { useFormContext } from 'react-hook-form';
 import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 
 import PollDetailsCard from '../shared/PollDetailsCard';
+import { useState } from 'react';
 
 export default function Review({
   title = 'Review & Submit',
 }: NewPollComponentProps) {
   const { register, formState, getValues } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
+  const [stepIndex, setStepIndex] = useState<number>(0); // State variable to store the step index
+
   const date = new Date(getValues().endDateTime).toLocaleDateString();
 
   const { question, description, type, anonymity, endDateTime, quorum } =
     getValues();
+
+  const handleClick = () => {
+    setStepIndex(1); // Update the step index
+    console.log(stepIndex);
+  };
 
   return (
     <div className="flex flex-col gap-4 w-full ">
       <button
         className="text-start"
         type="button"
-        onClick={() => console.log('set step index')}
+        onClick={() => handleClick()}
       >
         <PollDetailsCard title="Poll Question" children={question} />
       </button>

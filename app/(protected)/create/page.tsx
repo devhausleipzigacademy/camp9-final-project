@@ -89,18 +89,25 @@ export default function NewPoll() {
   );
 
   // Multi step form setup
-  const { step, steps, currentStepIndex, isLastStep, back, next } =
-    useMultiStepForm(
-      [
-        <CreatePoll title="Create a Poll" />,
-        <AnswerOptions title="Answer Options" />,
-        <RevealConditions title="Reveal Conditions" />,
-        <Deadline title="Deadline" />,
-        <AddParticipants title="Add Participants" />,
-        <Review title="Review & Submit" />,
-      ],
-      methods
-    );
+  const {
+    step,
+    steps,
+    currentStepIndex,
+    isLastStep,
+    back,
+    next,
+    setCurrentStepIndex,
+  } = useMultiStepForm(
+    [
+      <CreatePoll title="Create a Poll" />,
+      <AnswerOptions title="Answer Options" />,
+      <RevealConditions title="Reveal Conditions" />,
+      <Deadline title="Deadline" />,
+      <AddParticipants title="Add Participants" />,
+      <Review title="Review & Submit" />,
+    ],
+    methods
+  );
 
   // Update currentStepTitle when the index changes
   useEffect(() => {
@@ -108,6 +115,10 @@ export default function NewPoll() {
   }, [currentStepIndex, steps]);
 
   const { handleSubmit, formState, reset, getValues } = methods;
+
+  const handleStepIndex = (index: number) => {
+    setCurrentStepIndex(index);
+  };
 
   const { errors } = formState;
 
@@ -131,20 +142,22 @@ export default function NewPoll() {
 
   return (
     <>
-      <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
+      <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
         {isIdle && (
           <>
-            <div className="mb-36 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between">
-              <h1 className="title-black self-start">{currentStepTitle}</h1>
+            <div className="mb-44 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between  pr-8 ">
+              <div className="self-start pl-8 w-full ">
+                <h1 className="title-black">{currentStepTitle}</h1>
 
-              <ProgressBar
-                currentPage={currentStepIndex + 1}
-                numberOfPages={steps.length}
-              />
+                <ProgressBar
+                  currentPage={currentStepIndex + 1}
+                  numberOfPages={steps.length}
+                />
+              </div>
 
               <FormProvider {...methods}>
                 <form
-                  className="w-full mt-5 scrollbar pr-2 overflow-y-auto"
+                  className="w-full mt-5 scrollbar  overflow-y-auto pb-2 pl-8 pr-2"
                   onSubmit={handleSubmit(onSubmit)}
                 >
                   {step}

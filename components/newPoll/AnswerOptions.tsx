@@ -17,13 +17,13 @@ export default function AnswerOptions({
   const handleAddOption = () => {
     setNumOptions(numOptions + 1);
   };
-  const handleDeleteOption = () => {
+  const handleDeleteOption = (index: number) => {
     if (numOptions <= 2) return; // <-- prevent user from deleting all options
 
     setNumOptions(numOptions - 1);
     const options = getValues('options');
     // remove the given index from the array
-    options.splice(numOptions - 1, 1);
+    options.splice(index, 1);
   };
 
   return (
@@ -76,7 +76,7 @@ export default function AnswerOptions({
               size="xxs"
               className="button"
               children="-"
-              onClick={handleDeleteOption}
+              onClick={() => handleDeleteOption(index)} // Pass the index to handleDeleteOption
             ></Button>
           </div>
         ))}
