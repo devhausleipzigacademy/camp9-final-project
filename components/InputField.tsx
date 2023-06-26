@@ -12,7 +12,7 @@ type InputFieldProps = {
   placeholder?: string;
   maxProp?: number; // Limit the input value to a maximum of characters (max)
   value?: string;
-  type: 'text' | 'number' | 'email' | 'password' | 'username';
+  type: 'text' | 'number' | 'email' | 'password' | 'username'
   width: 'full' | 'reduced';
   error?: {
     message?: string;
@@ -77,6 +77,7 @@ const InputField = forwardRef(
           disabled={disabled}
           // onChange={handleChange}
           // value={value}
+          value={props.value}
         ></input>
       </label>
     );

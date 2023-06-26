@@ -10,11 +10,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="en">
-      <body className="grid justify-center h-screen items-center bg-teal mx-8">
-        {children}
-      </body>
-    </html>
-  );
+  return <html lang="en">{children}</html>;
 }

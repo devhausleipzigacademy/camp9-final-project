@@ -169,7 +169,7 @@ async function PollDetails({
   }
   let userId = 10; //default user if no user is logged in
   const session = await getServerSession(authOptions);
-  if (session && Number.isInteger(session.user.id)) {
+  if (session && session.user.id) {
     userId = session.user.id;
   }
   const poll = await getPoll(parseInt(params.id), userId);

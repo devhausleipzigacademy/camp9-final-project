@@ -8,9 +8,12 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import clsx from 'clsx';
 import { HiUser } from 'react-icons/hi2';
+import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 
-export default function AddParticipants() {
-  const { register, formState, getValues } = useFormContext(); // retrieve all hook methods
+export default function AddParticipants({
+  title = 'Add Participants',
+}: NewPollComponentProps) {
+  const { register, formState, getValues } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
   const [participants, setParticipants] = useState([]);
   let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
@@ -95,7 +98,6 @@ export default function AddParticipants() {
                     setParticipants(
                       participants.splice(participants.indexOf(participant, 1))
                     );
-                    console.log(participants);
                   }}
                 >
                   -
