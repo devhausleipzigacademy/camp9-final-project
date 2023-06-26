@@ -13,9 +13,6 @@ export default function VotingLayout({
         <main className="page flex flex-col justify-between gap-5 h-full bg-[#9FCC95]">
           {children}
         </main>
-        <footer className="fixed bottom-6 container px-8">
-          <Navbar variant={'secondary'} />
-        </footer>
       </div>
     </>
   );

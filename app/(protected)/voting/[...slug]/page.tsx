@@ -39,21 +39,36 @@ export default function Voting() {
   const { query } = useVotePollQuery(userId, pollId);
 
   const [step, setStep] = useState<number>(1);
+  const [mood, setMood] = useState<string>('');
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
   } = useForm({});
-  const abstain = watch('abstain');
-  const { typeOfPoll, header, buttons, anonymity, isLoading , handleMoods } =
-    superSidekickHoock({
-      query,
-      step,
-      setStep,
-      register,
-      abstain,
-    });
+  const abstain = watch('abstain') as boolean;
+  const anonymWatch = watch(
+    'NonAnynymous' || 'Anonymous' || 'AnonymousUntilQuorum'
+  ) as boolean;
+
+  const {
+    typeOfPoll,
+    header,
+    buttons,
+    anonymity,
+    isLoading,
+    handleMoods,
+    footer,
+  } = superSidekickHoock({
+    query,
+    step,
+    setStep,
+    register,
+    abstain,
+    mood,
+    setMood,
+    anonymWatch,
+  });
 
   function onSubmit(data: UserAnswer) {
     const userAnswerArray = Object.values(data.multipleChoice);
@@ -67,6 +82,7 @@ export default function Voting() {
       answer: userAnswerArray,
       pollId: Number(pollId),
       userId: Number(userId),
+      mood: mood,
     };
     console.log(userVote);
   }
@@ -80,11 +96,9 @@ export default function Voting() {
     );
 
   return (
-    <div className="flex flex-col ">
-      <div className="flex flex-col ">
-        <h1 className="title-black text-left">{header}</h1>
-        <ProgressBar numberOfPages={4} currentPage={step} />
-      </div>
+    <div className="flex flex-col gap-4">
+      <h1 className="title-bold text-left">{header}</h1>
+      <ProgressBar numberOfPages={4} currentPage={step} />
       <div
         className={clsx(
           'flex flex-col gap-4 mt-4',
@@ -107,19 +121,21 @@ export default function Voting() {
         {anonymity}
         {typeOfPoll}
         {handleMoods}
-        <Button
-          size="small"
-          type="submit"
-          variant="quaternary"
+        <div
           className={clsx(
-            'fixed container bottom-28 right-8',
+            'flex flex-row justify-center align-middle items-center mt-6',
             step === 4 ? 'visble' : 'hidden'
           )}
         >
-          Submit
-        </Button>
+          <Button size="large" type="submit" variant="primary">
+            Submit
+          </Button>
+        </div>
       </form>
-      {buttons}
+      <div className="flex flex-col gap-3 items-center">
+        {buttons}
+        {footer}
+      </div>
     </div>
   );
 }
