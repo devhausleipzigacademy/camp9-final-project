@@ -13,25 +13,25 @@ export const passwordSchema = z.object({
 });
 export type PasswordType = z.infer<typeof passwordSchema>;
 
-export const confirmPasswordSchema = passwordSchema
-  .extend({
-    confirmPassword: z
-      .string()
-      .min(8, 'Password must be at least 8 characters long.'),
-  })
-  .refine(data => data.password === data.confirmPassword, {
-    message: 'repeat password',
-    path: ['confirmPassword'],
-  });
+export const confirmPasswordSchema = z.object({
+  confirmPassword: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long.'),
+});
 export type ConfirmPasswordType = z.infer<typeof confirmPasswordSchema>;
 
 export const loginSchema = usernameSchema.merge(passwordSchema);
 export type LoginSchemaType = z.infer<typeof loginSchema>;
 
-export const signUpSchema = usernameSchema.merge(
-  confirmPasswordSchema.innerType() // <-- innerType fix https://stackoverflow.com/a/74672929
-);
-export type SignUpUser = z.infer<typeof signUpSchema>;
+// "You can .extend() from a z.object(...), but not if you've added a refinement.""
+// https://github.com/colinhacks/zod/discussions/694
+export const signUpSchema = loginSchema
+  .merge(confirmPasswordSchema)
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'repeat password',
+    path: ['confirmPassword'],
+  });
+export type SignUpSchema = z.infer<typeof signUpSchema>;
 
 export type SignUpResponse = {
   token: string;
