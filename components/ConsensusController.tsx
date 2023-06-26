@@ -1,17 +1,22 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 function ConsensusController() {
-  const [value, setValue] = useState(80);
-  
+  const [valueController, setValueController] = useState(80);
+  const { setValue } = useFormContext(); // retrieve all hook methods
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.style.setProperty('background-size', `${value}%`);
+      inputRef.current.style.setProperty(
+        'background-size',
+        `${valueController}%`
+      );
     }
-  }, [value]);
+  }, [valueController]);
 
   return (
     <div className="w-full">
@@ -22,14 +27,16 @@ function ConsensusController() {
           max="100"
           step="10"
           list="valuesConesnusController"
-          value={value}
+          value={valueController}
           id="rangeValue"
-          onChange={e => setValue(parseInt(e.target.value))}
+          onChange={e => {
+            setValueController(parseInt(e.target.value));
+            setValue('threshold', e.target.value);
+          }}
           ref={inputRef}
         />
-
         <p>
-          <output id="outputValue">{value}%</output>
+          <output id="outputValue">{valueController}%</output>
         </p>
       </div>
       <datalist id="valuesConesnusController">
