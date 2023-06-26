@@ -7,7 +7,7 @@ export default function VotingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="page bg-[#9FCC95]">
+    <div className="bg-[#9FCC95]">
       <main className="flex flex-col justify-between h-full">{children}</main>
     </div>
   );
