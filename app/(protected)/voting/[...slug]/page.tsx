@@ -46,7 +46,7 @@ export default function Voting() {
     watch,
   } = useForm({});
   const abstain = watch('abstain');
-  const { typeOfPoll, header, buttons, anonymity, isLoading } =
+  const { typeOfPoll, header, buttons, anonymity, isLoading , handleMoods } =
     superSidekickHoock({
       query,
       step,
@@ -83,7 +83,7 @@ export default function Voting() {
     <div className="flex flex-col ">
       <div className="flex flex-col ">
         <h1 className="title-black text-left">{header}</h1>
-        <ProgressBar numberOfPages={3} currentPage={step} />
+        <ProgressBar numberOfPages={4} currentPage={step} />
       </div>
       <div
         className={clsx(
@@ -106,13 +106,14 @@ export default function Voting() {
       <form onSubmit={handleSubmit(onSubmit)}>
         {anonymity}
         {typeOfPoll}
+        {handleMoods}
         <Button
           size="small"
           type="submit"
           variant="quaternary"
           className={clsx(
             'fixed container bottom-28 right-8',
-            step === 3 ? 'visble' : 'hidden'
+            step === 4 ? 'visble' : 'hidden'
           )}
         >
           Submit

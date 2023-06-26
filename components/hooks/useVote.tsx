@@ -94,7 +94,6 @@ export function superSidekickHoock({
                 type="checkbox"
                 {...register('abstain')}
                 className="checkmarkBox"
-               
               />
               <label className="w-[228px] text-center" htmlFor="abstain">
                 Abstain
@@ -105,10 +104,18 @@ export function superSidekickHoock({
       );
     }
   }
+
   const typeOfPoll = handlePollInformation(
     query.data?.data.type,
     query.data?.data.options
   );
+
+  function handleMood(step: number) {
+    if (step === 4) {
+      return <div>hello feedback new</div>;
+    }
+  }
+  const handleMoods = handleMood(step);
 
   function headerDisplay(steps: number) {
     switch (steps) {
@@ -119,7 +126,7 @@ export function superSidekickHoock({
       case 3:
         return 'Voting';
       case 4:
-        return 'Thanks for voting';
+        return 'Give us your feedback';
     }
   }
   const header = headerDisplay(step);
@@ -247,6 +254,23 @@ export function superSidekickHoock({
               <GrFormPrevious size={24} strokeWidth={2} />
               Back
             </Button>
+            <Button size="medium" onClick={() => setStep(step + 1)}>
+              Next
+              <GrFormNext size={24} strokeWidth={2} />
+            </Button>
+          </div>
+        );
+      case 4:
+        return (
+          <div className="flex flex-row justify-between fixed container bottom-28 w-[310px]">
+            <Button
+              size="small"
+              variant="secondary"
+              onClick={() => setStep(step - 1)}
+            >
+              <GrFormPrevious size={24} strokeWidth={2} />
+              Back
+            </Button>
           </div>
         );
     }
@@ -267,5 +291,5 @@ export function superSidekickHoock({
   }
   const isLoading = handleLoading();
 
-  return { typeOfPoll, header, buttons, anonymity, isLoading };
+  return { typeOfPoll, header, buttons, anonymity, isLoading, handleMoods };
 }

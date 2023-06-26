@@ -3,7 +3,6 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 
-
 //axios get request to get the data from the database
 function getPollData(userID: string, pollID: string) {
   const votePoll = axios.get<Poll>('/api/voting/', {
@@ -21,6 +20,16 @@ export function useVotePollQuery(userId: string, pollId: string) {
   return { query };
 }
 
+//useMutation to call the axios post request
+
+// export function useVotePollMutation(userId: string, pollId: string) {
+//   const mutation = useMutation({
+//     mutationKey: ['votePoll', userId],
+//     mutationFn: () => axios.post('/api/voting/', { userId: userId, pollId: pollId }),
+//   });
+//   return { mutation };
+// }
+
 type VoteResponse = {
   message: string;
 };
@@ -31,7 +40,3 @@ type myVote = {
   pollId: number;
   userId: number;
 };
-
-
-
-
