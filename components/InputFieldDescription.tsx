@@ -48,7 +48,7 @@ export const InputFieldDescription = forwardRef(
         <textarea
           rows={rows}
           className={clsx(
-            'p-[14px] body rounded-md placeholder-[body-light] w-full  bg-green-light',
+            'p-[14px] body rounded-md placeholder-[body-light] w-full  bg-green-light scrollbar',
             error?.message === undefined
               ? 'border-black body'
               : 'border-peach body-accent',

@@ -1,7 +1,9 @@
 'use client';
 
-import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 import { useFormContext } from 'react-hook-form';
+
+import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
+
 import PollDetailsCard from '../shared/PollDetailsCard';
 
 export default function Review({
@@ -15,10 +17,16 @@ export default function Review({
     getValues();
 
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <PollDetailsCard title="Poll Question" children={question} />
+    <div className="flex flex-col gap-4 w-full ">
+      <button
+        className="text-start"
+        type="button"
+        onClick={() => console.log('set step index')}
+      >
+        <PollDetailsCard title="Poll Question" children={question} />
+      </button>
       {description && (
-        <PollDetailsCard title="Poll Description" children={description} />
+        <PollDetailsCard title="sPoll Description" children={description} />
       )}
       <PollDetailsCard title="Poll Type" children={type} />
       <PollDetailsCard title="Anonymity" children={anonymity} />

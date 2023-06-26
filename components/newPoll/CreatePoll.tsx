@@ -29,7 +29,7 @@ export default function CreatePoll({
         type={'text'}
         width={'full'}
         disabled={false}
-        rows={8}
+        rows={10}
         placeholder="Description (optional)"
       />
     </div>
