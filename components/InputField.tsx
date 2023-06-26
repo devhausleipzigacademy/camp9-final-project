@@ -12,7 +12,7 @@ type InputFieldProps = {
   placeholder?: string;
   maxProp?: number; // Limit the input value to a maximum of characters (max)
   value?: string;
-  type: 'text' | 'number' | 'email' | 'password' | 'username';
+  type: 'text' | 'number' | 'email' | 'password' | 'username'
   width: 'full' | 'reduced';
   error?: {
     message?: string;
@@ -36,13 +36,6 @@ const InputField = forwardRef(
     }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
-    const [value, setValue] = React.useState('');
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-      const inputValue = event.target.value;
-      const truncatedValue = inputValue.slice(0, maxProp);
-      setValue(truncatedValue);
-    };
-
     return (
       <label
         className={clsx(
@@ -75,8 +68,7 @@ const InputField = forwardRef(
           placeholder={placeholder}
           ref={ref}
           disabled={disabled}
-          onChange={handleChange}
-          value={value}
+          value={props.value}
         ></input>
       </label>
     );
