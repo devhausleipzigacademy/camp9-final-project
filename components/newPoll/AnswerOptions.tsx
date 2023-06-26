@@ -18,6 +18,8 @@ export default function AnswerOptions({
     setNumOptions(numOptions + 1);
   };
   const handleDeleteOption = () => {
+    if (numOptions <= 2) return; // <-- prevent user from deleting all options
+
     setNumOptions(numOptions - 1);
     const options = getValues('options');
     // remove the given index from the array

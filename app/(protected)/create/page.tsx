@@ -129,8 +129,6 @@ export default function NewPoll() {
     }
   };
 
-  console.log(getValues());
-
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal p-8">
@@ -145,7 +143,10 @@ export default function NewPoll() {
               />
 
               <FormProvider {...methods}>
-                <form className="w-full mt-5" onSubmit={handleSubmit(onSubmit)}>
+                <form
+                  className="w-full mt-5 scrollbar pr-2 overflow-y-auto"
+                  onSubmit={handleSubmit(onSubmit)}
+                >
                   {step}
                 </form>
               </FormProvider>
