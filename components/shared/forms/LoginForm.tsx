@@ -36,8 +36,8 @@ function LoginForm() {
           disabled={isLoading}
           {...register('username')}
         />
-        <InputField
-          label="password"
+        <input
+          // label="password"
           showLabel={true}
           width="full"
           type="password"
