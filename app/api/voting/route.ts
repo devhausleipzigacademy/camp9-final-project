@@ -25,12 +25,16 @@ export async function GET(request: Request) {
 
   const filteredVotePolls = votePolls.filter(poll => {
     if (poll.id === parseInt(pollId)) {
-      return votePolls[0];
+      return true;
     }
-    return NextResponse.json('You already voted', { status: 400 });
+    return NextResponse.json('You have already voted', { status: 400 });
   });
 
-  return NextResponse.json(filteredVotePolls, { status: 200 });
+  const singlePoll = filteredVotePolls[0];
+  if (!singlePoll) {
+    return NextResponse.json('You have already voted', { status: 400 });
+  }
+  return NextResponse.json(singlePoll, { status: 200 });
 }
 
 export async function POST(request: Request) {
