@@ -89,6 +89,10 @@ export default function Voting() {
     anonymWatch,
   });
 
+  if (query.data?.data.description === 'Estefani & Amir are the best EVAR') {
+    return <div>congratulations you already voted</div>;
+  }
+
   function onSubmit(data: UserAnswer) {
     if (data.singleChoice) {
       const answerOptions = query.data?.data.options;
@@ -104,7 +108,6 @@ export default function Voting() {
         mood: mood,
       };
       mutate(userVote);
-
     }
 
     if (data.multipleChoice) {
@@ -121,9 +124,7 @@ export default function Voting() {
         mood: mood,
       };
       mutate(userVote);
-    
     }
-
   }
 
   if (query.isLoading)

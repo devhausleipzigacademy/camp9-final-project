@@ -21,6 +21,7 @@ interface SideKickProps {
   voteWatch?: boolean;
   mood: string;
   setMood: Dispatch<SetStateAction<string>>;
+
 }
 
 export function superSidekickHoock({
@@ -33,7 +34,15 @@ export function superSidekickHoock({
   voteWatch,
   setMood,
   mood,
+
 }: SideKickProps) {
+
+
+
+/// this is function to hanlde vote succes 
+
+
+
   //this determines the header of the voting page depending on the step
   function headerDisplay(step: number) {
     switch (step) {

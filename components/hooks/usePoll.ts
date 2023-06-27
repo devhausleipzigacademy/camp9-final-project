@@ -24,16 +24,19 @@ export function useVotePollQuery(userId: string, pollId: string) {
 
 ///useMutation to call the axios post request
 function sendVote(requestvote: VoteAnswer) {
-  const sendVoteRequest = axios.post<Poll[]>('/api/voting/', requestvote);
+  const sendVoteRequest = axios.post('/api/voting/', requestvote);
 
   return sendVoteRequest;
 }
 
 export function useVotePollMutation(userId: string) {
+  const query = new QueryClient();
   const mutation = useMutation({
     mutationKey: ['votePoll', userId],
     mutationFn: (requestvote: VoteAnswer) => sendVote(requestvote),
     onSuccess: data => {
+      query.invalidateQueries('votePoll', userId); 
+
       console.log('success', data);
     },
   });

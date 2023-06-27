@@ -32,7 +32,11 @@ export async function GET(request: Request) {
 
   const singlePoll = filteredVotePolls[0];
   if (!singlePoll) {
-    return NextResponse.json('You have already voted', { status: 400 });
+    const succesVote = {
+      id: 107000,
+      description: 'Estefani & Amir are the best EVAR',
+    };
+    return NextResponse.json(succesVote, { status: 200 });
   }
   return NextResponse.json(singlePoll, { status: 200 });
 }
