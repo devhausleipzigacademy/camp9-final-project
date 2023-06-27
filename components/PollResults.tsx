@@ -78,10 +78,12 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       return { color: 'bg-yellow', description: 'unsure' };
     } else if (averageMood < 3.5) {
       return { color: 'bg-green-light', description: 'happy' };
-    } else if (averageMood < 4) {
-      return { color: 'bg-green-light', description: 'beaming' };
+    } else if (averageMood <= 4) {
+      return { color: 'bg-green', description: 'beaming' };
     }
   })();
+
+  console.log(averageMood, averageMoodValues)
 
   const cards = [
     //0.svg+text
