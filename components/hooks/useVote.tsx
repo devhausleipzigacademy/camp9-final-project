@@ -17,6 +17,7 @@ interface SideKickProps {
   register: UseFormRegister<FieldValues>;
   abstain?: boolean;
   anonymWatch?: boolean;
+  voteWatch?: boolean;
   mood: string;
   setMood: Dispatch<SetStateAction<string>>;
 }
@@ -28,6 +29,7 @@ export function superSidekickHoock({
   register,
   abstain,
   anonymWatch,
+  voteWatch,
   setMood,
   mood,
 }: SideKickProps) {
@@ -148,7 +150,7 @@ export function superSidekickHoock({
               <Questionbox key={option} variant="secondary">
                 <input
                   type="radio"
-                  {...register('option')}
+                  {...register('singleChoice')}
                   value={option}
                   className="checkmarkBox"
                 />
@@ -160,7 +162,7 @@ export function superSidekickHoock({
             <Questionbox variant="secondary">
               <input
                 type="radio"
-                {...register('option')}
+                {...register('singleChoice')}
                 value="abstain"
                 className="checkmarkBox"
               />
@@ -359,11 +361,7 @@ export function superSidekickHoock({
               <GrFormPrevious size={24} strokeWidth={2} />
               Back
             </Button>
-            <Button
-              size="medium"
-              onClick={() => setStep(step + 1)}
-              disabled={!abstain}
-            >
+            <Button size="medium" onClick={() => setStep(step + 1)}>
               Next
               <GrFormNext size={24} strokeWidth={2} />
             </Button>

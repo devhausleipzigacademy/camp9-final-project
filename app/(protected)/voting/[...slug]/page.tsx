@@ -10,6 +10,7 @@ import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { use, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { ContextExclusionPlugin } from 'webpack';
 
 type VoteResponse = {
   message: string;
@@ -25,6 +26,7 @@ type myVote = {
 type UserAnswer = {
   abstain: boolean;
   multipleChoice: { [key: string]: boolean };
+  singleChoice: string;
   Anonymous: boolean;
   NonAnonymous: boolean;
   AnonymousUntilQuorum: boolean;
@@ -37,9 +39,9 @@ export default function Voting() {
   const userId = path[2]!;
   const pollId = path[3]!;
   const { query } = useVotePollQuery(userId, pollId);
-
   const [step, setStep] = useState<number>(1);
   const [mood, setMood] = useState<string>('');
+
   const {
     register,
     handleSubmit,
@@ -50,6 +52,7 @@ export default function Voting() {
   const anonymWatch = watch(
     'NonAnynymous' || 'Anonymous' || 'AnonymousUntilQuorum'
   ) as boolean;
+  const voteWatch = watch('singleChoice') as boolean;
 
   const {
     typeOfPoll,
@@ -65,26 +68,44 @@ export default function Voting() {
     setStep,
     register,
     abstain,
+    voteWatch,
     mood,
     setMood,
     anonymWatch,
   });
 
   function onSubmit(data: UserAnswer) {
-    const userAnswerArray = Object.values(data.multipleChoice);
-    if (abstain) {
-      for (let i = 0; i < userAnswerArray.length; i++) {
-        userAnswerArray[i] = false;
-      }
+    if (data.singleChoice) {
+      const answerOptions = query.data?.data.options;
+      const userAnswerSingle = answerOptions?.map(option => {
+        if (option === data.singleChoice) {
+          return true;
+        } else return false;
+      });
+      const userVote = {
+        answer: userAnswerSingle,
+        pollId: Number(pollId),
+        userId: Number(userId),
+        mood: mood,
+      };
+      console.log(userVote);
     }
 
-    const userVote = {
-      answer: userAnswerArray,
-      pollId: Number(pollId),
-      userId: Number(userId),
-      mood: mood,
-    };
-    console.log(userVote);
+    if (data.multipleChoice) {
+      const userAnswerMultiple = Object.values(data.multipleChoice);
+      if (abstain) {
+        for (let i = 0; i < userAnswerMultiple.length; i++) {
+          userAnswerMultiple[i] = false;
+        }
+      }
+      const userVote = {
+        answer: userAnswerMultiple,
+        pollId: Number(pollId),
+        userId: Number(userId),
+        mood: mood,
+      };
+      console.log(userVote);
+    }
   }
 
   if (query.isLoading)
@@ -127,7 +148,7 @@ export default function Voting() {
             step === 4 ? 'visble' : 'hidden'
           )}
         >
-          <Button size="large" type="submit" variant="primary">
+          <Button size="large" type="submit" variant="primary" disabled={!mood}>
             Submit
           </Button>
         </div>
