@@ -23,13 +23,14 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const { answer, mood, pollId, userId } = (await request.json()) as VoteAnswer;
   console.log(answer, mood, pollId, userId);
-  if (answer === undefined || mood === undefined){
+
+  const moodTyping = mood as keyof typeof Mood;
+
+  if (answer === undefined || mood === undefined) {
     return NextResponse.json('Missing answer', { status: 400 });
   }
 
-
   const createUserVote = await prisma.vote.create({
-    data: { answer, mood , pollId, userId},
+    data: { answer, mood: moodTyping, pollId, userId },
   });
-
 }
