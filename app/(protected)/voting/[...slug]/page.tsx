@@ -39,10 +39,10 @@ export type UserAnswer = {
 };
 
 export type VoteAnswer = {
-  answer: boolean[];
+  answer: boolean[] | undefined;
   pollId: number;
   userId: number;
-  mood: Mood;
+  mood: string;
 };
 
 export default function Voting() {
@@ -103,7 +103,8 @@ export default function Voting() {
         userId: Number(userId),
         mood: mood,
       };
-      console.log(userVote);
+      mutate(userVote);
+
     }
 
     if (data.multipleChoice) {
@@ -119,8 +120,10 @@ export default function Voting() {
         userId: Number(userId),
         mood: mood,
       };
-      console.log(userVote);
+      mutate(userVote);
+    
     }
+
   }
 
   if (query.isLoading)
