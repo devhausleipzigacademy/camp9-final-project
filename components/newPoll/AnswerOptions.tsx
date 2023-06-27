@@ -9,7 +9,7 @@ import RadioButton from '../Radiobutton';
 export default function AnswerOptions({
   title = 'Answer Options',
 }: NewPollComponentProps) {
-  const { register, getValues, setValue } = useFormContext(); // retrieve all hook methods
+  const { register, getValues, setValue, formState } = useFormContext(); // retrieve all hook methods
   const [numOptions, setNumOptions] = useState(
     getValues('options')?.length || 2
   );

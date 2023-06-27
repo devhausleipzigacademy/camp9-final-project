@@ -14,7 +14,10 @@ export default function AddParticipants({
   title = 'Add Participants',
 }: NewPollComponentProps) {
   const { register, getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
-  const [participants, setParticipants] = useState<string[]>([]);
+
+  const [participants, setParticipants] = useState<string[]>(
+    getValues('participants')?.length ? getValues('participants') : []
+  );
   let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
   const [selectedUser, setSelectedUser] = useState<null | string>(null); //selected user from combobox
@@ -27,7 +30,7 @@ export default function AddParticipants({
     });
     return data;
   }
-  console.log(participants);
+
   const { data, isError, isLoading } = useQuery<User[]>(
     ['searchUsers', query, participants],
     searchUsers
