@@ -12,7 +12,12 @@ const prisma = new PrismaClient();
 export async function POST(request: Request) {
   const data = (await request.json()) as CreateNewPoll;
   try {
+    const newDate = new Date(data.endDateTime);
+
+    data.endDateTime = newDate;
+
     CreateNewPollSchema.parse(data);
+
 
     const createdPoll = await prisma.poll.create({
       data: {
@@ -21,11 +26,14 @@ export async function POST(request: Request) {
         options: data.options?.map(option => option),
         creator: {
           connect: {
-            id: 8, // dummy data
+            id: data.creator,
           },
         },
         participants: {
-          connect: [{ id: 9 }, { id: 10 }], // dummy data
+          // connect: [{ name: "test" }, { name: "hello" }], // dummy data
+          connect: data.participants?.map(participant => ({
+            name: participant,
+          })),
         },
         endDateTime: data.endDateTime,
         anonymity: data.anonymity,

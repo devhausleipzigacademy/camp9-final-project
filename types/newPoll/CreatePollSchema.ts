@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const CreateNewPollSchema = z.object({
+  creator: z.number(),
   question: z.string().min(3, 'at least 3 characters long'),
   description: z.string().optional(),
   options: z.array(z.string().min(3, 'at least 3 characters')),
@@ -17,7 +18,7 @@ export const CreateNewPollSchema = z.object({
       message: 'quorum must be between 0 and 100',
     }
   ),
-  // participants: z.array(z.string()).min(1, 'at least 1 participant'),
+  participants: z.array(z.string()),
   type: z.enum(['MultipleChoice', 'SingleChoice']),
 });
 

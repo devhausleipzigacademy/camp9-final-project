@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 
@@ -30,17 +30,6 @@ export default function NewPoll() {
   // Form setup
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
-  const methods = useForm<CreateNewPoll>({
-    resolver: zodResolver(CreateNewPollSchema),
-    mode: 'onTouched',
-    defaultValues: {
-      endDateTime: tomorrow,
-      anonymity: 'Anonymous',
-      quorum: '80',
-      type: 'MultipleChoice',
-    },
-  });
-
   const [username, setUsername] = useState('...'); // <-- username initially unknown
 
   const { data } = useSession(); // <-- get user ID object from session/JWT
@@ -59,7 +48,21 @@ export default function NewPoll() {
     }
   })();
 
-  // console.log(username);
+  console.log(userID);
+
+  const methods = useForm<CreateNewPoll>({
+    resolver: zodResolver(CreateNewPollSchema),
+    mode: 'onTouched',
+    defaultValues: {
+      // creator: userID,
+      creator: 8,
+      endDateTime: tomorrow,
+      anonymity: 'Anonymous',
+      quorum: '80',
+      type: 'MultipleChoice',
+      participants: ['test', 'hello'],
+    },
+  });
 
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
@@ -130,6 +133,9 @@ export default function NewPoll() {
       next(); // Proceed to the next step
     }
   };
+
+  console.log(formState.errors);
+  console.log(getValues());
 
   return (
     <>
