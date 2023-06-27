@@ -8,8 +8,10 @@ import Button from '@/components/shared/buttons/Button';
 import { Poll, User, Vote, Mood } from '@prisma/client';
 import Image from 'next/legacy/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import PollDetailsCard from './shared/PollDetailsCard';
+import ModalResults from './ModalResults';
 
 interface PollResultsProps extends Poll {
   participants: User[];
@@ -17,15 +19,31 @@ interface PollResultsProps extends Poll {
 }
 
 export default function PollResults({ poll }: { poll: PollResultsProps }) {
+  const router = useRouter();
   const [cardIndex, setCardIndex] = useState(0);
   const [showParticipants, setShowParticipants] = useState(false);
+  const [modalContent, setModalContent] = useState({
+    participants: [] as User[],
+    title: '',
+  });
 
-  const router = useRouter();
+  const optionCounter = Object.fromEntries(
+    poll.options.map(option => {
+      return [option, [] as number[]];
+    })
+  );
 
-  function toggleShowParticipants() {
-    setShowParticipants(!showParticipants);
+  for (const vote of poll.votes) {
+    for (const answer of vote.answer) {
+      optionCounter[answer]?.push(vote.userId);
+    }
   }
 
+  function toggleShowParticipants() {
+    setShowParticipants(prev => !prev);
+  }
+
+  //next&back button functionality
   function incrementValue() {
     if (cardIndex < 4) {
       setCardIndex(cardIndex + 1);
@@ -59,8 +77,8 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     }
   }
 
-  const allMoods = poll.votes.map(vote => Object.keys(Mood).indexOf(vote.mood));
-  console.log(allMoods);
+  // const allMoods = poll.votes.map(vote => Object.keys(Mood).indexOf(vote.mood));
+  // console.log(allMoods);
   const averageMood = 1;
 
   const cards = [
@@ -149,31 +167,53 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       startDate={new Date()}
     >
       <PollResultsCard.Content className="h-[310px] overflow-y-auto">
-        {poll.options.map(option => {
+        {Object.entries(optionCounter).map(([option, votes]) => {
           return (
             <div className="mb-5">
               <p className="body-light text-black mb-3">{option}</p>
               <div className="w-[250px]">
                 <PollProgressBar
-                  votes={poll.votes.length}
+                  votes={votes.length}
                   participants={poll.participants.length}
                 />
-                <div
-                  className="flex gap-1 items-center"
-                  onClick={toggleShowParticipants}
-                >
-                  <p className="small-bold">{poll.votes.length} votes</p>
-                  <Image
-                    src="/images/icons/arrowDown.png"
-                    width={13}
-                    height={16}
-                    alt="show participants who voted for this option"
-                  ></Image>
-                </div>
               </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setModalContent(() => {
+                    return {
+                      participants: poll.participants.filter(user =>
+                        votes.includes(user.id)
+                      ),
+                      title: option,
+                    };
+                  });
+                  setShowParticipants(true);
+                }}
+                className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
+              >
+                <p className="small-bold">{votes.length} votes</p>
+                <Image
+                  src="/images/icons/arrowDown.png"
+                  width={13}
+                  height={16}
+                  alt="show participants who voted for this option"
+                ></Image>
+              </button>
             </div>
           );
         })}
+        <ModalResults
+          className="w-full max-w-md transform overflow-hidden rounded-2xlp-6 text-left align-middle"
+          isOpen={showParticipants}
+          setIsOpen={setShowParticipants}
+        >
+          <PollDetailsCard title={modalContent.title}>
+            {modalContent.participants.map(user => (
+              <p>{user.name}</p>
+            ))}
+          </PollDetailsCard>
+        </ModalResults>
       </PollResultsCard.Content>
     </PollResultsCard>,
 

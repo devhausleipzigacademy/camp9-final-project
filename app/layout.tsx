@@ -14,7 +14,8 @@ export default function RootLayout({
     //A root layout is the top-most layout in the root app directory. It is used to define the <html> and <body> tags
     //https://nextjs.org/docs/app/api-reference/file-conventions/layout
     <html lang="en">
-      <body className="grid justify-center h-screen items-center">
+      <body className="grid h-screen items-center">
+        {/* justify-center breaks the layout for results */}
         {children}
       </body>
     </html>
