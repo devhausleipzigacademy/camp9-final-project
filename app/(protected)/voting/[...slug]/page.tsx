@@ -1,33 +1,47 @@
 'use client';
 
-import { useVotePollQuery } from '@/components/hooks/usePoll';
+import {
+  useVotePollMutation,
+  useVotePollQuery,
+} from '@/components/hooks/usePoll';
 import { superSidekickHoock } from '@/components/hooks/useVote';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
-import { empty } from '@prisma/client/runtime';
+import { Mood } from '@prisma/client';
 
 import clsx from 'clsx';
+
 import { usePathname } from 'next/navigation';
 import { use, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { PrismaClient } from '@prisma/client';
 
-type VoteResponse = {
-  message: string;
-};
+// type VoteResponse = {
+//   message: string;
+// };
 
-type myVote = {
-  id: number;
-  answer: boolean[];
-  pollId: number;
-  userId: number;
-};
+// type myVote = {
+//   id: number;
+//   answer: boolean[];
+//   pollId: number;
+//   userId: number;
+// };
 
-type UserAnswer = {
+export type UserAnswer = {
   abstain: boolean;
   multipleChoice: { [key: string]: boolean };
+  singleChoice: string;
   Anonymous: boolean;
   NonAnonymous: boolean;
   AnonymousUntilQuorum: boolean;
+  mood: Mood;
+};
+
+export type VoteAnswer = {
+  answer: boolean[];
+  pollId: number;
+  userId: number;
+  mood: Mood;
 };
 
 export default function Voting() {
@@ -37,6 +51,7 @@ export default function Voting() {
   const userId = path[2]!;
   const pollId = path[3]!;
   const { query } = useVotePollQuery(userId, pollId);
+  const { mutate } = useVotePollMutation(userId);
 
   const [step, setStep] = useState<number>(1);
   const {
@@ -46,7 +61,7 @@ export default function Voting() {
     watch,
   } = useForm({});
   const abstain = watch('abstain');
-  const { typeOfPoll, header, buttons, anonymity, isLoading , handleMoods } =
+  const { typeOfPoll, header, buttons, anonymity, isLoading, handleMoods } =
     superSidekickHoock({
       query,
       step,
@@ -56,19 +71,29 @@ export default function Voting() {
     });
 
   function onSubmit(data: UserAnswer) {
-    const userAnswerArray = Object.values(data.multipleChoice);
+    const userAnswerArray = Object.values(data.multipleChoice || {});
+    // const userSingleAnswerArray = Object.values(data.singleChoice || {});
     if (abstain) {
       for (let i = 0; i < userAnswerArray.length; i++) {
         userAnswerArray[i] = false;
       }
     }
+  
+    const singleAnswer = data.singleChoice;
+    if (singleAnswer) {
+      query.data?.data.options.map(option => {
+        return option === data.singleChoice;
+      });
+    }
 
     const userVote = {
-      answer: userAnswerArray,
+      answer: singleAnswer,
       pollId: Number(pollId),
       userId: Number(userId),
+      mood: data.mood,
     };
-    console.log(userVote);
+    console.log('data', userVote);
+    // mutate(userVote);
   }
 
   if (query.isLoading)

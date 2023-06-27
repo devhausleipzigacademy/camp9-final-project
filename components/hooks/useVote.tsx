@@ -9,6 +9,7 @@ import Radio from '../Radiobutton';
 import { Checkboxinput } from '../CheckboxInput';
 import Image from 'next/image';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
+import MoodDisplay from '../MoodDisplay';
 
 interface SideKickProps {
   query: UseQueryResult<AxiosResponse<Poll, any>, unknown>;
@@ -29,7 +30,7 @@ export function superSidekickHoock({
     type: PollType | undefined,
     options: string[] | undefined
   ) {
-    if (type === 'SingleChoice') {
+    if (type === 'MultipleChoice') {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           <p className="small leading-3">Single choice, select only one</p>
@@ -38,7 +39,7 @@ export function superSidekickHoock({
               <Questionbox key={option} variant="secondary">
                 <input
                   type="radio"
-                  {...register('option')}
+                  {...register('singleChoice')}
                   value={option}
                   className="checkmarkBox"
                 />
@@ -50,7 +51,7 @@ export function superSidekickHoock({
             <Questionbox variant="secondary">
               <input
                 type="radio"
-                {...register('option')}
+                {...register('singleChoice')}
                 value="abstain"
                 className="checkmarkBox"
               />
@@ -61,7 +62,7 @@ export function superSidekickHoock({
           </div>
         </fieldset>
       );
-    } else if (type === 'MultipleChoice') {
+    } else if (type === 'SingleChoice') {
       return (
         <fieldset className={clsx(step === 3 ? 'visible' : 'hidden')}>
           <p className="small small leading-10 ml-2">
