@@ -11,6 +11,7 @@ import Image from 'next/legacy/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import ProgressBar from './shared/ProgressBar';
 
 interface PollResultsProps extends Poll {
   participants: User[];
@@ -83,7 +84,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     }
   })();
 
-  console.log(averageMood, averageMoodValues)
+  console.log(averageMood, averageMoodValues);
 
   const cards = [
     //0.svg+text
@@ -236,7 +237,9 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     <div>
       <main className="container flex flex-col h-screen justify-between bg-peach-light p-8">
         <div className="mb-36 w-full flex flex-col justify-between">
-          <h1 className="title-black text-left mt-2 mb-10">Poll Results</h1>
+          <h1 className="title-black text-left mt-2">Poll Results</h1>
+          <ProgressBar currentPage={cardIndex + 1} numberOfPages={5} />
+          <div className='h-5' /> {/* <-- hacky spacing fix */}
           {cards[cardIndex]}
         </div>
       </main>
