@@ -248,29 +248,29 @@
       -4px 4px 0px #264653, -6px 6px 0px #2a9d8f, -8px 8px 0px #e9c46a,
       -10px 10px 0px #e76f51;
   }
+  /* scrollbar */
   .scrollbar::-webkit-scrollbar {
     width: 15px;
   }
-
   .scrollbar::-webkit-scrollbar-track {
     border-radius: 4px;
-    background: #fa9a5d;
     border: black 3px solid;
+    background: #fa9a5d;
   }
-
   .scrollbar::-webkit-scrollbar-thumb {
-    background: #9fcc95;
     border-radius: 4px;
     border: 3px solid black;
+    @apply bg-green-light;
   }
-
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #3d6732;
   }
-
   .scrollbar-hidden::-webkit-scrollbar {
     width: 0;
     background: transparent;
+  }
+  .scrollbar--alt-color::-webkit-scrollbar-track {
+    @apply bg-yellow;
   }
   .appName {
     font-family: 'Poppins';
