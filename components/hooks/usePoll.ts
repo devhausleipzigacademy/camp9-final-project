@@ -1,4 +1,4 @@
-import {  VoteAnswer } from '@/app/(protected)/voting/[...slug]/page';
+import { VoteAnswer } from '@/app/(protected)/voting/[...slug]/page';
 import { Poll } from '@prisma/client';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
@@ -23,9 +23,10 @@ export function useVotePollQuery(userId: string, pollId: string) {
 }
 
 ///useMutation to call the axios post request
-function sendVote(requestvote: VoteAnswer){
-const sendVoteRequest =  axios.post('/api/voting/', requestvote);
-return sendVoteRequest;
+function sendVote(requestvote: VoteAnswer) {
+  const sendVoteRequest = axios.post('/api/voting/', requestvote);
+  console.log(sendVoteRequest);
+  return sendVoteRequest;
 }
 
 export function useVotePollMutation(userId: string) {

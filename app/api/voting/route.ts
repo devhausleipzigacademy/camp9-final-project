@@ -29,8 +29,8 @@ export async function POST(request: Request) {
   if (answer === undefined || mood === undefined) {
     return NextResponse.json('Missing answer', { status: 400 });
   }
-
   const createUserVote = await prisma.vote.create({
     data: { answer, mood: moodTyping, pollId, userId },
   });
+  return NextResponse.json('You vote is submited', { status: 201 });
 }
