@@ -18,10 +18,11 @@ interface SideKickProps {
   register: UseFormRegister<FieldValues>;
   abstain?: boolean;
   anonymWatch?: boolean;
+  nonAnonymWatch?: boolean;
+  anonymUntilQuorumWatch?: boolean;
   voteWatch?: boolean;
   mood: string;
   setMood: Dispatch<SetStateAction<string>>;
-
 }
 
 export function superSidekickHoock({
@@ -34,14 +35,10 @@ export function superSidekickHoock({
   voteWatch,
   setMood,
   mood,
-
+  nonAnonymWatch,
+  anonymUntilQuorumWatch,
 }: SideKickProps) {
-
-
-
-/// this is function to hanlde vote succes 
-
-
+  /// this is function to hanlde vote succes
 
   //this determines the header of the voting page depending on the step
   function headerDisplay(step: number) {
@@ -350,11 +347,7 @@ export function superSidekickHoock({
               <GrFormPrevious size={24} strokeWidth={2} />
               Back
             </Button>
-            <Button
-              size="medium"
-              onClick={() => setStep(step + 1)}
-              disabled={!anonymWatch}
-            >
+            <Button size="medium" onClick={() => setStep(step + 1)}>
               Next
               <GrFormNext size={24} strokeWidth={2} />
             </Button>

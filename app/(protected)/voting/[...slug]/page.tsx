@@ -64,11 +64,11 @@ export default function Voting() {
     watch,
   } = useForm({});
   const abstain = watch('abstain') as boolean;
-  const anonymWatch = watch(
-    'NonAnynymous' || 'Anonymous' || 'AnonymousUntilQuorum'
-  ) as boolean;
+  const anonymWatch = watch('Anynymous') as boolean;
+  const nonAnonymWatch = watch('NonAnynymous') as boolean;
+  const anonymUntilQuorumWatch = watch('AnonymousUntilQuorum') as boolean;
   const voteWatch = watch('singleChoice') as boolean;
-
+  console.log(anonymWatch);
   const {
     typeOfPoll,
     header,
@@ -87,6 +87,8 @@ export default function Voting() {
     mood,
     setMood,
     anonymWatch,
+    nonAnonymWatch,
+    anonymUntilQuorumWatch,
   });
 
   if (query.data?.data.description === 'Estefani & Amir are the best EVAR') {

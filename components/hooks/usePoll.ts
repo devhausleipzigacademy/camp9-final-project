@@ -35,8 +35,8 @@ export function useVotePollMutation(userId: string) {
     mutationKey: ['votePoll', userId],
     mutationFn: (requestvote: VoteAnswer) => sendVote(requestvote),
     onSuccess: data => {
-      query.invalidateQueries('votePoll', userId); 
-
+      query.invalidateQueries(['votePoll', userId]);
+      window.location.reload();
       console.log('success', data);
     },
   });
