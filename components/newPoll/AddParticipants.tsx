@@ -1,4 +1,5 @@
 'use client';
+'use client';
 import { User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -13,9 +14,11 @@ import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 export default function AddParticipants({
   title = 'Add Participants',
 }: NewPollComponentProps) {
-  const { register, formState, getValues, setValue } =
-    useFormContext<CreateNewPoll>(); // retrieve all hook methods
-  const [participants, setParticipants] = useState<string[]>([]);
+  const { register, getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+
+  const [participants, setParticipants] = useState<string[]>(
+    getValues('participants')?.length ? getValues('participants') : []
+  );
   let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
   const [selectedUser, setSelectedUser] = useState<null | string>(null); //selected user from combobox
@@ -23,13 +26,14 @@ export default function AddParticipants({
     const { data } = await axios.get('/api/searchUsers', {
       params: {
         queryString: query,
+        participants: participants.join(','),
       },
     });
     return data;
   }
 
   const { data, isError, isLoading } = useQuery<User[]>(
-    ['searchUsers', query],
+    ['searchUsers', query, participants],
     searchUsers
   );
 

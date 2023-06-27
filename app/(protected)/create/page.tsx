@@ -16,8 +16,6 @@ import {
   CreateNewPollSchema,
   CreateNewPoll,
 } from '@/types/newPoll/CreatePollSchema';
-
-import Button from '@/components/shared/buttons/Button';
 import Deadline from '@/components/newPoll/Deadline';
 import RevealConditions from '@/components/newPoll/RevealConditions';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
