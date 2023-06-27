@@ -14,7 +14,11 @@ export async function GET(request: Request) {
 
   const votePolls = await prisma.poll.findMany({
     where: {
-      id: parseInt(pollId),
+      participants: {
+        some: {
+          id: parseInt(userId),
+        },
+      },
       votes: {
         none: {
           userId: parseInt(userId),
@@ -27,7 +31,6 @@ export async function GET(request: Request) {
     if (poll.id === parseInt(pollId)) {
       return true;
     }
-    return NextResponse.json('You have already voted', { status: 400 });
   });
 
   const singlePoll = filteredVotePolls[0];

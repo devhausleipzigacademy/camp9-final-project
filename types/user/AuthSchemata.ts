@@ -36,3 +36,4 @@ export type SignUpUser = z.infer<typeof signUpSchema>;
 export type SignUpResponse = {
   token: string;
 };
+

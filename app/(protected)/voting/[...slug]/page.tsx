@@ -14,8 +14,10 @@ import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { use, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { PrismaClient } from '@prisma/client';
-import { ContextExclusionPlugin } from 'webpack';
+import Image from 'next/image';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { voteSchema } from '@/types/voting/VotingSchema';
 
 type VoteResponse = {
   message: string;
@@ -62,13 +64,16 @@ export default function Voting() {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({});
+  } = useForm({
+    resolver: zodResolver(voteSchema),
+    mode: 'onTouched',
+  });
   const abstain = watch('abstain') as boolean;
-  const anonymWatch = watch('Anynymous') as boolean;
-  const nonAnonymWatch = watch('NonAnynymous') as boolean;
+  const anonymWatch = watch('Anonymous') as boolean;
+  const nonAnonymWatch = watch('NonAnonymous') as boolean;
   const anonymUntilQuorumWatch = watch('AnonymousUntilQuorum') as boolean;
   const voteWatch = watch('singleChoice') as boolean;
-  console.log(anonymWatch);
+
   const {
     typeOfPoll,
     header,
@@ -84,15 +89,38 @@ export default function Voting() {
     register,
     abstain,
     voteWatch,
-    mood,
-    setMood,
     anonymWatch,
     nonAnonymWatch,
     anonymUntilQuorumWatch,
+    mood,
+    setMood,
   });
 
   if (query.data?.data.description === 'Estefani & Amir are the best EVAR') {
-    return <div>congratulations you already voted</div>;
+    return (
+      <div className="flex flex-col justify-between items-center gap-10">
+        <h2 className="title-bold">Thank you for voting</h2>
+        <div>
+          <Image
+            src="/images/flame-success.gif"
+            alt="Vote Sucess"
+            width={280}
+            height={280}
+          ></Image>
+        </div>
+        <div>
+          <p className="description text-center">
+            Your vote has been successfully submitted.
+          </p>
+          <p className="description-light text-center">
+            The results of the voting will be announced soon. Please stay tuned.
+          </p>
+        </div>
+        <Button href="/new" variant="primary" size="large">
+          Next
+        </Button>
+      </div>
+    );
   }
 
   function onSubmit(data: UserAnswer) {

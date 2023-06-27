@@ -6,7 +6,7 @@ import Questionbox from '../Question';
 import Button from '../shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import Image from 'next/image';
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import MoodDisplay from '../MoodDisplay';
 import { Dispatch, SetStateAction } from 'react';
 import { Navbar } from '../shared/navbar/Navbar';
@@ -31,12 +31,12 @@ export function superSidekickHoock({
   setStep,
   register,
   abstain,
+  nonAnonymWatch,
   anonymWatch,
+  anonymUntilQuorumWatch,
   voteWatch,
   setMood,
   mood,
-  nonAnonymWatch,
-  anonymUntilQuorumWatch,
 }: SideKickProps) {
   /// this is function to hanlde vote succes
 
@@ -99,7 +99,7 @@ export function superSidekickHoock({
               </label>
               <input
                 type="checkbox"
-                {...register('NonAnynymous', { required: true })}
+                {...register('NonAnonymous', { required: true })}
                 className="checkmarkBox"
               />
             </div>
@@ -347,7 +347,13 @@ export function superSidekickHoock({
               <GrFormPrevious size={24} strokeWidth={2} />
               Back
             </Button>
-            <Button size="medium" onClick={() => setStep(step + 1)}>
+            <Button
+              size="medium"
+              onClick={() => setStep(step + 1)}
+              disabled={
+                !anonymWatch && !nonAnonymWatch && !anonymUntilQuorumWatch
+              }
+            >
               Next
               <GrFormNext size={24} strokeWidth={2} />
             </Button>
