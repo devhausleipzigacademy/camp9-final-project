@@ -6,6 +6,7 @@ import PollProgressBar from '@/components/PollProgressBar';
 import PollResultsCard from '@/components/PollResultsCard';
 import Button from '@/components/shared/buttons/Button';
 import { Poll, User, Vote, Mood } from '@prisma/client';
+// import { all } from 'axios';
 import Image from 'next/legacy/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -17,7 +18,6 @@ interface PollResultsProps extends Poll {
 }
 
 export default function PollResults({ poll }: { poll: PollResultsProps }) {
-  console.log("poll", poll)
   const [cardIndex, setCardIndex] = useState(0);
   const [showParticipants, setShowParticipants] = useState(false);
 
@@ -61,8 +61,27 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   }
 
   const allMoods = poll.votes.map(vote => Object.keys(Mood).indexOf(vote.mood));
-  console.log("moods", allMoods);
-  const averageMood = 1;
+  const averageMood = (() => {
+    let sum = 0;
+    for (let i = 0; i < allMoods.length; i++) {
+      sum += allMoods[i]!; // <-- excalamation used!
+    }
+    return sum / allMoods.length;
+  })(); // <!-- an IIFE spotted in the wild!
+
+  const averageMoodValues = (() => {
+    if (averageMood < 0.5) {
+      return { color: 'bg-red', description: 'miserable' };
+    } else if (averageMood < 1.5) {
+      return { color: 'bg-peach', description: 'unhappy' };
+    } else if (averageMood < 2.5) {
+      return { color: 'bg-yellow', description: 'unsure' };
+    } else if (averageMood < 3.5) {
+      return { color: 'bg-green-light', description: 'happy' };
+    } else if (averageMood < 4) {
+      return { color: 'bg-green-light', description: 'beaming' };
+    }
+  })();
 
   const cards = [
     //0.svg+text
@@ -189,8 +208,13 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
           The average mood of this poll’s voters is:
         </p>
         <div className="flex flex-col items-center gap-4 mt-9">
-          <div className="shadow-brutal border-brutal w-28 h-8 body text-center item-center rounded-sm">
-            happy
+          <div
+            className={
+              'shadow-brutal border-brutal w-28 h-8 body text-center item-center rounded-sm ' +
+              averageMoodValues?.color
+            }
+          >
+            {averageMoodValues?.description}
           </div>
           <MoodDisplay averageMood={averageMood}></MoodDisplay>
         </div>
