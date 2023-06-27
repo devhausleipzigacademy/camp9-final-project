@@ -32,7 +32,7 @@ export default function Review({
     { title: 'Anonymity', value: anonymity, step: 1 },
     { title: 'Reveal Conditions', value: quorum, step: 2 },
     { title: 'Deadline', value: date, step: 3 },
-    { title: 'Participants', value: participants, step: 4 },
+    { title: 'Participants', value: participants.join(', '), step: 4 },
   ];
 
   return (
