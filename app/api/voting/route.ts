@@ -1,5 +1,5 @@
 import { VoteAnswer } from '@/app/(protected)/voting/[...slug]/page';
-import { Mood, PrismaClient } from '@prisma/client';
+import { Mood, Poll, PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
@@ -12,12 +12,25 @@ export async function GET(request: Request) {
     return NextResponse.json('Missing userId or pollId', { status: 400 });
   }
 
-  const filteredNewPolls = await prisma.poll.findUnique({
+  const votePolls = await prisma.poll.findMany({
     where: {
-      id: +pollId,
+      id: parseInt(pollId),
+      votes: {
+        none: {
+          userId: parseInt(userId),
+        },
+      },
     },
   });
-  return NextResponse.json(filteredNewPolls, { status: 200 });
+
+  const filteredVotePolls = votePolls.filter(poll => {
+    if (poll.id === parseInt(pollId)) {
+      return votePolls[0];
+    }
+    return NextResponse.json('You already voted', { status: 400 });
+  });
+
+  return NextResponse.json(filteredVotePolls, { status: 200 });
 }
 
 export async function POST(request: Request) {
