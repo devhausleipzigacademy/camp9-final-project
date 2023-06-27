@@ -97,6 +97,7 @@ export default function AddParticipants({
               >
                 <p className="body ">{participant}</p>
                 <button
+                  key={participant}
                   className=" text-black  body border-2 shadow border-black rounded-md px-[7px] py-[0px]"
                   onClick={() => {
                     setParticipants(prev =>
