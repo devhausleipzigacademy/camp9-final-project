@@ -4,7 +4,7 @@ import React from 'react';
 
 type PollCardProps = {
   children: React.ReactNode;
-  endTime?: Date;
+  endTime: Date;
   vote?: 'vote';
   details?: 'see details';
   results?: 'see results';
@@ -14,13 +14,13 @@ type PollCardProps = {
 
 function PollCard(props: PollCardProps) {
   return (
-    <div className={clsx('flex justify-center ', props.className)}>
-      <div className="bg-yellow p-3 pb-0 shadow-shadow border-3 border-black rounded-round ">
-        <div className="bg-yellow-light gap-4 w-64 h-auto border-black border-3 rounded-round p-1">
+    <div className={clsx('', props.className)}>
+      <div className="bg-yellow  p-3 pb-0 shadow-shadow border-3 border-black rounded-round w-full">
+        <div className="bg-yellow-light h-auto border-black border-3 rounded-round p-2">
           {props.children}
         </div>
-        <div className="flex justify-between items-center">
-          {props?.endTime?.toDateString()}
+        <div className="flex justify-between items-center small">
+          {props.endTime.toDateString()}
           <Link href={props.href} className="flex text-sm items-center">
             {props.vote}
             {props.details}

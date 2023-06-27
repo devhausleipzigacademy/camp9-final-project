@@ -1,7 +1,5 @@
 'use client';
 
-'use client';
-
 import { useRouter } from 'next/navigation';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 
@@ -10,6 +8,7 @@ interface PollCardProps extends React.HTMLAttributes<HTMLElement> {
   endDate: Date;
   isOwner: boolean;
   isVoted?: boolean;
+  pollId: number;
 }
 
 export default function PollCard({
@@ -17,6 +16,7 @@ export default function PollCard({
   endDate,
   isOwner = false,
   isVoted,
+  pollId,
   ...props
 }: PollCardProps) {
   const router = useRouter();
@@ -69,9 +69,9 @@ export default function PollCard({
     if (isOwner) {
       router.push('/details');
     } else if (isOpen && isVoted) {
-      router.push('/details');
+      router.push(`/details/${pollId}/1`);
     } else if (isOpen && !isVoted) {
-      router.push('/voting');
+      router.push(`/details/${pollId}/1`);
     } else if (!isOpen) {
       router.push('/results');
     }

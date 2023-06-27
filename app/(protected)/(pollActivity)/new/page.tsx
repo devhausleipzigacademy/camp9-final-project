@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import PollCard from 'components/pollActivity/PollCard';
+import PollCard from 'components/PollCard';
 
 const prisma = new PrismaClient();
 
@@ -36,18 +36,21 @@ async function New() {
   }
 
   return (
-    <div className="flex justify-center h-full">
-      <div className="overflow-y-auto h-[318px] w-[85%] scrollbar">
+    <div className="overflow-y-auto mr-8 ml-7 scrollbar-left-padded max-h-[60%]">
+      <div className="ml-1">
         {newPolls.map(poll => (
-          <PollCard
-            className="mb-4"
-            key={poll?.id}
-            endTime={poll.endDateTime}
-            vote="vote"
-            href="/new"
-          >
-            {poll?.question}
-          </PollCard>
+          <>
+            <PollCard
+              className="mb-4"
+              key={poll.id}
+              endDate={poll.endDateTime}
+              isVoted={false}
+              isOwner={false}
+              pollId={poll.id}
+            >
+              {poll?.question}
+            </PollCard>
+          </>
         ))}
       </div>
     </div>

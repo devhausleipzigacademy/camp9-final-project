@@ -14,7 +14,7 @@ export default function ProtectedLayout({
   children: React.ReactNode;
 }) {
   return (
-    <body className="w-full flex flex-col justify-between h-screen">
+    <body>
       <Provider>{children}</Provider>
       {/* change the next line from true instead of children later */}
       {true && (

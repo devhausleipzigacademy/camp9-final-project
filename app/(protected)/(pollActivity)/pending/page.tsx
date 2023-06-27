@@ -36,7 +36,7 @@ async function Pending() {
 
   return (
     <div className="flex justify-center h-full">
-      <div className="overflow-y-auto h-[318px] w-[85%] scrollbar">
+      <div className="overflow-y-auto h-[318px] w-[85%] scrollbar-left-padded">
         {pendingPolls.map(poll => (
           <PollCard
             className="mb-4"
