@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FieldErrors, useFormContext } from 'react-hook-form';
 import Button from 'components/shared/buttons/Button';
 import InputField from '../InputField';
+import RadioButton from '../Radiobutton';
 
 export default function AnswerOptions({
   title = 'Answer Options',
@@ -26,30 +27,43 @@ export default function AnswerOptions({
     options.splice(index, 1);
   };
 
+  const [type, setType] = useState({
+    SingleChoice: false,
+    MultipleChoice: false,
+  });
+  console.log(getValues());
+
+  const onChangeCondition = (e: any) => {
+    console.log(e.target.value);
+    if (e.target.value === 'SingleChoice') {
+      setType({ SingleChoice: true, MultipleChoice: false });
+      setValue('type', 'SingleChoice');
+    }
+    if (e.target.value === 'MultipleChoice') {
+      setType({ SingleChoice: false, MultipleChoice: true });
+      setValue('type', 'MultipleChoice');
+    }
+  };
   return (
-    <div className="flex flex-col gap-5">
-      <fieldset className="flex flex-col font-semibold  gap-5">
-        <div className="flex justify-between items-center ">
-          <label className="text-black" htmlFor="singleChoice">
-            Single Choice
-          </label>
-          <input
+    <div className="flex flex-col">
+      <fieldset>
+        <div className="flex flex-row justify-between body-semibold">
+          <label className="align-middle">Single Choice</label>
+          <RadioButton
+            value={'SingleChoice'}
+            checked={type.SingleChoice}
             {...register('type')}
-            type="radio"
-            id="singleChoice"
-            value="SingleChoice"
-          />
+            onChange={onChangeCondition}
+          ></RadioButton>
         </div>
-        <div className="flex justify-between items-center">
-          <label className="text-black" htmlFor="multipleChoice">
-            Multiple Choice
-          </label>
-          <input
+        <div className="flex flex-row justify-between body-semibold items-center mb-2">
+          <label>Multiple Choice</label>
+          <RadioButton
+            value={'MultipleChoice'}
+            checked={type.MultipleChoice}
             {...register('type')}
-            type="radio"
-            id="multipleChoice"
-            value="MultipleChoice"
-          />
+            onChange={onChangeCondition}
+          ></RadioButton>
         </div>
       </fieldset>
       <hr className="border border-black"></hr>
