@@ -23,6 +23,7 @@ import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
+import Button from '@/components/shared/buttons/Button';
 
 export default function NewPoll() {
   // Form setup
@@ -50,7 +51,7 @@ export default function NewPoll() {
       const { data } = await axios.post<Poll>('/api/create', poll, {
         withCredentials: true,
       });
-      throw new Error();
+      // throw new Error();
       return data;
     } catch (error) {
       console.error('Error creating a poll:', error);
@@ -114,7 +115,7 @@ export default function NewPoll() {
     next(); // Proceed to the next step
   };
 
-  console.log(formState.errors);
+  console.log(getValues());
 
   return (
     <>
