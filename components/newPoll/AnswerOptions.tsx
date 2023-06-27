@@ -42,7 +42,7 @@ export default function AnswerOptions({
       setValue('type', 'MultipleChoice');
     }
   };
-  
+
   return (
     <div className="flex flex-col gap-2">
       <fieldset className="flex flex-col font-semibold  gap-2">
@@ -50,7 +50,7 @@ export default function AnswerOptions({
           <label className="align-middle">Single Choice</label>
           <RadioButton
             value={'SingleChoice'}
-            checked={type.SingleChoice}
+            checked={getValues('type') === 'SingleChoice'}
             {...register('type')}
             onChange={onChangeCondition}
           ></RadioButton>
@@ -59,7 +59,7 @@ export default function AnswerOptions({
           <label>Multiple Choice</label>
           <RadioButton
             value={'MultipleChoice'}
-            checked={type.MultipleChoice}
+            checked={getValues('type') === 'MultipleChoice'}
             {...register('type')}
             onChange={onChangeCondition}
           ></RadioButton>

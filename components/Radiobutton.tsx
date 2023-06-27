@@ -1,6 +1,6 @@
 'use client';
 
-const RadioButton = ({ name, id, onChange, checked }: any & FormData) => {
+const RadioButton = ({ name, id, onChange, checked, value }: any & FormData) => {
   return (
     <>
       <label htmlFor={id}>
@@ -11,6 +11,7 @@ const RadioButton = ({ name, id, onChange, checked }: any & FormData) => {
           id={id}
           onChange={onChange}
           checked={checked}
+          value={value}
         />
         <span className="custom-radio" />
       </label>
