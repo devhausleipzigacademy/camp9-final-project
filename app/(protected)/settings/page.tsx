@@ -16,7 +16,6 @@ function Settings() {
   const [username, setUsername] = useState('...'); // <-- username initially unknown
 
   const { data } = useSession(); // <-- get user ID object from session/JWT
-  // console.log(data)
   const userID = data?.user?.id; // <-- FIX: type error
 
   // func expression immediately updates username
@@ -39,8 +38,10 @@ function Settings() {
   } = useEditUsernameMutation();
 
   const onUsernameSubmit = (data: any) => {
-    mutateU({ ...data, userID });
-    setUsernameEdit('pencil');
+    if (usernameEdit === 'check') {
+      mutateU({ ...data, userID });
+      setUsernameEdit('pencil');
+    }
   };
 
   const {
@@ -51,8 +52,10 @@ function Settings() {
   } = useEditPasswordMutation();
 
   const onPasswordSubmit = (data: any) => {
-    mutateP({ ...data, userID });
-    setPasswordEdit('pencil');
+    if (passwordEdit === 'check') {
+      mutateP({ ...data, userID });
+      setPasswordEdit('pencil');
+    }
   };
 
   return (

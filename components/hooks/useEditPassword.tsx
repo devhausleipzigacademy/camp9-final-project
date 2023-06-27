@@ -4,10 +4,9 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  ConfirmPasswordType,
+  SettingsPasswordType,
   SignUpResponse,
-  confirmPasswordSchema,
-
+  settingsPasswordSchema,
 } from '@/types/user/AuthSchemata';
 
 //////////////////////////////
@@ -21,13 +20,18 @@ export function useEditPasswordMutation() {
     reset,
     handleSubmit,
     formState,
-  } = useForm<ConfirmPasswordType>({
-    resolver: zodResolver(confirmPasswordSchema),
-    mode: 'onTouched',
+  } = useForm<SettingsPasswordType>({
+    resolver: zodResolver(settingsPasswordSchema),
+    mode: 'onSubmit',
   });
 
-  const mutation = useMutation<SignUpResponse, AxiosError, ConfirmPasswordType>({
-    mutationFn: async (newPasswordAndID: Object) => { // <-- FIX: this type should be more specific
+  const mutation = useMutation<
+    SignUpResponse,
+    AxiosError,
+    SettingsPasswordType
+  >({
+    mutationFn: async (newPasswordAndID: Object) => {
+      // /\ FIX: this type should be more specific
       const { data } = await axios.post(
         '/api/updatePassword',
         newPasswordAndID,
