@@ -16,7 +16,6 @@ export async function GET(request: IRequest) {
   const queryString = params.get('queryString');
   const hasParticipants = params.has('participants');
   const alreadySelected = hasParticipants ? params.get('participants') : '';
-  console.log('look', alreadySelected);
 
   /* try {
     const data = await request.json();

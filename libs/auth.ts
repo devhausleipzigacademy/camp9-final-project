@@ -2,7 +2,8 @@
 
 import { db } from '@/libs/db';
 import { compare } from 'bcrypt';
-import type { AuthOptions } from 'next-auth';
+import type { AuthOptions, Session } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOptions: AuthOptions = {
@@ -36,9 +37,10 @@ export const authOptions: AuthOptions = {
         }
 
         // if everything successful, return JWT
+
         return {
           id: user.id,
-          username: user.name,
+          name: user.name,
           password: user.password,
         };
       },
@@ -52,8 +54,8 @@ export const authOptions: AuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
-      session.user.id = token.sub; // <-- write token id object to session (?)
-      return session; //
+      if (token.sub) session.user.id = parseInt(token.sub);
+      return session;
     },
   },
 };
