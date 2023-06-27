@@ -17,6 +17,7 @@ interface PollResultsProps extends Poll {
 }
 
 export default function PollResults({ poll }: { poll: PollResultsProps }) {
+  console.log("poll", poll)
   const [cardIndex, setCardIndex] = useState(0);
   const [showParticipants, setShowParticipants] = useState(false);
 
@@ -60,7 +61,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   }
 
   const allMoods = poll.votes.map(vote => Object.keys(Mood).indexOf(vote.mood));
-  console.log(allMoods);
+  console.log("moods", allMoods);
   const averageMood = 1;
 
   const cards = [
