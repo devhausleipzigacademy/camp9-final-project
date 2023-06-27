@@ -167,10 +167,12 @@ async function PollDetails({
   if (parseInt(params.page) <= 0 || parseInt(params.page) > 4) {
     throw new Error('Invalid page number.');
   }
-  let userId = 10; //default user if no user is logged in
   const session = await getServerSession(authOptions);
-  if (session && session.user.id) {
-    userId = session.user.id;
+  let userId;
+  try {
+    userId = session?.user.id!;
+  } catch (err) {
+    throw new Error('User not found.');
   }
   const poll = await getPoll(parseInt(params.id), userId);
   const parsedPoll = parsePollData(poll);
