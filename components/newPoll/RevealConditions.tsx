@@ -1,80 +1,97 @@
 'use client';
+import React, { useState, useRef } from 'react';
+import RadioButton from '@/components/Radiobutton';
+import ConsensusController from '@/components/ConsensusController';
 import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 import { useFormContext } from 'react-hook-form';
 
 export default function RevealConditions({
   title = 'Reveal Conditions',
 }: NewPollComponentProps) {
-  const { register, formState, getValues, setValue } =
-    useFormContext<CreateNewPoll>(); // retrieve all hook methods
+  const { getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+  const childRef: any = useRef();
+  const [condition, setCondition] = useState({
+    threshold: false,
+    open: false,
+    anonymous: false,
+  });
 
-  const quorum = getValues().quorum;
+  console.log(getValues());
 
-  const dynamicQuorum = 80;
+  const onChangeCondition = (e: any) => {
+    const { name } = e.target;
+
+    if (name === 'threshold') {
+      setCondition({ threshold: true, open: false, anonymous: false });
+      childRef.current.handleVisible(true);
+    }
+    if (name === 'open') {
+      setCondition({ threshold: false, open: true, anonymous: false });
+      childRef.current.handleVisible(false);
+      setValue('quorum', '0');
+    }
+    if (name === 'anonymous') {
+      setCondition({ threshold: false, open: false, anonymous: true });
+      childRef.current.handleVisible(false);
+      setValue('quorum', '100');
+    }
+  };
 
   return (
     <>
-      <fieldset className="flex flex-col font-semibold  gap-5">
-        <div className="flex justify-between items-center ">
-          <label className="text-black" htmlFor="revealUsernames">
-            Reveal usernames
-          </label>
-          <input
-            {...register('quorum')}
-            type="radio"
-            id="revealUsernames"
-            value={80}
-          />
+      <div className="flex flex-col gap-y-6 mt-5">
+        <div className="flex flex-col justify-between">
+          <div className="flex">
+            <div className="">
+              <strong>Reveal usernames</strong> for options with agreement of at
+              least:
+            </div>
+            <div className="flex">
+              <RadioButton
+                name="threshold"
+                id="threshold"
+                value={'AnonymousUntilQuorum'}
+                text="threshold"
+                onChange={onChangeCondition}
+                checked={condition.threshold}
+              />
+            </div>
+          </div>
+          <div className="flex mt-5">
+            <ConsensusController ref={childRef} />
+          </div>
         </div>
-        <div className="flex justify-between items-center">
-          <label className="text-black" htmlFor="alwaysRevealUsernames">
-            Always reveal usernames
-          </label>
-          <input
-            {...register('quorum')}
-            type="radio"
-            id="alwaysRevealUsernames"
-            value={0}
-          />
+        <div className="flex grid-flow-row justify-between">
+          <div className="flex flex-col">
+            <strong>Always reveal usernames</strong>(fully open)
+          </div>
+          <div className="flex">
+            <RadioButton
+              name="open"
+              id="open"
+              value={'NonAnonymous'}
+              text="open"
+              onChange={onChangeCondition}
+              checked={condition.open}
+            />
+          </div>
         </div>
-        <div className="flex justify-between items-center">
-          <label className="text-black" htmlFor="neverRevealUsernames">
-            Never reveal usernames
-          </label>
-          <input
-            {...register('quorum')}
-            type="radio"
-            id="neverRevealUsernames"
-            value={1000}
-          />
+        <div className="flex grid-flow-row justify-between">
+          <div className="flex flex-col">
+            <strong>Never reveal usernames</strong>(fully anonymous) least:
+          </div>
+          <div className="flex">
+            <RadioButton
+              name="anonymous"
+              id="anonymous"
+              value={'Anonymous'}
+              text="anonymous"
+              onChange={onChangeCondition}
+              checked={condition.anonymous}
+            />
+          </div>
         </div>
-      </fieldset>
-      {/* <div>RevealConditions</div>
-      <div className="flex justify-between">
-        <p className="w-[240px] row">
-          <strong>Reveal usernames</strong> for options with agreement of at
-          least:
-        </p>
-        <Radio variant={'secondary'}>Reveal</Radio>
       </div>
-      <div className="flex">
-        <img
-          src="https://i.ibb.co/BLM88Ys/revealbar.png"
-          className="mt-4 w-[356px]"
-        />
-      </div>
-      <div className="flex justify-between mt-6">
-        <p className="w-[240px] row">
-          <strong>Always reveal usernames</strong> (fully open)
-        </p>
-        <Radio variant={'secondary'}>Reveal</Radio>
-      </div>
-      <div className="flex justify-between mt-4">
-        <p className="w-[240px] row">
-          <strong>Never reveal usernames</strong> (fully anonymous)
-        </p>
-        <Radio variant={'secondary'}>Reveal</Radio>
-      </div> */}
     </>
   );
 }
