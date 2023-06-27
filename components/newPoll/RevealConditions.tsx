@@ -1,28 +1,39 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import RadioButton from '@/components/Radiobutton';
 import ConsensusController from '@/components/ConsensusController';
+import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 import { useFormContext } from 'react-hook-form';
 
-export default function RevealConditions() {
-  const { register, getValues } = useFormContext(); // retrieve all hook methods
+export default function RevealConditions({
+  title = 'Reveal Conditions',
+}: NewPollComponentProps) {
+  const { getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+  const childRef: any = useRef();
   const [condition, setCondition] = useState({
     threshold: false,
     open: false,
     anonymous: false,
   });
+
   console.log(getValues());
+
   const onChangeCondition = (e: any) => {
     const { name } = e.target;
 
     if (name === 'threshold') {
       setCondition({ threshold: true, open: false, anonymous: false });
+      childRef.current.handleVisible(true);
     }
     if (name === 'open') {
       setCondition({ threshold: false, open: true, anonymous: false });
+      childRef.current.handleVisible(false);
+      setValue('quorum', '0');
     }
     if (name === 'anonymous') {
       setCondition({ threshold: false, open: false, anonymous: true });
+      childRef.current.handleVisible(false);
+      setValue('quorum', '100');
     }
   };
 
@@ -47,7 +58,7 @@ export default function RevealConditions() {
             </div>
           </div>
           <div className="flex mt-5">
-            <ConsensusController />
+            <ConsensusController ref={childRef} />
           </div>
         </div>
         <div className="flex grid-flow-row justify-between">
