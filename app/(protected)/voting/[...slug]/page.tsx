@@ -15,17 +15,18 @@ import { usePathname } from 'next/navigation';
 import { use, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { PrismaClient } from '@prisma/client';
+import { ContextExclusionPlugin } from 'webpack';
 
-// type VoteResponse = {
-//   message: string;
-// };
+type VoteResponse = {
+  message: string;
+};
 
-// type myVote = {
-//   id: number;
-//   answer: boolean[];
-//   pollId: number;
-//   userId: number;
-// };
+type myVote = {
+  id: number;
+  answer: boolean[];
+  pollId: number;
+  userId: number;
+};
 
 export type UserAnswer = {
   abstain: boolean;
@@ -54,46 +55,72 @@ export default function Voting() {
   const { mutate } = useVotePollMutation(userId);
 
   const [step, setStep] = useState<number>(1);
+  const [mood, setMood] = useState<string>('');
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
   } = useForm({});
-  const abstain = watch('abstain');
-  const { typeOfPoll, header, buttons, anonymity, isLoading, handleMoods } =
-    superSidekickHoock({
-      query,
-      step,
-      setStep,
-      register,
-      abstain,
-    });
+  const abstain = watch('abstain') as boolean;
+  const anonymWatch = watch(
+    'NonAnynymous' || 'Anonymous' || 'AnonymousUntilQuorum'
+  ) as boolean;
+  const voteWatch = watch('singleChoice') as boolean;
+
+  const {
+    typeOfPoll,
+    header,
+    buttons,
+    anonymity,
+    isLoading,
+    handleMoods,
+    footer,
+  } = superSidekickHoock({
+    query,
+    step,
+    setStep,
+    register,
+    abstain,
+    voteWatch,
+    mood,
+    setMood,
+    anonymWatch,
+  });
 
   function onSubmit(data: UserAnswer) {
-    const userAnswerArray = Object.values(data.multipleChoice || {});
-    // const userSingleAnswerArray = Object.values(data.singleChoice || {});
-    if (abstain) {
-      for (let i = 0; i < userAnswerArray.length; i++) {
-        userAnswerArray[i] = false;
-      }
-    }
-  
-    const singleAnswer = data.singleChoice;
-    if (singleAnswer) {
-      query.data?.data.options.map(option => {
-        return option === data.singleChoice;
+    if (data.singleChoice) {
+      const answerOptions = query.data?.data.options;
+      const userAnswerSingle = answerOptions?.map(option => {
+        if (option === data.singleChoice) {
+          return true;
+        } else return false;
       });
+      const userVote = {
+        answer: userAnswerSingle,
+        pollId: Number(pollId),
+        userId: Number(userId),
+        mood: mood,
+      };
+      console.log(userVote);
     }
 
-    const userVote = {
-      answer: singleAnswer,
-      pollId: Number(pollId),
-      userId: Number(userId),
-      mood: data.mood,
-    };
-    console.log('data', userVote);
-    // mutate(userVote);
+    if (data.multipleChoice) {
+      const userAnswerMultiple = Object.values(data.multipleChoice);
+      if (abstain) {
+        for (let i = 0; i < userAnswerMultiple.length; i++) {
+          userAnswerMultiple[i] = false;
+        }
+      }
+      const userVote = {
+        answer: userAnswerMultiple,
+        pollId: Number(pollId),
+        userId: Number(userId),
+        mood: mood,
+      };
+      console.log(userVote);
+    }
   }
 
   if (query.isLoading)
@@ -105,11 +132,9 @@ export default function Voting() {
     );
 
   return (
-    <div className="flex flex-col ">
-      <div className="flex flex-col ">
-        <h1 className="title-black text-left">{header}</h1>
-        <ProgressBar numberOfPages={4} currentPage={step} />
-      </div>
+    <div className="flex flex-col gap-4">
+      <h1 className="title-bold text-left">{header}</h1>
+      <ProgressBar numberOfPages={4} currentPage={step} />
       <div
         className={clsx(
           'flex flex-col gap-4 mt-4',
@@ -132,19 +157,21 @@ export default function Voting() {
         {anonymity}
         {typeOfPoll}
         {handleMoods}
-        <Button
-          size="small"
-          type="submit"
-          variant="quaternary"
+        <div
           className={clsx(
-            'fixed container bottom-28 right-8',
+            'flex flex-row justify-center align-middle items-center mt-6',
             step === 4 ? 'visble' : 'hidden'
           )}
         >
-          Submit
-        </Button>
+          <Button size="large" type="submit" variant="primary" disabled={!mood}>
+            Submit
+          </Button>
+        </div>
       </form>
-      {buttons}
+      <div className="flex flex-col gap-3 items-center">
+        {buttons}
+        {footer}
+      </div>
     </div>
   );
 }
