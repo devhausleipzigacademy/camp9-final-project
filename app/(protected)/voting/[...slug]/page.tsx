@@ -15,7 +15,7 @@ import { usePathname } from 'next/navigation';
 import { use, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
-import { z } from 'zod';
+import { string, z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { voteSchema } from '@/types/voting/VotingSchema';
 
@@ -70,7 +70,9 @@ export default function Voting() {
   const nonAnonymWatch = watch('NonAnonymous') as boolean;
   const anonymUntilQuorumWatch = watch('AnonymousUntilQuorum') as boolean;
   const voteWatch = watch('singleChoice') as boolean;
-
+  const multipleWatch = watch('multipleChoice', [string]) as boolean;
+  console.log(multipleWatch);
+  console.log(abstain);
   const {
     typeOfPoll,
     header,

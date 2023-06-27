@@ -6,7 +6,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <>
       <div className="bg-peach h-screen w-screen">
         <PollActivityActionBar className="h-1/3" />
-        <main className="h-[47%]">{children}</main>
+        <main className="h-[52%%]">{children}</main>
+        <footer className="px-8 w-[375px] container flex justify-center">
+          <Navbar variant={'primary'} />
+        </footer>
       </div>
     </>
   );
