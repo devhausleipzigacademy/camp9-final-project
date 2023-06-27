@@ -1,4 +1,4 @@
-'useclient';
+'use client';
 import { User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -19,13 +19,14 @@ export default function AddParticipants() {
     const { data } = await axios.get('/api/searchUsers', {
       params: {
         queryString: query,
+        participants: participants.join(','),
       },
     });
     return data;
   }
-
+  console.log(participants);
   const { data, isError, isLoading } = useQuery<User[]>(
-    ['searchUsers', query],
+    ['searchUsers', query, participants],
     searchUsers
   );
 

@@ -4,6 +4,7 @@ import { z, ZodError } from 'zod';
 
 type SearchUserParams = {
   queryString: string;
+  participants: string;
 };
 
 interface IRequest extends NextRequest {
@@ -13,7 +14,9 @@ interface IRequest extends NextRequest {
 export async function GET(request: IRequest) {
   const params = new URL(request.nextUrl).searchParams;
   const queryString = params.get('queryString');
-  console.log(queryString);
+  const hasParticipants = params.has('participants');
+  const alreadySelected = hasParticipants ? params.get('participants') : '';
+  console.log('look', alreadySelected);
 
   /* try {
     const data = await request.json();
@@ -24,11 +27,11 @@ export async function GET(request: IRequest) {
 */
   //const { queryString } = queryUsersModel.parse(data);
   if (queryString !== null) {
-    console.log(queryString);
     const users = await db.user.findMany({
       where: {
         name: {
-          contains: queryString!,
+          contains: queryString,
+          notIn: alreadySelected!.split(','),
         },
       },
     });
