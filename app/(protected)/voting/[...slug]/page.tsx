@@ -64,10 +64,7 @@ export default function Voting() {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm({
-    resolver: zodResolver(voteSchema),
-    mode: 'onTouched',
-  });
+  } = useForm({});
   const abstain = watch('abstain') as boolean;
   const anonymWatch = watch('Anonymous') as boolean;
   const nonAnonymWatch = watch('NonAnonymous') as boolean;

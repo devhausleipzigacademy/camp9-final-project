@@ -27,6 +27,8 @@ export async function GET(request: Request) {
     },
   });
 
+  console.log(votePolls);
+
   const filteredVotePolls = votePolls.filter(poll => {
     if (poll.id === parseInt(pollId)) {
       return true;
