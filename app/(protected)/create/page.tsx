@@ -25,7 +25,6 @@ import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
-import { useRouter } from 'next/navigation';
 
 export default function NewPoll() {
   // Form setup
@@ -40,10 +39,7 @@ export default function NewPoll() {
     mode: 'onTouched',
     defaultValues: {
       endDateTime: tomorrow,
-      anonymity: 'Anonymous',
-      quorum: '80',
       type: 'MultipleChoice',
-      participants: ['test', 'hello'],
     },
   });
 
@@ -120,7 +116,7 @@ export default function NewPoll() {
     next(); // Proceed to the next step
   };
 
-  const router = useRouter();
+  console.log(formState.errors);
 
   return (
     <>

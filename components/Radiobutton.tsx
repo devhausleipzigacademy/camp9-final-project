@@ -1,14 +1,6 @@
 'use client';
-import { useFormContext } from 'react-hook-form';
 
-const RadioButton = ({
-  name,
-  id,
-  value,
-  onChange,
-  checked,
-}: any & FormData) => {
-  const { setValue } = useFormContext(); // retrieve all hook methods
+const RadioButton = ({ name, id, onChange, checked }: any & FormData) => {
   return (
     <>
       <label htmlFor={id}>
@@ -17,16 +9,10 @@ const RadioButton = ({
           type="radio"
           name={name}
           id={id}
-          value={value}
           onChange={onChange}
           checked={checked}
         />
-        <span
-          className="custom-radio"
-          onClick={() => {
-            setValue('anonymity', value); // ✅
-          }}
-        />
+        <span className="custom-radio" />
       </label>
     </>
   );
