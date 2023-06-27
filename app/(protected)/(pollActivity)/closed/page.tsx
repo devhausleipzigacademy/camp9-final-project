@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import PollCard from 'components/pollActivity/PollCard';
+import PollCard from 'components/PollCard';
 import React from 'react';
 
 const prisma = new PrismaClient();
@@ -44,23 +44,18 @@ async function Closed() {
       </div>
     );
   }
-  return (
-    <div className="flex justify-center h-full">
-      <div className="overflow-y-auto h-[318px] w-[85%] scrollbar">
-        {closedPolls.map(poll => (
-          <PollCard
-            className="mb-4"
-            key={poll?.id}
-            endTime={poll?.endDateTime}
-            results="see results"
-            href="/closed"
-          >
-            {poll?.question}
-          </PollCard>
-        ))}
-      </div>
-    </div>
-  );
+  return closedPolls.map(poll => (
+    <PollCard
+      className="mb-4"
+      key={poll.id}
+      endDate={poll.endDateTime}
+      isVoted={false}
+      isOwner={false}
+      pollId={poll.id}
+    >
+      {poll?.question}
+    </PollCard>
+  ));
 }
 
 export default Closed;

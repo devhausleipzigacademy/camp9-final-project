@@ -35,25 +35,17 @@ async function New() {
     );
   }
 
-  return (
-    <div className="overflow-y-auto mr-8 ml-7 scrollbar-left-padded max-h-[60%]">
-      <div className="ml-1">
-        {newPolls.map(poll => (
-          <>
-            <PollCard
-              className="mb-4"
-              key={poll.id}
-              endDate={poll.endDateTime}
-              isVoted={false}
-              isOwner={false}
-              pollId={poll.id}
-            >
-              {poll?.question}
-            </PollCard>
-          </>
-        ))}
-      </div>
-    </div>
-  );
+  return newPolls.map(poll => (
+    <PollCard
+      className="mb-4"
+      key={poll.id}
+      endDate={poll.endDateTime}
+      isVoted={false}
+      isOwner={false}
+      pollId={poll.id}
+    >
+      {poll?.question}
+    </PollCard>
+  ));
 }
 export default New;
