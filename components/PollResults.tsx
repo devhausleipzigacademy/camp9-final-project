@@ -18,7 +18,13 @@ interface PollResultsProps extends Poll {
 
 export default function PollResults({ poll }: { poll: PollResultsProps }) {
   const [cardIndex, setCardIndex] = useState(0);
+  const [showParticipants, setShowParticipants] = useState(false);
+
   const router = useRouter();
+
+  function toggleShowParticipants() {
+    setShowParticipants(!showParticipants);
+  }
 
   function incrementValue() {
     if (cardIndex < 4) {
@@ -32,7 +38,6 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       setCardIndex(cardIndex - 1);
     }
   }
-
 
   //slices the poll question to fit in the card
   function slicedPollQuestionStart(pollQuestion: string, characters: number) {
@@ -57,7 +62,6 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   const allMoods = poll.votes.map(vote => Object.keys(Mood).indexOf(vote.mood));
   console.log(allMoods);
   const averageMood = 1;
-  //function schreiben die die moods aus den votes nimmt und den durchschnitt berechnet
 
   const cards = [
     //0.svg+text
@@ -154,6 +158,18 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
                   votes={poll.votes.length}
                   participants={poll.participants.length}
                 />
+                <div
+                  className="flex gap-1 items-center"
+                  onClick={toggleShowParticipants}
+                >
+                  <p className="small-bold">{poll.votes.length} votes</p>
+                  <Image
+                    src="/images/icons/arrowDown.png"
+                    width={13}
+                    height={16}
+                    alt="show participants who voted for this option"
+                  ></Image>
+                </div>
               </div>
             </div>
           );
