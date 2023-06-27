@@ -25,6 +25,7 @@ import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
+import { useRouter } from 'next/navigation';
 
 export default function NewPoll() {
   // Form setup
@@ -55,6 +56,7 @@ export default function NewPoll() {
       const { data } = await axios.post<Poll>('/api/create', poll, {
         withCredentials: true,
       });
+      throw new Error();
       return data;
     } catch (error) {
       console.error('Error creating a poll:', error);
@@ -71,6 +73,7 @@ export default function NewPoll() {
       },
       onError: error => {
         toast.error(axios.isAxiosError(error) ? error.response?.data : error);
+        reset();
       },
     }
   );
@@ -102,26 +105,22 @@ export default function NewPoll() {
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
     // add creator Id to data
     data.creator = userID as number;
-    console.log(data);
 
     if (isLastStep) {
       if (Object.keys(errors).length === 0) {
         try {
           mutate(data);
-          reset(); // Clear the form fields
-          next(); // Proceed to the next step
         } catch (error) {
           console.error('Error creating a poll:', error);
         }
+        reset(); // Clear the form fields
         next(); // Proceed to the next step
       }
-    } else {
-      next(); // Proceed to the next step
     }
+    next(); // Proceed to the next step
   };
 
-  // console.log(formState.errors);
-  // console.log(getValues());
+  const router = useRouter();
 
   return (
     <>
@@ -196,7 +195,7 @@ export default function NewPoll() {
                   className="px-12"
                 ></img>
                 <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
-                  <Button size="full" href="/" className="py-6">
+                  <Button size="full" href="/new" className="py-6">
                     Next
                   </Button>
                 </footer>
@@ -210,8 +209,6 @@ export default function NewPoll() {
                 </h1>
                 <img
                   alt="Flame dreaming of unicorns"
-                  // src="/images/flame-dreaming-of-unicorns.gif"
-                  // src="/images/SomethingWentWrong.png"
                   src="/images/fatal-error.png"
                   className="px-12"
                 ></img>
