@@ -1,6 +1,6 @@
 'use client';
 
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 
@@ -30,31 +30,14 @@ export default function NewPoll() {
   // Form setup
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
-  const [username, setUsername] = useState('...'); // <-- username initially unknown
 
   const { data } = useSession(); // <-- get user ID object from session/JWT
-  // console.log(data);
-  const userID = data?.user?.id; // <-- FIX: type error
-
-  // func expression immediately updates username
-  (async function () {
-    try {
-      const response = await axios.get('/api/getUsername', {
-        params: { id: userID }, // <-- make get request to getUsername API with id as parameter
-      });
-      setUsername(response.data.username); // <--- set username if/once resolved
-    } catch (error) {
-      console.error(error);
-    }
-  })();
-
+  const userID = data?.user?.id;
 
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),
     mode: 'onTouched',
     defaultValues: {
-      // creator: userID,
-      creator: 8,
       endDateTime: tomorrow,
       anonymity: 'Anonymous',
       quorum: '80',
@@ -117,6 +100,10 @@ export default function NewPoll() {
 
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
+    // add creator Id to data
+    data.creator = userID as number;
+    console.log(data);
+
     if (isLastStep) {
       if (Object.keys(errors).length === 0) {
         try {
@@ -133,8 +120,8 @@ export default function NewPoll() {
     }
   };
 
-  console.log(formState.errors);
-  console.log(getValues());
+  // console.log(formState.errors);
+  // console.log(getValues());
 
   return (
     <>

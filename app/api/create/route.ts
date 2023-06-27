@@ -9,6 +9,7 @@ import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
+
 export async function POST(request: Request) {
   const data = (await request.json()) as CreateNewPoll;
   try {
