@@ -1,4 +1,4 @@
-'useclient';
+'use client';
 import { User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -13,7 +13,8 @@ import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 export default function AddParticipants({
   title = 'Add Participants',
 }: NewPollComponentProps) {
-  const { register, formState, getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+  const { register, formState, getValues, setValue } =
+    useFormContext<CreateNewPoll>(); // retrieve all hook methods
   const [participants, setParticipants] = useState<string[]>([]);
   let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
@@ -38,7 +39,7 @@ export default function AddParticipants({
   return (
     <div className="">
       <Combobox value={selectedUser} onChange={setSelectedUser}>
-        <div className="flex flex-row h-12 justify-around ">
+        <div className="flex flex-row h-12 gap-1 justify-between">
           <Button
             {...register('participants')}
             className=""

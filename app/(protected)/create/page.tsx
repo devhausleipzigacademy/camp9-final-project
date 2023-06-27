@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 
@@ -48,7 +48,6 @@ export default function NewPoll() {
     }
   })();
 
-  console.log(userID);
 
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),

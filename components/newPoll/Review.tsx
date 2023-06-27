@@ -19,6 +19,7 @@ export default function Review({
     endDateTime,
     quorum,
     options,
+    participants,
   } = getValues();
 
   const date = new Date(endDateTime).toLocaleDateString();
@@ -31,7 +32,7 @@ export default function Review({
     { title: 'Anonymity', value: anonymity, step: 1 },
     { title: 'Reveal Conditions', value: quorum, step: 2 },
     { title: 'Deadline', value: date, step: 3 },
-    { title: 'Participants', value: 'Pablo, Amir', step: 4 },
+    { title: 'Participants', value: participants, step: 4 },
   ];
 
   return (
