@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 
 import { Poll } from '@prisma/client';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Button from 'components/shared/buttons/Button';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { useMultiStepForm } from 'utils/useMultiStepForm';
@@ -16,8 +17,6 @@ import {
   CreateNewPollSchema,
   CreateNewPoll,
 } from '@/types/newPoll/CreatePollSchema';
-
-import Button from '@/components/shared/buttons/Button';
 import Deadline from '@/components/newPoll/Deadline';
 import RevealConditions from '@/components/newPoll/RevealConditions';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';

@@ -1,4 +1,4 @@
-'useclient';
+'use client';
 import { User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -13,37 +13,38 @@ import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 export default function AddParticipants({
   title = 'Add Participants',
 }: NewPollComponentProps) {
-  const { register, formState, getValues } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
-  const [participants, setParticipants] = useState([]);
+  const { register, getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+
+  const [participants, setParticipants] = useState<string[]>(
+    getValues('participants')?.length ? getValues('participants') : []
+  );
   let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
-  const [selectedUser, setSelectedUser] = useState<null | User>(null); //selected user from combobox
-
+  const [selectedUser, setSelectedUser] = useState<null | string>(null); //selected user from combobox
   async function searchUsers() {
     const { data } = await axios.get('/api/searchUsers', {
       params: {
         queryString: query,
+        participants: participants.join(','),
       },
     });
     return data;
   }
+
   const { data, isError, isLoading } = useQuery<User[]>(
-    ['searchUsers', query],
+    ['searchUsers', query, participants],
     searchUsers
-  ); //query already filters people by input string
+  );
 
   // const queryClient = useQueryClient()
-  // queryClient.invalidateQueries('searchUsers')//restet cached "stale" data so next request will me made new
-
-  useEffect(() => {
-    register('participants');
-  }, [register]);
+  // queryClient.invalidateQueries('searchUsers')//resets cached "stale" data so next request will me made new
 
   return (
     <div className="">
       <Combobox value={selectedUser} onChange={setSelectedUser}>
         <div className="flex flex-row h-12 justify-around ">
           <Button
+            {...register('participants')}
             className=""
             disabled={selectedUser === null}
             children="+"
@@ -51,7 +52,10 @@ export default function AddParticipants({
             variant="secondary"
             type="button"
             onClick={() => {
-              setParticipants([...participants, selectedUser]);
+              setParticipants(prev => {
+                return [...prev, selectedUser!];
+              });
+              setValue('participants', [...participants, selectedUser!]);
               setSelectedUser(null);
             }}
           ></Button>
@@ -71,7 +75,6 @@ export default function AddParticipants({
             data.map(user => (
               <Combobox.Option
                 className={'px-[14px] py-1 body'}
-                key={user.id}
                 value={user.name}
               >
                 {user.name}
@@ -79,8 +82,8 @@ export default function AddParticipants({
             ))}
         </Combobox.Options>
       </Combobox>
-      <div>
-        <div className="my-4">
+      <div className="flex flex-col">
+        <div className="my-4 h-[253px] overflow-y-auto scrollbar w-[308px]">
           {participants.map(participant => {
             return (
               <div
@@ -95,8 +98,8 @@ export default function AddParticipants({
                 <button
                   className=" text-black  body border-2 shadow border-black rounded-md px-[7px] py-[0px]"
                   onClick={() => {
-                    setParticipants(
-                      participants.splice(participants.indexOf(participant, 1))
+                    setParticipants(prev =>
+                      prev.filter(p => p !== participant)
                     );
                   }}
                 >
@@ -107,7 +110,7 @@ export default function AddParticipants({
           })}
         </div>
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row justify-end">
         <p>{numParticipants} people selected</p>
         <div className="flex flex-row ml-2">
           {participants.map(participant => {
