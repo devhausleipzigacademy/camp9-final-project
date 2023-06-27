@@ -1,7 +1,7 @@
 'use client';
 'use client';
 import { User } from '@prisma/client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import Button from '../shared/buttons/Button';
 import { Combobox } from '@headlessui/react';
@@ -17,7 +17,7 @@ export default function AddParticipants({
   const { register, getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
   const [participants, setParticipants] = useState<string[]>(
-    getValues('participants')?.length ? getValues('participants') : []
+    getValues('participants') || []
   );
   let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
@@ -56,7 +56,7 @@ export default function AddParticipants({
               setParticipants(prev => {
                 return [...prev, selectedUser!];
               });
-              setValue('participants', [...participants, selectedUser!]);
+              setValue('participants', [selectedUser!, ...participants]);
               setSelectedUser(null);
             }}
           ></Button>
@@ -102,6 +102,10 @@ export default function AddParticipants({
                   onClick={() => {
                     setParticipants(prev =>
                       prev.filter(p => p !== participant)
+                    );
+                    setValue(
+                      'participants',
+                      participants.filter(p => p !== participant)
                     );
                   }}
                 >

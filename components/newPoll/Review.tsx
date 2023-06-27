@@ -35,9 +35,13 @@ export default function Review({
     { title: 'Participants', value: participants?.join(', '), step: 4 },
   ];
 
+  // Filter out steps with empty values
+  const filteredSteps = steps.filter(step => step.value !== undefined && step.value !== null && step.value !== '');
+
+
   return (
     <div className="flex flex-col gap-4 w-full">
-      {steps.map((step, index) => (
+      {filteredSteps.map((step, index) => (
         <button
           key={index}
           type="button"

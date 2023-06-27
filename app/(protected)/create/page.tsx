@@ -115,8 +115,6 @@ export default function NewPoll() {
     next(); // Proceed to the next step
   };
 
-  console.log(getValues());
-
   return (
     <>
       <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
