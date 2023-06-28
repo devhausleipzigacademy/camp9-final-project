@@ -1,4 +1,5 @@
 'use client';
+'use client';
 import { User } from '@prisma/client';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -42,7 +43,7 @@ export default function AddParticipants({
   return (
     <div className="">
       <Combobox value={selectedUser} onChange={setSelectedUser}>
-        <div className="flex flex-row h-12 justify-around ">
+        <div className="flex flex-row h-12 gap-1 justify-between">
           <Button
             {...register('participants')}
             className=""
@@ -96,6 +97,7 @@ export default function AddParticipants({
               >
                 <p className="body ">{participant}</p>
                 <button
+                  key={participant}
                   className=" text-black  body border-2 shadow border-black rounded-md px-[7px] py-[0px]"
                   onClick={() => {
                     setParticipants(prev =>
