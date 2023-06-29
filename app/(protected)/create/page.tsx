@@ -24,6 +24,7 @@ import Review from '@/components/newPoll/Review';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
 import Button from '@/components/shared/buttons/Button';
+import { get } from 'http';
 
 export default function NewPoll() {
   // Form setup

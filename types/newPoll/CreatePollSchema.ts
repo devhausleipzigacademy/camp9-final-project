@@ -21,7 +21,7 @@ export const CreateNewPollSchema = z.object({
       }
     )
     .optional(),
-  participants: z.array(z.string()).nonempty(),
+  participants: z.array(z.string()).optional(),
   type: z.enum(['MultipleChoice', 'SingleChoice']),
 });
 
