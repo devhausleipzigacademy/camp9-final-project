@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image';
 import GroupIllustration from '/public/images/Illustr_group_voting.png';
 import Button from 'components/shared/buttons/Button';
@@ -7,7 +8,7 @@ import Link from 'next/link';
 
 export default function LandingPage() {
   return (
-    <>
+    <body className='grid justify-center h-screen  bg-teal mx-8 mt-10' >
       <h1 className="landing-logo">d'accord</h1>
       <div>
         <Image
@@ -34,6 +35,6 @@ export default function LandingPage() {
           </Button>
         </Link>
       </div>
-    </>
+    </body>
   );
 }
