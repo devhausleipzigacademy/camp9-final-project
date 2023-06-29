@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  SignUpUser,
+  SignUpSchema,
   signUpSchema,
   SignUpResponse,
 } from '@/types/user/AuthSchemata';
@@ -13,7 +13,7 @@ import {
 // SignUp Mutation //
 /////////////////////
 
-async function signUpUser(user: SignUpUser) {
+async function signUpUser(user: SignUpSchema) {
   const { data } = await axios.post('/api/signup', user, {
     withCredentials: true,
   });
@@ -27,13 +27,13 @@ export function useSignUpMutation() {
     reset,
     handleSubmit,
     formState,
-  } = useForm<SignUpUser>({
+  } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     mode: 'onTouched',
   });
 
-  const mutation = useMutation<SignUpResponse, AxiosError, SignUpUser>({
-    mutationFn: (user: SignUpUser) => signUpUser(user),
+  const mutation = useMutation<SignUpResponse, AxiosError, SignUpSchema>({
+    mutationFn: (user: SignUpSchema) => signUpUser(user),
     onSuccess: data => {
       toast.success('Welcome to the club!');
       reset();

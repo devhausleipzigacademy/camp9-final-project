@@ -1,37 +1,54 @@
-import { NewPollSchema } from '@/types/newPoll/NewPollSchema';
-import { Anonymity, PollType } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { ZodError } from 'zod';
 
-export type POSTReturnType = {
-  id: number;
-  description?: string;
-  question: string;
-  options: string[];
-  creatorId: number;
-  participants: number[];
-  endDateTime: string;
-  anonymity: Anonymity;
-  quorum?: number;
-  type: PollType;
-  createdAt: string;
-  updatedAt: string;
-};
+import {
+  CreateNewPoll,
+  CreateNewPollSchema,
+} from '@/types/newPoll/CreatePollSchema';
+import { NextResponse } from 'next/server';
+
+const prisma = new PrismaClient();
+
 
 export async function POST(request: Request) {
-  const data = await request.json();
+  const data = (await request.json()) as CreateNewPoll;
   try {
-    const validData = NewPollSchema.parse(data);
+    const newDate = new Date(data.endDateTime);
 
-    const prismaData = {
-      hello: 123,
-    };
+    data.endDateTime = newDate;
 
-    return new Response(JSON.stringify(prismaData), { status: 200 });
+    CreateNewPollSchema.parse(data);
+
+
+    const createdPoll = await prisma.poll.create({
+      data: {
+        question: data.question,
+        description: data.description,
+        options: data.options?.map(option => option),
+        creator: {
+          connect: {
+            id: data.creator,
+          },
+        },
+        participants: {
+          // connect: [{ name: "test" }, { name: "hello" }], // dummy data
+          connect: data.participants?.map(participant => ({
+            name: participant,
+          })),
+        },
+        endDateTime: data.endDateTime,
+        anonymity: data.anonymity,
+        quorum: +data.quorum,
+        type: data.type,
+      },
+    });
   } catch (error) {
     if (error instanceof ZodError) {
-      return new Response(error.message, { status: 422 });
+      return NextResponse.json(error.issues, { status: 400 });
     }
 
-    return new Response('Internal Server Error', { status: 500 });
+    return NextResponse.json('Internal Server Error', { status: 500 });
   }
+
+  return NextResponse.json('Poll created', { status: 201 });
 }

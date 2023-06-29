@@ -1,24 +1,79 @@
+'use client';
+import RadioButton from '@/components/Radiobutton';
+import ConsensusController from '@/components/ConsensusController';
+import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
+import { useFormContext } from 'react-hook-form';
 
-import Radio from "components/Radiobutton";
+export default function RevealConditions({
+  title = 'Reveal Conditions',
+}: NewPollComponentProps) {
+  const { getValues, setValue, unregister } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
-export default function RevealConditions() {
+  getValues('anonymity') ?? setValue('anonymity', 'Anonymous');
+
+  getValues('quorum');
+
   return (
     <>
-      <div>RevealConditions</div>
-      <div className="flex justify-between" >
-        <p className="w-[240px] row"><strong>Reveal usernames</strong> for options with agreement of at least:</p>
-        <Radio variant={"secondary"}>Reveal</Radio>
-      </div>
-      <div className="flex">
-      <img src="https://i.ibb.co/BLM88Ys/revealbar.png" className="mt-4 w-[356px]" />
-      </div>
-      <div className="flex justify-between mt-6" >
-        <p className="w-[240px] row"><strong>Always reveal usernames</strong> (fully open)</p>
-        <Radio variant={"secondary"}>Reveal</Radio>
-      </div>
-      <div className="flex justify-between mt-4" >
-        <p className="w-[240px] row"><strong>Never reveal usernames</strong> (fully anonymous)</p>
-        <Radio variant={"secondary"}>Reveal</Radio>
+      <div className="flex flex-col gap-y-6 mt-5">
+        <div className="flex flex-col justify-between">
+          <div className="flex">
+            <div className="">
+              <strong>Reveal usernames</strong> for options with agreement of at
+              least:
+            </div>
+            <div className="flex">
+              <RadioButton
+                name="threshold"
+                id="threshold"
+                text="threshold"
+                onChange={() => {
+                  setValue('anonymity', 'AnonymousUntilQuorum');
+                  setValue('quorum', '0');
+                }}
+                checked={getValues().anonymity === 'AnonymousUntilQuorum'}
+              />
+            </div>
+          </div>
+          {getValues().anonymity === 'AnonymousUntilQuorum' && (
+            <div className="flex mt-5">
+              <ConsensusController />
+            </div>
+          )}
+        </div>
+        <div className="flex grid-flow-row justify-between">
+          <div className="flex flex-col">
+            <strong>Always reveal usernames</strong>(fully open)
+          </div>
+          <div className="flex">
+            <RadioButton
+              id="open"
+              text="open"
+              onChange={() => {
+                setValue('anonymity', 'NonAnonymous');
+                unregister('quorum');
+              }}
+              checked={getValues().anonymity === 'NonAnonymous'}
+            />
+          </div>
+        </div>
+        <div className="flex grid-flow-row justify-between">
+          <div className="flex flex-col">
+            <strong>Never reveal usernames</strong>(fully anonymous) least:
+          </div>
+          <div className="flex">
+            <RadioButton
+              name="anonymous"
+              id="anonymous"
+              text="anonymous"
+              onChange={() => {
+                setValue('anonymity', 'Anonymous');
+                unregister('quorum');
+              }}
+              checked={getValues().anonymity === 'Anonymous'}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

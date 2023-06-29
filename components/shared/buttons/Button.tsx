@@ -11,7 +11,7 @@ interface ButtonProps
   children: React.ReactNode;
   handleClick?: () => void;
   isActive?: boolean;
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'quinary';
   size?: 'xs' | 'small' | 'medium' | 'large' | 'full';
   href?: string;
 }
@@ -39,6 +39,7 @@ const buttonClasses = cva(
         secondary: ['bg-peach'],
         tertiary: ['bg-green-light'],
         quaternary: ['bg-green'],
+        quinary: ['bg-teal'],
       },
       size: {
         xs: ['h-11', 'w-11'],

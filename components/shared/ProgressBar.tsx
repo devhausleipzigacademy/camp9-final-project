@@ -49,7 +49,7 @@ export default function ProgressBar({
     <div className="flex flex-col gap-2 small w-full">
       <div className="flex justify-between items-center w-full">
         <h3>Progress</h3>
-        <p>{`page ${currentPage} of ${numberOfPages}`}</p>
+        <p>{`${currentPage} of ${numberOfPages}`}</p>
       </div>
       <div className="relative">
         <hr className="border-2 border-black" />
