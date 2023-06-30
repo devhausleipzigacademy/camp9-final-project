@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
-import { SignUpUser, signUpSchema } from '@/types/user/AuthSchemata';
+import { SignUpSchema, signUpSchema } from '@/types/user/AuthSchemata';
 import { db } from '@/libs/db';
+import { Prisma } from '@prisma/client';
 
 interface IRequest extends NextRequest {
-  json: () => Promise<SignUpUser>;
+  json: () => Promise<SignUpSchema>;
 }
 
 export async function POST(request: IRequest) {
@@ -27,6 +28,12 @@ export async function POST(request: IRequest) {
       { status: 201 }
     );
   } catch (err) {
-    return NextResponse.json('User already exists', { status: 422 });
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === 'P2002'
+    ) {
+      return NextResponse.json('Username already exists', { status: 422 });
+    }
+    return NextResponse.json('Something went wrong', { status: 500 });
   }
 }

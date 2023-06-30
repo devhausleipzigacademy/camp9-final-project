@@ -16,8 +16,6 @@ import {
   CreateNewPollSchema,
   CreateNewPoll,
 } from '@/types/newPoll/CreatePollSchema';
-
-import Button from '@/components/shared/buttons/Button';
 import Deadline from '@/components/newPoll/Deadline';
 import RevealConditions from '@/components/newPoll/RevealConditions';
 import AnswerOptions from '@/components/newPoll/AnswerOptions';
@@ -25,39 +23,25 @@ import AddParticipants from '@/components/newPoll/AddParticipants';
 import Review from '@/components/newPoll/Review';
 import ProgressBar from '@/components/shared/ProgressBar';
 import CreatePoll from '@/components/newPoll/CreatePoll';
+import Button from '@/components/shared/buttons/Button';
+import { get } from 'http';
 
 export default function NewPoll() {
   // Form setup
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const { data } = useSession(); // <-- get user ID object from session/JWT
+  const userID = data?.user?.id;
+
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),
     mode: 'onTouched',
     defaultValues: {
-      endDateTime: new Date(),
-      anonymity: 'Anonymous',
-      quorum: '80',
+      endDateTime: tomorrow,
       type: 'MultipleChoice',
     },
   });
-
-  const [username, setUsername] = useState('...'); // <-- username initially unknown
-
-  const { data } = useSession(); // <-- get user ID object from session/JWT
-  // console.log(data);
-  const userID = data?.user?.id; // <-- FIX: type error
-
-  // func expression immediately updates username
-  (async function () {
-    try {
-      const response = await axios.get('/api/getUsername', {
-        params: { id: userID }, // <-- make get request to getUsername API with id as parameter
-      });
-      setUsername(response.data.username); // <--- set username if/once resolved
-    } catch (error) {
-      console.error(error);
-    }
-  })();
-
-  // console.log(username);
 
   // State variables
   const [currentStepTitle, setCurrentStepTitle] = useState('Create a Poll'); // Default title
@@ -68,6 +52,7 @@ export default function NewPoll() {
       const { data } = await axios.post<Poll>('/api/create', poll, {
         withCredentials: true,
       });
+      // throw new Error();
       return data;
     } catch (error) {
       console.error('Error creating a poll:', error);
@@ -84,6 +69,7 @@ export default function NewPoll() {
       },
       onError: error => {
         toast.error(axios.isAxiosError(error) ? error.response?.data : error);
+        reset();
       },
     }
   );
@@ -113,20 +99,21 @@ export default function NewPoll() {
 
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
+    // add creator Id to data
+    data.creator = userID as number;
+
     if (isLastStep) {
       if (Object.keys(errors).length === 0) {
         try {
           mutate(data);
-          reset(); // Clear the form fields
-          next(); // Proceed to the next step
         } catch (error) {
           console.error('Error creating a poll:', error);
         }
+        reset(); // Clear the form fields
         next(); // Proceed to the next step
       }
-    } else {
-      next(); // Proceed to the next step
     }
+    next(); // Proceed to the next step
   };
 
   return (
@@ -134,7 +121,7 @@ export default function NewPoll() {
       <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
         {isIdle && (
           <>
-            <div className="mb-40 w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between  pr-8 ">
+            <div className="mb-[156px] w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between  pr-8 ">
               <div className="self-start pl-8 w-full ">
                 <h1 className="title-black">{currentStepTitle}</h1>
 
@@ -202,7 +189,7 @@ export default function NewPoll() {
                   className="px-12"
                 ></img>
                 <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
-                  <Button size="full" href="/" className="py-6">
+                  <Button size="full" href="/new" className="py-6">
                     Next
                   </Button>
                 </footer>
@@ -216,8 +203,6 @@ export default function NewPoll() {
                 </h1>
                 <img
                   alt="Flame dreaming of unicorns"
-                  // src="/images/flame-dreaming-of-unicorns.gif"
-                  // src="/images/SomethingWentWrong.png"
                   src="/images/fatal-error.png"
                   className="px-12"
                 ></img>

@@ -6,12 +6,14 @@ import PollProgressBar from '@/components/PollProgressBar';
 import PollResultsCard from '@/components/PollResultsCard';
 import Button from '@/components/shared/buttons/Button';
 import { Poll, User, Vote, Mood } from '@prisma/client';
+// import { all } from 'axios';
 import Image from 'next/legacy/image';
 import { useRouter } from 'next/navigation';
 import { SetStateAction, useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import PollDetailsCard from './shared/PollDetailsCard';
 import ModalResults from './ModalResults';
+import ProgressBar from './shared/ProgressBar';
 
 interface PollResultsProps extends Poll {
   participants: User[];
@@ -27,27 +29,11 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     title: '',
   });
 
-  const optionCounter = Object.fromEntries(
-    poll.options.map(option => {
-      return [option, [] as number[]];
-    })
-  );
-
-  for (const vote of poll.votes) {
-    for (const answer of vote.answer) {
-      optionCounter[answer]?.push(vote.userId);
-    }
-  }
-
-  function toggleShowParticipants() {
-    setShowParticipants(prev => !prev);
-  }
-
   //next&back button functionality
   function incrementValue() {
     if (cardIndex < 4) {
       setCardIndex(cardIndex + 1);
-    } else router.push('/new');
+    } else router.push('/');
   }
   function decrementValue() {
     if (cardIndex === 0) {
@@ -58,33 +44,58 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   }
 
   //slices the poll question to fit in the card
-  function slicedPollQuestionStart(pollQuestion: string, characters: number) {
-    const slicedSentence = pollQuestion.slice(0, characters);
-    const lastSpaceIndex = slicedSentence.lastIndexOf(' ');
-    if (lastSpaceIndex === -1) {
-      return slicedSentence;
+  function questionFitter(pollQuestion: string, characters: number) {
+    if (pollQuestion.length < characters) {
+      return { questionStart: pollQuestion };
+    } else if (pollQuestion[characters] === ' ') {
+      return {
+        questionStart: `${pollQuestion.slice(0, characters)}...`,
+        questionEnd: `...${pollQuestion.slice(
+          characters,
+          pollQuestion.length
+        )}`,
+      };
     } else {
-      return `${slicedSentence.slice(0, lastSpaceIndex)}...`;
-    }
-  }
-  function slicedPollQuestionEnd(pollQuestion: string, characters: number) {
-    const restOfSentence = pollQuestion.slice(characters);
-    const firstQuestionMarkIndex = restOfSentence.indexOf('?');
-    if (firstQuestionMarkIndex !== -1) {
-      return restOfSentence.slice(0, firstQuestionMarkIndex + 1);
-    } else {
-      return `...${restOfSentence}`;
+      console.log('fitter');
+      const brokenSlice = pollQuestion.slice(0, characters);
+      const lastSpaceIndex = brokenSlice.lastIndexOf(' ');
+      return {
+        questionStart: `${pollQuestion.slice(0, lastSpaceIndex)}...`,
+        questionEnd: `...${pollQuestion.slice(
+          lastSpaceIndex,
+          pollQuestion.length
+        )}`,
+      };
     }
   }
 
-  // const allMoods = poll.votes.map(vote => Object.keys(Mood).indexOf(vote.mood));
-  // console.log(allMoods);
-  const averageMood = 1;
+  const allMoods = poll.votes.map(vote => Object.keys(Mood).indexOf(vote.mood));
+  const averageMood = (() => {
+    let sum = 0;
+    for (let i = 0; i < allMoods.length; i++) {
+      sum += allMoods[i]!; // <-- excalamation used!
+    }
+    return sum / allMoods.length;
+  })(); // <!-- an IIFE spotted in the wild!
+
+  const averageMoodValues = (() => {
+    if (averageMood < 0.5) {
+      return { color: 'bg-red', description: 'miserable' };
+    } else if (averageMood < 1.5) {
+      return { color: 'bg-peach', description: 'unhappy' };
+    } else if (averageMood < 2.5) {
+      return { color: 'bg-yellow', description: 'unsure' };
+    } else if (averageMood < 3.5) {
+      return { color: 'bg-green-light', description: 'happy' };
+    } else if (averageMood <= 4) {
+      return { color: 'bg-green', description: 'beaming' };
+    }
+  })();
 
   const cards = [
     //0.svg+text
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 60)}
+      pollQuestion={questionFitter(poll.question, 60).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
@@ -108,13 +119,13 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //1.question=description
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 34)}
+      pollQuestion={questionFitter(poll.question, 34).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
       <PollResultsCard.Content className="h-[260px] overflow-y-auto">
         <p className="body-semibold mb-5">
-          ...{slicedPollQuestionEnd(poll.question, 34)}
+          {questionFitter(poll.question, 34).questionEnd}
         </p>
         <p className="body-light text-black">{poll.description}</p>
       </PollResultsCard.Content>
@@ -130,7 +141,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //2.voting conditions
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 34)}
+      pollQuestion={questionFitter(poll.question, 34).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
@@ -139,18 +150,24 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
         <div className="flex items-center gap-2">
           <Checkbox variant={'secondary'}></Checkbox>
           <p className="body-light text-black">
-            {poll.type === 'MultipleChoice'
-              ? 'Multiple Choice'
-              : 'Single Choice'}
+            {poll.type === 'SingleChoice' ? 'Single Choice' : 'Multiple Choice'}
           </p>
         </div>
         <div className="flex items-center gap-2 my-[20px]">
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body-light text-black">{poll.participants.length} participants</p>
+          <p className="body-light text-black">
+            {poll.participants.length} participants
+          </p>
         </div>
         <div className="flex gap-2">
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body-light text-black">{poll.anonymity === "Anonymous" ? "Anonymous": poll.anonymity === 'NonAnonymous' ? 'Non anonymous' : `Anonymous until quorum of ${poll.quorum}% is reached`}</p>
+          <p className="body-light text-black">
+            {poll.anonymity === 'Anonymous'
+              ? 'Anonymous'
+              : poll.anonymity === 'NonAnonymous'
+              ? 'Non anonymous'
+              : `Anonymous until quorum of ${poll.quorum}% is reached`}
+          </p>
         </div>
       </PollResultsCard.Content>
       <div className="text-right mt-3 mr-1">
@@ -166,47 +183,32 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     //3.answers+percantages
     //sort options by percentages or by appearence in the poll?
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 34)}
+      pollQuestion={questionFitter(poll.question, 34).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
       <PollResultsCard.Content className="h-[310px] overflow-y-auto">
-        {Object.entries(optionCounter).map(([option, votes]) => {
-          return (
-            <div className="mb-5">
-              <p className="body-light text-black mb-3">{option}</p>
-              <div className="w-[250px]">
-                <PollProgressBar
-                  votes={votes.length}
-                  participants={poll.participants.length}
-                />
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setModalContent(() => {
-                    return {
-                      participants: poll.participants.filter(user =>
-                        votes.includes(user.id)
-                      ),
-                      title: option,
-                    };
-                  });
-                  setShowParticipants(true);
-                }}
-                className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
-              >
-                <p className="small-bold">{votes.length} votes</p>
-                <Image
-                  src="/images/icons/arrowDown.png"
-                  width={13}
-                  height={16}
-                  alt="show participants who voted for this option"
-                ></Image>
-              </button>
-            </div>
-          );
-        })}
+        <div className="mb-5">
+          <p className="body-light text-black mb-3">option was here</p>
+          <div className="w-[250px]">
+            <PollProgressBar
+              votes={poll.votes.length}
+              participants={poll.participants.length}
+            />
+          </div>
+          <button
+            type="button"
+            className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
+          >
+            <p className="small-bold">{poll.votes.length} votes</p>
+            <Image
+              src="/images/icons/arrowDown.png"
+              width={13}
+              height={16}
+              alt="show participants who voted for this option"
+            ></Image>
+          </button>
+        </div>
         <ModalResults
           className="w-full max-w-md transform overflow-hidden rounded-2xlp-6 text-left align-middle"
           isOpen={showParticipants}
@@ -223,7 +225,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //4.mood
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 34)}
+      pollQuestion={questionFitter(poll.question, 34).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
@@ -232,8 +234,13 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
           The average mood of this poll’s voters is:
         </p>
         <div className="flex flex-col items-center gap-4 mt-9">
-          <div className="shadow-brutal border-brutal w-28 h-8 body text-center item-center rounded-sm">
-            happy
+          <div
+            className={
+              'shadow-brutal border-brutal w-28 h-8 body text-center item-center rounded-sm ' +
+              averageMoodValues?.color
+            }
+          >
+            {averageMoodValues?.description}
           </div>
           <MoodDisplay averageMood={averageMood}></MoodDisplay>
         </div>
@@ -251,9 +258,11 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
   return (
     <div>
-      <main className="container flex flex-col h-screen justify-between bg-peach-light p-8">
+      <main className="container flex flex-col h-screen w-screen justify-between bg-peach-light p-8">
         <div className="mb-36 w-full flex flex-col justify-between">
-          <h1 className="title-black text-left mt-2 mb-10">Poll Results</h1>
+          <h1 className="title-black text-left mt-2">Poll Results</h1>
+          <ProgressBar currentPage={cardIndex + 1} numberOfPages={5} />
+          <div className="h-5" /> {/* <-- hacky spacing fix */}
           {cards[cardIndex]}
         </div>
       </main>
