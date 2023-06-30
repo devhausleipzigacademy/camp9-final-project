@@ -5,8 +5,8 @@ import PreviewCheckbox from 'components/shared/PreviewCheckbox';
 import React from 'react';
 import { authOptions } from '@/libs/auth';
 import { getServerSession } from 'next-auth/next';
-import MoodDisplay from '@/components/MoodDisplay';
 import PollProgressBar from '@/components/PollProgressBar';
+import MoodDisplay from '@/components/MoodDIsplay';
 
 interface FullPollInfo extends Poll {
   votes: Vote[];

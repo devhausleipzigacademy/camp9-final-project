@@ -1,5 +1,5 @@
+import MoodDisplay from '@/components/MoodDIsplay';
 import { Meta, StoryObj } from '@storybook/react';
-import MoodDisplay from '@/components/MoodDisplay';
 
 const meta: Meta<typeof MoodDisplay> = {
   title: 'components/Mood Display',
