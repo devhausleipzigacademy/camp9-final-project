@@ -1,7 +1,5 @@
 import PollResults from '@/components/PollResults';
 import { db } from '@/libs/db';
-import { get } from 'http';
-import { number } from 'zod';
 
 async function getPoll(pollID: number) {
   const poll = await db.poll.findUniqueOrThrow({
