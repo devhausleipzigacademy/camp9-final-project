@@ -1,22 +1,33 @@
+import { getServerSession } from 'next-auth';
+import React from 'react';
 import './globals.css';
+import Provider from './provider';
 
+// \/ metadata is embedded in page headers
 export const metadata = {
   title: "d'Accord",
   description: 'Vote secretly, reveal conditionally',
 };
 
-export default function RootLayout({
-  children,
-}: {
+type RootLayoutProps = {
   children: React.ReactNode;
-}) {
+  auth: React.ReactNode;
+  protectedRoutes: React.ReactNode;
+};
+
+export default async function RootLayout({
+  auth,
+  protectedRoutes,
+}: RootLayoutProps) {
+  const session = await getServerSession();
+  console.log(session);
   return (
-    // A root layout is ... used to define the <html> and <body> tags
-    // https://nextjs.org/docs/app/api-reference/file-conventions/layout
     <html lang="en">
-      <body className="grid justify-center h-screen items-center">
-        {children}
+      <body>
+        <Provider>{session ? protectedRoutes : auth}</Provider>
       </body>
     </html>
   );
 }
+
+{/* <body className="grid justify-center h-screen items-center"> */}

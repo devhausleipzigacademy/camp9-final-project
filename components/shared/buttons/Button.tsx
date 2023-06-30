@@ -12,7 +12,7 @@ interface ButtonProps
   handleClick?: () => void;
   isActive?: boolean;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'quinary';
-  size? : 'xxs'| 'xs' | 'small' | 'medium' | 'large' | 'full';
+  size?: 'xs' | 'small' | 'medium' | 'large' | 'full';
   href?: string;
 }
 
@@ -42,8 +42,7 @@ const buttonClasses = cva(
         quinary: ['bg-teal'],
       },
       size: {
-        xxs: ['h-11', 'w-11'],
-        xs: ['h-11', 'w-25'],
+        xs: ['h-11', 'w-11'],
         small: ['h-11', 'w-2/5'],
         medium: ['h-11', 'w-1/2'],
         large: ['h-11', 'w-3/5'],
