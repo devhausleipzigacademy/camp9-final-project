@@ -31,9 +31,8 @@ const InputField = forwardRef(
     return (
       <label
         className={clsx(
-          'flex flex-col',
-          disabled ? 'body-semibold-disabled' : 'body-semibold',
-          width === 'full' ? 'w-full' : 'w-[251px]'
+          'flex flex-col w-full',
+          disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
         <div className="flex flex-row items-center justify-between mb-1">
