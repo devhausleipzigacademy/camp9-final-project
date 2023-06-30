@@ -1,30 +1,46 @@
 import { PrismaClient } from '@prisma/client';
-import PollCard from 'components/pollActivity/PollCard';
+import PollCard from 'components/PollCard';
+import { authOptions } from '@/libs/auth';
+import { getServerSession } from 'next-auth/next';
+import { sortPollsByDate } from '@/utils/pollActivityUtils';
 
 const prisma = new PrismaClient();
 
-async function getNewPolls(userId: string) {
+async function getNewPolls(userId: number) {
+  let todayInAMinute = new Date();
+  todayInAMinute.setMinutes(todayInAMinute.getMinutes() + 1);
   const filteredNewPolls = await prisma.poll.findMany({
     where: {
       participants: {
         some: {
-          id: parseInt(userId),
+          id: userId,
         },
       },
       votes: {
         none: {
-          userId: parseInt(userId),
+          userId: userId,
         },
       },
+      endDateTime: {
+        gt: todayInAMinute,
+      },
+    },
+    include: {
+      _count: {
+        select: {
+          participants: true,
+          votes: true,
+        },
+      },
+      votes: {},
     },
   });
   return filteredNewPolls;
 }
 
 async function New() {
-  //this will be replaced with the session/logged in user once that has been esteblished
-  //for now it is hardcoded to user 11
-  const newPolls = await getNewPolls('11');
+  const session = await getServerSession(authOptions);
+  const newPolls = await getNewPolls(session?.user.id!);
 
   if (newPolls.length === 0) {
     return (
@@ -35,22 +51,16 @@ async function New() {
     );
   }
 
-  return (
-    <div className="flex justify-center h-full">
-      <div className="overflow-y-auto h-[318px] w-[85%] scrollbar">
-        {newPolls.map(poll => (
-          <PollCard
-            className="mb-4"
-            key={poll?.id}
-            endTime={poll.endDateTime}
-            vote="vote"
-            href="/new"
-          >
-            {poll?.question}
-          </PollCard>
-        ))}
-      </div>
-    </div>
-  );
+  return sortPollsByDate(newPolls, session?.user.id!).map(poll => (
+    <PollCard
+      className="mb-4"
+      key={poll.id}
+      endDate={poll.endDateTime}
+      isVoted={false}
+      pollId={poll.id}
+    >
+      {poll?.question}
+    </PollCard>
+  ));
 }
 export default New;
