@@ -1,30 +1,46 @@
 import { PrismaClient } from '@prisma/client';
 import PollCard from 'components/PollCard';
+import { authOptions } from '@/libs/auth';
+import { getServerSession } from 'next-auth/next';
+import { sortPollsByDate } from '@/utils/pollActivityUtils';
 
 const prisma = new PrismaClient();
 
-async function getNewPolls(userId: string) {
+async function getNewPolls(userId: number) {
+  let todayInAMinute = new Date();
+  todayInAMinute.setMinutes(todayInAMinute.getMinutes() + 1);
   const filteredNewPolls = await prisma.poll.findMany({
     where: {
       participants: {
         some: {
-          id: parseInt(userId),
+          id: userId,
         },
       },
       votes: {
         none: {
-          userId: parseInt(userId),
+          userId: userId,
         },
       },
+      endDateTime: {
+        gt: todayInAMinute,
+      },
+    },
+    include: {
+      _count: {
+        select: {
+          participants: true,
+          votes: true,
+        },
+      },
+      votes: {},
     },
   });
   return filteredNewPolls;
 }
 
 async function New() {
-  //this will be replaced with the session/logged in user once that has been esteblished
-  //for now it is hardcoded to user 11
-  const newPolls = await getNewPolls('11');
+  const session = await getServerSession(authOptions);
+  const newPolls = await getNewPolls(session?.user.id!);
 
   if (newPolls.length === 0) {
     return (
@@ -35,13 +51,12 @@ async function New() {
     );
   }
 
-  return newPolls.map(poll => (
+  return sortPollsByDate(newPolls, session?.user.id!).map(poll => (
     <PollCard
       className="mb-4"
       key={poll.id}
       endDate={poll.endDateTime}
       isVoted={false}
-      isOwner={false}
       pollId={poll.id}
     >
       {poll?.question}

@@ -4,7 +4,6 @@ import Link from 'next/link';
 interface PollCardProps extends React.HTMLAttributes<HTMLElement> {
   children: string;
   endDate: Date;
-  isOwner: boolean;
   isVoted?: boolean;
   pollId: number;
 }
@@ -12,7 +11,6 @@ interface PollCardProps extends React.HTMLAttributes<HTMLElement> {
 export default function PollCard({
   children,
   endDate,
-  isOwner = false,
   isVoted,
   pollId,
   ...props
@@ -33,7 +31,7 @@ export default function PollCard({
 
   const displayDays = days > 0 ? days : null; // Check if the number of days is greater than 0
   const displayHours = hours > 0 ? hours : null; // Check if the number of hours is greater than 0
-  const displayMinutes = minutes > 0 ? minutes : null; // Check if the number of minutes is greater than 0
+  const displayMinutes = days === 0 && minutes > 0 ? minutes : null; // Check if the number of minutes is greater than 0
 
   const pluralize = (value: number, unit: string) => {
     return value === 1 ? unit : `${unit}s`; // Add plural "s" to the unit if the value is not 1
@@ -43,7 +41,7 @@ export default function PollCard({
     let text = '';
 
     if (isOpen) {
-      if (!isVoted && !isOwner) {
+      if (!isVoted) {
         text = 'Vote';
       } else {
         text = 'See Details';
@@ -62,13 +60,11 @@ export default function PollCard({
     );
   };
   let href;
-  if (isOwner) {
-    href = '/details';
-  } else if (isOpen && isVoted) {
+  if (isOpen && isVoted) {
     href = `/details/${pollId}/1`;
   } else if (isOpen && !isVoted) {
-    href = `/details/${pollId}/1`;
-  } else if (!isOpen) {
+    href = `/vote`;
+  } else {
     href = '/results';
   }
 
@@ -86,16 +82,20 @@ export default function PollCard({
             Closes in{' '}
             {
               <span className="small-bold">
-                {`${
+                {
                   displayDays &&
-                  `${displayDays} ${pluralize(displayDays, 'day')},` // Display the number of days
-                } ${
+                    `${displayDays} ${pluralize(displayDays, 'day')}` // Display the number of days
+                }
+                {displayDays && displayHours && ', '}
+                {
                   displayHours &&
-                  `${displayHours} ${pluralize(displayHours, 'hour')},` // Display the number of hours
-                } ${
+                    `${displayHours} ${pluralize(displayHours, 'hour')}` // Display the number of hours
+                }
+                {displayHours && displayMinutes && ', '}
+                {
                   displayMinutes &&
-                  `${displayMinutes} ${pluralize(displayMinutes, 'minute')}` // Display the number of minutes
-                }`}
+                    `${displayMinutes} ${pluralize(displayMinutes, 'minute')}` // Display the number of minutes
+                }
               </span>
             }
           </p>

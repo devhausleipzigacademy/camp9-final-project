@@ -9,7 +9,7 @@ function PollActivityActionBar({ className }: PollActivityActionBarProps) {
   return (
     <>
       <h1 className="title-black mb-10 px-8">Poll Activity</h1>
-      <nav className="flex gap-2 flex-row justify-center mb-7">
+      <nav className="flex gap-2 flex-row justify-center mb-5">
         <TabButton href="/new">new</TabButton>
         <TabButton href="/pending">pending</TabButton>
         <TabButton href="/closed">closed</TabButton>

@@ -1,27 +1,36 @@
+import { authOptions } from '@/libs/auth';
+import { findLastVoteDate, sortPollsByDate } from '@/utils/pollActivityUtils';
 import { PrismaClient } from '@prisma/client';
 import PollCard from 'components/PollCard';
+import { getServerSession } from 'next-auth';
 import React from 'react';
 
 const prisma = new PrismaClient();
 
-async function getClosedPolls(userId: string) {
-  const filteredClosedPolls = await prisma.poll.findMany({
+async function getClosedPolls(userId: number) {
+  const participatedPolls = await prisma.poll.findMany({
     where: {
       participants: {
         some: {
-          id: parseInt(userId),
+          id: userId,
         },
       },
     },
     include: {
-      votes: true,
-      participants: true,
+      _count: {
+        select: {
+          participants: true,
+          votes: true,
+        },
+      },
+      votes: {},
     },
   });
-  const closedPolls = filteredClosedPolls.filter(poll => {
+
+  const closedPolls = participatedPolls.filter(poll => {
     if (
-      poll.votes.length === poll.participants.length ||
-      poll.endDateTime < new Date()
+      poll._count.votes >= poll._count.participants ||
+      poll.endDateTime <= new Date()
     ) {
       return true;
     }
@@ -32,9 +41,8 @@ async function getClosedPolls(userId: string) {
 }
 
 async function Closed() {
-  //this will be replaced with the session/logged in user once that has been esteblished
-  //for now it is hardcoded to user 11
-  const closedPolls = await getClosedPolls('11');
+  const session = await getServerSession(authOptions);
+  const closedPolls = await getClosedPolls(session?.user.id!);
 
   if (closedPolls.length === 0) {
     return (
@@ -44,18 +52,19 @@ async function Closed() {
       </div>
     );
   }
-  return closedPolls.map(poll => (
-    <PollCard
-      className="mb-4"
-      key={poll.id}
-      endDate={poll.endDateTime}
-      isVoted={false}
-      isOwner={false}
-      pollId={poll.id}
-    >
-      {poll?.question}
-    </PollCard>
-  ));
+  return sortPollsByDate(closedPolls, session?.user.id!).map(poll => {
+    return (
+      <PollCard
+        className="mb-4"
+        key={poll.id}
+        endDate={poll.endDateTime}
+        isVoted={false}
+        pollId={poll.id}
+      >
+        {poll?.question}
+      </PollCard>
+    );
+  });
 }
 
 export default Closed;

@@ -1,29 +1,46 @@
 import { PrismaClient } from '@prisma/client';
 import PollCard from 'components/PollCard';
 import React from 'react';
+import { authOptions } from '@/libs/auth';
+import { getServerSession } from 'next-auth/next';
+import { sortPollsByDate } from '@/utils/pollActivityUtils';
 
 const prisma = new PrismaClient();
 
-async function getPendingPolls(userId: string) {
-  const filteredPendingPolls = await prisma.vote.findMany({
+async function getPendingPolls(userId: number) {
+  const pendingPolls = await prisma.poll.findMany({
     where: {
-      userId: parseInt(userId),
+      participants: {
+        some: {
+          id: userId,
+        },
+      },
+      votes: {
+        some: {
+          userId: userId,
+        },
+      },
+      endDateTime: {
+        gt: new Date(),
+      },
     },
     include: {
-      poll: true,
+      _count: {
+        select: {
+          participants: true,
+          votes: true,
+        },
+      },
+      votes: {},
     },
   });
 
-  const updatedPendingPolls = filteredPendingPolls.map(vote => {
-    return vote.poll;
-  });
-  return updatedPendingPolls;
+  return pendingPolls;
 }
 
 async function Pending() {
-  //this will be replaced with the session/logged in user once that has been esteblished
-  //for now it is hardcoded to user 11
-  const pendingPolls = await getPendingPolls('11');
+  const session = await getServerSession(authOptions);
+  const pendingPolls = await getPendingPolls(session?.user.id!);
 
   if (pendingPolls.length === 0) {
     return (
@@ -34,13 +51,12 @@ async function Pending() {
     );
   }
 
-  return pendingPolls.map(poll => (
+  return sortPollsByDate(pendingPolls, session?.user.id!).map(poll => (
     <PollCard
       className="mb-4"
       key={poll.id}
       endDate={poll.endDateTime}
-      isVoted={false}
-      isOwner={false}
+      isVoted={true}
       pollId={poll.id}
     >
       {poll?.question}
