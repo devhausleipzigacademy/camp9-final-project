@@ -84,8 +84,6 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     }
   })();
 
-  console.log(averageMood, averageMoodValues);
-
   const cards = [
     //0.svg+text
     <PollResultsCard
@@ -143,7 +141,9 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
         <p className="body-semibold mb-4">Voting Conditions</p>
         <div className="flex items-center gap-2">
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body-light text-black">{poll.type}</p>
+          <p className="body-light text-black">
+            {poll.type === 'SingleChoice' ? 'Single Choice' : 'Multiple Choice'}
+          </p>
         </div>
         <div className="flex items-center gap-2 my-[20px]">
           <Checkbox variant={'secondary'}></Checkbox>
@@ -239,7 +239,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
         <div className="mb-36 w-full flex flex-col justify-between">
           <h1 className="title-black text-left mt-2">Poll Results</h1>
           <ProgressBar currentPage={cardIndex + 1} numberOfPages={5} />
-          <div className='h-5' /> {/* <-- hacky spacing fix */}
+          <div className="h-5" /> {/* <-- hacky spacing fix */}
           {cards[cardIndex]}
         </div>
       </main>
