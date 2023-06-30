@@ -43,12 +43,12 @@ model Poll {
 
 model Vote {
   id        Int       @id @default(autoincrement())
-  answer    Boolean[]
+  answer    String[]
   poll      Poll      @relation(fields: [pollId], references: [id])
   pollId    Int
   User      User      @relation(fields: [userId], references: [id])
   userId    Int
-  mood      Mood @default(Beaming)
+  mood      Mood      @default(Beaming)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
 }
