@@ -189,7 +189,7 @@ export default function NewPoll() {
                   className="px-12"
                 ></img>
                 <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
-                  <Button size="full" href="/new" className="py-6">
+                  <Button size="full" href="/" className="py-6">
                     Next
                   </Button>
                 </footer>
