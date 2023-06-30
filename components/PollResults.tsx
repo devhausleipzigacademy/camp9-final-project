@@ -42,22 +42,22 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   }
 
   //slices the poll question to fit in the card
-  function slicedPollQuestionStart(pollQuestion: string, characters: number) {
-    const slicedSentence = pollQuestion.slice(0, characters);
-    const lastSpaceIndex = slicedSentence.lastIndexOf(' ');
-    if (lastSpaceIndex === -1) {
-      return slicedSentence;
+  function questionFitter(pollQuestion: string, characters: number) {
+    if (pollQuestion.length < characters) {
+      return { questionStart: pollQuestion };
+    } else if (pollQuestion[characters] === ' ') {
+      return {
+        questionStart: `${pollQuestion.slice(0, characters)}...`,
+        questionEnd: `...${pollQuestion.slice(characters, pollQuestion.length)}`,
+      };
     } else {
-      return `${slicedSentence.slice(0, lastSpaceIndex)}...`;
-    }
-  }
-  function slicedPollQuestionEnd(pollQuestion: string, characters: number) {
-    const restOfSentence = pollQuestion.slice(characters);
-    const firstQuestionMarkIndex = restOfSentence.indexOf('?');
-    if (firstQuestionMarkIndex !== -1) {
-      return restOfSentence.slice(0, firstQuestionMarkIndex + 1);
-    } else {
-      return `...${restOfSentence}`;
+      console.log("fitter")
+      const brokenSlice = pollQuestion.slice(0, characters)
+      const lastSpaceIndex = brokenSlice.lastIndexOf(' ');
+      return {
+        questionStart: `${pollQuestion.slice(0, lastSpaceIndex)}...`,
+        questionEnd: `...${pollQuestion.slice(lastSpaceIndex, pollQuestion.length)}`,
+      };
     }
   }
 
@@ -87,7 +87,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   const cards = [
     //0.svg+text
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 60)}
+      pollQuestion={questionFitter(poll.question, 60).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
@@ -111,13 +111,13 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //1.question=description
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 34)}
+      pollQuestion={questionFitter(poll.question, 34).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
       <PollResultsCard.Content className="h-[260px] overflow-y-auto">
         <p className="body-semibold mb-5">
-          ...{slicedPollQuestionEnd(poll.question, 34)}
+          {questionFitter(poll.question, 34).questionEnd}
         </p>
         <p className="body-light text-black">{poll.description}</p>
       </PollResultsCard.Content>
@@ -133,7 +133,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //2.voting conditions
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 34)}
+      pollQuestion={questionFitter(poll.question, 34).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
@@ -167,7 +167,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     //3.answers+percantages
     //sort options by percentages or by appearence in the poll?
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 34)}
+      pollQuestion={questionFitter(poll.question, 34).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
@@ -202,7 +202,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //4.mood
     <PollResultsCard
-      pollQuestion={slicedPollQuestionStart(poll.question, 34)}
+      pollQuestion={questionFitter(poll.question, 34).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
