@@ -1,23 +1,21 @@
 'use client';
 
-import React, { useState } from 'react';
-
-const RadioButton = ({ name, id, value, onChange, checked, text }: any) => {
+const RadioButton = ({ name, id, onChange, checked, value }: any & FormData) => {
   return (
-    <label htmlFor={id} className="radio-label">
-      <input
-        className="radio-input"
-        type="radio"
-        name={name}
-        id={id}
-        value={value}
-        onChange={onChange}
-        checked={checked}
-      />
-      <span
-        className="custom-radio"
-      />
-    </label>
+    <>
+      <label htmlFor={id}>
+        <input
+          className="radio-input"
+          type="radio"
+          name={name}
+          id={id}
+          onChange={onChange}
+          checked={checked}
+          value={value}
+        />
+        <span className="custom-radio" />
+      </label>
+    </>
   );
 };
 

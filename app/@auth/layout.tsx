@@ -7,9 +7,5 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <body className="w-full flex flex-col justify-between h-screen">
-      <Provider>{children}</Provider>
-    </body>
-  );
+  return <>{children}</>;
 }
