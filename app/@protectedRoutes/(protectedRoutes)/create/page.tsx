@@ -133,7 +133,7 @@ export default function NewPoll() {
 
               <FormProvider {...methods}>
                 <form
-                  className="w-full mt-5 scrollbar  overflow-y-auto pb-2 pl-8 pr-2"
+                  className="w-full mt-5 scrollbar  overflow-x-hidden overflow-y-auto pb-2 pl-8 pr-2"
                   onSubmit={handleSubmit(onSubmit)}
                 >
                   {step}
