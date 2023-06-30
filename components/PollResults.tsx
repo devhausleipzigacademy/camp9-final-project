@@ -31,7 +31,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   function incrementValue() {
     if (cardIndex < 4) {
       setCardIndex(cardIndex + 1);
-    } else router.push('/new');
+    } else router.push('/');
   }
   function decrementValue() {
     if (cardIndex === 0) {
@@ -235,7 +235,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
   return (
     <div>
-      <main className="container flex flex-col h-screen justify-between bg-peach-light p-8">
+      <main className="container flex flex-col h-screen w-screen justify-between bg-peach-light p-8">
         <div className="mb-36 w-full flex flex-col justify-between">
           <h1 className="title-black text-left mt-2">Poll Results</h1>
           <ProgressBar currentPage={cardIndex + 1} numberOfPages={5} />
