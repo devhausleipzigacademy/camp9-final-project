@@ -43,7 +43,7 @@ model Poll {
 
 model Vote {
   id        Int       @id @default(autoincrement())
-  answer    String[]
+  answer    Boolean[]
   poll      Poll      @relation(fields: [pollId], references: [id])
   pollId    Int
   User      User      @relation(fields: [userId], references: [id])
@@ -54,14 +54,7 @@ model Vote {
 }
 
 enum PollType {
-  MultipleChoice //can choose between 1 and all of the options, eg A,B,C from A,B,C,D,E
-  SingleChoice //can choose a single option, eg A from A,B,C
-  //Open //no options, answer is just a string
-  // Rating //rates each option on a scale of 1 to 10, eg A-4, B-7, C-1 from A,B,C
-  // Ranking //ranks the options, eg A-2nd, B-1st, C-3rd from A,B,C
-}
-
-enum Anonymity {
+  MultipleChoice //can choose between 1 and all of the options, eg A,B,
   Anonymous //no one knows who voted what
   NonAnonymous //everyone knows who voted what -> achive this by putting quorum on 0
   AnonymousUntilQuorum //no one knows who voted what until quorum is met

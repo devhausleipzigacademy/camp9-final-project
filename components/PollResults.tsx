@@ -138,15 +138,19 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
         <p className="body-semibold mb-4">Voting Conditions</p>
         <div className="flex items-center gap-2">
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body-light text-black">{poll.type}</p>
+          <p className="body-light text-black">
+            {poll.type === 'MultipleChoice'
+              ? 'Multiple Choice'
+              : 'Single Choice'}
+          </p>
         </div>
         <div className="flex items-center gap-2 my-[20px]">
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body-light text-black">{poll.participants.length}</p>
+          <p className="body-light text-black">{poll.participants.length} participants</p>
         </div>
         <div className="flex gap-2">
           <Checkbox variant={'secondary'}></Checkbox>
-          <p className="body-light text-black">{poll.anonymity}</p>
+          <p className="body-light text-black">{poll.anonymity === "Anonymous" ? "Anonymous": poll.anonymity === 'NonAnonymous' ? 'Non anonymous' : `Anonymous until quorum of ${poll.quorum}% is reached`}</p>
         </div>
       </PollResultsCard.Content>
       <div className="text-right mt-3 mr-1">

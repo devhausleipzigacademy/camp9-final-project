@@ -18,6 +18,7 @@ async function getClosedPolls(userId: string) {
       participants: true,
     },
   });
+  console.log(filteredClosedPolls);
   const closedPolls = filteredClosedPolls.filter(poll => {
     if (
       poll.votes.length === poll.participants.length ||
@@ -34,7 +35,7 @@ async function getClosedPolls(userId: string) {
 async function Closed() {
   //this will be replaced with the session/logged in user once that has been esteblished
   //for now it is hardcoded to user 11
-  const closedPolls = await getClosedPolls('11');
+  const closedPolls = await getClosedPolls('10');
 
   if (closedPolls.length === 0) {
     return (
