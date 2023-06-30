@@ -1,6 +1,5 @@
 import Button from 'components/shared/buttons/Button';
 import { GrFormPrevious, GrFormNext } from 'react-icons/gr';
-import Link from 'next/link';
 import ProgressBar from 'components/shared/ProgressBar';
 
 export const metadata = {
@@ -14,10 +13,6 @@ export default function PollDetailsLayout({
   children: React.ReactNode;
   params: { id: string; page: string };
 }) {
-  const prevPageHref =
-    parseInt(params.page) <= 1
-      ? '/'
-      : `/details/${params.id}/${parseInt(params.page) - 1}`;
   const nextPageHref =
     parseInt(params.page) >= 4
       ? '/'
@@ -31,9 +26,9 @@ export default function PollDetailsLayout({
       />
       {children}
       <nav className="flex justify-between container gap-12 fixed bottom-[100px] left-0 w-full px-8">
-        <Button size="small" variant="secondary" href={prevPageHref}>
+        <Button size="small" variant="secondary" routeTo="back">
           <GrFormPrevious size={24} strokeWidth={2} />
-          {params.page == '1' ? 'Home' : 'Back'}
+          Back
         </Button>
         <Button size="large" variant="tertiary" href={nextPageHref}>
           {params.page == '4' ? 'Home' : 'Next page'}
