@@ -13,10 +13,7 @@ export default function PollDetailsLayout({
   children: React.ReactNode;
   params: { id: string; page: string };
 }) {
-  const nextPageHref =
-    parseInt(params.page) >= 4
-      ? '/'
-      : `/details/${params.id}/${parseInt(params.page) + 1}`;
+  const nextPageHref = `/details/${params.id}/${parseInt(params.page) + 1}`;
   return (
     <section>
       <ProgressBar
@@ -30,8 +27,13 @@ export default function PollDetailsLayout({
           <GrFormPrevious size={24} strokeWidth={2} />
           Back
         </Button>
-        <Button size="large" variant="tertiary" href={nextPageHref}>
-          {params.page == '4' ? 'Home' : 'Next page'}
+        <Button
+          size="large"
+          variant="tertiary"
+          href={nextPageHref}
+          isActive={params.page !== '4'}
+        >
+          Next page
           <GrFormNext size={24} strokeWidth={2} />
         </Button>
       </nav>

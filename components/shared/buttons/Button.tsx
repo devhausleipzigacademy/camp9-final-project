@@ -67,29 +67,30 @@ export default function Button({
 }: ButtonProps) {
   const router = useRouter();
   const dynamicClasses = `${buttonClasses({ variant, size })} ${className} ${
-    !isActive ? 'bg-opacity-0' : 'bg-opacity-100'
+    !isActive ? 'bg-opacity-0 opacity-50' : 'bg-opacity-100'
   }`;
 
-  return routeTo ? (
+  return href ? (
+    <Link
+      href={href}
+      className={dynamicClasses}
+      style={isActive ? {} : { pointerEvents: 'none' }}
+    >
+      {children}
+    </Link>
+  ) : (
     <button
       onClick={
         routeTo === 'back'
           ? () => router.back()
           : routeTo === 'forward'
           ? () => router.forward()
-          : () => {}
+          : handleClick
       }
+      disabled={!isActive}
       className={dynamicClasses}
       {...props}
     >
-      {children}
-    </button>
-  ) : href ? (
-    <Link href={href} className={dynamicClasses}>
-      {children}
-    </Link>
-  ) : (
-    <button onClick={handleClick} className={dynamicClasses} {...props}>
       {children}
     </button>
   );
