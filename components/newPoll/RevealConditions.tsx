@@ -17,7 +17,7 @@ export default function RevealConditions({
     <>
       <div className="flex flex-col gap-y-6 mt-5">
         <div className="flex flex-col justify-between">
-          <div className="flex">
+          <div className="flex gap-2">
             <div className="">
               <strong>Reveal usernames</strong> for options with agreement of at
               least:
@@ -41,7 +41,7 @@ export default function RevealConditions({
             </div>
           )}
         </div>
-        <div className="flex grid-flow-row justify-between">
+        <div className="flex grid-flow-row justify-between gap-2 ">
           <div className="flex flex-col">
             <strong>Always reveal usernames</strong>(fully open)
           </div>

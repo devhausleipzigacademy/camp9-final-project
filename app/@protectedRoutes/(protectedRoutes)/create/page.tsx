@@ -133,7 +133,7 @@ export default function NewPoll() {
 
               <FormProvider {...methods}>
                 <form
-                  className="w-full mt-5 scrollbar  overflow-y-auto pb-2 pl-8 pr-2"
+                  className="w-full mt-5 scrollbar  overflow-x-hidden overflow-y-auto pb-2 pl-8 pr-2"
                   onSubmit={handleSubmit(onSubmit)}
                 >
                   {step}
@@ -189,7 +189,7 @@ export default function NewPoll() {
                   className="px-12"
                 ></img>
                 <footer className="flex container px-16 flex-grow  justify-center items-center bottom-28 fixed">
-                  <Button size="full" href="/new" className="py-6">
+                  <Button size="full" href="/" className="py-6">
                     Next
                   </Button>
                 </footer>

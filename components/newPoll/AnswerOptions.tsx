@@ -66,16 +66,16 @@ export default function AnswerOptions({
         </div>
       </fieldset>
       <hr className="border border-black"></hr>
-      <fieldset className="flex pt-2 flex-col gap-2 justify-around">
+      <fieldset className="flex pt-2 flex-col gap-1 center justify-around w-full">
         {Array.from({ length: numOptions }).map((_, index) => (
-          <div className="flex flex-row justify-between overflow-scroll">
+          <div className="flex flex-row justify-between gap-2 pb-1 items-end overflow-scroll w-full">
             <InputField
+              className="w-full "
               {...register(`options[${index}]`, { required: true })}
               value={getValues('options')?.[index]}
               key={index}
               type="text"
               label={`Option ${index + 1}`}
-              showLabel={false}
               width="reduced"
               placeholder={`Option ${index + 1}`}
               error={
@@ -87,7 +87,8 @@ export default function AnswerOptions({
               variant="secondary"
               type="button"
               size="xs"
-              className="button"
+              // the button does not shrink
+              className="button shrink-0"
               children="-"
               onClick={() => handleDeleteOption(index)} // Pass the index to handleDeleteOption
             ></Button>

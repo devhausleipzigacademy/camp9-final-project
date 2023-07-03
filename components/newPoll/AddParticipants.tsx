@@ -43,7 +43,7 @@ export default function AddParticipants({
   return (
     <div className="">
       <Combobox value={selectedUser} onChange={setSelectedUser}>
-        <div className="flex flex-row h-12 gap-1 justify-between">
+        <div className="flex flex-row h-12 gap-2 justify-between">
           <Button
             {...register('participants')}
             className=""
@@ -84,7 +84,7 @@ export default function AddParticipants({
         </Combobox.Options>
       </Combobox>
       <div className="flex flex-col">
-        <div className="my-4 h-[253px] overflow-y-auto scrollbar w-[308px]">
+        <div className="my-4 h-[253px] overflow-y-auto scrollbar w-full">
           {participants.map(participant => {
             return (
               <div
