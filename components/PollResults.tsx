@@ -260,7 +260,9 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       <main className="container flex flex-col h-screen w-screen justify-between bg-peach-light p-8">
         <div className="mb-36 w-full flex flex-col justify-between">
           <h1 className="title-black text-left mt-2">Poll Results</h1>
-          <ProgressBar currentPage={cardIndex + 1} numberOfPages={5} />
+          {cardIndex >= 1 && (
+            <ProgressBar currentPage={cardIndex} numberOfPages={4} />
+          )}
           <div className="h-5" /> {/* <-- hacky spacing fix */}
           {cards[cardIndex]}
         </div>
