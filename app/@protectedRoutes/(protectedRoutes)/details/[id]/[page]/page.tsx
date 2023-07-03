@@ -6,7 +6,7 @@ import React from 'react';
 import { authOptions } from '@/libs/auth';
 import { getServerSession } from 'next-auth/next';
 import PollProgressBar from '@/components/PollProgressBar';
-import MoodDisplay from '@/components/MoodDIsplay';
+import MoodDisplay from '@/components/MoodDisplay';
 
 interface FullPollInfo extends Poll {
   votes: Vote[];
@@ -71,7 +71,7 @@ function parsePollData(pollData: FullPollInfo): {
     [
       {
         title: 'Poll Question',
-        body: pollData.question.substring(0, 40) + '?',
+        body: pollData.question,
       },
       {
         title: 'Poll Description',

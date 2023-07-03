@@ -1,4 +1,4 @@
-import MoodDisplay from '@/components/MoodDIsplay';
+import MoodDisplay from '@/components/MoodDisplay';
 import { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta<typeof MoodDisplay> = {
@@ -11,6 +11,20 @@ export default meta;
 
 type Story = StoryObj<typeof MoodDisplay>;
 
-export const Default = {
-  args: {},
+export const Sad: Story = {
+  args: {
+    averageMood: 0.6,
+  },
+};
+
+export const Happy: Story = {
+  args: {
+    averageMood: 3.3,
+  },
+};
+
+export const None: Story = {
+  args: {
+    averageMood: -1,
+  },
 };
