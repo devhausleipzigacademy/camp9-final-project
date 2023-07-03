@@ -1,4 +1,4 @@
-import { Anonymity, Mood, Poll, PollType } from '@prisma/client';
+import { Anonymity, Poll, PollType } from '@prisma/client';
 import { UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import clsx from 'clsx';
@@ -6,8 +6,7 @@ import Questionbox from '../Question';
 import Button from '../shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import Image from 'next/image';
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
-import MoodDisplay from '../MoodDisplay';
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
 import { Navbar } from '../shared/navbar/Navbar';
 
@@ -20,7 +19,10 @@ interface SideKickProps {
   anonymWatch?: boolean;
   nonAnonymWatch?: boolean;
   anonymUntilQuorumWatch?: boolean;
+  singleChoiceWatch?: boolean;
+  multipleChoiceWatch?: boolean;
   voteWatch?: boolean;
+  abstainWatch?: boolean;
   mood: string;
   setMood: Dispatch<SetStateAction<string>>;
 }
@@ -34,7 +36,9 @@ export function superSidekickHoock({
   nonAnonymWatch,
   anonymWatch,
   anonymUntilQuorumWatch,
-  voteWatch,
+  singleChoiceWatch,
+  multipleChoiceWatch,
+  abstainWatch,
   setMood,
   mood,
 }: SideKickProps) {
@@ -370,7 +374,13 @@ export function superSidekickHoock({
               <GrFormPrevious size={24} strokeWidth={2} />
               Back
             </Button>
-            <Button size="medium" onClick={() => setStep(step + 1)}>
+            <Button
+              size="medium"
+              onClick={() => setStep(step + 1)}
+              disabled={
+                !singleChoiceWatch && !multipleChoiceWatch && !abstainWatch
+              }
+            >
               Next
               <GrFormNext size={24} strokeWidth={2} />
             </Button>
@@ -383,7 +393,7 @@ export function superSidekickHoock({
   //this handles the footer
 
   function handleFooter(step: number) {
-    if (step !== 4) {
+    if (step !== 5) {
       return (
         <footer className="px-8 w-[375px] container">
           <Navbar variant={'secondary'} />

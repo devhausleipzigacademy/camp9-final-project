@@ -8,27 +8,11 @@ import { superSidekickHoock } from '@/components/hooks/useVote';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
 import { Mood } from '@prisma/client';
-
 import clsx from 'clsx';
-
 import { usePathname } from 'next/navigation';
-import { use, useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
-import { string, z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { voteSchema } from '@/types/voting/VotingSchema';
-
-type VoteResponse = {
-  message: string;
-};
-
-type myVote = {
-  id: number;
-  answer: boolean[];
-  pollId: number;
-  userId: number;
-};
 
 export type UserAnswer = {
   abstain: boolean;
@@ -69,9 +53,10 @@ export default function Voting() {
   const anonymWatch = watch('Anonymous') as boolean;
   const nonAnonymWatch = watch('NonAnonymous') as boolean;
   const anonymUntilQuorumWatch = watch('AnonymousUntilQuorum') as boolean;
-  const voteWatch = watch('singleChoice') as boolean;
-  const multipleWatch = watch('multipleChoice', [string]) as boolean;
-  console.log(multipleWatch);
+  const singleChoiceWatch = watch('singleChoice') as boolean;
+  const multipleChoiceWatch = watch(`multipleChoice`) as boolean;
+  const abstainWatch = watch('abstain') as boolean;
+  console.log(multipleChoiceWatch);
   console.log(abstain);
   const {
     typeOfPoll,
@@ -87,10 +72,12 @@ export default function Voting() {
     setStep,
     register,
     abstain,
-    voteWatch,
+    singleChoiceWatch,
+    multipleChoiceWatch,
     anonymWatch,
     nonAnonymWatch,
     anonymUntilQuorumWatch,
+    abstainWatch,
     mood,
     setMood,
   });
@@ -165,7 +152,7 @@ export default function Voting() {
     );
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2">
       <h1 className="title-bold text-left">{header}</h1>
       <ProgressBar numberOfPages={4} currentPage={step} />
       <div
@@ -177,9 +164,9 @@ export default function Voting() {
         <div className="questionVote w-full h-auto p-2 border-3 border-solid border-black bg-peach rounded-md">
           {query.data?.data.question}
         </div>
-        <div>
+        <div className="h-[278px]">
           <h2 className="description-semibold">Description:</h2>
-          <div className="overflow-y-auto h-[200px] scrollbar">
+          <div className="overflow-y-auto h-auto scrollbar">
             <p className="description-light text-justify">
               {query.data?.data.description}
             </p>
