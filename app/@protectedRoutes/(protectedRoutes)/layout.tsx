@@ -1,5 +1,5 @@
-"use client"
-import React, {useState} from 'react';
+'use client';
+import React, { useState } from 'react';
 import '@/app/globals.css';
 import { Navbar } from 'components/shared/navbar/Navbar';
 
@@ -13,13 +13,11 @@ export default function ProtectedLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   const [variantNavBar, setVariantNavBar] = useState('primary');
 
   React.useEffect(() => {
     const windowPath = window.location.pathname;
-
-    if (windowPath === '/voting' || windowPath === '/details') {
+    if (windowPath.includes('voting') || windowPath.includes('details')) {
       setVariantNavBar('secondary');
     } else {
       setVariantNavBar('primary');
