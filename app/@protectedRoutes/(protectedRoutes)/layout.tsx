@@ -1,3 +1,4 @@
+"use client"
 import React, {useState} from 'react';
 import '@/app/globals.css';
 import { Navbar } from 'components/shared/navbar/Navbar';
