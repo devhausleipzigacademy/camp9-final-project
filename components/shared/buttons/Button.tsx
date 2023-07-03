@@ -3,6 +3,7 @@
 import React from 'react';
 import { VariantProps, cva } from 'class-variance-authority';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -14,6 +15,7 @@ interface ButtonProps
   variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'quinary';
   size?: 'xs' | 'small' | 'medium' | 'large' | 'full';
   href?: string;
+  routeTo?: 'back' | 'forward';
 }
 
 const buttonClasses = cva(
@@ -60,18 +62,35 @@ export default function Button({
   isActive = true,
   variant = 'primary',
   size = 'full',
+  routeTo,
   ...props
 }: ButtonProps) {
+  const router = useRouter();
   const dynamicClasses = `${buttonClasses({ variant, size })} ${className} ${
-    !isActive ? 'bg-opacity-0' : 'bg-opacity-100'
+    !isActive ? 'bg-opacity-0 opacity-50' : 'bg-opacity-100'
   }`;
 
   return href ? (
-    <Link href={href} className={dynamicClasses}>
+    <Link
+      href={href}
+      className={dynamicClasses}
+      style={isActive ? {} : { pointerEvents: 'none' }}
+    >
       {children}
     </Link>
   ) : (
-    <button onClick={handleClick} className={dynamicClasses} {...props}>
+    <button
+      onClick={
+        routeTo === 'back'
+          ? () => router.back()
+          : routeTo === 'forward'
+          ? () => router.forward()
+          : handleClick
+      }
+      disabled={!isActive}
+      className={dynamicClasses}
+      {...props}
+    >
       {children}
     </button>
   );
