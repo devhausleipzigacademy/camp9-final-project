@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '@/app/globals.css';
 import { Navbar } from 'components/shared/navbar/Navbar';
 
@@ -12,12 +12,25 @@ export default function ProtectedLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  const [variantNavBar, setVariantNavBar] = useState('primary');
+
+  React.useEffect(() => {
+    const windowPath = window.location.pathname;
+
+    if (windowPath === '/voting' || windowPath === '/details') {
+      setVariantNavBar('secondary');
+    } else {
+      setVariantNavBar('primary');
+    }
+  });
+
   return (
     <div className="w-full flex flex-col justify-between h-screen">
       {children}
 
       <footer className="fixed bottom-6 container px-8">
-        <Navbar variant={'primary'} />
+        <Navbar variant={variantNavBar} />
       </footer>
     </div>
   );

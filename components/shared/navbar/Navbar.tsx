@@ -6,7 +6,7 @@ import { HiUser } from 'react-icons/hi2';
 import Navbaritem from './NavbarItem';
 
 interface NavbarProps {
-  variant: 'primary' | 'secondary';
+  variant: 'primary' | 'secondary' | any;
   active?: boolean;
   className?: string;
 }
