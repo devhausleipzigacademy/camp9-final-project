@@ -15,7 +15,7 @@ export function findLastVoteDate(votes: Vote[]) {
 }
 
 //sorts polls by date
-export function sortPollsByDate(polls: extendedPoll[], userId: number) {
+export function sortPollsByDate(polls: extendedPoll[]) {
   // set endDateTime to the last vote if the poll is closed not because of passing time, but because all participants voted
   const pollsFixedDates = polls.map(poll => {
     if (
@@ -33,16 +33,16 @@ export function sortPollsByDate(polls: extendedPoll[], userId: number) {
   function compareDates(a: extendedPoll, b: extendedPoll) {
     if (a.endDateTime > new Date() && b.endDateTime > new Date()) {
       if (
-        (!a.votes.filter(vote => vote.userId === userId).length &&
-          !b.votes.filter(vote => vote.userId === userId).length) ||
-        (!!a.votes.filter(vote => vote.userId === userId).length &&
-          !!b.votes.filter(vote => vote.userId === userId).length)
+        (!a.votes.filter(vote => vote.userId === a.creatorId).length &&
+          !b.votes.filter(vote => vote.userId === b.creatorId).length) ||
+        (!!a.votes.filter(vote => vote.userId === a.creatorId).length &&
+          !!b.votes.filter(vote => vote.userId === b.creatorId).length)
       ) {
         if (a.endDateTime < b.endDateTime) return -1;
         else if (a.endDateTime > b.endDateTime) return 1;
         return 0;
       } else {
-        if (!a.votes.filter(vote => vote.userId === userId).length) {
+        if (!a.votes.filter(vote => vote.userId === a.creatorId).length) {
           return -1;
         } else return 1;
       }

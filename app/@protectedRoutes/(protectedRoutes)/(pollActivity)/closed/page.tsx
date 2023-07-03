@@ -1,18 +1,17 @@
 import { authOptions } from '@/libs/auth';
-import { findLastVoteDate, sortPollsByDate } from '@/utils/pollActivityUtils';
-import { PrismaClient } from '@prisma/client';
+import { sortPollsByDate } from '@/utils/pollActivityUtils';
 import PollCard from 'components/PollCard';
 import { getServerSession } from 'next-auth';
 import React from 'react';
+import { db } from '@/libs/db';
 
-const prisma = new PrismaClient();
-
-async function getClosedPolls(userId: number) {
-  const participatedPolls = await prisma.poll.findMany({
+async function getClosedPolls() {
+  const session = await getServerSession(authOptions);
+  const participatedPolls = await db.poll.findMany({
     where: {
       participants: {
         some: {
-          id: userId,
+          id: session?.user.id,
         },
       },
     },
@@ -41,8 +40,7 @@ async function getClosedPolls(userId: number) {
 }
 
 async function Closed() {
-  const session = await getServerSession(authOptions);
-  const closedPolls = await getClosedPolls(session?.user.id!);
+  const closedPolls = await getClosedPolls();
 
   if (closedPolls.length === 0) {
     return (
@@ -52,7 +50,7 @@ async function Closed() {
       </div>
     );
   }
-  return sortPollsByDate(closedPolls, session?.user.id!).map(poll => {
+  return sortPollsByDate(closedPolls).map(poll => {
     return (
       <PollCard
         className="mb-4"
