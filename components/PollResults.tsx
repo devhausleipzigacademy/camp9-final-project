@@ -122,7 +122,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[260px] overflow-y-auto">
+      <PollResultsCard.Content className="h-[260px] overflow-y-auto scrollbar-left-padded">
         <p className="body-semibold mb-5">
           {questionFitter(poll.question, 34).questionEnd}
         </p>
