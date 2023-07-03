@@ -64,7 +64,7 @@ function MoodDisplay({ averageMood, ...props }: Props) {
               (pointerColorValue === 3 && 'bg-green-light')
             }
           ></div>
-        </div>{' '}
+        </div>
         <div className="relative">
           <MdSentimentVerySatisfied className=" w-10 h-10 relative z-10 " />
           <div

@@ -96,8 +96,7 @@ function parsePollData(pollData: FullPollInfo): {
         body: (
           <>
             <p className="mb-2">
-              {pollData.votes.length} out of {pollData._count.participants}{' '}
-              participants voted.
+              {`${pollData.votes.length} out of ${pollData._count.participants} participants voted.`}
             </p>
             <PollProgressBar
               votes={pollData.votes.length}
