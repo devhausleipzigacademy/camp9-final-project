@@ -6,11 +6,11 @@ import { cva } from 'class-variance-authority';
 
 interface CheckboxProps extends BoxCheckedProps {
   disableProp?: boolean,
-  x?: boolean
+  checkProp?: boolean
 }
 
-export const Box = ({ variant, disableProp, x }: CheckboxProps) => {
-  const [checked, setChecked] = useState(false);
+export const Box = ({ variant, disableProp, checkProp }: CheckboxProps) => {
+  const [checked, setChecked] = useState(checkProp);
 
   const handleChange = () => {
     setChecked(!checked);
