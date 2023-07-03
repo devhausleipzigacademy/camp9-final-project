@@ -6,7 +6,6 @@ import PollProgressBar from '@/components/PollProgressBar';
 import PollResultsCard from '@/components/PollResultsCard';
 import Button from '@/components/shared/buttons/Button';
 import { Poll, User, Vote, Mood } from '@prisma/client';
-// import { all } from 'axios';
 import Image from 'next/legacy/image';
 import { useRouter } from 'next/navigation';
 import { SetStateAction, useState } from 'react';
