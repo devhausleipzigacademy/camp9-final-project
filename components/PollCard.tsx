@@ -1,25 +1,20 @@
-'use client';
-
-'use client';
-
-import { useRouter } from 'next/navigation';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
+import Link from 'next/link';
 
 interface PollCardProps extends React.HTMLAttributes<HTMLElement> {
   children: string;
   endDate: Date;
-  isOwner: boolean;
   isVoted?: boolean;
+  pollId: number;
 }
 
 export default function PollCard({
   children,
   endDate,
-  isOwner = false,
   isVoted,
+  pollId,
   ...props
 }: PollCardProps) {
-  const router = useRouter();
   const currentDate = new Date(); // Get the current date
 
   const date = new Date(endDate); // Get the end date of the poll
@@ -36,7 +31,7 @@ export default function PollCard({
 
   const displayDays = days > 0 ? days : null; // Check if the number of days is greater than 0
   const displayHours = hours > 0 ? hours : null; // Check if the number of hours is greater than 0
-  const displayMinutes = minutes > 0 ? minutes : null; // Check if the number of minutes is greater than 0
+  const displayMinutes = days === 0 && minutes > 0 ? minutes : null; // Check if the number of minutes is greater than 0
 
   const pluralize = (value: number, unit: string) => {
     return value === 1 ? unit : `${unit}s`; // Add plural "s" to the unit if the value is not 1
@@ -46,7 +41,7 @@ export default function PollCard({
     let text = '';
 
     if (isOpen) {
-      if (!isVoted && !isOwner) {
+      if (!isVoted) {
         text = 'Vote';
       } else {
         text = 'See Details';
@@ -64,43 +59,43 @@ export default function PollCard({
       </>
     );
   };
-
-  function handleClick() {
-    if (isOwner) {
-      router.push('/details');
-    } else if (isOpen && isVoted) {
-      router.push('/details');
-    } else if (isOpen && !isVoted) {
-      router.push('/voting');
-    } else if (!isOpen) {
-      router.push('/results');
-    }
+  let href;
+  if (isOpen && isVoted) {
+    href = `/details/${pollId}/1`;
+  } else if (isOpen && !isVoted) {
+    href = `/vote`;
+  } else {
+    href = '/results';
   }
 
   return (
-    <div
-      className="cursor-pointer border-3 border-black rounded w-full flex flex-col pt-3 px-3 pb-1  bg-yellow gap-1 shadow-brutal"
-      onClick={handleClick}
+    <Link
+      className="cursor-pointer border-3 border-black rounded w-full flex flex-col pt-3 px-3 pb-1  bg-yellow gap-1 shadow-brutal "
+      href={href!}
     >
-      <div className="px-2 flex items-center justify-center border-3 h-[66px] border-black rounded-md bg-yellow-light ">
-        <h1 className="body line-clamp-2">{children}</h1>
+      <div className="px-2 py-1 border-3 h-[66px] border-black rounded-md bg-yellow-light flex">
+        <h4 className="body line-clamp-2">{children}</h4>
       </div>
       <div className="flex justify-between items-center h-5 gap-1">
         {isOpen ? (
           <p className="small">
-            Closes in
+            Closes in{' '}
             {
-              <span className="small-bold before:content-['_']">
-                {`${
+              <span className="small-bold">
+                {
                   displayDays &&
-                  `${displayDays} ${pluralize(displayDays, 'day')},` // Display the number of days
-                } ${
+                    `${displayDays} ${pluralize(displayDays, 'day')}` // Display the number of days
+                }
+                {displayDays && displayHours && ', '}
+                {
                   displayHours &&
-                  `${displayHours} ${pluralize(displayHours, 'hour')},` // Display the number of hours
-                } ${
+                    `${displayHours} ${pluralize(displayHours, 'hour')}` // Display the number of hours
+                }
+                {displayHours && displayMinutes && ', '}
+                {
                   displayMinutes &&
-                  `${displayMinutes} ${pluralize(displayMinutes, 'minute')}` // Display the number of minutes
-                }`}
+                    `${displayMinutes} ${pluralize(displayMinutes, 'minute')}` // Display the number of minutes
+                }
               </span>
             }
           </p>
@@ -116,6 +111,6 @@ export default function PollCard({
           </button>
         }
       </div>
-    </div>
+    </Link>
   );
 }
