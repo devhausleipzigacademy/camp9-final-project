@@ -8,13 +8,12 @@ import Link from 'next/link';
 
 export default function LandingPage() {
   return (
-    <body className="grid justify-center h-screen  bg-teal mx-8 mt-8 overflow-y-hidden">
+    <div className="grid justify-center h-screen  bg-teal mx-8 pt-8 overflow-y-hidden">
       <h1 className="appName">d'accord</h1>
       <div>
         <Image
           src={GroupIllustration}
           alt="illustration of a group of people making decisions"
-          placeholder="blur"
         />
         <div className="text-white text-center text-xl font-medium my-3">
           Vote secretly, reveal conditionally
@@ -35,6 +34,6 @@ export default function LandingPage() {
           </Button>
         </Link>
       </div>
-    </body>
+    </div>
   );
 }
