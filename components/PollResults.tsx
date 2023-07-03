@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation';
 import { SetStateAction, useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import PollDetailsCard from './shared/PollDetailsCard';
-import ModalResults from './ModalResults';
 import ProgressBar from './shared/ProgressBar';
 
 interface PollResultsProps extends Poll {
@@ -122,11 +121,13 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[260px] overflow-y-auto scrollbar-left-padded">
-        <p className="body-semibold mb-5">
-          {questionFitter(poll.question, 34).questionEnd}
-        </p>
-        <p className="body-light text-black">{poll.description}</p>
+      <PollResultsCard.Content className="h-[260px] ">
+        <div className="overflow-y-auto scrollbar-left-padded h-[220px]">
+          <p className="body-semibold mb-5">
+            {questionFitter(poll.question, 34).questionEnd}
+          </p>
+          <p className="body-light text-black">{poll.description}</p>
+        </div>
       </PollResultsCard.Content>
       <div className="text-right mt-3 mr-1">
         <p className="small items-end">
@@ -208,17 +209,12 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
             ></Image>
           </button>
         </div>
-        <ModalResults
-          className="w-full max-w-md transform overflow-hidden rounded-2xlp-6 text-left align-middle"
-          isOpen={showParticipants}
-          setIsOpen={setShowParticipants}
-        >
-          <PollDetailsCard title={modalContent.title}>
-            {modalContent.participants.map(user => (
-              <p>{user.name}</p>
-            ))}
-          </PollDetailsCard>
-        </ModalResults>
+
+        <PollDetailsCard title={modalContent.title}>
+          {modalContent.participants.map(user => (
+            <p>{user.name}</p>
+          ))}
+        </PollDetailsCard>
       </PollResultsCard.Content>
     </PollResultsCard>,
 
