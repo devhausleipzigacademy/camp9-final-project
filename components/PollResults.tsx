@@ -122,7 +122,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       startDate={new Date()}
     >
       <PollResultsCard.Content className="h-[260px] ">
-        <div className="overflow-y-auto scrollbar-left-padded h-[220px]">
+        <div className="overflow-y-auto scrollbar-left-padded  bg-yellow-light h-[220px]">
           <p className="body-semibold mb-5">
             {questionFitter(poll.question, 34).questionEnd}
           </p>
@@ -210,11 +210,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
           </button>
         </div>
 
-        <PollDetailsCard title={modalContent.title}>
-          {modalContent.participants.map(user => (
-            <p>{user.name}</p>
-          ))}
-        </PollDetailsCard>
+      
       </PollResultsCard.Content>
     </PollResultsCard>,
 
