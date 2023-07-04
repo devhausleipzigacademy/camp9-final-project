@@ -1,3 +1,0 @@
-interface NewPollComponentProps {
-  title: string;
-}

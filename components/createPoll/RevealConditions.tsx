@@ -2,40 +2,41 @@
 import RadioButton from '@/components/Radiobutton';
 import ConsensusController from '@/components/ConsensusController';
 import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
-import { useFormContext } from 'react-hook-form';
+import { set, useFormContext } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 
-export default function RevealConditions({
-  title = 'Reveal Conditions',
-}: NewPollComponentProps) {
-  const { getValues, setValue, unregister } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+export default function RevealConditions() {
+  const { getValues, register, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+  const [showConsensusController, setShowConsensusController] = useState(false);
 
-  getValues('anonymity') ?? setValue('anonymity', 'Anonymous');
-
-  getValues('quorum');
+  useEffect(() => {
+    setShowConsensusController(
+      getValues().anonymity === 'AnonymousUntilQuorum'
+    );
+  }, []);
 
   return (
     <>
       <div className="flex flex-col gap-y-6 mt-5">
+        <h3 className="title-black">Reveal Conditions</h3>
         <div className="flex flex-col justify-between">
           <div className="flex gap-2">
-            <div className="">
+            <div>
               <strong>Reveal usernames</strong> for options with agreement of at
               least:
             </div>
             <div className="flex">
               <RadioButton
-                name="threshold"
                 id="threshold"
-                text="threshold"
-                onChange={() => {
-                  setValue('anonymity', 'AnonymousUntilQuorum');
-                  setValue('quorum', '0');
+                value="AnonymousUntilQuorum"
+                {...register('anonymity')}
+                onClick={() => {
+                  setShowConsensusController(true);
                 }}
-                checked={getValues().anonymity === 'AnonymousUntilQuorum'}
               />
             </div>
           </div>
-          {getValues().anonymity === 'AnonymousUntilQuorum' && (
+          {showConsensusController && (
             <div className="flex mt-5">
               <ConsensusController />
             </div>
@@ -48,12 +49,12 @@ export default function RevealConditions({
           <div className="flex">
             <RadioButton
               id="open"
-              text="open"
-              onChange={() => {
-                setValue('anonymity', 'NonAnonymous');
-                unregister('quorum');
+              value="NonAnonymous"
+              {...register('anonymity')}
+              onClick={() => {
+                setShowConsensusController(false);
+                setValue('quorum', '0');
               }}
-              checked={getValues().anonymity === 'NonAnonymous'}
             />
           </div>
         </div>
@@ -63,14 +64,13 @@ export default function RevealConditions({
           </div>
           <div className="flex">
             <RadioButton
-              name="anonymous"
               id="anonymous"
-              text="anonymous"
-              onChange={() => {
-                setValue('anonymity', 'Anonymous');
-                unregister('quorum');
+              value="Anonymous"
+              {...register('anonymity')}
+              onClick={() => {
+                setShowConsensusController(false);
+                setValue('quorum', '0');
               }}
-              checked={getValues().anonymity === 'Anonymous'}
             />
           </div>
         </div>

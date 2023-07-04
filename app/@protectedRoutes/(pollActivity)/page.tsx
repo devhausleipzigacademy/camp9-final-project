@@ -6,42 +6,37 @@ import { sortPollsByDate } from '@/utils/pollActivityUtils';
 
 const prisma = new PrismaClient();
 
-async function getNewPolls(userId: number) {
+async function getNewPolls() {
+  const session = await getServerSession(authOptions);
   let todayInAMinute = new Date();
   todayInAMinute.setMinutes(todayInAMinute.getMinutes() + 1);
+
   const filteredNewPolls = await prisma.poll.findMany({
     where: {
       participants: {
         some: {
-          id: userId,
+          id: session?.user.id,
         },
       },
       votes: {
         none: {
-          userId: userId,
+          userId: session?.user.id,
         },
       },
       endDateTime: {
         gt: todayInAMinute,
       },
     },
-    include: {
-      _count: {
-        select: {
-          participants: true,
-          votes: true,
-        },
-      },
-      votes: {},
+    orderBy: {
+      endDateTime: 'asc',
     },
   });
+
   return filteredNewPolls;
 }
 
-async function New() {
-  const session = await getServerSession(authOptions);
-  const newPolls = await getNewPolls(session?.user.id!);
-
+async function NewPolls() {
+  const newPolls = await getNewPolls();
   if (newPolls.length === 0) {
     return (
       <div className=" flex flex-col justify-center items-center">
@@ -51,7 +46,7 @@ async function New() {
     );
   }
 
-  return sortPollsByDate(newPolls, session?.user.id!).map(poll => (
+  return newPolls.map(poll => (
     <PollCard
       className="mb-4"
       key={poll.id}
@@ -63,4 +58,4 @@ async function New() {
     </PollCard>
   ));
 }
-export default New;
+export default NewPolls;
