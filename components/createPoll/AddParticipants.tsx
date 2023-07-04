@@ -74,7 +74,7 @@ export default function AddParticipants() {
         <Combobox.Options
           className={clsx(
             query === '' && 'hidden',
-            'fixed z-10 w-[251px] right-9 mr-1 overflow-auto py-2 bg-yellow-light rounded-md'
+            'w-[259px] h-fit max-h-[260px] fixed z-10 right-8 overflow-auto py-2 bg-yellow-light opacity-90 rounded-md'
           )}
         >
           {data &&
@@ -90,7 +90,7 @@ export default function AddParticipants() {
         </Combobox.Options>
       </Combobox>
       <div className="flex flex-col">
-        <div className="my-4 h-[253px] overflow-y-auto scrollbar w-full">
+        <div className="my-4 h-[253px] overflow-y-auto scrollbar pr-2 w-full">
           {participants.map((participant, idx) => {
             return (
               <div

@@ -1,16 +1,15 @@
 'use client';
 
-import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
-import React, { useRef } from 'react';
-import { useState, useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { Calendar } from 'react-calendar';
-import { UseFormRegister, useFormContext } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 import { HiExclamationTriangle } from 'react-icons/hi2';
 import TimePicker from 'react-time-picker';
 
+import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
+
 export default function Deadline() {
-  const { register, formState, getValues, setValue } =
-    useFormContext<CreateNewPoll>(); // retrieve all hook methods
+  const { formState, getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
   const { endDateTime } = getValues();
 
@@ -52,7 +51,7 @@ export default function Deadline() {
   }
   // JSX return statement
   return (
-    <div className="pl-8 flex flex-col gap-y-6 items-center pb-1">
+    <div className="pl-8 flex flex-col gap-y-2 items-center pb-1">
       <h3 className="title-black">Deadline</h3>
       <Calendar
         className="calendar"
@@ -71,7 +70,7 @@ export default function Deadline() {
       {showTime && (
         <TimePicker
           onContextMenu={e => e.preventDefault()}
-          className="timePicker"
+          className="timePicker items-center"
           amPmAriaLabel="Select AM/PM"
           clearAriaLabel="Clear value"
           clockAriaLabel="Toggle clock"

@@ -22,7 +22,7 @@ export default function CreateQuestion() {
       <InputFieldDescription
         {...register('description')}
         label="Description"
-        rows={10}
+        rows={9}
         placeholder="Your Description (optional)"
       />
     </div>
