@@ -9,7 +9,6 @@ type InputField = React.InputHTMLAttributes<HTMLInputElement>;
 
 interface InputFieldProps extends InputField {
   label?: string;
-  width: 'full' | 'reduced';
   error?: {
     message?: string;
   };
@@ -17,15 +16,7 @@ interface InputFieldProps extends InputField {
 
 const InputField = forwardRef(
   (
-    {
-      placeholder,
-      label,
-      width,
-      error,
-      disabled,
-      required = false,
-      ...props
-    }: InputFieldProps,
+    { label, error, disabled, required = false, ...props }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     return (
@@ -45,7 +36,6 @@ const InputField = forwardRef(
           )}
         </div>
         <input
-          {...props}
           className={clsx(
             'p-[14px] h-11 body rounded-md placeholder-[body-light] w-full',
             error?.message === undefined
@@ -54,6 +44,7 @@ const InputField = forwardRef(
             disabled ? 'border-brutal-disabled' : 'border-brutal'
           )}
           ref={ref}
+          {...props}
         ></input>
       </label>
     );
