@@ -48,7 +48,6 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
         )}`,
       };
     } else {
-      console.log('fitter');
       const brokenSlice = pollQuestion.slice(0, characters);
       const lastSpaceIndex = brokenSlice.lastIndexOf(' ');
       return {
@@ -193,8 +192,8 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[310px] overflow-y-auto scrollbar-left-padded scrollbar--results">
-        <div>
+      <PollResultsCard.Content className="h-[310px]">
+        <div className="overflow-y-auto scrollbar-left-padded scrollbar--results h-[270px]">
           {poll.options.map(option => (
             <div className="mb-5">
               <p className="body-light text-black mb-3">{poll.options}</p>
@@ -212,7 +211,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
                 <Image
                   src="/images/icons/arrowDown.png"
                   width={13}
-                  height={16} 
+                  height={16}
                   alt="show participants who voted for this option"
                 ></Image>
               </button>
