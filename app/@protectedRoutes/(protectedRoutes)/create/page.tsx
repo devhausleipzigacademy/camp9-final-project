@@ -1,40 +1,52 @@
 'use client';
 
+import { FormProvider, useForm } from 'react-hook-form';
+import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession } from 'next-auth/react';
+
+import useStepIndexStore from '@/utils/store';
+import {
+  CreateNewPoll,
+  CreateNewPollSchema,
+} from '@/types/newPoll/CreatePollSchema';
+
 import AddParticipants from '@/components/createPoll/AddParticipants';
 import AnswerOptions from '@/components/createPoll/AnswerOptions';
 import CreateQuestion from '@/components/createPoll/CreateQuestion';
 import Deadline from '@/components/createPoll/Deadline';
 import RevealConditions from '@/components/createPoll/RevealConditions';
 import Review from '@/components/createPoll/Review';
-import {
-  CreateNewPoll,
-  CreateNewPollSchema,
-} from '@/types/newPoll/CreatePollSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-import useStepIndexStore from '@/utils/store';
 
 export default function CreatePoll() {
   const { setStepIndex, stepIndex, decreaseStepIndex, increaseStepIndex } =
     useStepIndexStore();
-  const multistepComponets = [
-    <CreateQuestion />,
-    <AnswerOptions />,
-    <RevealConditions />,
-    <Deadline />,
-    <AddParticipants />,
-    <Review />,
+  const multiStepComponents = [
+    <CreateQuestion key={CreateQuestion.name} />,
+    <AnswerOptions key={AnswerOptions.name} />,
+    <RevealConditions key={RevealConditions.name} />,
+    <Deadline key={Deadline.name} />,
+    <AddParticipants key={AddParticipants.name} />,
+    <Review key={Review.name} />,
   ];
+
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const { data } = useSession(); // <-- get user ID object from session/JWT
+  const userID = data?.user?.id;
 
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),
     mode: 'all',
     defaultValues: {
+      anonymity: 'AnonymousUntilQuorum',
+      creator: userID,
+      endDateTime: tomorrow,
       type: 'MultipleChoice',
+      quorum: '80',
       options: [
         {
           option: '',
@@ -43,8 +55,6 @@ export default function CreatePoll() {
           option: '',
         },
       ],
-      anonymity: 'AnonymousUntilQuorum',
-      quorum: '80',
     },
   });
 
@@ -52,7 +62,7 @@ export default function CreatePoll() {
   console.log('Errors', methods.formState.errors);
 
   async function nextHandler() {
-    if (stepIndex < multistepComponets.length - 1) {
+    if (stepIndex < multiStepComponents.length - 1) {
       let keyArray: (keyof CreateNewPoll)[] = [];
       switch (stepIndex) {
         case 0:
@@ -65,9 +75,13 @@ export default function CreatePoll() {
           keyArray = ['anonymity', 'quorum'];
           break;
         case 3:
+          keyArray = ['endDateTime'];
           break;
         case 4:
           keyArray = ['participants'];
+          break;
+        case 5:
+          keyArray = ['creator'];
       }
       const isValid = await methods.trigger(keyArray);
       if (!isValid) return;
@@ -83,16 +97,18 @@ export default function CreatePoll() {
 
   return (
     <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
-      <div className="mb-[156px] w-full flex flex-col overflow-x-hidden overflow-y-scroll items-center justify-between  pr-8 ">
-        <ProgressBar
-          currentPage={stepIndex + 1}
-          numberOfPages={multistepComponets.length}
-        />
+      <div className="mb-[156px] w-full flex flex-col overflow-x-hidden  items-center justify-between  pr-8 ">
+        <div className="pl-8 w-full">
+          <ProgressBar
+            currentPage={stepIndex + 1}
+            numberOfPages={multiStepComponents.length}
+          />
+        </div>
         <FormProvider {...methods}>
-          <form>
-            {multistepComponets[stepIndex]}
+          <form className="pl-8 w-full ">
+            {multiStepComponents[stepIndex]}
 
-            <footer className="flex container gap-10 px-8 justify-between items-center bottom-[6.25rem] fixed">
+            <footer className="flex container gap-10 pr-16 justify-between items-center bottom-[6.25rem] fixed">
               {stepIndex > 0 && (
                 <Button
                   size="small"
@@ -105,7 +121,7 @@ export default function CreatePoll() {
                 </Button>
               )}
 
-              {stepIndex < multistepComponets.length - 1 && (
+              {stepIndex < multiStepComponents.length - 1 && (
                 <Button
                   size="large"
                   type="button"
@@ -118,7 +134,7 @@ export default function CreatePoll() {
                 </Button>
               )}
 
-              {stepIndex === multistepComponets.length - 1 && (
+              {stepIndex === multiStepComponents.length - 1 && (
                 <Button size="large" type="submit" className="ml-auto">
                   Create
                 </Button>

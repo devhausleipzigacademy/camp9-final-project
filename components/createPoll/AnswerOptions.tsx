@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { FieldErrors, useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import Button from 'components/shared/buttons/Button';
 import InputField from '../InputField';
 import RadioButton from '../Radiobutton';
@@ -18,7 +17,7 @@ export default function AnswerOptions() {
   return (
     <div className="flex flex-col gap-2">
       <h3 className="title-black">Answer Options</h3>
-      <fieldset className="flex flex-col font-semibold  gap-2">
+      <fieldset className="flex flex-col font-semibold gap-2 ">
         <div className="flex justify-between items-center ">
           <RadioButton
             label="Single Choice"
@@ -35,11 +34,11 @@ export default function AnswerOptions() {
         </div>
       </fieldset>
       <hr className="border border-black"></hr>
-      <fieldset className="flex pt-2 flex-col gap-1 center justify-around w-full">
+      <fieldset className="flex pt-2 flex-col gap-1 center w-full scrollbar overflow-y-scroll pr-2 min-h-min max-h-80">
         {fields.map((_, index) => (
           <div
             key={index}
-            className="flex flex-row justify-between gap-2 pb-1 items-end overflow-scroll w-full"
+            className="flex flex-row justify-between gap-2 pb-1 items-end w-full"
           >
             <InputField
               {...register(`options.${index}.option`)}
