@@ -17,7 +17,7 @@ export default function AnswerOptions() {
   return (
     <div className="pl-8 flex flex-col gap-2">
       <h3 className="title-black">Answer Options</h3>
-      <fieldset className="flex flex-col font-semibold gap-2 ">
+      <fieldset className="flex flex-col font-semibold gap-2 w-full">
         <div className="flex justify-between items-center ">
           <RadioButton
             label="Single Choice"
@@ -34,7 +34,7 @@ export default function AnswerOptions() {
         </div>
       </fieldset>
       <hr className="border border-black"></hr>
-      <fieldset className="flex pt-2 flex-col gap-1 center w-full scrollbar overflow-y-scroll pr-2 min-h-min max-h-80">
+      <fieldset className="flex pt-2 flex-col gap-1 center w-full scrollbar overflow-y-scroll pr-2 min-h-min h-80">
         {fields.map((_, index) => (
           <div
             key={index}

@@ -21,7 +21,6 @@ export default function Review() {
   } = getValues();
 
   const date = new Date(endDateTime).toLocaleDateString();
-  console.log(options);
   const steps = [
     { title: 'Poll Question', value: question, step: 0 },
     { title: 'Poll Description', value: description, step: 0 },
@@ -49,7 +48,7 @@ export default function Review() {
   return (
     <div className="flex flex-col gap-4 w-full ">
       <h3 className="pl-8 title-black">Review & Submit</h3>
-      <div className="pl-8 flex gap-2 flex-col pb-2 h-[400px] scrollbar pr-2 overflow-y-scroll">
+      <div className="pl-8 flex gap-2 flex-col pb-2 h-[375px] scrollbar pr-2 overflow-y-scroll">
         {filteredSteps.map((step, index) => (
           <button
             key={index}

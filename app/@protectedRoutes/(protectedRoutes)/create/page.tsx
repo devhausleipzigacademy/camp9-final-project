@@ -1,15 +1,18 @@
 'use client';
 
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, set, useForm } from 'react-hook-form';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useSession } from 'next-auth/react';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 import useStepIndexStore from '@/utils/store';
 import {
   CreateNewPoll,
   CreateNewPollSchema,
 } from '@/types/newPoll/CreatePollSchema';
+import { Poll } from '@prisma/client';
 
 import AddParticipants from '@/components/createPoll/AddParticipants';
 import AnswerOptions from '@/components/createPoll/AnswerOptions';
@@ -19,10 +22,14 @@ import RevealConditions from '@/components/createPoll/RevealConditions';
 import Review from '@/components/createPoll/Review';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
+import { useRouter } from 'next/navigation';
 
 export default function CreatePoll() {
-  const { stepIndex, decreaseStepIndex, increaseStepIndex } =
+  const router = useRouter();
+
+  const { stepIndex, decreaseStepIndex, increaseStepIndex, setStepIndex } =
     useStepIndexStore();
+
   const multiStepComponents = [
     <CreateQuestion key={CreateQuestion.name} />,
     <AnswerOptions key={AnswerOptions.name} />,
@@ -35,15 +42,11 @@ export default function CreatePoll() {
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  const { data } = useSession(); // <-- get user ID object from session/JWT
-  const userID = data?.user?.id;
-
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),
     mode: 'all',
     defaultValues: {
       anonymity: 'AnonymousUntilQuorum',
-      creator: userID,
       endDateTime: tomorrow,
       type: 'MultipleChoice',
       quorum: '80',
@@ -58,8 +61,29 @@ export default function CreatePoll() {
     },
   });
 
-  console.log('Values', methods.getValues());
-  console.log('Errors', methods.formState.errors);
+  // API request to create a new poll
+  async function createNewPoll(poll: CreateNewPoll) {
+    try {
+      const { data } = await axios.post<Poll>('/api/create', poll, {
+        withCredentials: true,
+      });
+      return data;
+    } catch (error) {
+      console.error('Error creating a poll:', error);
+      throw error;
+    }
+  }
+
+  const { mutate, isError } = useMutation(createNewPoll, {
+    onSuccess: async () => {
+      toast.success('Poll created!');
+      await router.push('/');
+      // await setStepIndex(0);
+    },
+    onError: error => {
+      toast.error(axios.isAxiosError(error) ? error.response?.data : error);
+    },
+  });
 
   let keyArray: (keyof CreateNewPoll)[] = [];
   switch (stepIndex) {
@@ -78,8 +102,6 @@ export default function CreatePoll() {
     case 4:
       keyArray = ['participants'];
       break;
-    case 5:
-      keyArray = ['creator'];
   }
 
   async function nextHandler() {
@@ -97,6 +119,17 @@ export default function CreatePoll() {
       decreaseStepIndex();
     }
   }
+  // Form submission handler
+  const onSubmit: SubmitHandler<CreateNewPoll> = data => {
+    if (Object.keys(methods.formState.errors).length === 0) {
+      try {
+        mutate(data);
+        console.log("You've submitted the form!", data);
+      } catch (error) {
+        console.log('Error creating a poll: ', error);
+      }
+    }
+  };
 
   return (
     <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
@@ -108,11 +141,11 @@ export default function CreatePoll() {
           />
         </div>
         <FormProvider {...methods}>
-          <form className=" w-full ">
+          <form className="w-full" onSubmit={methods.handleSubmit(onSubmit)}>
             {multiStepComponents[stepIndex]}
 
             <footer className="pl-8 flex container gap-10 pr-8 justify-between items-center bottom-[6.25rem] fixed">
-              {stepIndex > 0 && (
+              {stepIndex > 0 && !isError && (
                 <Button
                   size="small"
                   type="button"
@@ -138,9 +171,19 @@ export default function CreatePoll() {
                 </Button>
               )}
 
-              {stepIndex === multiStepComponents.length - 1 && (
+              {stepIndex === multiStepComponents.length - 1 && !isError && (
                 <Button size="large" type="submit" className="ml-auto">
                   Create
+                </Button>
+              )}
+              {isError && (
+                <Button
+                  size="large"
+                  type="button"
+                  className="w-full"
+                  onClick={() => setStepIndex(0)}
+                >
+                  Try Again
                 </Button>
               )}
             </footer>

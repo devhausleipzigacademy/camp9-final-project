@@ -11,7 +11,10 @@ const RadioButton = forwardRef<HTMLInputElement, Props>(
   ({ id, label, ...props }: Props, ref) => {
     return (
       <>
-        <label htmlFor={id}>
+        <label
+          htmlFor={id}
+          className="flex w-full justify-between items-center"
+        >
           {label && <span className="align-middle">{label}</span>}
           <input
             ref={ref}

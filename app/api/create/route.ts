@@ -1,17 +1,21 @@
 import { PrismaClient } from '@prisma/client';
 import { ZodError } from 'zod';
+import { authOptions } from '@/libs/auth';
 
 import {
   CreateNewPoll,
   CreateNewPollSchema,
 } from '@/types/newPoll/CreatePollSchema';
 import { NextResponse } from 'next/server';
+import { getServerSession } from 'next-auth';
 
 const prisma = new PrismaClient();
 
-
 export async function POST(request: Request) {
   const data = (await request.json()) as CreateNewPoll;
+
+  const session = await getServerSession(authOptions);
+
   try {
     const newDate = new Date(data.endDateTime);
 
@@ -19,26 +23,24 @@ export async function POST(request: Request) {
 
     CreateNewPollSchema.parse(data);
 
-
     const createdPoll = await prisma.poll.create({
       data: {
         question: data.question,
         description: data.description,
-        options: data.options?.map(option => option),
+        options: data.options.map(option => option.option),
         creator: {
           connect: {
-            id: data.creator,
+            id: session?.user.id,
           },
         },
         participants: {
-          // connect: [{ name: "test" }, { name: "hello" }], // dummy data
           connect: data.participants?.map(participant => ({
             name: participant,
           })),
         },
         endDateTime: data.endDateTime,
         anonymity: data.anonymity,
-        quorum: +data.quorum,
+        quorum: data.quorum ? +data.quorum : 0,
         type: data.type,
       },
     });

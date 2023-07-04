@@ -43,12 +43,11 @@ export default function AddParticipants() {
       staleTime: 1000 * 60 * 5, //5 minutes
     }
   );
-  console.log('selectedUser', selectedUser);
   return (
     <div className="pl-8">
       <h3 className="title-black">Add Participants</h3>
       <Combobox value={selectedUser} onChange={setSelectedUser}>
-        <div className="flex flex-row h-12 gap-2 justify-between mt-4">
+        <div className="flex flex-row h-12 gap-2 items-center justify-between mt-4">
           <Button
             className="shrink-0"
             disabled={!selectedUser}
