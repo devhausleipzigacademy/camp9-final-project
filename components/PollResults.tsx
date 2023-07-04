@@ -8,9 +8,8 @@ import Button from '@/components/shared/buttons/Button';
 import { Poll, User, Vote, Mood } from '@prisma/client';
 import Image from 'next/legacy/image';
 import { useRouter } from 'next/navigation';
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-import PollDetailsCard from './shared/PollDetailsCard';
 import ProgressBar from './shared/ProgressBar';
 
 interface PollResultsProps extends Poll {
@@ -21,11 +20,6 @@ interface PollResultsProps extends Poll {
 export default function PollResults({ poll }: { poll: PollResultsProps }) {
   const router = useRouter();
   const [cardIndex, setCardIndex] = useState(0);
-  const [showParticipants, setShowParticipants] = useState(false);
-  const [modalContent, setModalContent] = useState({
-    participants: [] as User[],
-    title: '',
-  });
 
   //next&back button functionality
   function incrementValue() {
@@ -121,11 +115,13 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[260px] overflow-y-auto">
-        <p className="body-semibold mb-5">
-          {questionFitter(poll.question, 32).questionEnd}
-        </p>
-        <p className="body-light text-black">{poll.description}</p>
+      <PollResultsCard.Content className="h-[260px] ">
+        <div className="overflow-y-auto scrollbar-left-padded scrollbar--results h-[230px]">
+          <p className="body-semibold mb-5">
+            {questionFitter(poll.question, 32).questionEnd}
+          </p>
+          <p className="body-light text-black">{poll.description}</p>
+        </div>
       </PollResultsCard.Content>
       <div className="text-right mt-3 mr-1">
         <p className="small items-end">
@@ -146,19 +142,31 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       <PollResultsCard.Content className="h-[260px]">
         <p className="body-semibold mb-4">Voting Conditions</p>
         <div className="flex items-center gap-2">
-          <Checkbox variant={'secondary'} checkProp={true} disableProp={true}></Checkbox>
+          <Checkbox
+            variant={'secondary'}
+            checkProp={true}
+            disableProp={true}
+          ></Checkbox>
           <p className="body-light text-black">
             {poll.type === 'SingleChoice' ? 'Single Choice' : 'Multiple Choice'}
           </p>
         </div>
         <div className="flex items-center gap-2 my-[20px]">
-          <Checkbox variant={'secondary'} checkProp={true} disableProp={true}></Checkbox>
+          <Checkbox
+            variant={'secondary'}
+            checkProp={true}
+            disableProp={true}
+          ></Checkbox>
           <p className="body-light text-black">
             {poll.participants.length} participants
           </p>
         </div>
         <div className="flex gap-2">
-          <Checkbox variant={'secondary'} checkProp={true} disableProp={true}></Checkbox>
+          <Checkbox
+            variant={'secondary'}
+            checkProp={true}
+            disableProp={true}
+          ></Checkbox>
           <p className="body-light text-black">
             {poll.anonymity === 'Anonymous'
               ? 'Anonymous'
@@ -185,30 +193,32 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[310px] overflow-y-auto">
-        <div className="mb-5">
-          <p className="body-light text-black mb-3">option was here</p>
-          <div className="w-[250px]">
-            <PollProgressBar
-              votes={poll.votes.length}
-              participants={poll.participants.length}
-            />
-          </div>
-          <button
-            type="button"
-            className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
-          >
-            <p className="small-bold">{poll.votes.length} votes</p>
-            <Image
-              src="/images/icons/arrowDown.png"
-              width={13}
-              height={16}
-              alt="show participants who voted for this option"
-            ></Image>
-          </button>
+      <PollResultsCard.Content className="h-[310px] overflow-y-auto scrollbar-left-padded scrollbar--results">
+        <div>
+          {poll.options.map(option => (
+            <div className="mb-5">
+              <p className="body-light text-black mb-3">{poll.options}</p>
+              <div className="w-[220px]">
+                <PollProgressBar
+                  votes={poll.votes.length}
+                  participants={poll.participants.length}
+                />
+              </div>
+              <button
+                type="button"
+                className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
+              >
+                <p className="small-bold">{poll.votes.length} votes</p>
+                <Image
+                  src="/images/icons/arrowDown.png"
+                  width={13}
+                  height={16} 
+                  alt="show participants who voted for this option"
+                ></Image>
+              </button>
+            </div>
+          ))}
         </div>
-
-      
       </PollResultsCard.Content>
     </PollResultsCard>,
 

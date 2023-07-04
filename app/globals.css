@@ -426,6 +426,9 @@
   .scrollbar--alt-color::-webkit-scrollbar-track {
     @apply bg-yellow;
   }
+  .scrollbar--results::-webkit-scrollbar-track {
+    @apply bg-yellow-light;
+  }
   .appName {
     font-family: 'Poppins';
     font-style: normal;
