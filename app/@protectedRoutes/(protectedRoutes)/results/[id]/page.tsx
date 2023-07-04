@@ -16,5 +16,5 @@ async function getPoll(pollID: number) {
 
 export default async function Results({ params }: { params: { id: string } }) {
   const poll = await getPoll(parseInt(params.id));
-  return <PollResults poll={poll}></PollResults>;
+  return <PollResults  poll={poll}></PollResults>;
 }
