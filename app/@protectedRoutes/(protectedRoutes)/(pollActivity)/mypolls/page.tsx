@@ -1,16 +1,15 @@
 import { authOptions } from '@/libs/auth';
 import { sortPollsByDate } from '@/utils/pollActivityUtils';
-import { PrismaClient } from '@prisma/client';
 import PollCard from 'components/PollCard';
 import { getServerSession } from 'next-auth';
 import React from 'react';
+import { db } from '@/libs/db';
 
-const prisma = new PrismaClient();
-
-async function getMyPolls(userId: number) {
-  const filteredMyPolls = await prisma.poll.findMany({
+async function getMyPolls() {
+  const session = await getServerSession(authOptions);
+  const filteredMyPolls = await db.poll.findMany({
     where: {
-      creatorId: userId,
+      creatorId: session?.user.id,
     },
     include: {
       _count: {
@@ -26,8 +25,7 @@ async function getMyPolls(userId: number) {
 }
 
 async function MyPolls() {
-  const session = await getServerSession(authOptions);
-  const myPolls = await getMyPolls(session?.user.id!);
+  const myPolls = await getMyPolls();
   if (myPolls.length === 0) {
     return (
       <div className=" flex flex-col justify-center items-center">
@@ -36,10 +34,9 @@ async function MyPolls() {
       </div>
     );
   }
-  return sortPollsByDate(myPolls, session?.user.id!).map(poll => {
-    let hasVoted = !!poll.votes.filter(
-      vote => vote.userId === session?.user.id!
-    ).length;
+  return sortPollsByDate(myPolls).map(poll => {
+    const hasVoted = !!poll.votes.filter(vote => vote.userId === poll.creatorId)
+      .length;
     return (
       <PollCard
         className="mb-4"

@@ -102,7 +102,11 @@ export default function PollCard({
         ) : (
           <p className="small">
             Closed on{' '}
-            {<span className="small-bold">{date.toLocaleDateString()}</span>}
+            {
+              <span className="small-bold">
+                {date.toLocaleDateString('en-GB')}
+              </span>
+            }
           </p> // Display the closed date
         )}
         {
