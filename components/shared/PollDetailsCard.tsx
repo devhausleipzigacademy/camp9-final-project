@@ -14,10 +14,10 @@ function PollDetailsCard({ title, children, note, bodyMaxH }: Props) {
         {title}
       </h4>
       <div
-        className={`description px-3 my-[6px] overflow-scroll`}
-        style={{ maxHeight: bodyMaxH, scrollbarColor: 'red' }}
+        className={`description mx-3 my-[6px] overflow-y-auto overflow-x-hidden scrollbar scrollbar--alt-color`}
+        style={{ maxHeight: bodyMaxH }}
       >
-        {children}
+        <div className="mr-3">{children}</div>
       </div>
       {note && (
         <p className=" bg-yellow small px-3 py-[6px] border-t-[3px] border-t-black overflow-auto">

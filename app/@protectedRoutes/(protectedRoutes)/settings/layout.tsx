@@ -1,4 +1,7 @@
+'use client';
+
 import Button from 'components/shared/buttons/Button';
+import { signOut } from 'next-auth/react';
 import { HiOutlineArrowNarrowLeft } from 'react-icons/hi';
 
 export default function SettingsLayout({
@@ -15,9 +18,9 @@ export default function SettingsLayout({
       </main>
 
       <footer className="flex container px-8 justify-between items-center bottom-28 fixed">
-        <Button size="full" variant="secondary">
+        <Button size="full" variant="secondary" onClick={() => signOut()}>
           <HiOutlineArrowNarrowLeft size={25} strokeWidth={2} />
-          <h3>Logout</h3>
+          <h3>Log out</h3>
         </Button>
       </footer>
     </>

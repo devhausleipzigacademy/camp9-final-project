@@ -1,12 +1,12 @@
 import { Anonymity, Mood, Poll, PollType, Vote } from '@prisma/client';
-import { db } from 'app/libs/db';
+import { db } from '@/libs/db';
 import PollDetailsCard from 'components/shared/PollDetailsCard';
 import PreviewCheckbox from 'components/shared/PreviewCheckbox';
 import React from 'react';
 import { authOptions } from '@/libs/auth';
 import { getServerSession } from 'next-auth/next';
-import MoodDisplay from '@/components/MoodDisplay';
 import PollProgressBar from '@/components/PollProgressBar';
+import MoodDisplay from '@/components/MoodDisplay';
 
 interface FullPollInfo extends Poll {
   votes: Vote[];
@@ -56,15 +56,22 @@ function parsePollData(pollData: FullPollInfo): {
   const moods = pollData.votes.map(vote =>
     Object.keys(Mood).indexOf(vote.mood)
   );
-  const averageMood =
-    moods.reduce((partialSum, mood) => partialSum + mood, 0) / moods.length;
-  const avgMoodDescription =
-    Object.keys(Mood)[Math.trunc(averageMood * 1.24)]?.toLowerCase();
+  let averageMood;
+  let avgMoodDescription;
+  if (moods.length === 0) {
+    averageMood = -1;
+  } else {
+    averageMood =
+      moods.reduce((partialSum, mood) => partialSum + mood, 0) / moods.length;
+    avgMoodDescription =
+      Object.keys(Mood)[Math.trunc(averageMood * 1.24)]?.toLowerCase();
+  }
+
   const parsedPoll = [
     [
       {
         title: 'Poll Question',
-        body: pollData.question.substring(0, 40) + '?',
+        body: pollData.question,
       },
       {
         title: 'Poll Description',
@@ -89,8 +96,7 @@ function parsePollData(pollData: FullPollInfo): {
         body: (
           <>
             <p className="mb-2">
-              {pollData.votes.length} out of {pollData._count.participants}{' '}
-              participants voted.
+              {`${pollData.votes.length} out of ${pollData._count.participants} participants voted.`}
             </p>
             <PollProgressBar
               votes={pollData.votes.length}
@@ -103,26 +109,32 @@ function parsePollData(pollData: FullPollInfo): {
         title: 'Emotional Feedback',
         body: (
           <div>
-            <p>
-              The average mood participants had while voting on this poll is{' '}
-              <span
-                className={
-                  'font-bold ' +
-                  (Math.trunc(averageMood * 1.25) === 0
-                    ? 'text-red'
-                    : Math.trunc(averageMood * 1.25) === 1
-                    ? 'text-peach'
-                    : Math.trunc(averageMood * 1.25) === 2
-                    ? 'text-yellow'
-                    : Math.trunc(averageMood * 1.25) === 3
-                    ? 'text-green-light'
-                    : 'text-green')
-                }
-              >
-                {avgMoodDescription}
-              </span>
-              .
-            </p>
+            {averageMood === -1 ? (
+              <p>No participants have reported on their mood yet.</p>
+            ) : (
+              <p>
+                The average mood participants had while voting on this poll is
+                <span
+                  className={
+                    'font-bold ' +
+                    (Math.trunc(averageMood * 1.25) === 0
+                      ? 'text-red'
+                      : Math.trunc(averageMood * 1.25) === 1
+                      ? 'text-peach'
+                      : Math.trunc(averageMood * 1.25) === 2
+                      ? 'text-yellow'
+                      : Math.trunc(averageMood * 1.25) === 3
+                      ? 'text-green-light'
+                      : 'text-green')
+                  }
+                >
+                  {' '}
+                  {avgMoodDescription}
+                </span>
+                .
+              </p>
+            )}
+
             <MoodDisplay averageMood={averageMood} />
           </div>
         ),
@@ -167,10 +179,12 @@ async function PollDetails({
   if (parseInt(params.page) <= 0 || parseInt(params.page) > 4) {
     throw new Error('Invalid page number.');
   }
-  let userId = 10; //default user if no user is logged in
   const session = await getServerSession(authOptions);
-  if (session && session.user.id) {
-    userId = session.user.id;
+  let userId;
+  try {
+    userId = session?.user.id!;
+  } catch (err) {
+    throw new Error('User not found.');
   }
   const poll = await getPoll(parseInt(params.id), userId);
   const parsedPoll = parsePollData(poll);

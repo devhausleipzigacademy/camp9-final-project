@@ -1,56 +1,91 @@
 'use client';
 
 import InputField from 'components/InputField';
-import { useSignUpMutation } from 'components/hooks/useUser';
-import { SignUpUser } from '@/types/user/AuthSchemata';
+import {
+  SignUpResponse,
+  SignUpSchema,
+  signUpSchema,
+} from '@/types/user/AuthSchemata';
 import Button from '../buttons/Button';
+import axios, { AxiosError } from 'axios';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 function SignUpForm() {
-  const { mutate, isLoading, handleSubmit, register, errors, formState } =
-    useSignUpMutation();
+  async function signUpUser(user: SignUpSchema) {
+    const { data } = await axios.post('/api/signup', user, {
+      withCredentials: true,
+    });
+    return data;
+  }
 
-  const onSubmit = (data: SignUpUser) => {
-    mutate(data);
-  };
+  const router = useRouter();
+
+  const {
+    register,
+    formState: { errors },
+    reset,
+    handleSubmit,
+    formState,
+  } = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
+    mode: 'onTouched',
+  });
+
+  const { mutate, isLoading } = useMutation<
+    SignUpResponse,
+    AxiosError,
+    SignUpSchema
+  >({
+    mutationFn: (user: SignUpSchema) => signUpUser(user),
+    onSuccess: data => {
+      toast.success('Welcome to the club!');
+      reset();
+      router.push('/login');
+    },
+    onError: error => {
+      if (error.response?.status === 422) {
+        return toast.error('User already exists!');
+      }
+      toast.error('Sorry something went wrong!');
+    },
+  });
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(submitData => mutate(submitData))}
       noValidate
       className="flex flex-col gap-20"
     >
       <div className="flex flex-col gap-5">
         <InputField
-          label={'Username'}
-          showLabel={true}
+          label="Username"
           disabled={isLoading}
           width="full"
-          key={'userName'}
-          placeholder={'Username'}
+          placeholder="Username"
           type="text"
           error={errors.username}
           {...register('username')}
         />
         <InputField
-          label={'Password'}
-          showLabel={true}
+          label="Password"
           disabled={isLoading}
           error={errors.password}
           width="full"
-          key={'password'}
-          placeholder={'Password'}
-          type={'password'}
+          placeholder="Password"
+          type="password"
           {...register('password')}
         />
         <InputField
-          label={'Confirm Password'}
-          showLabel={true}
+          label="Confirm Password"
           disabled={isLoading}
           error={errors.confirmPassword}
           width="full"
-          key={'confirmPassword'}
-          placeholder={'Confirm Password'}
-          type={'password'}
+          placeholder="Confirm Password"
+          type="password"
           {...register('confirmPassword')}
         />
       </div>
@@ -58,7 +93,7 @@ function SignUpForm() {
         type="submit"
         size="full"
         variant="secondary"
-        disabled={Object.keys(formState.errors).length !== 0}
+        disabled={Object.keys(formState.errors).length !== 0 || isLoading}
       >
         Sign Up
       </Button>
