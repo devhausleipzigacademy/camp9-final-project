@@ -13,6 +13,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Image from 'next/image';
+import QuestionVote from '@/components/voting/QuestionVote';
 
 export type UserAnswer = {
   abstain: boolean;
@@ -161,17 +162,10 @@ export default function Voting() {
           step === 1 ? 'visible' : 'hidden'
         )}
       >
-        <div className="questionVote w-full h-auto p-2 border-3 border-solid border-black bg-peach rounded-md">
-          {query.data?.data.question}
-        </div>
-        <div className="h-[278px]">
-          <h2 className="description-semibold">Description:</h2>
-          <div className="overflow-y-auto h-auto scrollbar">
-            <p className="description-light text-justify">
-              {query.data?.data.description}
-            </p>
-          </div>
-        </div>
+        <QuestionVote
+          question={query.data?.data.question}
+          decription={query.data?.data.description}
+        />
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         {anonymity}

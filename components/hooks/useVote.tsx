@@ -1,3 +1,4 @@
+'use client';
 import { Anonymity, Poll, PollType } from '@prisma/client';
 import { UseQueryResult } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
@@ -9,6 +10,9 @@ import Image from 'next/image';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
 import { Navbar } from '../shared/navbar/Navbar';
+import VotingConditionsAnonymous from '../voting/VotingConditionsA';
+import VotingConditionsNon from '../voting/VotingConditionsNon';
+import VotingConditionsQu from '../voting/VotingConditionsQu';
 
 interface SideKickProps {
   query: UseQueryResult<AxiosResponse<Poll, any>, unknown>;
@@ -68,75 +72,21 @@ export function superSidekickHoock({
     switch (anonymity) {
       case 'Anonymous':
         return (
-          <fieldset
-            className={clsx(step === 2 ? 'visible h-[375px]' : 'hidden')}
-          >
-            <p className="small">
-              <span className="small-bold">Please check</span> you understand
-              the poll conditions
-            </p>
-            <div className="flex flex-row justify-between">
-              <label htmlFor="anonymity" className="body-semibold">
-                Full anonymity
-              </label>
-              <input
-                type="checkbox"
-                {...register('Anonymous', { required: true })}
-                className="checkmarkBox"
-              />
-            </div>
-            <p className="description-light">No username will be revealed</p>
-          </fieldset>
+          <div className={clsx(step === 2 ? 'visible h-[375px]' : 'hidden')}>
+            <VotingConditionsAnonymous anonymity={anonymity} />
+          </div>
         );
       case 'NonAnonymous':
         return (
-          <fieldset
-            className={clsx(step === 2 ? 'visible h-[375px]' : 'hidden')}
-          >
-            <p className="small">
-              <span className="small-bold">Please check</span> you understand
-              the poll conditions
-            </p>
-            <div className="flex flex-row justify-between items-center">
-              <label htmlFor={anonymity} className="body-semibold">
-                No Anonymity
-              </label>
-              <input
-                type="checkbox"
-                {...register('NonAnonymous', { required: true })}
-                className="checkmarkBox"
-              />
-            </div>
-            <p className="description-light max-w-[270px]">
-              The usernames and their votes will be revealed at the end of the
-              voting period.
-            </p>
-          </fieldset>
+          <div className={clsx(step === 2 ? 'visible h-[375px]' : 'hidden')}>
+            <VotingConditionsNon anonymity={anonymity} />
+          </div>
         );
       case 'AnonymousUntilQuorum':
         return (
-          <fieldset
-            className={clsx(step === 2 ? 'visible h-[375px]' : 'hidden')}
-          >
-            <p className="small">
-              <span className="small-bold">Please check</span> you understand
-              the poll conditions
-            </p>
-            <div className="flex flex-row justify-between items-center">
-              <label htmlFor="anonymity" className="body-semibold">
-                Anonymity until quorum
-              </label>
-              <input
-                type="checkbox"
-                {...register('AnonymousUntilQuorum', { required: true })}
-                className="checkmarkBox"
-              />
-            </div>
-            <p className="description-light max-w-[270px]">
-              The usernames will be revealed when {quorum} participants reached
-              a consesus.
-            </p>
-          </fieldset>
+          <div className={clsx(step === 2 ? 'visible h-[375px]' : 'hidden')}>
+            <VotingConditionsQu quorum={quorum} anonymity={anonymity} />
+          </div>
         );
     }
   }
