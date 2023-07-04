@@ -8,12 +8,12 @@ import { UseFormRegister, useFormContext } from 'react-hook-form';
 import { HiExclamationTriangle } from 'react-icons/hi2';
 import TimePicker from 'react-time-picker';
 
-export default function Deadline({
-  title = 'Deadline',
-}: NewPollComponentProps) {
+export default function Deadline() {
   const { register, formState, getValues, setValue } =
     useFormContext<CreateNewPoll>(); // retrieve all hook methods
+
   const { endDateTime } = getValues();
+
   const [showTime, setShowTime] = useState(false);
   useEffect(() => {
     setShowTime(true);
@@ -21,6 +21,7 @@ export default function Deadline({
       setShowTime(false);
     };
   }, []);
+
   // function for setting the newly selected time
   function setTime(timeString: string | null) {
     if (timeString) {
@@ -51,7 +52,8 @@ export default function Deadline({
   }
   // JSX return statement
   return (
-    <div className="flex flex-col gap-3 items-center">
+    <div className="pl-8 flex flex-col gap-y-6 items-center pb-1">
+      <h3 className="title-black">Deadline</h3>
       <Calendar
         className="calendar"
         prev2Label={null}

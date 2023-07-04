@@ -39,22 +39,28 @@ export default function Review() {
 
   // Filter out steps with empty values
   const filteredSteps = steps.filter(
-    step => step.value !== undefined && step.value !== null && step.value !== ''
+    step =>
+      step.value !== undefined &&
+      step.value !== null &&
+      step.value !== '' &&
+      step.value !== '0'
   );
 
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <h3 className="title-black">Review & Submit</h3>
-      {filteredSteps.map((step, index) => (
-        <button
-          key={index}
-          type="button"
-          onClick={() => setStepIndex(step.step)}
-          className="text-start"
-        >
-          <PollDetailsCard title={step.title} children={step.value} />
-        </button>
-      ))}
+    <div className="flex flex-col gap-4 w-full ">
+      <h3 className="pl-8 title-black">Review & Submit</h3>
+      <div className="pl-8 flex gap-2 flex-col pb-2 h-[400px] scrollbar pr-2 overflow-y-scroll">
+        {filteredSteps.map((step, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => setStepIndex(step.step)}
+            className="text-start"
+          >
+            <PollDetailsCard title={step.title}>{step.value}</PollDetailsCard>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

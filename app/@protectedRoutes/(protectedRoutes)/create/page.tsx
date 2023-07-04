@@ -21,7 +21,7 @@ import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
 
 export default function CreatePoll() {
-  const { setStepIndex, stepIndex, decreaseStepIndex, increaseStepIndex } =
+  const { stepIndex, decreaseStepIndex, increaseStepIndex } =
     useStepIndexStore();
   const multiStepComponents = [
     <CreateQuestion key={CreateQuestion.name} />,
@@ -61,43 +61,46 @@ export default function CreatePoll() {
   console.log('Values', methods.getValues());
   console.log('Errors', methods.formState.errors);
 
+  let keyArray: (keyof CreateNewPoll)[] = [];
+  switch (stepIndex) {
+    case 0:
+      keyArray = ['question', 'description'];
+      break;
+    case 1:
+      keyArray = ['options', 'type'];
+      break;
+    case 2:
+      keyArray = ['anonymity', 'quorum'];
+      break;
+    case 3:
+      keyArray = ['endDateTime'];
+      break;
+    case 4:
+      keyArray = ['participants'];
+      break;
+    case 5:
+      keyArray = ['creator'];
+  }
+
   async function nextHandler() {
     if (stepIndex < multiStepComponents.length - 1) {
-      let keyArray: (keyof CreateNewPoll)[] = [];
-      switch (stepIndex) {
-        case 0:
-          keyArray = ['question', 'description'];
-          break;
-        case 1:
-          keyArray = ['options', 'type'];
-          break;
-        case 2:
-          keyArray = ['anonymity', 'quorum'];
-          break;
-        case 3:
-          keyArray = ['endDateTime'];
-          break;
-        case 4:
-          keyArray = ['participants'];
-          break;
-        case 5:
-          keyArray = ['creator'];
-      }
       const isValid = await methods.trigger(keyArray);
       if (!isValid) return;
       increaseStepIndex();
     }
   }
 
-  function prevHandler() {
+  async function prevHandler() {
     if (stepIndex > 0) {
+      const isValid = await methods.trigger(keyArray);
+      if (!isValid) return;
       decreaseStepIndex();
     }
   }
 
   return (
     <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
-      <div className="mb-[156px] w-full flex flex-col overflow-x-hidden  items-center justify-between  pr-8 ">
+      <div className="mb-[156px] w-full flex flex-col overflow-x-hidden  overflow-y-hidden items-center justify-between  pr-8 gap-4">
         <div className="pl-8 w-full">
           <ProgressBar
             currentPage={stepIndex + 1}
@@ -105,16 +108,17 @@ export default function CreatePoll() {
           />
         </div>
         <FormProvider {...methods}>
-          <form className="pl-8 w-full ">
+          <form className=" w-full ">
             {multiStepComponents[stepIndex]}
 
-            <footer className="flex container gap-10 pr-16 justify-between items-center bottom-[6.25rem] fixed">
+            <footer className="pl-8 flex container gap-10 pr-8 justify-between items-center bottom-[6.25rem] fixed">
               {stepIndex > 0 && (
                 <Button
                   size="small"
                   type="button"
                   variant="secondary"
                   onClick={prevHandler}
+                  disabled={Object.keys(methods.formState.errors).length !== 0}
                 >
                   <GrFormPrevious size={24} strokeWidth={2} />
                   Back
@@ -125,7 +129,7 @@ export default function CreatePoll() {
                 <Button
                   size="large"
                   type="button"
-                  className="ml-auto"
+                  className={stepIndex === 0 ? 'w-full' : 'ml-auto'}
                   onClick={nextHandler}
                   disabled={Object.keys(methods.formState.errors).length !== 0}
                 >

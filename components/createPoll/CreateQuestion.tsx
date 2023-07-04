@@ -9,7 +9,7 @@ export default function CreateQuestion() {
   const { register, formState } = useFormContext<CreateNewPoll>();
 
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="pl-8 flex flex-col gap-4 w-full">
       <h3 className="title-black">Create Poll</h3>
       <InputField
         {...register('question')}
@@ -23,7 +23,7 @@ export default function CreateQuestion() {
         {...register('description')}
         label="Description"
         rows={10}
-        placeholder="Description (optional)"
+        placeholder="Your Description (optional)"
       />
     </div>
   );

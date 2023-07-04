@@ -45,11 +45,12 @@ export default function AddParticipants() {
   );
   console.log('selectedUser', selectedUser);
   return (
-    <div>
+    <div className="pl-8">
       <h3 className="title-black">Add Participants</h3>
       <Combobox value={selectedUser} onChange={setSelectedUser}>
-        <div className="flex flex-row h-12 gap-2 justify-between">
+        <div className="flex flex-row h-12 gap-2 justify-between mt-4">
           <Button
+            className="shrink-0"
             disabled={!selectedUser}
             size="xs"
             variant="secondary"
