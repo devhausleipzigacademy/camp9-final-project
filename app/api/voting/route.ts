@@ -1,4 +1,4 @@
-import { VoteAnswer } from '@/app/(protected)/voting/[...slug]/page';
+import { VoteAnswer } from '@/app/@protectedRoutes/(protectedRoutes)/voting/[...slug]/page';
 import { Mood, Poll, PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 

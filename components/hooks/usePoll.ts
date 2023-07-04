@@ -1,4 +1,4 @@
-import { VoteAnswer } from '@/app/(protected)/voting/[...slug]/page';
+import { VoteAnswer } from '@/app/@protectedRoutes/(protectedRoutes)/voting/[...slug]/page';
 import { Poll } from '@prisma/client';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
