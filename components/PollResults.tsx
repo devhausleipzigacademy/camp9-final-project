@@ -117,17 +117,15 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //1.question=description
     <PollResultsCard
-      pollQuestion={questionFitter(poll.question, 34).questionStart}
+      pollQuestion={questionFitter(poll.question, 32).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
-      <PollResultsCard.Content className="h-[260px] ">
-        <div className="overflow-y-auto scrollbar-left-padded  bg-yellow-light h-[220px]">
-          <p className="body-semibold mb-5">
-            {questionFitter(poll.question, 34).questionEnd}
-          </p>
-          <p className="body-light text-black">{poll.description}</p>
-        </div>
+      <PollResultsCard.Content className="h-[260px] overflow-y-auto">
+        <p className="body-semibold mb-5">
+          {questionFitter(poll.question, 32).questionEnd}
+        </p>
+        <p className="body-light text-black">{poll.description}</p>
       </PollResultsCard.Content>
       <div className="text-right mt-3 mr-1">
         <p className="small items-end">
@@ -141,26 +139,26 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //2.voting conditions
     <PollResultsCard
-      pollQuestion={questionFitter(poll.question, 34).questionStart}
+      pollQuestion={questionFitter(poll.question, 32).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
       <PollResultsCard.Content className="h-[260px]">
         <p className="body-semibold mb-4">Voting Conditions</p>
         <div className="flex items-center gap-2">
-          <Checkbox variant={'secondary'}></Checkbox>
+          <Checkbox variant={'secondary'} checkProp={true} disableProp={true}></Checkbox>
           <p className="body-light text-black">
             {poll.type === 'SingleChoice' ? 'Single Choice' : 'Multiple Choice'}
           </p>
         </div>
         <div className="flex items-center gap-2 my-[20px]">
-          <Checkbox variant={'secondary'}></Checkbox>
+          <Checkbox variant={'secondary'} checkProp={true} disableProp={true}></Checkbox>
           <p className="body-light text-black">
             {poll.participants.length} participants
           </p>
         </div>
         <div className="flex gap-2">
-          <Checkbox variant={'secondary'}></Checkbox>
+          <Checkbox variant={'secondary'} checkProp={true} disableProp={true}></Checkbox>
           <p className="body-light text-black">
             {poll.anonymity === 'Anonymous'
               ? 'Anonymous'
@@ -183,7 +181,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     //3.answers+percantages
     //sort options by percentages or by appearence in the poll?
     <PollResultsCard
-      pollQuestion={questionFitter(poll.question, 34).questionStart}
+      pollQuestion={questionFitter(poll.question, 32).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
@@ -216,7 +214,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
     //4.mood
     <PollResultsCard
-      pollQuestion={questionFitter(poll.question, 34).questionStart}
+      pollQuestion={questionFitter(poll.question, 32).questionStart}
       endDate={new Date()}
       startDate={new Date()}
     >
