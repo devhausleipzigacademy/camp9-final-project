@@ -5,4 +5,5 @@ export const voteSchema = z.object({
   answer: z.string(),
   mood: z.enum(['Miserable', 'Unhappy', 'Unsure', 'Happy', 'Beaming']),
 });
+
 export type VotePoll = z.infer<typeof voteSchema>;

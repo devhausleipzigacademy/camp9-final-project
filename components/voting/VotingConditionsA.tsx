@@ -1,17 +1,17 @@
-'use client';
-
-import clsx from 'clsx';
 import React from 'react';
 import RadioButton from '../Radiobutton';
 
 import { VotePoll } from '@/types/voting/VotingSchema';
 import { useFormContext } from 'react-hook-form';
+import CheckboxButton from '../CheckboxButton';
 
 export type VotingConditionsProps = {
   anonymity: string | undefined;
 };
 
 function VotingConditionsAnonymous(props: VotingConditionsProps) {
+  const { register } = useFormContext<VotePoll>();
+
   return (
     <fieldset>
       <p className="small">
@@ -22,7 +22,11 @@ function VotingConditionsAnonymous(props: VotingConditionsProps) {
         <label htmlFor={props.anonymity} className="body-semibold">
           Full anonymity
         </label>
-        <RadioButton id="anonymity" value="Anonymous" />
+        <CheckboxButton
+          id="anonymity"
+          value="Anonymous"
+          {...register('anonymity')}
+        />
       </div>
       <p className="description-light">No username will be revealed</p>
     </fieldset>

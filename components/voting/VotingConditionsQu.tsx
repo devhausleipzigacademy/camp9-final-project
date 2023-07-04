@@ -1,9 +1,8 @@
-'use client';
-import clsx from 'clsx';
 import React from 'react';
-import RadioButton from '../Radiobutton';
+
 import { useFormContext } from 'react-hook-form';
 import { VotePoll } from '@/types/voting/VotingSchema';
+import CheckboxButton from '../CheckboxButton';
 
 interface PropsQuorum {
   anonymity: string | undefined;
@@ -11,6 +10,7 @@ interface PropsQuorum {
 }
 
 function VotingConditionsQu(props: PropsQuorum) {
+  const { register } = useFormContext<VotePoll>();
   return (
     <fieldset>
       <p className="small">
@@ -21,7 +21,11 @@ function VotingConditionsQu(props: PropsQuorum) {
         <label htmlFor="anonymity" className="body-semibold">
           Anonymity until quorum
         </label>
-        <RadioButton id="anonymousuntilquorum" value="AnonymousUntilQuorum" />
+        <CheckboxButton
+          id="anonymousuntilquorum"
+          value="AnonymousUntilQuorum"
+          {...register('anonymity')}
+        />
       </div>
       <p className="description-light max-w-[270px]">
         The usernames will be revealed when {props.quorum} participants reached

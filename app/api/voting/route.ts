@@ -27,8 +27,6 @@ export async function GET(request: Request) {
     },
   });
 
-  console.log(votePolls);
-
   const filteredVotePolls = votePolls.filter(poll => {
     if (poll.id === parseInt(pollId)) {
       return true;
@@ -48,7 +46,6 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   const { answer, mood, pollId, userId } = (await request.json()) as VoteAnswer;
-  console.log(answer, mood, pollId, userId);
 
   const moodTyping = mood as keyof typeof Mood;
 
