@@ -27,14 +27,10 @@ dependencies:
     version: 4.16.1(prisma@4.16.1)
   '@tanstack/react-query':
     specifier: ^4.29.14
-<<<<<<< HEAD
-    version: 4.29.17(react-dom@18.2.0)(react@18.2.0)
-=======
     version: 4.29.19(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-query-devtools':
     specifier: ^4.29.19
     version: 4.29.19(@tanstack/react-query@4.29.19)(react-dom@18.2.0)(react@18.2.0)
->>>>>>> main
   '@types/node':
     specifier: 20.2.5
     version: 20.2.5
@@ -4708,6 +4704,13 @@ packages:
     dependencies:
       tslib: 2.6.0
 
+  /@tanstack/match-sorter-utils@8.8.4:
+    resolution: {integrity: sha512-rKH8LjZiszWEvmi01NR72QWZ8m4xmXre0OOwlRGnjU01Eqz/QnN+cqpty2PJ0efHblq09+KilvyR7lsbzmXVEw==}
+    engines: {node: '>=12'}
+    dependencies:
+      remove-accents: 0.4.2
+    dev: false
+
   /@tanstack/query-core@4.29.19:
     resolution: {integrity: sha512-uPe1DukeIpIHpQi6UzIgBcXsjjsDaLnc7hF+zLBKnaUlh7jFE/A+P8t4cU4VzKPMFB/C970n/9SxtpO5hmIRgw==}
     dev: false
@@ -4729,7 +4732,6 @@ packages:
 
   /@tanstack/react-query@4.29.19(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-XiTIOHHQ5Cw1WUlHaD4fmVUMhoWjuNJlAeJGq7eM4BraI5z7y8WkZO+NR8PSuRnQGblpuVdjClQbDFtwxTtTUw==}
->>>>>>> main
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -4740,12 +4742,7 @@ packages:
       react-native:
         optional: true
     dependencies:
-<<<<<<< HEAD
-      '@tanstack/query-core': 4.29.17
-      client-only: 0.0.1
-=======
       '@tanstack/query-core': 4.29.19
->>>>>>> main
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       use-sync-external-store: 1.2.0(react@18.2.0)
