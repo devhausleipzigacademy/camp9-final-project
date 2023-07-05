@@ -9,7 +9,7 @@ function Loading() {
         width={280}
         height={280}
       />
-      <h1 className="title-bold text-center">Woops! Something went wrong.</h1>
+      <h1 className="title-bold text-center">Loading...</h1>
     </div>
   );
 }

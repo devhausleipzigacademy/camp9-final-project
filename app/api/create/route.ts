@@ -17,6 +17,7 @@ export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
 
   try {
+    // throw new Error('test');
 
     const newDate = new Date(data.endDateTime);
 

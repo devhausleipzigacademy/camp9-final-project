@@ -22,11 +22,11 @@ const InputField = forwardRef(
     return (
       <label
         className={clsx(
-          'flex flex-col w-full',
+          'flex flex-col w-ful  gap-1',
           disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
-        <div className="flex flex-row items-center justify-between mb-1">
+        <div className="flex flex-row items-center justify-between">
           {label && <span>{label}</span>}
           {error && (
             <div className="flex flex-row gap-2 items-center">
@@ -50,5 +50,7 @@ const InputField = forwardRef(
     );
   }
 );
+
+InputField.displayName = 'InputField';
 
 export default InputField;
