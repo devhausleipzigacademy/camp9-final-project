@@ -43,6 +43,7 @@ export default function AnswerOptions() {
             <InputField
               {...register(`options.${index}.option`)}
               type="text"
+              showLabel={false}
               label={`Option ${index + 1}`}
               placeholder={`Option ${index + 1}`}
               error={formState.errors.options?.[index]?.option}
@@ -63,7 +64,7 @@ export default function AnswerOptions() {
         ))}
 
         {
-          <div className="flex my-1">
+          <div className="flex my-1 mt-2">
             <Button
               type="button"
               size="small"
