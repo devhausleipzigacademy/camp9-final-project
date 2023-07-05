@@ -144,7 +144,7 @@ export default function CreatePoll() {
       try {
         mutate(data);
       } catch (error) {
-        console.log('Error creating a poll: ', error);
+        // console.log('Error creating a poll: ', error);
       }
     }
   };
