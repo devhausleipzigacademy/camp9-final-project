@@ -21,7 +21,6 @@ export default function Review() {
   } = getValues();
 
   const date = new Date(endDateTime).toLocaleDateString();
-  console.log(options);
   const steps = [
     { title: 'Poll Question', value: question, step: 0 },
     { title: 'Poll Description', value: description, step: 0 },

@@ -1,11 +1,5 @@
 'use client';
 
-import AddParticipants from '@/components/createPoll/AddParticipants';
-import AnswerOptions from '@/components/createPoll/AnswerOptions';
-import CreateQuestion from '@/components/createPoll/CreateQuestion';
-import Deadline from '@/components/createPoll/Deadline';
-import RevealConditions from '@/components/createPoll/RevealConditions';
-import Review from '@/components/createPoll/Review';
 import {
   CreateNewPoll,
   CreateNewPollSchema,
@@ -17,6 +11,12 @@ import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import useStepIndexStore from '@/utils/store';
+import CreateQuestion from '@/components/createPoll/CreateQuestion';
+import AnswerOptions from '@/components/createPoll/AnswerOptions';
+import RevealConditions from '@/components/createPoll/RevealConditions';
+import Deadline from '@/components/createPoll/Deadline';
+import AddParticipants from '@/components/createPoll/AddParticipants';
+import Review from '@/components/createPoll/Review';
 
 export default function CreatePoll() {
   const { setStepIndex, stepIndex, decreaseStepIndex, increaseStepIndex } =
@@ -47,9 +47,6 @@ export default function CreatePoll() {
       quorum: '80',
     },
   });
-
-  console.log('Values', methods.getValues());
-  console.log('Errors', methods.formState.errors);
 
   async function nextHandler() {
     if (stepIndex < multistepComponets.length - 1) {

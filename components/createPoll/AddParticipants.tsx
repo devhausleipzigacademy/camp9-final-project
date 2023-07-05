@@ -43,7 +43,6 @@ export default function AddParticipants() {
       staleTime: 1000 * 60 * 5, //5 minutes
     }
   );
-  console.log('selectedUser', selectedUser);
   return (
     <div>
       <h3 className="title-black">Add Participants</h3>
