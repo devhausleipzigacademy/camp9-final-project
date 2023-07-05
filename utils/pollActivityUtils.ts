@@ -1,12 +1,5 @@
-import { Poll, Vote } from '@prisma/client';
-
-interface extendedPoll extends Poll {
-  votes: Vote[];
-  _count: {
-    participants: number;
-    votes: number;
-  };
-}
+import { ExtendedPoll } from '@/types/pollActivity';
+import { Vote } from '@prisma/client';
 
 // finds the date of the vote that happened last
 export function findLastVoteDate(votes: Vote[]) {
@@ -15,7 +8,7 @@ export function findLastVoteDate(votes: Vote[]) {
 }
 
 //sorts polls by date
-export function sortPollsByDate(polls: extendedPoll[]) {
+export function sortPollsByDate(polls: ExtendedPoll[]) {
   // set endDateTime to the last vote if the poll is closed not because of passing time, but because all participants voted
   const pollsFixedDates = polls.map(poll => {
     if (
@@ -30,7 +23,7 @@ export function sortPollsByDate(polls: extendedPoll[]) {
   //function to use for sorting
   //sorts open polls more urgent to less urgent
   //sorts closed polls most recent to less recent
-  function compareDates(a: extendedPoll, b: extendedPoll) {
+  function compareDates(a: ExtendedPoll, b: ExtendedPoll) {
     if (a.endDateTime > new Date() && b.endDateTime > new Date()) {
       if (
         (!a.votes.filter(vote => vote.userId === a.creatorId).length &&
