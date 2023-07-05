@@ -4,8 +4,14 @@ import { useState } from 'react';
 import { BoxCheckedProps } from './Question';
 import { cva } from 'class-variance-authority';
 
-export const Box = ({ variant }: BoxCheckedProps) => {
-  const [checked, setChecked] = useState(false);
+interface CheckboxProps extends BoxCheckedProps {
+  disableProp?: boolean,
+  checkProp?: boolean
+}
+
+export const Box = ({ variant, disableProp, checkProp }: CheckboxProps) => {
+  const [checked, setChecked] = useState(checkProp);
+
   const handleChange = () => {
     setChecked(!checked);
   };
@@ -25,7 +31,7 @@ export const Box = ({ variant }: BoxCheckedProps) => {
   );
 
   return (
-    <div className={boxclass({ variant })} onClick={handleChange}>
+    <button className={boxclass({ variant })} onClick={handleChange} disabled={disableProp}>
       {checked ? (
         <svg
           className="w-10 h-6"
@@ -56,7 +62,7 @@ export const Box = ({ variant }: BoxCheckedProps) => {
           />
         </svg>
       )}
-    </div>
+    </button>
   );
 };
 
