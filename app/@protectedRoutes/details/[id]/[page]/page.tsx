@@ -53,6 +53,7 @@ function parsePollData(pollData: FullPollInfo): {
   body: string | React.JSX.Element;
   note?: string;
 }[][] {
+  
   const moods = pollData.votes.map(vote =>
     Object.keys(Mood).indexOf(vote.mood)
   );
