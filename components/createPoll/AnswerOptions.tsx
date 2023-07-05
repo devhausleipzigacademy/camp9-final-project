@@ -20,15 +20,15 @@ export default function AnswerOptions() {
       <fieldset className="flex flex-col font-semibold gap-2 w-full">
         <div className="flex justify-between items-center ">
           <RadioButton
-            label="Single Choice"
-            value="SingleChoice"
+            label="Multiple Choice"
+            value="MultipleChoice"
             {...register('type')}
           />
         </div>
         <div className="flex flex-row justify-between body-semibold items-center mb-2">
           <RadioButton
-            label="Multiple Choice"
-            value="MultipleChoice"
+            label="Single Choice"
+            value="SingleChoice"
             {...register('type')}
           />
         </div>
