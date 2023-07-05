@@ -8,7 +8,6 @@ import { VotePoll } from '@/types/voting/VotingSchema';
 
 function VotingFeedback() {
   //this needs to be changed to a ref or Zustand
-  const [mood, setMood] = useState<string>('');
   const { register } = useFormContext<VotePoll>();
 
   return (
@@ -19,11 +18,10 @@ function VotingFeedback() {
       <p className="description text-center">
         How do you feel about the question you answered and/or skipped?
       </p>
-      <p className="small-feedback text-center pb-2">
-        Please select the mood that best describes how you felt: <br />
-        {/* <span className="small-bold-feedback">
-          Beaming,Happy,Unsure,Unhappy,Miserable.
-        </span> */}
+      <div>
+        <p className="small-feedback text-center pb-2">
+          Please select the mood that best describes how you felt: <br />
+        </p>
         <div className="small-bold-feedback flex justify-center gap-1 uppercase">
           <p>Beaming,</p>
           <p>Happy,</p>
@@ -31,97 +29,48 @@ function VotingFeedback() {
           <p>Unhappy,</p>
           <p>Miserable.</p>
         </div>
-      </p>
-
-      <div className="flex flex-row justify-between gap-4">
-        <button
-          {...register('mood')}
-          onClick={() => setMood('Beaming')}
-          value="Beaming"
-          type="button"
-          className={clsx(
-            'w-[120px] h-[90px] bg-peach border-brutal rounded-md flex items-center justify-center',
-            mood === 'Beaming' ? 'shadow-none' : 'shadow-shadow'
-          )}
-        >
-          <Image
-            src="/images/voting/icons8-lol2 1.png"
-            width={75}
-            height={75}
-            alt="Beaming"
-          />
-        </button>
-        <button
-          {...register('mood')}
-          onClick={() => setMood('Happy')}
-          value="Happy"
-          type="button"
-          className={clsx(
-            'w-[120px] h-[90px] bg-peach border-brutal rounded-md flex items-center justify-center',
-            mood === 'Happy' ? 'shadow-none' : 'shadow-shadow'
-          )}
-        >
-          <Image
-            src="/images/voting/icons8-happy2 1.png"
-            width={75}
-            height={75}
-            alt="Happy"
-          />
-        </button>
       </div>
-      <button
-        {...register('mood')}
-        onClick={() => setMood('Unsure')}
-        value="Unsure"
-        type="button"
-        className={clsx(
-          'w-[120px] h-[90px] bg-peach border-brutal rounded-md flex items-center justify-center',
-          mood === 'Unsure' ? 'shadow-none' : 'shadow-shadow'
-        )}
-      >
-        <Image
-          src="/images/voting/icons8-confused2 1.png"
-          width={75}
-          height={75}
-          alt="Unsure"
+      <fieldset className="flex flex-col justify-center items-center gap-4">
+        <div className="flex flex-row justify-between gap-4">
+          <input
+            id="radioButtonBeaming"
+            type="radio"
+            className="radioButtonBeaming"
+            {...register('mood')}
+            value="Beaming"
+          />
+          <input
+            id="radioButtonHappy"
+            type="radio"
+            className="radioButtonHappy"
+            {...register('mood')}
+            value="Happy"
+          />
+        </div>
+        <input
+          id="radioButtonUnsure"
+          type="radio"
+          className="radioButtonUnsure"
+          {...register('mood')}
+          value="Unsure"
         />
-      </button>
-      <div className="flex flex-row justify-between gap-4">
-        <button
-          {...register('mood')}
-          onClick={() => setMood('Unhappy')}
-          value="Unhappy"
-          type="button"
-          className={clsx(
-            'w-[120px] h-[90px] bg-peach border-brutal rounded-md flex items-center justify-center',
-            mood === 'Unhappy' ? 'shadow-none' : 'shadow-shadow'
-          )}
-        >
-          <Image
-            src="/images/voting/bad.png"
-            width={75}
-            height={75}
-            alt="Unhappy"
+        <div className="flex flex-row justify-between gap-4">
+          <input
+            id="radioButtonUnhappy"
+            type="radio"
+            className="radioButtonUnhappy"
+            {...register('mood')}
+            value="Unhappy"
           />
-        </button>
-        <button
-          {...register('mood')}
-          onClick={() => setMood('Miserable')}
-          value="Miserable"
-          type="button"
-          className={clsx(
-            'w-[120px] h-[90px] bg-peach border-brutal rounded-md flex items-center justify-center',
-            mood === 'Miserable' ? 'shadow-none' : 'shadow-shadow'
-          )}
-        >
-          <Image
-            src="/images/voting/icons8-crying2 1.png"
-            width={75}
-            height={75}
-            alt="Miserable"
+          <input
+            id="radioButtonMiserable"
+            type="radio"
+            className="radioButtonMiserable"
+            {...register('mood')}
+            value="Miserable"
           />
-        </button>
-      </div>
+        </div>
+      </fieldset>
     </div>
   );
 }

@@ -4,41 +4,27 @@ import {
   useVotePollMutation,
   useVotePollQuery,
 } from '@/components/hooks/usePoll';
-import { superSidekickHoock } from '@/components/hooks/useVote';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
 import { Mood } from '@prisma/client';
-import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import { FormProvider, set, useForm } from 'react-hook-form';
-import Image from 'next/image';
+import { FormProvider, useForm } from 'react-hook-form';
 import ThankYouForVoting from '@/components/voting/ThankYouForVoting';
 import VotingFeedback from '@/components/voting/VotingFeedback';
-import VotingMultipleChoice from '@/components/voting/VotingMultipleChoice';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-import VotingSingleChoice from '@/components/voting/VotingTypeChoice';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { voteSchema } from '@/types/voting/VotingSchema';
+import { VotePoll, voteSchema } from '@/types/voting/VotingSchema';
 import VotingTypeChoice from '@/components/voting/VotingTypeChoice';
 import QuestionVote from '@/components/voting/QuestionVote';
 import VotingConditions from '@/components/voting/VotingConditions';
 
-export type UserAnswer = {
-  abstain: boolean;
-  multipleChoice: { [key: string]: boolean };
-  singleChoice: string;
-  Anonymous: boolean;
-  NonAnonymous: boolean;
-  AnonymousUntilQuorum: boolean;
-  mood: Mood;
-};
+type Anonymity = 'Anonymous' | 'NonAnonymous' | 'AnonymousUntilQuorum';
 
-export type VoteAnswer = {
-  answer: boolean[] | undefined;
-  pollId: number;
-  userId: number;
-  mood: string;
+export type UserAnswer = {
+  anonymity: Anonymity;
+  answer: string[];
+  mood: Mood;
 };
 
 export default function Voting() {
@@ -51,7 +37,6 @@ export default function Voting() {
   const { query } = useVotePollQuery(userId, pollId);
   // const { mutate } = useVotePollMutation(userId);
 
-  console.log('Query', query);
   const multistepComponets = [
     <QuestionVote
       decription={query.data?.data.description}
@@ -66,95 +51,56 @@ export default function Voting() {
       options={query.data?.data.options}
     />,
     <VotingFeedback />,
-    <ThankYouForVoting />,
   ];
+
+  const alreadyVoted = [<ThankYouForVoting />];
 
   const [step, setStep] = useState<number>(0);
 
-  const methods = useForm({
+  const methods = useForm<UserAnswer>({
     resolver: zodResolver(voteSchema),
     mode: 'all',
+    defaultValues: {
+      mood: undefined,
+    },
   });
 
-  console.log('Errors', methods.formState.errors);
-  console.log('Values', methods.getValues());
-  function nextHandler() {
-    // if (step < multistepComponets.length - 1) {
-    //   let keyArray: (keyof CreateNewPoll)[] = [];
-    //   switch (step) {
-    //     case 0:
-    //       keyArray = ['question', 'description'];
-    //       break;
-    //     case 1:
-    //       keyArray = ['options', 'type'];
-    //       break;
-    //     case 2:
-    //       keyArray = ['anonymity', 'quorum'];
-    //       break;
-    //     case 3:
-    //       break;
-    //     case 4:
-    //       keyArray = ['participants'];
-    //   }
-    //   const isValid = await methods.trigger(keyArray);
-    //   if (!isValid) return;
-    setStep(step + 1);
+  async function nextHandler() {
+    if (step < multistepComponets.length - 1) {
+      let keyArray: (keyof VotePoll)[] = [];
+      switch (step) {
+        case 1:
+          keyArray = ['anonymity'];
+          break;
+        case 2:
+          keyArray = ['answer'];
+          break;
+        case 3:
+          keyArray = ['mood'];
+          break;
+      }
+      const isValid = await methods.trigger(keyArray);
+      if (!isValid) return;
+      setStep(step + 1);
+    }
   }
 
-  // const {
-  //   typeOfPoll,
-  //   header,
-  //   buttons,
-  //   anonymity,
-  //   isLoading,
-  //   handleMoods,
-  //   footer,
-  // } = superSidekickHoock({
-  //   query,
-  //   step,
-  //   setStep,
-  //   register,
-
-  //   mood,
-  //   setMood,
-  // });
-
-  // function onSubmit(data: UserAnswer) {
-  //   if (data.singleChoice) {
-  //     const answerOptions = query.data?.data.options;
-  //     const userAnswerSingle = answerOptions?.map(option => {
-  //       if (option === data.singleChoice) {
-  //         return true;
-  //       } else return false;
-  //     });
-  //     const userVote = {
-  //       answer: userAnswerSingle,
-  //       pollId: Number(pollId),
-  //       userId: Number(userId),
-  //       mood: mood,
-  //     };
-  //     mutate(userVote);
-  //   }
-
-  //   if (data.multipleChoice) {
-  //     const userAnswerMultiple = Object.values(data.multipleChoice);
-  //     if (data.multipleChoice) {
-  //       for (let i = 0; i < userAnswerMultiple.length; i++) {
-  //         userAnswerMultiple[i] = false;
-  //       }
-  //     }
-  //     const userVote = {
-  //       answer: userAnswerMultiple,
-  //       pollId: Number(pollId),
-  //       userId: Number(userId),
-  //       mood: mood,
-  //     };
-  //     mutate(userVote);
-  //   }
-  // }
-
-  function onSubmit(data) {
-    console.log(data);
+  function onSubmit(data: UserAnswer) {
+    const userAnswer = query.data?.data.options?.map(option => {
+      for (let i = 0; i < query.data?.data.options.length; i++) {
+        if (data.answer[i] === 'abstain') return false;
+        if (option === data.answer[i]) {
+          return true;
+        } else return false;
+      }
+    });
+    const userVote = {
+      answer: userAnswer,
+      pollId: Number(pollId),
+      userId: Number(userId),
+      mood: data.mood,
+    };
+    console.log(userVote, 'userVote');
   }
 
   return (
@@ -184,14 +130,14 @@ export default function Voting() {
               <Button
                 size="medium"
                 type="button"
-                onClick={() => setStep(step + 1)}
+                onClick={nextHandler}
                 disabled={Object.keys(methods.formState.errors).length !== 0}
               >
                 Next
                 <GrFormNext size={24} strokeWidth={2} />
               </Button>
             )}
-            {step === multistepComponets.length - 2 && (
+            {step === multistepComponets.length - 1 && (
               <Button
                 size="medium"
                 type="submit"

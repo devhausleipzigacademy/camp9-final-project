@@ -1,19 +1,19 @@
 import React from 'react';
 import { cva } from 'class-variance-authority';
 
-export type BoxCheckedProps = {
+interface QuestionProps extends React.InputHTMLAttributes<HTMLDivElement> {
   variant: 'primary' | 'secondary' | 'tertiary';
   children?: any;
   desabled?: boolean;
   key?: string;
-};
+}
 
 export const Questionbox = ({
   variant,
   children,
   desabled,
-  key,
-}: BoxCheckedProps) => {
+  ...props
+}: QuestionProps) => {
   const questionboxClass = cva(
     [
       'ml-1 mr-1 shadow-shadow rounded-round p-2 flex flex-row justify-start items-center border-solid border-black border-2 mb-5',
@@ -33,7 +33,7 @@ export const Questionbox = ({
   );
   return (
     <div>
-      <div className={questionboxClass({ variant, desabled })} key={key}>
+      <div className={questionboxClass({ variant, desabled })} {...props}>
         {children}
       </div>
     </div>

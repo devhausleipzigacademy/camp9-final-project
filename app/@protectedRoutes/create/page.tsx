@@ -48,9 +48,6 @@ export default function CreatePoll() {
     },
   });
 
-  console.log('Values', methods.getValues());
-  console.log('Errors', methods.formState.errors);
-
   async function nextHandler() {
     if (stepIndex < multistepComponets.length - 1) {
       let keyArray: (keyof CreateNewPoll)[] = [];
