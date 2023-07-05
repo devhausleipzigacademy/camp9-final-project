@@ -85,7 +85,6 @@ export default function Voting() {
   }
 
   function onSubmit(data: UserAnswer) {
-    //map through the options and check if the user has voted for them
     const userAnswer = query.data?.data.options?.map(option => {
       return data.answer.includes(option);
     });
