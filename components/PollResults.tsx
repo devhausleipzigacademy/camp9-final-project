@@ -83,6 +83,35 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     }
   })();
 
+  // function votesForEachOption() {
+  //   for (let k = 0; k < poll.options.length; k++) {
+    
+  //   const answerTotals: Array<number> = [];
+  //   for (let i = 0; i < poll.votes.length; i++) {
+  //     for (let j = 0; j < poll.options.length; j++) {
+  //       if (poll.votes[i]?.answer[j] === true) {
+  //         let newTtl;
+  //         if(answerTotals[j]){
+  //           newTtl = answerTotals[j] + 1
+  //         } else {
+
+  //         }
+  //         // answerTotals.splice(j, 1, newTtl);
+  //       }
+
+  //     }
+  //   }
+  //   return answerTotals
+  // }
+  
+  // poll.votes.map(vote => vote.answer);
+  console.log(poll)
+
+
+  ///////////
+  // cards //
+  ///////////
+
   const cards = [
     //0.svg+text
     <PollResultsCard
@@ -196,7 +225,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
         <div className="overflow-y-auto scrollbar-left-padded scrollbar--results h-[270px]">
           {poll.options.map(option => (
             <div className="mb-5">
-              <p className="body-light text-black mb-3">{poll.options}</p>
+              <p className="body-light text-black mb-3">{option}</p>
               <div className="w-[220px]">
                 <PollProgressBar
                   votes={poll.votes.length}
@@ -253,6 +282,10 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       </div>
     </PollResultsCard>,
   ];
+
+  ////////////////
+  // JSX return //
+  ////////////////
 
   return (
     <div>
