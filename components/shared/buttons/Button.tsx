@@ -12,6 +12,7 @@ interface ButtonProps
   children: React.ReactNode;
   handleClick?: () => void;
   isActive?: boolean;
+  isHidden?: boolean;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'quaternary' | 'quinary';
   size?: 'xs' | 'small' | 'medium' | 'large' | 'full';
   href?: string;
@@ -60,6 +61,7 @@ export default function Button({
   href,
   handleClick,
   isActive = true,
+  isHidden = false,
   variant = 'primary',
   size = 'full',
   routeTo,
@@ -73,7 +75,7 @@ export default function Button({
   return href ? (
     <Link
       href={href}
-      className={dynamicClasses}
+      className={dynamicClasses + (isHidden && ' invisible')}
       style={isActive ? {} : { pointerEvents: 'none' }}
     >
       {children}
