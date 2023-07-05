@@ -1,17 +1,14 @@
-import { PrismaClient } from '@prisma/client';
 import PollCard from 'components/PollCard';
 import { authOptions } from '@/libs/auth';
 import { getServerSession } from 'next-auth/next';
-import { sortPollsByDate } from '@/utils/pollActivityUtils';
-
-const prisma = new PrismaClient();
+import { db } from '@/libs/db';
 
 async function getNewPolls() {
   const session = await getServerSession(authOptions);
   let todayInAMinute = new Date();
   todayInAMinute.setMinutes(todayInAMinute.getMinutes() + 1);
 
-  const filteredNewPolls = await prisma.poll.findMany({
+  const filteredNewPolls = await db.poll.findMany({
     where: {
       participants: {
         some: {
