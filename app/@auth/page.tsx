@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function LandingPage() {
   return (
-    <div className="grid justify-center h-screen  bg-teal mx-8 pt-8 overflow-y-hidden">
+    <div className="grid justify-center h-screen  bg-teal px-8 pt-8 overflow-y-hidden">
       <h1 className="appName">d'accord</h1>
       <div>
         <Image

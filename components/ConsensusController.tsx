@@ -1,16 +1,18 @@
 'use client';
 
+import { get } from 'http';
 import { useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 function ConsensusController() {
-  const { setValue, getValues } = useFormContext(); // retrieve all hook methods
+  const { getValues, register, setValue } = useFormContext(); // retrieve all hook methods
 
-  const [valueController, setValueController] = useState(getValues('quorum'));
+  const [valueController, setValueController] = useState(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    setValueController(+getValues().quorum);
     if (inputRef.current) {
       inputRef.current.style.setProperty(
         'background-size',
@@ -28,11 +30,12 @@ function ConsensusController() {
           max="100"
           step="10"
           list="valuesConesnusController"
-          value={valueController}
+          value={getValues().quorum}
+          {...register('quorum')}
           id="rangeValue"
           onChange={e => {
-            setValueController(parseInt(e.target.value));
             setValue('quorum', e.target.value);
+            setValueController(parseInt(e.target.value));
           }}
           ref={inputRef}
         />

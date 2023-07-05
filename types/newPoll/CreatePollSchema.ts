@@ -4,7 +4,13 @@ export const CreateNewPollSchema = z.object({
   creator: z.number().optional(),
   question: z.string().min(3, 'at least 3 characters long'),
   description: z.string().optional(),
-  options: z.array(z.string().min(3, 'at least 3 characters')),
+  options: z
+    .array(
+      z.object({
+        option: z.string().min(1, 'at least 1 character long'),
+      })
+    )
+    .min(2, 'at least 2 options'),
   endDateTime: z.date().min(new Date(), {
     message: 'Deadline must be in the future!',
   }),
@@ -21,7 +27,7 @@ export const CreateNewPollSchema = z.object({
       }
     )
     .optional(),
-  participants: z.array(z.string()).optional(),
+  participants: z.array(z.string()).min(2, 'at least 2 participants'),
   type: z.enum(['MultipleChoice', 'SingleChoice']),
 });
 

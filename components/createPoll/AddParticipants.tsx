@@ -1,7 +1,7 @@
 'use client';
 'use client';
 import { User } from '@prisma/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import Button from '../shared/buttons/Button';
 import { Combobox } from '@headlessui/react';
@@ -10,18 +10,21 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { HiUser } from 'react-icons/hi2';
 import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
+import InputField from '../InputField';
 
-export default function AddParticipants({
-  title = 'Add Participants',
-}: NewPollComponentProps) {
-  const { register, getValues, setValue } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+export default function AddParticipants() {
+  const { getValues, setValue, trigger } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
   const [participants, setParticipants] = useState<string[]>(
     getValues('participants') || []
   );
-  let numParticipants = participants.length;
   const [query, setQuery] = useState(''); //input value of comobox
-  const [selectedUser, setSelectedUser] = useState<null | string>(null); //selected user from combobox
+  const [selectedUser, setSelectedUser] = useState<string>(''); //selected user from combobox
+
+  useEffect(() => {
+    trigger('participants');
+  }, [participants, trigger]);
+
   async function searchUsers() {
     const { data } = await axios.get('/api/searchUsers', {
       params: {
@@ -34,21 +37,20 @@ export default function AddParticipants({
 
   const { data, isError, isLoading } = useQuery<User[]>(
     ['searchUsers', query, participants],
-    searchUsers
+    searchUsers,
+    {
+      enabled: query.length > 0,
+      staleTime: 1000 * 60 * 5, //5 minutes
+    }
   );
-
-  // const queryClient = useQueryClient()
-  // queryClient.invalidateQueries('searchUsers')//resets cached "stale" data so next request will me made new
-
+  console.log('selectedUser', selectedUser);
   return (
-    <div className="">
+    <div>
+      <h3 className="title-black">Add Participants</h3>
       <Combobox value={selectedUser} onChange={setSelectedUser}>
         <div className="flex flex-row h-12 gap-2 justify-between">
           <Button
-            {...register('participants')}
-            className=""
-            disabled={selectedUser === null}
-            children="+"
+            disabled={!selectedUser}
             size="xs"
             variant="secondary"
             type="button"
@@ -57,13 +59,15 @@ export default function AddParticipants({
                 return [...prev, selectedUser!];
               });
               setValue('participants', [selectedUser!, ...participants]);
-              setSelectedUser(null);
+              setSelectedUser('');
             }}
-          ></Button>
+          >
+            +
+          </Button>
           <Combobox.Input
-            className="w-[251px] focus:outline-yellow p-[14px] h-11 body bg-yellow-light shadow-shadow border-black border-3 rounded placeholder-[body-light]"
-            onChange={event => setQuery(event.target.value)}
+            as={InputField}
             placeholder="username"
+            onChange={e => setQuery(e.target.value)}
           />
         </div>
         <Combobox.Options
@@ -77,6 +81,7 @@ export default function AddParticipants({
               <Combobox.Option
                 className={'px-[14px] py-1 body'}
                 value={user.name}
+                key={user.id}
               >
                 {user.name}
               </Combobox.Option>
@@ -85,9 +90,10 @@ export default function AddParticipants({
       </Combobox>
       <div className="flex flex-col">
         <div className="my-4 h-[253px] overflow-y-auto scrollbar w-full">
-          {participants.map(participant => {
+          {participants.map((participant, idx) => {
             return (
               <div
+                key={idx}
                 className={clsx(
                   participants.indexOf(participant) % 2 === 0
                     ? 'bg-peach'
@@ -117,10 +123,10 @@ export default function AddParticipants({
         </div>
       </div>
       <div className="flex flex-row justify-end">
-        <p>{numParticipants} people selected</p>
+        <p>{participants.length} people selected</p>
         <div className="flex flex-row ml-2">
-          {participants.map(participant => {
-            return <HiUser className="px-0 mx-0 w-[20px] h-[20px]" />;
+          {participants.map((_, idx) => {
+            return <HiUser key={idx} className="px-0 mx-0 w-[20px] h-[20px]" />;
           })}
         </div>
       </div>

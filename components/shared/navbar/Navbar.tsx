@@ -28,7 +28,7 @@ export const Navbar = ({
             <IoHomeSharp className="w-8.5 h-8.5" />
           </Navbaritem>
           <Navbaritem hrefString="/create">
-            <IoIosAdd className="w-8.5 h-8.5" />
+            <IoIosAdd className="w-12 h-12" />
           </Navbaritem>
           <Navbaritem hrefString="/settings">
             <HiUser className="w-8.5 h-8.5" />
