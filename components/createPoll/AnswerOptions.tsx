@@ -17,7 +17,6 @@ export default function AnswerOptions() {
 
   return (
     <div className="flex flex-col gap-2">
-      <h3 className="title-black">Answer Options</h3>
       <fieldset className="flex flex-col font-semibold  gap-2">
         <div className="flex justify-between items-center ">
           <RadioButton

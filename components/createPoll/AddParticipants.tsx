@@ -45,7 +45,6 @@ export default function AddParticipants() {
   );
   return (
     <div>
-      <h3 className="title-black">Add Participants</h3>
       <Combobox value={selectedUser} onChange={setSelectedUser}>
         <div className="flex flex-row h-12 gap-2 justify-between">
           <Button

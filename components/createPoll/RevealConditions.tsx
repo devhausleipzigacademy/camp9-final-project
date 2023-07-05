@@ -18,7 +18,6 @@ export default function RevealConditions() {
   return (
     <>
       <div className="flex flex-col gap-y-6 mt-5">
-        <h3 className="title-black">Reveal Conditions</h3>
         <div className="flex flex-col justify-between">
           <div className="flex gap-2">
             <div>

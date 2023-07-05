@@ -43,7 +43,6 @@ export default function Review() {
 
   return (
     <div className="flex flex-col gap-4 w-full">
-      <h3 className="title-black">Review & Submit</h3>
       {filteredSteps.map((step, index) => (
         <button
           key={index}
