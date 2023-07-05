@@ -103,7 +103,6 @@ function Settings() {
             children=""
             type="submit"
             onClick={() => {
-              console.log('click');
               setPasswordEdit('check');
             }}
           />
