@@ -30,20 +30,17 @@ export type UserAnswer = {
 
 export default function Voting() {
   //extract the arguments from the URL
-  const { data } = useSession();
+  // const { data: session } = useSession();
+  // console.log(session);
   const pathname = usePathname();
   const path = pathname.split('/');
-  const userId = data?.user?.id!;
   const pollId = path[2]!;
-  console.log(pollId);
   const { query } = useVotePollQuery(pollId);
-  const { mutate } = useVotePollMutation(`${pollId}}`);
-
-  console.log(query.data?.data.id);
+  const { mutate } = useVotePollMutation(pollId);
 
   const multistepComponets = [
     <QuestionVote
-      decription={query.data?.data.description}
+      description={query.data?.data.description}
       question={query.data?.data.question}
     />,
     <VotingConditions
@@ -87,18 +84,20 @@ export default function Voting() {
   }
 
   function onSubmit(data: UserAnswer) {
-    const userAnswer = query.data?.data.options?.map(option => {
-      for (let i = 0; i < query.data?.data.options.length; i++) {
-        if (data.answer[i] === 'abstain') return false;
-        if (option === data.answer[i]) {
-          return true;
-        } else return false;
-      }
-    });
+    const userAnswer =
+      query.data?.data.options?.map(option => {
+        for (let i = 0; i < query.data?.data.options.length; i++) {
+          if (data.answer[i] === 'abstain') return false;
+          if (option === data.answer[i]) {
+            return true;
+          }
+          return false;
+        }
+        return false;
+      }) ?? [];
     const userVote = {
       answer: userAnswer,
       pollId: Number(pollId),
-      userId: Number(userId),
       mood: data.mood,
     };
     // mutate(userVote);

@@ -4,7 +4,6 @@ import RadioButton from '../Radiobutton';
 import { useFormContext } from 'react-hook-form';
 import { VotePoll } from '@/types/voting/VotingSchema';
 import CheckboxButton from '../CheckboxButton';
-import { get } from 'http';
 
 type Props = {
   type: string;
