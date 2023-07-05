@@ -18,6 +18,7 @@ import { VotePoll, voteSchema } from '@/types/voting/VotingSchema';
 import VotingTypeChoice from '@/components/voting/VotingTypeChoice';
 import QuestionVote from '@/components/voting/QuestionVote';
 import VotingConditions from '@/components/voting/VotingConditions';
+import { useSession } from 'next-auth/react';
 
 type Anonymity = 'Anonymous' | 'NonAnonymous' | 'AnonymousUntilQuorum';
 
@@ -29,13 +30,16 @@ export type UserAnswer = {
 
 export default function Voting() {
   //extract the arguments from the URL
-
+  const { data } = useSession();
   const pathname = usePathname();
   const path = pathname.split('/');
-  const userId = path[2]!;
-  const pollId = path[3]!;
-  const { query } = useVotePollQuery(userId, pollId);
-  const { mutate } = useVotePollMutation(userId);
+  const userId = data?.user?.id!;
+  const pollId = path[2]!;
+  console.log(pollId);
+  const { query } = useVotePollQuery(pollId);
+  const { mutate } = useVotePollMutation(`${pollId}}`);
+
+  console.log(query.data?.data.id);
 
   const multistepComponets = [
     <QuestionVote
@@ -97,8 +101,11 @@ export default function Voting() {
       userId: Number(userId),
       mood: data.mood,
     };
-    mutate(userVote);
+    // mutate(userVote);
+    console.log(userVote);
   }
+
+  if (query.data?.data.id === 107000) return alreadyVoted[0];
 
   return (
     <main>

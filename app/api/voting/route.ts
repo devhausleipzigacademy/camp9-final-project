@@ -1,14 +1,20 @@
-import { VoteAnswer } from '@/app/@protectedRoutes/(protectedRoutes)/voting/[...slug]/page';
+import { VoteAnswer } from '@/components/hooks/usePoll';
+import { authOptions } from '@/libs/auth';
 import { Mood, Poll, PrismaClient } from '@prisma/client';
+import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const userId = searchParams.get('userId');
   const pollId = searchParams.get('pollId');
-  if (!userId || !pollId) {
+
+  const session = await getServerSession(authOptions);
+
+  const serverUser = session?.user.id;
+  console.log(serverUser);
+  if (!pollId) {
     return NextResponse.json('Missing userId or pollId', { status: 400 });
   }
 
@@ -16,12 +22,12 @@ export async function GET(request: Request) {
     where: {
       participants: {
         some: {
-          id: parseInt(userId),
+          id: serverUser,
         },
       },
       votes: {
         none: {
-          userId: parseInt(userId),
+          userId: serverUser,
         },
       },
     },

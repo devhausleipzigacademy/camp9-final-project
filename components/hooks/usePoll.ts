@@ -1,22 +1,26 @@
+import { authOptions } from '@/libs/auth';
 import { Anonymity, Mood, Poll } from '@prisma/client';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
+import { getServerSession } from 'next-auth';
 
 import { useForm } from 'react-hook-form';
 
+const session = await getServerSession(authOptions);
+
 //axios get request to get the data from the database
-function getPollData(userID: string, pollID: string) {
+function getPollData(pollID: string) {
   const votePoll = axios.get<Poll>('/api/voting/', {
-    params: { userId: userID, pollId: pollID },
+    params: { pollId: pollID },
   });
   return votePoll;
 }
 
 //useQuery to call the axios get request
-export function useVotePollQuery(userId: string, pollId: string) {
+export function useVotePollQuery(pollId: string) {
   const query = useQuery({
-    queryKey: ['votePoll', userId],
-    queryFn: () => getPollData(userId, pollId),
+    queryKey: ['votePoll', session?.user.id],
+    queryFn: () => getPollData(pollId),
   });
   return { query };
 }
