@@ -13,6 +13,13 @@ type Props = {
 function VotingTypeChoice({ type, options }: Props) {
   const { register, setValue, getValues } = useFormContext<VotePoll>();
 
+  function handleSingleChoice(option: string) {
+    const checkForSingleChoice = getValues('answer');
+    if (checkForSingleChoice && !checkForSingleChoice.includes(option)) {
+      setValue('answer', [option]);
+    }
+  }
+
   function handleMultipleChoice(option: string) {
     const checkForAbstain = getValues('answer');
     if (checkForAbstain && checkForAbstain.includes('abstain')) {
@@ -28,7 +35,7 @@ function VotingTypeChoice({ type, options }: Props) {
   }
 
   if (!options) return null;
-  if (type === 'singleChoice') {
+  if (type === 'SingleChoice') {
     return (
       <fieldset>
         <h1 className="title-bold text-left pt-4 pb-4">Voting</h1>
@@ -36,18 +43,26 @@ function VotingTypeChoice({ type, options }: Props) {
           <span className="small-bold">Single Choice</span>, select only one
         </p>
         <div className="overflow-y-auto h-[352px] scrollbarteal">
-          {options.map(option => (
+          {options.map((option, idx) => (
             <Questionbox variant="secondary" key={option}>
-              <RadioButton
-                id="singleChoice"
-                {...register('answer')}
+              <CheckboxButton
+                id={`${idx}`}
+                type="checkbox"
                 value={option}
+                {...register('answer')}
+                onClick={() => handleSingleChoice(option)}
               />
               <p key={option}>{option}</p>
             </Questionbox>
           ))}
           <Questionbox variant="secondary">
-            <RadioButton id="abstain" {...register('answer')} value="abstain" />
+            <CheckboxButton
+              id="abstain"
+              type="checkbox"
+              {...register('answer')}
+              value="abstain"
+              onClick={() => handleSingleChoice('abstain')}
+            />
             <p>Abstain</p>
           </Questionbox>
         </div>
