@@ -34,7 +34,7 @@ export default function AnswerOptions() {
         </div>
       </fieldset>
       <hr className="border border-black my-2"></hr>
-      <fieldset className="flex gap-2 flex-col h-[260px] scrollbar pr-2 overflow-y-scroll">
+      <fieldset className="flex gap-2 flex-col h-[260px] scrollbar pr-2 overflow-y-auto">
         {fields.map((_, index) => (
           <div
             key={index}

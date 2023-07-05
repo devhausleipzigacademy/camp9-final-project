@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 import useStepIndexStore from '@/utils/store';
 import {
@@ -22,7 +24,6 @@ import RevealConditions from '@/components/createPoll/RevealConditions';
 import Review from '@/components/createPoll/Review';
 import ProgressBar from '@/components/shared/ProgressBar';
 import Button from '@/components/shared/buttons/Button';
-import { useRouter } from 'next/navigation';
 
 export default function CreatePoll() {
   const router = useRouter();
@@ -74,15 +75,11 @@ export default function CreatePoll() {
     }
   }
 
-  const { mutate, isError } = useMutation(createNewPoll, {
+  const { mutate, isError, isLoading } = useMutation(createNewPoll, {
     onSuccess: async () => {
       toast.success('Poll created!');
       // redirect to my polls page
-      router.push('/mypolls');
-      // reset step index
-      setStepIndex(0);
-      // reset form
-      methods.reset();
+      await router.push('/mypolls');
     },
     onError: error => {
       toast.error(axios.isAxiosError(error) ? error.response?.data : error);
@@ -108,6 +105,15 @@ export default function CreatePoll() {
       break;
   }
 
+  useEffect(() => {
+    return () => {
+      // reset step index
+      setStepIndex(0);
+      // reset form
+      methods.reset();
+    };
+  }, [methods, setStepIndex]);
+
   async function nextHandler() {
     if (stepIndex < multiStepComponents.length - 1) {
       const isValid = await methods.trigger(keyArray);
@@ -128,8 +134,6 @@ export default function CreatePoll() {
     if (Object.keys(methods.formState.errors).length === 0) {
       try {
         mutate(data);
-
-        console.log("You've submitted the form!", data);
       } catch (error) {
         console.log('Error creating a poll: ', error);
       }
