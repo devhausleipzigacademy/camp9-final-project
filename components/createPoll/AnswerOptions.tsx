@@ -33,12 +33,12 @@ export default function AnswerOptions() {
           />
         </div>
       </fieldset>
-      <hr className="border border-black"></hr>
-      <fieldset className="flex gap-2 flex-col mt-2 h-[270px] scrollbar pr-2 overflow-y-scroll">
+      <hr className="border border-black my-2"></hr>
+      <fieldset className="flex gap-2 flex-col h-[260px] scrollbar pr-2 overflow-y-scroll">
         {fields.map((_, index) => (
           <div
             key={index}
-            className="flex justify-between gap-2 items-end w-full"
+            className="flex self-start justify-between gap-2 items-end w-full"
           >
             <InputField
               {...register(`options.${index}.option`)}

@@ -77,8 +77,12 @@ export default function CreatePoll() {
   const { mutate, isError } = useMutation(createNewPoll, {
     onSuccess: async () => {
       toast.success('Poll created!');
+      // redirect to my polls page
       router.push('/mypolls');
-      await setStepIndex(0);
+      // reset step index
+      setStepIndex(0);
+      // reset form
+      methods.reset();
     },
     onError: error => {
       toast.error(axios.isAxiosError(error) ? error.response?.data : error);
@@ -124,6 +128,7 @@ export default function CreatePoll() {
     if (Object.keys(methods.formState.errors).length === 0) {
       try {
         mutate(data);
+
         console.log("You've submitted the form!", data);
       } catch (error) {
         console.log('Error creating a poll: ', error);
