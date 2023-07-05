@@ -60,9 +60,6 @@ export default function Voting() {
   const methods = useForm<UserAnswer>({
     resolver: zodResolver(voteSchema),
     mode: 'all',
-    defaultValues: {
-      mood: undefined,
-    },
   });
 
   async function nextHandler() {
@@ -142,6 +139,7 @@ export default function Voting() {
                 size="medium"
                 type="submit"
                 onClick={methods.handleSubmit(onSubmit)}
+                disabled={Object.keys(methods.formState.errors).length !== 0}
               >
                 Submit
               </Button>
