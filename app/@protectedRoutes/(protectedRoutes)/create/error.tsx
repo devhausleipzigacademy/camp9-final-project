@@ -1,8 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect } from 'react';
 
-function error() {
+function Error({ error }: { error: Error }) {
+  useEffect(() => {
+    // Log the error to an error reporting service
+    console.error('Error in create page', error);
+  }, [error]);
+
   return (
     <div className="flex flex-col justify-center items-center mt-20">
       <Image
@@ -16,4 +22,4 @@ function error() {
   );
 }
 
-export default error;
+export default Error;

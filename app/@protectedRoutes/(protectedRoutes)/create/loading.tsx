@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-function loading() {
+function Loading() {
   return (
     <div className="flex flex-col justify-center items-center mt-20">
       <Image
@@ -14,4 +14,4 @@ function loading() {
   );
 }
 
-export default loading;
+export default Loading;
