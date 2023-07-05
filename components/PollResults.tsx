@@ -83,30 +83,23 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     }
   })();
 
-  // function votesForEachOption() {
-  //   for (let k = 0; k < poll.options.length; k++) {
-    
-  //   const answerTotals: Array<number> = [];
-  //   for (let i = 0; i < poll.votes.length; i++) {
-  //     for (let j = 0; j < poll.options.length; j++) {
-  //       if (poll.votes[i]?.answer[j] === true) {
-  //         let newTtl;
-  //         if(answerTotals[j]){
-  //           newTtl = answerTotals[j] + 1
-  //         } else {
+  // collate the voter answers (boolean) arrays to an array of totals
+  const answerTotalsArray = function () {
+    const answerTotals: Array<number> = [];
+    for (let k = 0; k < poll.options.length; k++) {
+      answerTotals.push(0);
+    }
+    for (let i = 0; i < poll.votes.length; i++) {
+      for (let j = 0; j < poll.options.length; j++) {
+        if (poll.votes[i]?.answer[j] === true) {
+          answerTotals.splice(j, 1, answerTotals[j]! + 1);
+        }
+      }
+    }
+    return answerTotals;
+  }();
 
-  //         }
-  //         // answerTotals.splice(j, 1, newTtl);
-  //       }
-
-  //     }
-  //   }
-  //   return answerTotals
-  // }
-  
-  // poll.votes.map(vote => vote.answer);
-  console.log(poll)
-
+  console.log(poll);
 
   ///////////
   // cards //
@@ -223,15 +216,16 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     >
       <PollResultsCard.Content className="h-[310px]">
         <div className="overflow-y-auto scrollbar-left-padded scrollbar--results h-[270px]">
-          {poll.options.map(option => (
+          {poll.options.map((option, index) => (
             <div className="mb-5">
               <p className="body-light text-black mb-3">{option}</p>
               <div className="w-[220px]">
                 <PollProgressBar
-                  votes={poll.votes.length}
+                  votes={answerTotalsArray[index]!}
                   participants={poll.participants.length}
                 />
               </div>
+              <p>{answerTotalsArray[index]!} {poll.participants.length}</p>
               <button
                 type="button"
                 className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
