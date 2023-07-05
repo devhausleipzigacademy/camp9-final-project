@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-import useStepIndexStore from '@/utils/stepStore';
+import useStepIndexStore from '@/utils/store';
 import {
   CreateNewPoll,
   CreateNewPollSchema,

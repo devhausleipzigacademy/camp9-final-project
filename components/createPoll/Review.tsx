@@ -3,7 +3,7 @@
 import { useFormContext } from 'react-hook-form';
 import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 import PollDetailsCard from '../shared/PollDetailsCard';
-import useStore from '@/utils/stepStore';
+import useStore from '@/utils/store';
 
 export default function Review() {
   const { getValues } = useFormContext<CreateNewPoll>();
