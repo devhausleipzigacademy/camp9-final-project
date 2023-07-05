@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import useStepIndexStore from '@/utils/store';
 import {
@@ -27,6 +27,8 @@ import Button from '@/components/shared/buttons/Button';
 
 export default function CreatePoll() {
   const router = useRouter();
+
+  const [isError, setIsError] = useState(false);
 
   const { stepIndex, decreaseStepIndex, increaseStepIndex, setStepIndex } =
     useStepIndexStore();
@@ -81,7 +83,7 @@ export default function CreatePoll() {
     }
   }
 
-  const { mutate, isError } = useMutation(createNewPoll, {
+  const { mutate } = useMutation(createNewPoll, {
     onSuccess: async () => {
       toast.success('Poll created!');
       // redirect to my polls page
@@ -89,6 +91,7 @@ export default function CreatePoll() {
     },
     onError: error => {
       toast.error(axios.isAxiosError(error) ? error.response?.data : error);
+      setIsError(true);
     },
   });
 
@@ -198,7 +201,7 @@ export default function CreatePoll() {
                   className="w-full"
                   onClick={() => {
                     setStepIndex(0);
-                    methods.reset();
+                    setIsError(false);
                   }}
                 >
                   Try Again
