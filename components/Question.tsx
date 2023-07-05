@@ -1,16 +1,22 @@
 import React from 'react';
-import BoxChecked from './Checkbox';
 import { cva } from 'class-variance-authority';
 
-export type BoxCheckedProps = {
+interface QuestionProps extends React.InputHTMLAttributes<HTMLDivElement> {
   variant: 'primary' | 'secondary' | 'tertiary';
   children?: any;
-};
+  desabled?: boolean;
+  key?: string;
+}
 
-export const Questionbox = ({ variant, children }: BoxCheckedProps) => {
+export const Questionbox = ({
+  variant,
+  children,
+  desabled,
+  ...props
+}: QuestionProps) => {
   const questionboxClass = cva(
     [
-      'w-[300px] h-[59px] gap-2 px-2.5 shadow-shadow rounded-round flex items-center  border-solid border-black border-2',
+      'ml-1 mr-1 shadow-shadow rounded-round p-2 flex flex-row justify-start items-center border-solid border-black border-2 mb-5',
     ],
     {
       variants: {
@@ -19,15 +25,17 @@ export const Questionbox = ({ variant, children }: BoxCheckedProps) => {
           secondary: 'bg-peach',
           tertiary: 'bg-green',
         },
+        desabled: {
+          true: 'opacity-50',
+        },
       },
     }
   );
   return (
-    <div className={questionboxClass({ variant })}>
-      {/*BoxChecked variant define the bg color for the checkbox*/}
-      {/*children make reference to a tag(p,h2..) for a question*/}
-      <BoxChecked variant="secondary" />
-      {children}
+    <div>
+      <div className={questionboxClass({ variant, desabled })} {...props}>
+        {children}
+      </div>
     </div>
   );
 };
