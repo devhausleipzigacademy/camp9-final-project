@@ -18,7 +18,7 @@ export default function AddParticipants() {
   const [participants, setParticipants] = useState<string[]>(
     getValues('participants') || []
   );
-  const [query, setQuery] = useState(''); //input value of comobox
+  const [query, setQuery] = useState(''); //input value of combobox
   const [selectedUser, setSelectedUser] = useState<string>(''); //selected user from combobox
 
   useEffect(() => {
@@ -47,7 +47,7 @@ export default function AddParticipants() {
     <div className="pl-8">
       <h3 className="title-black">Add Participants</h3>
       <Combobox value={selectedUser} onChange={setSelectedUser}>
-        <div className="flex flex-row h-12 gap-2 justify-between mt-4">
+        <div className="flex flex-row h-12 gap-2 justify-between items-center mt-4">
           <Button
             className="shrink-0"
             disabled={!selectedUser}
@@ -89,7 +89,7 @@ export default function AddParticipants() {
         </Combobox.Options>
       </Combobox>
       <div className="flex flex-col">
-        <div className="my-4 h-[260px] overflow-y-auto scrollbar pr-2 w-full">
+        <div className="my-4 h-[260px] overflow-y-auto scrollbar-left-padded w-full">
           {participants.map((participant, idx) => {
             return (
               <div

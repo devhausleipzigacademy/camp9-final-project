@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
 export const CreateNewPollSchema = z.object({
-  question: z.string().min(3, 'at least 3 characters long'),
+  question: z.string().min(3, 'at least 3 characters'),
   description: z.string().optional(),
   options: z
     .array(
       z.object({
-        option: z.string().min(1, 'at least 1 character long'),
+        option: z.string().min(1, 'at least 1 character'),
       })
     )
     .min(2, 'at least 2 options'),
