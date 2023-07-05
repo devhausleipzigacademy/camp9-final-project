@@ -18,12 +18,12 @@ export default function AnswerOptions() {
   return (
     <div className="flex flex-col gap-2">
       <h3 className="title-black">Answer Options</h3>
-      <fieldset className="flex flex-col font-semibold  gap-2">
+      <fieldset className="flex flex-col gap-2">
         <div className="flex justify-between items-center ">
           <RadioButton
             label="Single Choice"
             value="SingleChoice"
-            alignment={true}
+            isReverse={false}
             id="single-choice"
             {...register('type')}
             onChange={() => {}}
@@ -33,7 +33,7 @@ export default function AnswerOptions() {
           <RadioButton
             label="Multiple Choice"
             value="MultipleChoice"
-            alignment={true}
+            isReverse={false}
             id="muliple-choice"
             {...register('type')}
           />

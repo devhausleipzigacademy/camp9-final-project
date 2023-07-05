@@ -7,31 +7,32 @@ type Input = React.InputHTMLAttributes<HTMLInputElement>;
 interface Props extends Input {
   label: string;
   sublabel?: string;
-  alignment: boolean;
+  subsublabel?: string;
+  isReverse?: boolean;
 }
 
 const RadioButton = forwardRef<HTMLInputElement, Props>(
-  ({ id, label, sublabel, alignment, ...props }: Props, ref) => {
+  ({ id, label, sublabel, subsublabel, isReverse, ...props }: Props, ref) => {
     return (
       <>
-        <div className={clsx('flex justify-between w-full items-center', alignment ? 'row' : 'row reverse')}>
-          <label htmlFor={id}>
-            <span className="align-middle">
-              <strong>{label}</strong>
-              {sublabel}
-            </span>
-          </label>
+        <label
+          className={clsx(
+            'flex items-center justify-between w-full',
+            isReverse ? 'flex-row-reverse' : 'flex-row'
+          )}
+        >
+          <span className="align-middle w-[180-px]">
+            <strong>{label}</strong>
+            <br />
+            {sublabel}
+            <br />
+            {subsublabel}
+          </span>
           <div>
-            <input
-              ref={ref}
-              className="radio-input"
-              type="radio"
-              id={id}
-              {...props}
-            />
-            <span className='custom-radio'></span>
+            <input ref={ref} className="radio-input" type="radio" {...props} />
+            <span className="custom-radio" />
           </div>
-        </div>
+        </label>
       </>
     );
   }
