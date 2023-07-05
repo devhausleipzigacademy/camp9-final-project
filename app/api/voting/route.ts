@@ -1,5 +1,5 @@
-import { VoteAnswer } from '@/app/@protectedRoutes/(protectedRoutes)/voting/[...slug]/page';
-import { Mood, Poll, PrismaClient } from '@prisma/client';
+import { VoteAnswer } from '@/components/hooks/usePoll';
+import { Mood, PrismaClient } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
 const prisma = new PrismaClient();

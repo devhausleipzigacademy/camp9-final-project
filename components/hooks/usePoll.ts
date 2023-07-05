@@ -1,8 +1,8 @@
-import { Anonymity, Mood, Poll } from '@prisma/client';
+import { Mood, Poll } from '@prisma/client';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
-import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 //axios get request to get the data from the database
 function getPollData(userID: string, pollID: string) {
@@ -23,7 +23,7 @@ export function useVotePollQuery(userId: string, pollId: string) {
 
 export type VoteAnswer = {
   pollId: number;
-  answer: (boolean | undefined)[] | undefined;
+  answer: boolean[];
   mood: Mood;
   userId: number;
 };
@@ -44,17 +44,9 @@ export function useVotePollMutation(userId: string) {
       query.invalidateQueries(['votePoll', userId]);
       window.location.reload();
     },
+    onError: () => {
+      toast.error('you have already voted');
+    },
   });
   return { ...mutation };
 }
-
-// type VoteResponse = {
-//   message: string;
-// };
-
-// type myVote = {
-//   id: number;
-//   answer: boolean[];
-//   pollId: number;
-//   userId: number;
-// };

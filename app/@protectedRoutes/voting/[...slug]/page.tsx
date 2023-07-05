@@ -39,7 +39,7 @@ export default function Voting() {
 
   const multistepComponets = [
     <QuestionVote
-      decription={query.data?.data.description}
+      description={query.data?.data.description}
       question={query.data?.data.question}
     />,
     <VotingConditions
@@ -62,6 +62,8 @@ export default function Voting() {
     mode: 'all',
   });
 
+  console.log(methods.getValues());
+
   async function nextHandler() {
     if (step < multistepComponets.length - 1) {
       let keyArray: (keyof VotePoll)[] = [];
@@ -83,21 +85,26 @@ export default function Voting() {
   }
 
   function onSubmit(data: UserAnswer) {
-    const userAnswer = query.data?.data.options?.map(option => {
-      for (let i = 0; i < query.data?.data.options.length; i++) {
-        if (data.answer[i] === 'abstain') return false;
-        if (option === data.answer[i]) {
-          return true;
-        } else return false;
-      }
-    });
+    const userAnswer =
+      query.data?.data.options?.map(option => {
+        for (let i = 0; i < query.data?.data.options.length; i++) {
+          if (data.answer[i] === 'abstain') return false;
+          if (option === data.answer[i]) {
+            return true;
+          }
+          return false;
+        }
+        return false;
+      }) ?? [];
+    console.log(userAnswer);
     const userVote = {
       answer: userAnswer,
       pollId: Number(pollId),
       userId: Number(userId),
       mood: data.mood,
     };
-    mutate(userVote);
+    // mutate(userVote);
+    console.log(userVote);
   }
 
   return (

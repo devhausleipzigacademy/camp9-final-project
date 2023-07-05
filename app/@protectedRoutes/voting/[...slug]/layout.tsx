@@ -1,7 +1,3 @@
-import { Navbar } from '@/components/shared/navbar/Navbar';
-import Button from 'components/shared/buttons/Button';
-import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
-
 export default function VotingLayout({
   children,
 }: {
