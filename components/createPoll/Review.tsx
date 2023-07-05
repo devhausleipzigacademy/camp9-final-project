@@ -31,7 +31,7 @@ export default function Review() {
       step: 1,
     },
     { title: 'Anonymity', value: anonymity, step: 2 },
-    { title: 'Reveal Conditions', value: quorum, step: 2 },
+    { title: 'Reveal Conditions', value: `${quorum}%`, step: 2 },
     { title: 'Deadline', value: date, step: 3 },
     { title: 'Participants', value: participants?.join(', '), step: 4 },
   ];
@@ -42,7 +42,7 @@ export default function Review() {
       step.value !== undefined &&
       step.value !== null &&
       step.value !== '' &&
-      step.value !== '0'
+      step.value !== '0%'
   );
 
   return (

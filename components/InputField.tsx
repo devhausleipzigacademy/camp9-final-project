@@ -22,7 +22,7 @@ const InputField = forwardRef(
     return (
       <label
         className={clsx(
-          'flex flex-col w-ful  gap-1',
+          'flex flex-col w-full gap-1',
           disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
