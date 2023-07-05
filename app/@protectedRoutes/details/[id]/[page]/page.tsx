@@ -25,9 +25,9 @@ async function getPoll(pollId: number, userId: number) {
         select: { participants: true },
       },
       votes: {},
+      participants: {},
     },
   });
-
   return poll;
 }
 
@@ -53,7 +53,6 @@ function parsePollData(pollData: FullPollInfo): {
   body: string | React.JSX.Element;
   note?: string;
 }[][] {
-  
   const moods = pollData.votes.map(vote =>
     Object.keys(Mood).indexOf(vote.mood)
   );
@@ -181,13 +180,21 @@ async function PollDetails({
     throw new Error('Invalid page number.');
   }
   const session = await getServerSession(authOptions);
-  let userId;
+  let userId: number;
   try {
     userId = session?.user.id!;
   } catch (err) {
-    throw new Error('User not found.');
+    throw new Error('You are not logged in.');
   }
   const poll = await getPoll(parseInt(params.id), userId);
+  if (
+    poll.creatorId !== userId &&
+    !poll.participants.filter(participant => {
+      participant.id === userId;
+    }).length
+  ) {
+    throw new Error('You cannot access this poll.');
+  }
   const parsedPoll = parsePollData(poll);
   return (
     <div className="flex flex-col gap-4 mt-2">
