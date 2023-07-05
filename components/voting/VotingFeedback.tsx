@@ -12,14 +12,25 @@ function VotingFeedback() {
   const { register } = useFormContext<VotePoll>();
 
   return (
-    <div className="flex flex-col flex-wrap justify-center items-center gap-3">
-      <h2 className="title-bold text-center">Give us your Feedback</h2>
+    <div className="flex flex-col flex-wrap justify-center items-center gap-2">
+      <h2 className="title-bold-feedback text-center pt-4">
+        Give us your Feedback
+      </h2>
       <p className="description text-center">
         How do you feel about the question you answered and/or skipped?
       </p>
-      <p className="small text-center">
-        Please select the mood that best describes how you felt: interested,
-        indifferent, confused, annoyed, etc.
+      <p className="small-feedback text-center pb-2">
+        Please select the mood that best describes how you felt: <br />
+        {/* <span className="small-bold-feedback">
+          Beaming,Happy,Unsure,Unhappy,Miserable.
+        </span> */}
+        <div className="small-bold-feedback flex justify-center gap-1 uppercase">
+          <p>Beaming,</p>
+          <p>Happy,</p>
+          <p>Unsure,</p>
+          <p>Unhappy,</p>
+          <p>Miserable.</p>
+        </div>
       </p>
 
       <div className="flex flex-row justify-between gap-4">

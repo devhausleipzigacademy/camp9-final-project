@@ -156,6 +156,7 @@ export default function Voting() {
   function onSubmit(data) {
     console.log(data);
   }
+
   return (
     <main>
       <ProgressBar
@@ -165,8 +166,8 @@ export default function Voting() {
       <FormProvider {...methods}>
         <form>
           {multistepComponets[step]}
-          <footer className="fixed bottom-8 right-8 flex flex-row justify-end gap-16 w-3/4">
-            {step > 0 && (
+          <footer className="fixed bottom-8 right-12 flex flex-row justify-end gap-16 w-3/4">
+            {step > 0 && step < 4 && (
               <Button
                 size="small"
                 type="button"
@@ -177,6 +178,7 @@ export default function Voting() {
                 Back
               </Button>
             )}
+            {/**change this step to -2 to have it in the correct way */}
 
             {step < multistepComponets.length - 1 && (
               <Button
@@ -189,8 +191,7 @@ export default function Voting() {
                 <GrFormNext size={24} strokeWidth={2} />
               </Button>
             )}
-
-            {step === multistepComponets.length - 1 && (
+            {step === multistepComponets.length - 2 && (
               <Button
                 size="medium"
                 type="submit"

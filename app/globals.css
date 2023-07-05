@@ -138,6 +138,12 @@
     font-size: 28px;
     color: black;
   }
+  .title-bold-feedback {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 26px;
+    color: black;
+  }
   .landing-quote {
     font-family: 'Poppins';
     font-weight: 500;
@@ -198,6 +204,12 @@
     font-size: 14px;
     color: black;
   }
+  .description-light-conditions {
+    font-family: 'Poppins';
+    font-weight: 300;
+    font-size: 13px;
+    color: black;
+  }
 
   .description-semibold {
     font-family: 'Poppins';
@@ -209,13 +221,25 @@
   .small {
     font-family: 'Poppins';
     font-weight: 500;
-    font-size: 10px;
+    font-size: 11px;
+    color: black;
+  }
+  .small-feedback {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 11px;
     color: black;
   }
   .small-bold {
     font-family: 'Poppins';
     font-weight: 800;
     font-size: 10px;
+    color: black;
+  }
+  .small-bold-feedback {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 11px;
     color: black;
   }
   .special-accent {

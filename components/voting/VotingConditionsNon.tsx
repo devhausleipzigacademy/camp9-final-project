@@ -9,7 +9,7 @@ function VotingConditionsNon(props: VotingConditionsProps) {
   const { register } = useFormContext<VotePoll>();
   return (
     <fieldset>
-      <p className="small">
+      <p className="small mb-6">
         <span className="small-bold">Please check</span> you understand the poll
         conditions
       </p>
@@ -23,7 +23,7 @@ function VotingConditionsNon(props: VotingConditionsProps) {
           {...register('anonymity')}
         />
       </div>
-      <p className="description-light max-w-[270px]">
+      <p className="description-light-conditions  max-w-[270px] -mt-2">
         The usernames and their votes will be revealed at the end of the voting
         period.
       </p>

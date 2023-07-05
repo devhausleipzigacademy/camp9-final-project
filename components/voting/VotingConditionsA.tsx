@@ -14,11 +14,11 @@ function VotingConditionsAnonymous(props: VotingConditionsProps) {
 
   return (
     <fieldset>
-      <p className="small">
+      <p className="small mb-6">
         <span className="small-bold">Please check</span> you understand the poll
         conditions
       </p>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between items-center">
         <label htmlFor={props.anonymity} className="body-semibold">
           Full anonymity
         </label>
@@ -28,7 +28,9 @@ function VotingConditionsAnonymous(props: VotingConditionsProps) {
           {...register('anonymity')}
         />
       </div>
-      <p className="description-light">No username will be revealed</p>
+      <p className="description-light-conditions  max-w-[270px] -mt-2">
+        No username will be revealed
+      </p>
     </fieldset>
   );
 }

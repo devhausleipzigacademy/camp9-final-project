@@ -4,8 +4,8 @@ import Image from 'next/image';
 
 function ThankYouForVoting() {
   return (
-    <div className="flex flex-col justify-between items-center gap-10">
-      <h2 className="title-bold">Thank you for voting</h2>
+    <div className="flex flex-col justify-between items-center">
+      <h2 className="title-bold pt-4">Thank you for voting</h2>
       <div>
         <Image
           src="/images/flame-success.gif"
@@ -22,9 +22,11 @@ function ThankYouForVoting() {
           The results of the voting will be announced soon. Please stay tuned.
         </p>
       </div>
-      <Button href="/" variant="primary" size="large">
-        Next
-      </Button>
+      <div className="w-full h-full justify-center flex pt-12">
+        <Button href="/" variant="primary" size="large">
+          Next
+        </Button>
+      </div>
     </div>
   );
 }
