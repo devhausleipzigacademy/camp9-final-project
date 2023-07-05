@@ -35,7 +35,7 @@ export default function Voting() {
   const userId = path[2]!;
   const pollId = path[3]!;
   const { query } = useVotePollQuery(userId, pollId);
-  // const { mutate } = useVotePollMutation(userId);
+  const { mutate } = useVotePollMutation(userId);
 
   const multistepComponets = [
     <QuestionVote
@@ -97,7 +97,7 @@ export default function Voting() {
       userId: Number(userId),
       mood: data.mood,
     };
-    console.log(userVote, 'userVote');
+    mutate(userVote);
   }
 
   return (

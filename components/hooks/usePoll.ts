@@ -1,5 +1,4 @@
-import { VoteAnswer } from '@/app/@protectedRoutes/(protectedRoutes)/voting/[...slug]/page';
-import { Poll } from '@prisma/client';
+import { Anonymity, Mood, Poll } from '@prisma/client';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 
@@ -21,6 +20,13 @@ export function useVotePollQuery(userId: string, pollId: string) {
   });
   return { query };
 }
+
+export type VoteAnswer = {
+  pollId: number;
+  answer: (boolean | undefined)[] | undefined;
+  mood: Mood;
+  userId: number;
+};
 
 ///useMutation to call the axios post request
 function sendVote(requestvote: VoteAnswer) {
