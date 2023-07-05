@@ -23,13 +23,18 @@ export default function AnswerOptions() {
           <RadioButton
             label="Single Choice"
             value="SingleChoice"
+            alignment={true}
+            id="single-choice"
             {...register('type')}
+            onChange={() => {}}
           />
         </div>
-        <div className="flex flex-row justify-between body-semibold items-center mb-2">
+        <div className="flex flex-row justify-between items-center mb-2">
           <RadioButton
             label="Multiple Choice"
             value="MultipleChoice"
+            alignment={true}
+            id="muliple-choice"
             {...register('type')}
           />
         </div>
