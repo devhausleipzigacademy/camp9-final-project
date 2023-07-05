@@ -77,17 +77,26 @@ function PollActivityCards({
       } else
         newCards = (
           <>
-            {data.map(poll => (
-              <PollCard
-                className="mb-4"
-                key={poll.id}
-                endDate={poll.endDateTime}
-                isVoted={false}
-                pollId={poll.id}
-              >
-                {poll?.question}
-              </PollCard>
-            ))}
+            {data.map(poll => {
+              let hasVoted = false;
+              if ('votes' in poll) {
+                hasVoted = !!poll.votes.filter(
+                  vote => vote.userId === poll.creatorId
+                ).length;
+              }
+
+              return (
+                <PollCard
+                  className="mb-4"
+                  key={poll.id}
+                  endDate={poll.endDateTime}
+                  isVoted={hasVoted}
+                  pollId={poll.id}
+                >
+                  {poll?.question}
+                </PollCard>
+              );
+            })}
           </>
         );
     }
