@@ -77,7 +77,7 @@ export default function CreatePoll() {
   const { mutate, isError } = useMutation(createNewPoll, {
     onSuccess: async () => {
       toast.success('Poll created!');
-      await router.push('/mypolls');
+      router.push('/mypolls');
       await setStepIndex(0);
     },
     onError: error => {
