@@ -5,21 +5,66 @@ import React, { useEffect, useState } from 'react';
 import PollCard from '../PollCard';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import _ from 'lodash';
+import { ExtendedPoll } from '@/types/pollActivity';
 
-async function getNewPolls() {
-  const { data } = await axios.get<Poll[]>('/api/getPolls');
+// axios get new polls function
+async function getNewPollsAxios() {
+  const { data } = await axios.get<Poll[]>('/api/getPolls/new');
+  return data;
+}
+// axios get pending polls function
+async function getPendingPollsAxios() {
+  const { data } = await axios.get<ExtendedPoll[]>('/api/getPolls/pending');
+  return data;
+}
+// axios get closed polls function
+async function getClosedPollsAxios() {
+  const { data } = await axios.get<ExtendedPoll[]>('/api/getPolls/closed');
+  return data;
+}
+// axios get my polls function
+async function getMyPollsAxios() {
+  const { data } = await axios.get<ExtendedPoll[]>('/api/getPolls/myPolls');
   return data;
 }
 
-function PollActivityCards({ polls }: { polls: Poll[] }) {
-  const { data } = useQuery<Poll[]>({
-    queryKey: ['polls', 'new'],
-    queryFn: getNewPolls,
+function PollActivityCards({
+  polls,
+  type,
+}: {
+  polls: Poll[] | ExtendedPoll[];
+  type: 'new' | 'pending' | 'closed' | 'myPolls';
+}) {
+  let queryFn;
+  let queryKey;
+  switch (type) {
+    case 'new':
+      queryFn = getNewPollsAxios;
+      queryKey = ['polls', 'new'];
+      break;
+    case 'pending':
+      queryFn = getPendingPollsAxios;
+      queryKey = ['polls', 'pending'];
+      break;
+    case 'closed':
+      queryFn = getClosedPollsAxios;
+      queryKey = ['polls', 'closed'];
+      break;
+    case 'myPolls':
+      queryFn = getMyPollsAxios;
+      queryKey = ['polls', 'myPolls'];
+      break;
+  }
+  const { data } = useQuery<Poll[] | ExtendedPoll[]>({
+    queryKey: queryKey,
+    queryFn: queryFn,
     initialData: polls,
-    refetchInterval: 10000,
+    refetchInterval: 60000,
   });
-  const [cards, setCards] = useState(<></>);
-  function refreshCards() {
+  const [cards, setCards] = useState(renderCards());
+  // function that recreates cards
+  function renderCards() {
     let newCards = <></>;
     if (data) {
       if (data.length === 0) {
@@ -46,11 +91,20 @@ function PollActivityCards({ polls }: { polls: Poll[] }) {
           </>
         );
     }
-    // compare cards state with the newCards
-    // if different, set cards state to newCards
+    return newCards;
   }
   useEffect(() => {
-    // set an interval that calls refreshCards() each 1 minute
+    // sets an interval that calls refreshCards() each 30 seconds
+    // if the newly created cards look different than the old ones, the state gets updated, triggering a re-render
+    const interval = setInterval(() => {
+      const newCards = renderCards();
+      if (!_.isEqual(newCards, cards)) {
+        setCards(newCards);
+      }
+    }, 30000);
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
   return cards;
 }

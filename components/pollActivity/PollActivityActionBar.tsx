@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import TabButton from 'components/shared/buttons/TabButton';
 
 type PollActivityActionBarProps = {
