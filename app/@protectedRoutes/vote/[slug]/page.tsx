@@ -19,6 +19,7 @@ import VotingTypeChoice from '@/components/voting/VotingTypeChoice';
 import QuestionVote from '@/components/voting/QuestionVote';
 import VotingConditions from '@/components/voting/VotingConditions';
 import { useSession } from 'next-auth/react';
+import Loading from '@/components/voting/Loading';
 
 type Anonymity = 'Anonymous' | 'NonAnonymous' | 'AnonymousUntilQuorum';
 
@@ -84,17 +85,10 @@ export default function Voting() {
   }
 
   function onSubmit(data: UserAnswer) {
-    const userAnswer =
-      query.data?.data.options?.map(option => {
-        for (let i = 0; i < query.data?.data.options.length; i++) {
-          if (data.answer[i] === 'abstain') return false;
-          if (option === data.answer[i]) {
-            return true;
-          }
-          return false;
-        }
-        return false;
-      }) ?? [];
+    //map through the options and check if the user has voted for them
+    const userAnswer = query.data?.data.options?.map(option => {
+      return data.answer.includes(option);
+    });
     const userVote = {
       answer: userAnswer,
       pollId: Number(pollId),
@@ -105,6 +99,7 @@ export default function Voting() {
   }
 
   if (query.data?.data.id === 107000) return alreadyVoted[0];
+  if (query.isLoading) return <Loading />;
 
   return (
     <main>

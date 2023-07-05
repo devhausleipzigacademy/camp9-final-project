@@ -33,7 +33,7 @@ export type VoteAnswer = {
 
 ///useMutation to call the axios post request
 function sendVote(requestvote: VoteAnswer) {
-  const sendVoteRequest = axios.post('/api/voting/', requestvote);
+  const sendVoteRequest = axios.post('/api/vote/', requestvote);
   return sendVoteRequest;
 }
 
