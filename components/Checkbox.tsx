@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { BoxCheckedProps } from './Question';
 import { cva } from 'class-variance-authority';
 
-interface CheckboxProps extends BoxCheckedProps {
+interface CheckboxProps {
+  variant: 'primary' | 'secondary' | 'tertiary',
   disableProp?: boolean,
   checkProp?: boolean
 }

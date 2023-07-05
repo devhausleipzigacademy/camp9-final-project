@@ -99,8 +99,6 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     return answerTotals;
   }();
 
-  console.log(poll);
-
   ///////////
   // cards //
   ///////////
@@ -217,7 +215,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       <PollResultsCard.Content className="h-[310px]">
         <div className="overflow-y-auto scrollbar-left-padded scrollbar--results h-[270px]">
           {poll.options.map((option, index) => (
-            <div className="mb-5">
+            <div className="mb-5" key={option}>
               <p className="body-light text-black mb-3">{option}</p>
               <div className="w-[220px]">
                 <PollProgressBar
