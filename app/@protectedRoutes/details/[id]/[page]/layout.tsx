@@ -32,6 +32,7 @@ export default function PollDetailsLayout({
           variant="tertiary"
           href={nextPageHref}
           isActive={params.page !== '4'}
+          isHidden={params.page >= '4'}
         >
           Next page
           <GrFormNext size={24} strokeWidth={2} />
