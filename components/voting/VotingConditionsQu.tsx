@@ -29,9 +29,8 @@ function VotingConditionsQu(props: PropsQuorum) {
           {...register('anonymity')}
         />
       </div>
-      <p className="description-light-conditions  max-w-[270px] -mt-2">
-        The usernames will be revealed when {props.quorum} participants reached
-        a consesus.
+      <p className="description-light-conditions  max-w-[260px] -mt-2">
+        The usernames will be revealed when {props.quorum} % reached a consesus.
       </p>
     </fieldset>
   );

@@ -39,7 +39,7 @@ function VotingTypeChoice({ type, options, question }: Props) {
   if (type === 'SingleChoice') {
     return (
       <fieldset>
-        <h1 className="description-bold text-left pt-4 pb-4">{question}</h1>
+
         <p className="small mb-4">
           <span className="small-bold">Single Choice</span>, select only one
         </p>
@@ -76,7 +76,6 @@ function VotingTypeChoice({ type, options, question }: Props) {
   }
   return (
     <fieldset>
-      <h1 className="title-bold text-left pt-4 pb-4">Voting</h1>
       <p className="small mb-4">
         <span className="small-bold">Multi choice</span>, select many as you
         want
