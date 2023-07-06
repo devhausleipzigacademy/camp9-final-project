@@ -9,7 +9,6 @@ interface QuestionVoteProps {
 function QuestionVote(props: QuestionVoteProps) {
   return (
     <div>
-      <h1 className="title-bold text-left pt-4 pb-4">Question</h1>
       <div className="questionVote w-full h-auto p-2 border-3 border-solid border-black bg-peach rounded-md">
         <h3>{props.question}</h3>
       </div>

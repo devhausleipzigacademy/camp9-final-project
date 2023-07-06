@@ -28,7 +28,6 @@ function VotingConditions({ anonymity, quorum }: VotingConditionsProps) {
   }
   return (
     <div>
-      <h1 className="title-bold text-left pt-4 pb-4">Voting Conditions</h1>
       <VotingConditionsQu quorum={quorum} anonymity={anonymity} />
     </div>
   );

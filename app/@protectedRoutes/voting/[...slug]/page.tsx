@@ -98,15 +98,22 @@ export default function Voting() {
       mood: data.mood,
     };
   }
+  const titles = [
+    'Question',
+    'Voting Conditions',
+    'Voting',
+    'Give us your Feedback!',
+  ];
 
   return (
     <main>
+      <h1 className="title-bold text-left pb-4">{titles[step]}</h1>
       <ProgressBar
         currentPage={step + 1}
         numberOfPages={multistepComponets.length}
       />
       <FormProvider {...methods}>
-        <form>
+        <form className="pt-4 ">
           {multistepComponets[step]}
           <footer className="fixed bottom-8 right-12 flex flex-row justify-end gap-16 w-3/4">
             {step > 0 && step < 4 && (
