@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import GroupIllustration from '/public/images/Illustr_group_voting.png';
+import applogo from '/public/images/logoApp.png';
 import Button from 'components/shared/buttons/Button';
 import React from 'react';
 import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
@@ -12,10 +12,10 @@ export default function LandingPage() {
       <h1 className="appName">d'accord</h1>
       <div>
         <Image
-          src={GroupIllustration}
+          src={applogo}
           alt="illustration of a group of people making decisions"
         />
-        <div className="text-white text-center text-xl font-medium my-3">
+        <div className="text-black text-center text-xl font-semibold my-3">
           Vote secretly, reveal conditionally
         </div>
       </div>

@@ -515,6 +515,7 @@
       2px 2px #000000, -2px -2px #000000, 2px -2px #000000, -2px 2px #000000,
       -4px 4px 0px #000000;
   }
+
   .toast-container {
     --toastify-color-light: #ffedbc;
     --toastify-color-dark: #2f9ca1;
