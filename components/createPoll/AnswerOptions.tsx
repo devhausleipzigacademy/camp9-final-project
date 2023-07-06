@@ -17,18 +17,23 @@ export default function AnswerOptions() {
   return (
     <div className="pl-8 flex flex-col gap-2">
       <h3 className="title-black">Answer Options</h3>
-      <fieldset className="flex flex-col font-semibold gap-2 w-full">
+      <fieldset className="flex flex-col gap-2">
         <div className="flex justify-between items-center ">
-          <RadioButton
-            label="Multiple Choice"
-            value="MultipleChoice"
-            {...register('type')}
-          />
-        </div>
-        <div className="flex flex-row justify-between body-semibold items-center mb-2">
           <RadioButton
             label="Single Choice"
             value="SingleChoice"
+            isReverse={false}
+            id="single-choice"
+            {...register('type')}
+            onChange={() => {}}
+          />
+        </div>
+        <div className="flex flex-row justify-between items-center mb-2">
+          <RadioButton
+            label="Multiple Choice"
+            value="MultipleChoice"
+            isReverse={false}
+            id="muliple-choice"
             {...register('type')}
           />
         </div>

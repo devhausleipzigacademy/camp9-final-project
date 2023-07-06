@@ -18,6 +18,8 @@ function VotingMultipleChoice() {
             id="singleChoice"
             key={1}
             type="radio"
+            label=""
+            isClickable={true}
             {...register('answer')}
             value="option"
           />
@@ -28,6 +30,8 @@ function VotingMultipleChoice() {
             id="singleChoice"
             key={2}
             type="radio"
+            label=""
+            isClickable={true}
             {...register('answer')}
             value="abstain"
           />

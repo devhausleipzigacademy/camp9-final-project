@@ -20,6 +20,8 @@ function VotingConditionsNon(props: VotingConditionsProps) {
         <CheckboxButton
           id="nonAnonymity"
           value="NonAnonymous"
+          label=''
+          isClickable={true}
           {...register('anonymity')}
         />
       </div>
