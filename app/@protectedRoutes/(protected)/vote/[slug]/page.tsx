@@ -37,7 +37,7 @@ export default function Voting({ params }: { params: { slug: string } }) {
 
   const { query } = useVotePollQuery(pollId);
   const { mutate, isLoading, isSuccess, isError } = useVotePollMutation(pollId);
-  console.log({ isLoading, isSuccess, isError });
+
   const multistepComponets = [
     <QuestionVote
       description={query.data?.data.description}

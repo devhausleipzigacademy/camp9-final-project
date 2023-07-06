@@ -47,6 +47,7 @@ export function useVotePollMutation(pollId: string) {
     onSuccess: data => {
       query.invalidateQueries(['votePoll', pollId]);
       router.refresh();
+      router.back();
     },
     onError: () => {
       toast.error('you have already voted');
