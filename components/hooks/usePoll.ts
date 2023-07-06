@@ -45,6 +45,7 @@ export function useVotePollMutation(pollId: string) {
     mutationKey: ['votePoll', pollId],
     mutationFn: (requestVote: VoteAnswer) => sendVote(requestVote),
     onSuccess: data => {
+      query.invalidateQueries(['polls']);
       query.invalidateQueries(['votePoll', pollId]);
       router.push('/voteSuccess');
     },

@@ -31,10 +31,12 @@ async function getMyPollsAxios() {
 
 function PollActivityCards({
   polls,
+  userId,
   type,
 }: {
   polls: Poll[] | ExtendedPoll[];
   type: 'new' | 'pending' | 'closed' | 'myPolls';
+  userId: number;
 }) {
   let queryFn;
   let queryKey;
@@ -60,7 +62,7 @@ function PollActivityCards({
     queryKey: queryKey,
     queryFn: queryFn,
     initialData: polls,
-    refetchInterval: 60000,
+    refetchInterval: 30000,
   });
   const [cards, setCards] = useState(renderCards());
   // function that recreates cards
@@ -80,9 +82,8 @@ function PollActivityCards({
             {data.map(poll => {
               let hasVoted = false;
               if ('votes' in poll) {
-                hasVoted = !!poll.votes.filter(
-                  vote => vote.userId === poll.creatorId
-                ).length;
+                hasVoted = !!poll.votes.filter(vote => vote.userId === userId)
+                  .length;
               }
 
               return (
@@ -102,19 +103,26 @@ function PollActivityCards({
     }
     return newCards;
   }
+  // useEffect(() => {
+  // sets an interval that calls refreshCards() each 30 seconds
+  // if the newly created cards look different than the old ones, the state gets updated, triggering a re-render
+  // const interval = setInterval(() => {
+  //   const newCards = renderCards();
+  //   if (!_.isEqual(newCards, cards)) {
+  //     setCards(newCards);
+  //   }
+  // }, 30000);
+  // return () => {
+  //   clearInterval(interval);
+  // };
+  // }, []);
+
   useEffect(() => {
-    // sets an interval that calls refreshCards() each 30 seconds
-    // if the newly created cards look different than the old ones, the state gets updated, triggering a re-render
-    const interval = setInterval(() => {
-      const newCards = renderCards();
-      if (!_.isEqual(newCards, cards)) {
-        setCards(newCards);
-      }
-    }, 30000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
+    const newCards = renderCards();
+    if (!_.isEqual(newCards, cards)) {
+      setCards(newCards);
+    }
+  }, [data]);
   return cards;
 }
 
