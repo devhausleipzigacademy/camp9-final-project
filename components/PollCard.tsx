@@ -65,7 +65,7 @@ export default function PollCard({
   } else if (isOpen && !isVoted) {
     href = `/vote/${pollId}`;
   } else {
-    href = '/results';
+    href = `/results/${pollId}`;
   }
 
   return (

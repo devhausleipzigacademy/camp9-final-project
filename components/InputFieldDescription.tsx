@@ -21,7 +21,7 @@ export const InputFieldDescription = forwardRef(
     return (
       <label
         className={clsx(
-          'flex flex-col',
+          'flex flex-col gap-1',
           disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
@@ -42,5 +42,7 @@ export const InputFieldDescription = forwardRef(
     );
   }
 );
+
+InputFieldDescription.displayName = 'InputFieldDescription';
 
 export default InputFieldDescription;

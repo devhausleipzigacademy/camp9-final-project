@@ -105,7 +105,6 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   // }
   
   // poll.votes.map(vote => vote.answer);
-  console.log(poll)
 
 
   ///////////
