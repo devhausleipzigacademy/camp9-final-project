@@ -48,6 +48,11 @@ export default function AddParticipants() {
       <h3 className="title-black">Add Participants</h3>
       <Combobox value={selectedUser} onChange={setSelectedUser}>
         <div className="flex flex-row h-12 gap-2 justify-between items-center mt-4">
+          <Combobox.Input
+            as={InputField}
+            placeholder="username"
+            onChange={e => setQuery(e.target.value)}
+          />
           <Button
             className="shrink-0"
             disabled={!selectedUser}
@@ -64,11 +69,6 @@ export default function AddParticipants() {
           >
             +
           </Button>
-          <Combobox.Input
-            as={InputField}
-            placeholder="username"
-            onChange={e => setQuery(e.target.value)}
-          />
         </div>
         <Combobox.Options
           className={clsx(

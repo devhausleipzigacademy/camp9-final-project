@@ -48,7 +48,6 @@ export default function CreatePoll() {
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),
     mode: 'all',
-    // defaultValues: useFormDataStore.getState().formData,
     defaultValues: {
       anonymity: 'AnonymousUntilQuorum',
       endDateTime: tomorrow,
@@ -64,11 +63,6 @@ export default function CreatePoll() {
       ],
     },
   });
-
-  // useEffect(() => {
-  //   // Save the form data to the store when it changes
-  //   useFormDataStore.getState().setFormData(methods.getValues());
-  // }, [methods]);
 
   // API request to create a new poll
   async function createNewPoll(poll: CreateNewPoll) {
