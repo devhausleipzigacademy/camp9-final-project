@@ -13,7 +13,7 @@ export default function RevealConditions() {
     setShowConsensusController(
       getValues().anonymity === 'AnonymousUntilQuorum'
     );
-  }, []);
+  }, [getValues]);
 
   return (
     <>

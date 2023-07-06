@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { FieldErrors, useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import Button from 'components/shared/buttons/Button';
 import InputField from '../InputField';
 import RadioButton from '../Radiobutton';
@@ -16,7 +15,7 @@ export default function AnswerOptions() {
   });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="pl-8 flex flex-col gap-2">
       <h3 className="title-black">Answer Options</h3>
       <fieldset className="flex flex-col gap-2">
         <div className="flex justify-between items-center ">
@@ -38,16 +37,24 @@ export default function AnswerOptions() {
             {...register('type')}
           />
         </div>
+        <div className="flex flex-row justify-between body-semibold items-center mb-2">
+          <RadioButton
+            label="Single Choice"
+            value="SingleChoice"
+            {...register('type')}
+          />
+        </div>
       </fieldset>
-      <hr className="border border-black"></hr>
-      <fieldset className="flex pt-2 flex-col gap-1 center justify-around w-full">
+      <hr className="border border-black my-2"></hr>
+      <fieldset className="flex gap-2 flex-col h-[260px] scrollbar-left-padded overflow-y-auto">
         {fields.map((_, index) => (
           <div
             key={index}
-            className="flex flex-row justify-between gap-2 pb-1 items-end overflow-scroll w-full"
+            className="flex self-start justify-between gap-2 items-end w-full"
           >
             <InputField
               {...register(`options.${index}.option`)}
+              showLabel={false}
               type="text"
               label={`Option ${index + 1}`}
               placeholder={`Option ${index + 1}`}
@@ -68,19 +75,17 @@ export default function AnswerOptions() {
           </div>
         ))}
 
-        {
-          <div className="flex my-1">
-            <Button
-              type="button"
-              size="small"
-              className="ml-auto"
-              variant="secondary"
-              onClick={() => append({ option: '' })}
-            >
-              + Option
-            </Button>
-          </div>
-        }
+        <div className="flex mt-2">
+          <Button
+            type="button"
+            size="small"
+            className="ml-auto"
+            variant="secondary"
+            onClick={() => append({ option: '' })}
+          >
+            + Option
+          </Button>
+        </div>
       </fieldset>
     </div>
   );
