@@ -67,7 +67,6 @@ function Settings() {
       >
         <InputField
           label={'Username'}
-          showLabel={true}
           type={'username'}
           width={'reduced'}
           disabled={usernameEdit === 'pencil'}
@@ -89,7 +88,6 @@ function Settings() {
         <div className="flex gap-4">
           <InputField
             label={'Password'}
-            showLabel={true}
             type={'password'}
             width={'reduced'}
             disabled={passwordEdit === 'pencil'}
@@ -109,7 +107,6 @@ function Settings() {
         </div>
         <InputField
           label={'Confirm Password'}
-          showLabel={true}
           type={'password'}
           width={'reduced'}
           disabled={passwordEdit === 'pencil'}
