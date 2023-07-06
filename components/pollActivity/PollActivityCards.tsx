@@ -82,8 +82,16 @@ function PollActivityCards({
             {data.map(poll => {
               let hasVoted = false;
               if ('votes' in poll) {
-                hasVoted = !!poll.votes.filter(vote => vote.userId === userId)
-                  .length;
+                if (
+                  poll.participants.filter(
+                    participant => participant.id === userId
+                  ).length
+                ) {
+                  hasVoted = !!poll.votes.filter(vote => vote.userId === userId)
+                    .length;
+                } else {
+                  hasVoted = true;
+                }
               }
 
               return (

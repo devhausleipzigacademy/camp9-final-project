@@ -62,6 +62,7 @@ export async function getPendingPolls(): Promise<ExtendedPoll[]> {
         },
       },
       votes: {},
+      participants: {},
     },
   });
   const pendingPollsNotClosed = pendingPolls.filter(
@@ -88,6 +89,7 @@ export async function getClosedPolls() {
         },
       },
       votes: {},
+      participants: {},
     },
   });
   const closedPolls = participatedPolls.filter(poll => {
@@ -116,6 +118,7 @@ export async function getMyPolls() {
         },
       },
       votes: {},
+      participants: {},
     },
   });
   return sortPollsByDate(filteredMyPolls);
