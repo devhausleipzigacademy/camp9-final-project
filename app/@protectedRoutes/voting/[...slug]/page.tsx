@@ -100,8 +100,8 @@ export default function Voting() {
   }
   const titles = [
     'Question',
-    'Voting Conditions',
-    'Voting',
+    'About this Poll',
+    'Your Vote',
     'Give us your Feedback!',
   ];
 
