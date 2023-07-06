@@ -29,4 +29,6 @@ export default async function RootLayout({
   );
 }
 
-{/* <body className="grid justify-center h-screen items-center"> */}
+{
+  /* <body className="grid justify-center h-screen items-center"> */
+}

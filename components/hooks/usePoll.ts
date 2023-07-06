@@ -1,54 +1,56 @@
-import { VoteAnswer } from '@/app/@protectedRoutes/(protectedRoutes)/voting/[...slug]/page';
-import { Poll } from '@prisma/client';
+import { Anonymity, Mood, Poll } from '@prisma/client';
 import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
+import { authOptions } from '@/libs/auth';
 
-import { useForm } from 'react-hook-form';
+import { getServerSession } from 'next-auth';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+
+// const session = await getServerSession(authOptions);
 
 //axios get request to get the data from the database
-function getPollData(userID: string, pollID: string) {
-  const votePoll = axios.get<Poll>('/api/voting/', {
-    params: { userId: userID, pollId: pollID },
+function getPollData(pollID: string) {
+  const votePoll = axios.get<Poll>('/api/vote/', {
+    params: { pollId: pollID },
   });
   return votePoll;
 }
 
 //useQuery to call the axios get request
-export function useVotePollQuery(userId: string, pollId: string) {
+export function useVotePollQuery(pollId: string) {
   const query = useQuery({
-    queryKey: ['votePoll', userId],
-    queryFn: () => getPollData(userId, pollId),
+    queryKey: ['votePoll', pollId],
+    queryFn: () => getPollData(pollId),
   });
   return { query };
 }
 
+export type VoteAnswer = {
+  pollId: number;
+  answer: boolean[];
+  mood: Mood;
+};
+
 ///useMutation to call the axios post request
 function sendVote(requestvote: VoteAnswer) {
-  const sendVoteRequest = axios.post('/api/voting/', requestvote);
-
+  const sendVoteRequest = axios.post('/api/vote/', requestvote);
   return sendVoteRequest;
 }
 
-export function useVotePollMutation(userId: string) {
+export function useVotePollMutation(pollId: string) {
+  const router = useRouter();
   const query = new QueryClient();
   const mutation = useMutation({
-    mutationKey: ['votePoll', userId],
-    mutationFn: (requestvote: VoteAnswer) => sendVote(requestvote),
+    mutationKey: ['votePoll', pollId],
+    mutationFn: (requestVote: VoteAnswer) => sendVote(requestVote),
     onSuccess: data => {
-      query.invalidateQueries(['votePoll', userId]);
-      window.location.reload();
+      query.invalidateQueries(['votePoll', pollId]);
+      router.push('/voteSuccess');
+    },
+    onError: () => {
+      toast.error('you have already voted');
     },
   });
   return { ...mutation };
 }
-
-// type VoteResponse = {
-//   message: string;
-// };
-
-// type myVote = {
-//   id: number;
-//   answer: boolean[];
-//   pollId: number;
-//   userId: number;
-// };

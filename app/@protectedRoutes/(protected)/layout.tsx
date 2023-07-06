@@ -1,5 +1,4 @@
 import React from 'react';
-import '@/app/globals.css';
 import { Navbar } from 'components/shared/navbar/Navbar';
 
 export const metadata = {
