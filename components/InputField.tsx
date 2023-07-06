@@ -21,7 +21,7 @@ const InputField = forwardRef(
       label,
       error,
       disabled,
-      showLabel,
+      showLabel = true,
       required = false,
       ...props
     }: InputFieldProps,
@@ -35,9 +35,7 @@ const InputField = forwardRef(
         )}
       >
         <div className="flex flex-row items-center justify-between mb-1">
-          <span className={clsx(showLabel ? 'visible' : 'hidden')}>
-            {label}
-          </span>
+          {showLabel && label}
           {error && (
             <div className="flex flex-row gap-2 items-center">
               <WarningSVG width="14px" height="14px" />{' '}

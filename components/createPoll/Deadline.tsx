@@ -52,7 +52,6 @@ export default function Deadline() {
   // JSX return statement
   return (
     <div className="pl-8 flex flex-col gap-y-2 items-center pb-1">
-      <h3 className="title-black">Deadline</h3>
       <Calendar
         className="calendar"
         prev2Label={null}
