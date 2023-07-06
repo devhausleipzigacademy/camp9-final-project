@@ -68,6 +68,8 @@ function VotingTypeChoice({ type, options }: Props) {
             <CheckboxButton
               id="multipleChoice"
               type="checkbox"
+              label=""
+              isClickable={true}
               {...register('answer')}
               value={option}
               onClick={() => handleMultipleChoice(option)}
@@ -79,6 +81,8 @@ function VotingTypeChoice({ type, options }: Props) {
           <CheckboxButton
             id="multipleChoice"
             type="checkbox"
+            label=""
+            isClickable={true}
             {...register('answer')}
             value="abstain"
             onClick={handleAbstainChoice}

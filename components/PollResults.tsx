@@ -11,7 +11,6 @@ import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import ProgressBar from './shared/ProgressBar';
 import CheckboxButton from './CheckboxButton';
-import clsx from 'clsx';
 
 interface PollResultsProps extends Poll {
   participants: User[];
