@@ -93,19 +93,14 @@ export default function Voting({ params }: { params: { slug: string } }) {
     mutate(userVote);
     // console.log(userVote);
   }
-  const titles = [
-    'Question',
-    'About this Poll',
-    'Your Vote',
-    'Give us your Feedback!',
-  ];
+  const titles = ['Question', 'About this Poll', 'Your Vote', 'Your Mood'];
 
   if (query.data?.data.id === 107000) return <ThankYouForVoting />;
   if (query.isLoading) return <Loading />;
 
   return (
     <main>
-      <h1 className="title-bold text-left pb-4">{titles[step]}</h1>
+      <h1 className="title-bold text-left pb-1">{titles[step]}</h1>
       <ProgressBar
         currentPage={step + 1}
         numberOfPages={multistepComponets.length}

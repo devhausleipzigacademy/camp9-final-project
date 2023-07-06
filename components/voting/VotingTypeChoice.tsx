@@ -74,7 +74,6 @@ function VotingTypeChoice({ type, options }: Props) {
   }
   return (
     <fieldset>
-      <h1 className="title-bold text-left pt-4 pb-4">Voting</h1>
       <p className="small mb-4">
         <span className="small-bold">Multi choice</span>, select many as you
         want

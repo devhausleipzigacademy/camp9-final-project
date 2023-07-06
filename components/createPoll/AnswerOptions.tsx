@@ -16,7 +16,7 @@ export default function AnswerOptions() {
 
   return (
     <div className="pl-8 flex flex-col gap-2">
-      <fieldset className="flex flex-col font-semibold gap-2 w-full">
+      <fieldset className="flex flex-col gap-2 w-full">
         <div className="flex justify-between items-center ">
           <RadioButton
             label="Single Choice"
