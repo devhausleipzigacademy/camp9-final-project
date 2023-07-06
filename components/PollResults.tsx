@@ -99,7 +99,19 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     return answerTotals;
   })();
 
-  console.log(poll);
+  // get the users who voted for a certain answer
+  function getUsersWhoVotedForOption(answerIndex: number) {
+    const usersWhoVotedForOptionArray: Array<number> = [];
+    for (let i = 0; i < poll.votes.length; i++) {
+      if (poll.votes[i]?.answer[answerIndex] === true) {
+        console.log(poll.votes[i]?.userId!);
+        usersWhoVotedForOptionArray.push(poll.votes[i]?.userId!)
+      }
+    }
+    return usersWhoVotedForOptionArray.toString
+  }
+
+  console.log("users", getUsersWhoVotedForOption(1));
 
   ///////////
   // cards //
@@ -235,6 +247,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
                       height={16}
                       alt="show participants who voted for this option"
                     ></Image>
+                    {getUsersWhoVotedForOption(answerTotalsArray[index]!)}
                   </>
                 ) : (
                   ''
