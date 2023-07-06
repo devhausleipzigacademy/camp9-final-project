@@ -97,15 +97,12 @@ export default function Voting({ params }: { params: { slug: string } }) {
 
   const titles = ['Question', 'About this Poll', 'Your Vote', 'Your Mood'];
 
-
   if (query.data?.data.id === 107000) return <ThankYouForVoting />;
   if (query.isLoading) return <Loading />;
 
   return (
     <main>
-
       <h1 className="title-bold text-left pb-1">{titles[step]}</h1>
-
       <ProgressBar
         currentPage={step + 1}
         numberOfPages={multistepComponets.length}
@@ -120,6 +117,7 @@ export default function Voting({ params }: { params: { slug: string } }) {
                 type="button"
                 variant="secondary"
                 onClick={() => setStep(step - 1)}
+                disabled={Object.keys(methods.formState.errors).length !== 0}
               >
                 <GrFormPrevious size={24} strokeWidth={2} />
                 Back
