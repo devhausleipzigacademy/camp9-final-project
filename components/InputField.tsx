@@ -12,11 +12,19 @@ interface InputFieldProps extends InputField {
   error?: {
     message?: string;
   };
+  showLabel?: boolean;
 }
 
 const InputField = forwardRef(
   (
-    { label, error, disabled, required = false, ...props }: InputFieldProps,
+    {
+      label,
+      error,
+      disabled,
+      required,
+      showLabel = true,
+      ...props
+    }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     return (
@@ -27,7 +35,7 @@ const InputField = forwardRef(
         )}
       >
         <div className="flex flex-row items-center justify-between">
-          {label && <span>{label}</span>}
+          {label && <span>{showLabel && label}</span>}
           {error && (
             <div className="flex flex-row gap-2 items-center">
               <WarningSVG width="14px" height="14px" />{' '}

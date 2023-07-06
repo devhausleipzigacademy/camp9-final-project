@@ -42,6 +42,7 @@ export default function AnswerOptions() {
           >
             <InputField
               {...register(`options.${index}.option`)}
+              showLabel={false}
               type="text"
               label={`Option ${index + 1}`}
               placeholder={`Option ${index + 1}`}
@@ -62,19 +63,17 @@ export default function AnswerOptions() {
           </div>
         ))}
 
-        {
-          <div className="flex my-1">
-            <Button
-              type="button"
-              size="small"
-              className="ml-auto"
-              variant="secondary"
-              onClick={() => append({ option: '' })}
-            >
-              + Option
-            </Button>
-          </div>
-        }
+        <div className="flex mt-2">
+          <Button
+            type="button"
+            size="small"
+            className="ml-auto"
+            variant="secondary"
+            onClick={() => append({ option: '' })}
+          >
+            + Option
+          </Button>
+        </div>
       </fieldset>
     </div>
   );
