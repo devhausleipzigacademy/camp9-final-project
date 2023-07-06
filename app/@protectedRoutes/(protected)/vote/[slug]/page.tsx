@@ -106,7 +106,7 @@ export default function Voting({ params }: { params: { slug: string } }) {
 
   return (
     <main>
-      <h1 className="title-bold text-left pb-4">{titles[step]}</h1>
+      <h1 className="title-bold-header text-left pb-4">{titles[step]}</h1>
       <ProgressBar
         currentPage={step + 1}
         numberOfPages={multistepComponets.length}

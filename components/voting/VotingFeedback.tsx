@@ -4,7 +4,6 @@ import { useFormContext } from 'react-hook-form';
 import { VotePoll } from '@/types/voting/VotingSchema';
 
 function VotingFeedback() {
-  //this needs to be changed to a ref or Zustand
   const { register } = useFormContext<VotePoll>();
 
   return (
@@ -13,9 +12,6 @@ function VotingFeedback() {
         How do you feel about the asked question?
       </p>
       <div className="leading-[6px] pb-2">
-        <p className="small-feedback text-center pb-2">
-          Please select the mood that best describes how you feel: <br />
-        </p>
         <div className="small-bold-feedback flex justify-center gap-1 uppercase">
           <p>Beaming,</p>
           <p>Happy,</p>

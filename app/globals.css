@@ -138,6 +138,12 @@
     font-size: 28px;
     color: black;
   }
+  .title-bold-header {
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 24px;
+    color: black;
+  }
   .title-bold-feedback {
     font-family: 'Poppins';
     font-weight: 700;
