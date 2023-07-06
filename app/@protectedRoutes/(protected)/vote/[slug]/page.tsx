@@ -36,7 +36,7 @@ export default function Voting({ params }: { params: { slug: string } }) {
   const pollId = params.slug;
 
   const { query } = useVotePollQuery(pollId);
-  const { mutate, isLoading, isSuccess, isError } = useVotePollMutation(pollId);
+  const { mutate } = useVotePollMutation(pollId);
 
   const multistepComponets = [
     <QuestionVote
@@ -48,6 +48,7 @@ export default function Voting({ params }: { params: { slug: string } }) {
       quorum={query.data?.data.quorum}
     />,
     <VotingTypeChoice
+      question={query.data?.data.question!}
       type={query.data?.data.type!}
       options={query.data?.data.options}
     />,
