@@ -12,22 +12,30 @@ interface InputFieldProps extends InputField {
   error?: {
     message?: string;
   };
+  showLabel?: boolean;
 }
 
 const InputField = forwardRef(
   (
-    { label, error, disabled, required = false, ...props }: InputFieldProps,
+    {
+      label,
+      error,
+      disabled,
+      required,
+      showLabel = true,
+      ...props
+    }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
   ) => {
     return (
       <label
         className={clsx(
-          'flex flex-col w-full',
+          'flex flex-col w-full gap-1',
           disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
-        <div className="flex flex-row items-center justify-between mb-1">
-          {label && <span>{label}</span>}
+        <div className="flex flex-row items-center justify-between">
+          {label && <span>{showLabel && label}</span>}
           {error && (
             <div className="flex flex-row gap-2 items-center">
               <WarningSVG width="14px" height="14px" />{' '}
@@ -50,5 +58,7 @@ const InputField = forwardRef(
     );
   }
 );
+
+InputField.displayName = 'InputField';
 
 export default InputField;
