@@ -8,9 +8,10 @@ import CheckboxButton from '../CheckboxButton';
 type Props = {
   type: string;
   options: string[] | undefined;
+  question: string;
 };
 
-function VotingTypeChoice({ type, options }: Props) {
+function VotingTypeChoice({ type, options, question }: Props) {
   const { register, setValue, getValues } = useFormContext<VotePoll>();
 
   function handleSingleChoice(option: string) {
@@ -38,6 +39,7 @@ function VotingTypeChoice({ type, options }: Props) {
   if (type === 'SingleChoice') {
     return (
       <fieldset>
+        <h1 className="description-bold text-left pt-4 pb-4">{question}</h1>
         <p className="small mb-4">
           <span className="small-bold">Single Choice</span>, select only one
         </p>
