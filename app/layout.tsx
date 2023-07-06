@@ -22,11 +22,13 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
-      <body>
+      <body className="overflow-hidden">
         <Provider>{session ? protectedRoutes : auth}</Provider>
       </body>
     </html>
   );
 }
 
-{/* <body className="grid justify-center h-screen items-center"> */}
+{
+  /* <body className="grid justify-center h-screen items-center"> */
+}

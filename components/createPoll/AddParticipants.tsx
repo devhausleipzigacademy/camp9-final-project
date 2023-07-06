@@ -28,14 +28,14 @@ export default function AddParticipants() {
   async function searchUsers() {
     const { data } = await axios.get('/api/searchUsers', {
       params: {
-        queryString: query,
+        queryString: query.toLocaleLowerCase(),
         participants: participants.join(','),
       },
     });
     return data;
   }
 
-  const { data, isError, isLoading } = useQuery<User[]>(
+  const { data } = useQuery<User[]>(
     ['searchUsers', query, participants],
     searchUsers,
     {
@@ -70,12 +70,7 @@ export default function AddParticipants() {
             +
           </Button>
         </div>
-        <Combobox.Options
-          className={clsx(
-            query === '' && 'hidden',
-            'w-[259px] h-fit max-h-[260px] fixed z-10 right-8 overflow-auto py-2 bg-yellow-light opacity-90 rounded-md'
-          )}
-        >
+        <Combobox.Options className="w-[259px] h-fit max-h-[260px] fixed z-10 overflow-auto py-2 bg-yellow-light opacity-90 rounded-md">
           {data &&
             data.map(user => (
               <Combobox.Option
@@ -83,13 +78,13 @@ export default function AddParticipants() {
                 value={user.name}
                 key={user.id}
               >
-                {user.name}
+                {query && user.name}
               </Combobox.Option>
             ))}
         </Combobox.Options>
       </Combobox>
       <div className="flex flex-col">
-        <div className="my-4 h-[260px] overflow-y-auto scrollbar-left-padded w-full">
+        <div className="my-4 h-[260px] overflow-y-auto scrollbar-left-padded-green w-full">
           {participants.map((participant, idx) => {
             return (
               <div
@@ -122,12 +117,19 @@ export default function AddParticipants() {
           })}
         </div>
       </div>
-      <div className="flex flex-row justify-end">
-        <p>{participants.length} people selected</p>
-        <div className="flex flex-row ml-2">
-          {participants.map((_, idx) => {
-            return <HiUser key={idx} className="px-0 mx-0 w-[20px] h-[20px]" />;
-          })}
+      <div className="flex justify-center">
+        <p className="shrink-0">{participants.length} people selected</p>
+        <div className="flex overflow-hidden ml-2">
+          <>
+            {participants.slice(0, 7).map((_, idx) => {
+              return (
+                <HiUser key={idx} className="px-0 mx-0 w-[20px] h-[20px]" />
+              );
+            })}
+            <p className="shrink-0 pr-1">
+              {participants.length > 7 && `+${participants.length - 7}`}
+            </p>
+          </>
         </div>
       </div>
     </div>
