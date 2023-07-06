@@ -143,10 +143,20 @@ export default function CreatePoll() {
     }
   };
 
+  const titles = [
+    'Create a Poll',
+    'Answer Options',
+    'Reveal Conditions',
+    'Deadline',
+    'Add participants',
+    'Review & Submit',
+  ];
+
   return (
     <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
       <div className="mb-[156px] w-full flex flex-col overflow-x-hidden  overflow-y-hidden items-center justify-between  pr-8 gap-4">
         <div className="pl-8 w-full">
+          <h3 className="title-black">{titles[stepIndex]}</h3>
           <ProgressBar
             currentPage={stepIndex + 1}
             numberOfPages={multiStepComponents.length}

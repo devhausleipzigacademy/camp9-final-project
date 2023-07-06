@@ -38,7 +38,6 @@ function VotingTypeChoice({ type, options }: Props) {
   if (type === 'SingleChoice') {
     return (
       <fieldset>
-        <h1 className="title-bold text-left pt-4 pb-4">Voting</h1>
         <p className="small mb-4">
           <span className="small-bold">Single Choice</span>, select only one
         </p>

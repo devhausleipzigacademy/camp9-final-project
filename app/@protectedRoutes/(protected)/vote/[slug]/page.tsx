@@ -93,18 +93,25 @@ export default function Voting({ params }: { params: { slug: string } }) {
     mutate(userVote);
     // console.log(userVote);
   }
+  const titles = [
+    'Question',
+    'About this Poll',
+    'Your Vote',
+    'Give us your Feedback!',
+  ];
 
   if (query.data?.data.id === 107000) return <ThankYouForVoting />;
   if (query.isLoading) return <Loading />;
 
   return (
     <main>
+      <h1 className="title-bold text-left pb-4">{titles[step]}</h1>
       <ProgressBar
         currentPage={step + 1}
         numberOfPages={multistepComponets.length}
       />
       <FormProvider {...methods}>
-        <form>
+        <form className="pt-4 ">
           {multistepComponets[step]}
           <div className="fixed bottom-24 right-8 flex flex-row justify-end gap-16 w-[311px]">
             {step > 0 && step < 4 && (

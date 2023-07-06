@@ -45,7 +45,6 @@ export default function AddParticipants() {
   );
   return (
     <div className="pl-8">
-      <h3 className="title-black">Add Participants</h3>
       <Combobox value={selectedUser} onChange={setSelectedUser}>
         <div className="flex flex-row h-12 gap-2 justify-between items-center mt-4">
           <Combobox.Input
