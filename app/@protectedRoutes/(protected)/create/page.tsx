@@ -184,7 +184,7 @@ export default function CreatePoll() {
                 <Button
                   size="large"
                   type="button"
-                  className={stepIndex === 0 ? 'w-full' : 'ml-auto'}
+                  className="ml-auto"
                   onClick={nextHandler}
                   disabled={Object.keys(methods.formState.errors).length !== 0}
                 >
@@ -202,7 +202,7 @@ export default function CreatePoll() {
                 <Button
                   size="large"
                   type="button"
-                  className="w-full"
+                  className="ml-auto"
                   onClick={() => {
                     setStepIndex(0);
                     setIsError(false);
