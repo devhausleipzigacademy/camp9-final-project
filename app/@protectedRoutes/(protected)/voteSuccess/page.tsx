@@ -5,7 +5,7 @@ import Button from '@/components/shared/buttons/Button';
 
 function VoteSuccess() {
   return (
-    <div className="flex flex-col justify-between items-center">
+    <div className="flex flex-col justify-between items-center ">
       <h2 className="title-bold pt-4">Thank you for voting</h2>
       <div>
         <Image
