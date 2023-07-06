@@ -21,11 +21,11 @@ const RadioButton = forwardRef<HTMLInputElement, Props>(
           )}
         >
           <span className="align-middle w-[180-px]">
-            <strong>{label}</strong>
+            <p className="body-semibold inline">{label}</p>
             {sublabel && (
               <>
                 <br />
-                <small>{sublabel}</small>
+                <p className="description-light">{sublabel}</p>
               </>
             )}
           </span>
