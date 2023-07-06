@@ -21,19 +21,17 @@ export default function RevealConditions() {
         <h3 className="title-black">Reveal Conditions</h3>
         <div className="flex flex-col justify-between">
           <div className="flex gap-2">
-              <RadioButton
-                id="threshold"
-                value="AnonymousUntilQuorum"
-                label="Reveal usernames "
-                sublabel="for options with agreement"
-                subsublabel="of at least:"
-                isReverse={false}
-                {...register('anonymity')}
-                onClick={() => {
-                  setShowConsensusController(true);
-                }}
-              />
-            
+            <RadioButton
+              id="threshold"
+              value="AnonymousUntilQuorum"
+              label="Reveal usernames "
+              sublabel="for options with agreement of at least:"
+              isReverse={false}
+              {...register('anonymity')}
+              onClick={() => {
+                setShowConsensusController(true);
+              }}
+            />
           </div>
           {showConsensusController && (
             <div className="flex mt-5">

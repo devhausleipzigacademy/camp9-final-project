@@ -7,12 +7,11 @@ type Input = React.InputHTMLAttributes<HTMLInputElement>;
 interface Props extends Input {
   label: string;
   sublabel?: string;
-  subsublabel?: string;
   isReverse?: boolean;
 }
 
 const RadioButton = forwardRef<HTMLInputElement, Props>(
-  ({ id, label, sublabel, subsublabel, isReverse, ...props }: Props, ref) => {
+  ({ id, label, sublabel, isReverse, ...props }: Props, ref) => {
     return (
       <>
         <label
@@ -23,10 +22,12 @@ const RadioButton = forwardRef<HTMLInputElement, Props>(
         >
           <span className="align-middle w-[180-px]">
             <strong>{label}</strong>
-            <br />
-            {sublabel}
-            <br />
-            {subsublabel}
+            {sublabel && (
+              <>
+                <br />
+                <small>{sublabel}</small>
+              </>
+            )}
           </span>
           <div>
             <input ref={ref} className="radio-input" type="radio" {...props} />
