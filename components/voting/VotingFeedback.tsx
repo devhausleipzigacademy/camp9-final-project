@@ -13,6 +13,7 @@ function VotingFeedback() {
         How do you feel about the asked question?
       </p>
       <div className="leading-[6px] pb-2">
+
         <div className="small-bold-feedback flex justify-center gap-1 uppercase">
           <p>Beaming,</p>
           <p>Happy,</p>

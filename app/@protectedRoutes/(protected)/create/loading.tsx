@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 function Loading() {
   return (
-    <div className="flex flex-col justify-center items-center mt-20">
+    <div className="flex flex-col justify-center items-center h-screen  bg-teal">
       <Image
         src="/images/flame-dreaming-of-unicorns.gif"
         alt="Loading image"

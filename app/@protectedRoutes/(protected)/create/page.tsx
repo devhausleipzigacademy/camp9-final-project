@@ -48,7 +48,6 @@ export default function CreatePoll() {
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),
     mode: 'all',
-    // defaultValues: useFormDataStore.getState().formData,
     defaultValues: {
       anonymity: 'AnonymousUntilQuorum',
       endDateTime: tomorrow,
@@ -64,11 +63,6 @@ export default function CreatePoll() {
       ],
     },
   });
-
-  // useEffect(() => {
-  //   // Save the form data to the store when it changes
-  //   useFormDataStore.getState().setFormData(methods.getValues());
-  // }, [methods]);
 
   // API request to create a new poll
   async function createNewPoll(poll: CreateNewPoll) {
@@ -190,7 +184,7 @@ export default function CreatePoll() {
                 <Button
                   size="large"
                   type="button"
-                  className={stepIndex === 0 ? 'w-full' : 'ml-auto'}
+                  className="ml-auto"
                   onClick={nextHandler}
                   disabled={Object.keys(methods.formState.errors).length !== 0}
                 >
@@ -208,7 +202,7 @@ export default function CreatePoll() {
                 <Button
                   size="large"
                   type="button"
-                  className="w-full"
+                  className="ml-auto"
                   onClick={() => {
                     setStepIndex(0);
                     setIsError(false);

@@ -10,7 +10,7 @@ function Error({ error }: { error: Error }) {
   }, [error]);
 
   return (
-    <div className="flex flex-col justify-center items-center mt-20">
+    <div className="flex flex-col justify-center items-center h-screen bg-teal ">
       <Image
         src="/images/flame-479.gif"
         alt="Error image"

@@ -58,33 +58,33 @@ function SignUpForm() {
     <form
       onSubmit={handleSubmit(submitData => mutate(submitData))}
       noValidate
-      className="flex flex-col gap-20"
+      className="flex flex-col gap-[52px]"
     >
       <div className="flex flex-col gap-5">
         <InputField
-          label="Username"
+          label="username"
           disabled={isLoading}
           width="full"
-          placeholder="Username"
+          placeholder="username"
           type="text"
           error={errors.username}
           {...register('username')}
         />
         <InputField
-          label="Password"
+          label="password"
           disabled={isLoading}
           error={errors.password}
           width="full"
-          placeholder="Password"
+          placeholder="password"
           type="password"
           {...register('password')}
         />
         <InputField
-          label="Confirm Password"
+          label="confirm password"
           disabled={isLoading}
           error={errors.confirmPassword}
           width="full"
-          placeholder="Confirm Password"
+          placeholder="confirm password"
           type="password"
           {...register('confirmPassword')}
         />
