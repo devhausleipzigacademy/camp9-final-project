@@ -43,7 +43,6 @@ export default function AnswerOptions() {
               {...register(`options.${index}.option`)}
               showLabel={false}
               type="text"
-              showLabel={false}
               label={`Option ${index + 1}`}
               placeholder={`Option ${index + 1}`}
               error={formState.errors.options?.[index]?.option}
