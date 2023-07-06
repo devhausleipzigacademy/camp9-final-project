@@ -18,7 +18,7 @@ export default function AddParticipants() {
   const [participants, setParticipants] = useState<string[]>(
     getValues('participants') || []
   );
-  const [query, setQuery] = useState(''); //input value of comobox
+  const [query, setQuery] = useState(''); //input value of combobox
   const [selectedUser, setSelectedUser] = useState<string>(''); //selected user from combobox
 
   useEffect(() => {
@@ -44,10 +44,11 @@ export default function AddParticipants() {
     }
   );
   return (
-    <div>
+    <div className="pl-8">
       <Combobox value={selectedUser} onChange={setSelectedUser}>
-        <div className="flex flex-row h-12 gap-2 justify-between">
+        <div className="flex flex-row h-12 gap-2 justify-between items-center mt-4">
           <Button
+            className="shrink-0"
             disabled={!selectedUser}
             size="xs"
             variant="secondary"
@@ -71,7 +72,7 @@ export default function AddParticipants() {
         <Combobox.Options
           className={clsx(
             query === '' && 'hidden',
-            'fixed z-10 w-[251px] right-9 mr-1 overflow-auto py-2 bg-yellow-light rounded-md'
+            'w-[259px] h-fit max-h-[260px] fixed z-10 right-8 overflow-auto py-2 bg-yellow-light opacity-90 rounded-md'
           )}
         >
           {data &&
@@ -87,7 +88,7 @@ export default function AddParticipants() {
         </Combobox.Options>
       </Combobox>
       <div className="flex flex-col">
-        <div className="my-4 h-[253px] overflow-y-auto scrollbar w-full">
+        <div className="my-4 h-[260px] overflow-y-auto scrollbar-left-padded w-full">
           {participants.map((participant, idx) => {
             return (
               <div

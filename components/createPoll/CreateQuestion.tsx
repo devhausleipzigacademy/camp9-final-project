@@ -9,7 +9,7 @@ export default function CreateQuestion() {
   const { register, formState } = useFormContext<CreateNewPoll>();
 
   return (
-    <div className="flex flex-col gap-8 w-full">
+    <div className="pl-8 flex flex-col gap-4 w-full">
       <InputField
         {...register('question')}
         error={formState.errors.question}
@@ -21,8 +21,8 @@ export default function CreateQuestion() {
       <InputFieldDescription
         {...register('description')}
         label="Description"
-        rows={10}
-        placeholder="Description (optional)"
+        rows={9}
+        placeholder="Your Description (optional)"
       />
     </div>
   );

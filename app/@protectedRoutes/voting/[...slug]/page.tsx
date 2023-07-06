@@ -97,7 +97,6 @@ export default function Voting() {
       userId: Number(userId),
       mood: data.mood,
     };
-    console.log(userVote, 'userVote');
   }
 
   return (

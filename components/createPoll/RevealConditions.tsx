@@ -13,11 +13,11 @@ export default function RevealConditions() {
     setShowConsensusController(
       getValues().anonymity === 'AnonymousUntilQuorum'
     );
-  }, []);
+  }, [getValues]);
 
   return (
     <>
-      <div className="flex flex-col gap-y-6 mt-5">
+      <div className="pl-8 flex flex-col gap-y-6 ">
         <div className="flex flex-col justify-between">
           <div className="flex gap-2">
             <div>

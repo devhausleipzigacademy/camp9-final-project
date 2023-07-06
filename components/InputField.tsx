@@ -30,7 +30,7 @@ const InputField = forwardRef(
     return (
       <label
         className={clsx(
-          'flex flex-col w-full',
+          'flex flex-col w-full gap-1',
           disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
@@ -60,5 +60,7 @@ const InputField = forwardRef(
     );
   }
 );
+
+InputField.displayName = 'InputField';
 
 export default InputField;
