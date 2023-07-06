@@ -109,7 +109,7 @@ export default function Voting() {
       <FormProvider {...methods}>
         <form>
           {multistepComponets[step]}
-          <div className="fixed bottom-24 right-8 flex flex-row justify-end gap-16 w-3/4">
+          <div className="fixed bottom-24 right-8 flex flex-row justify-end gap-16 w-[311px]">
             {step > 0 && step < 4 && (
               <Button
                 size="small"
