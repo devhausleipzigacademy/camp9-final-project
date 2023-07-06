@@ -5,7 +5,6 @@ interface QuestionProps extends React.InputHTMLAttributes<HTMLDivElement> {
   variant: 'primary' | 'secondary' | 'tertiary';
   children?: any;
   desabled?: boolean;
-  key?: string;
 }
 
 export const Questionbox = ({
@@ -16,7 +15,7 @@ export const Questionbox = ({
 }: QuestionProps) => {
   const questionboxClass = cva(
     [
-      'ml-1 mr-1 shadow-shadow rounded-round p-2 flex flex-row justify-start items-center border-solid border-black border-2 mb-5',
+      'ml-1 mr-[7px] shadow-shadow rounded-round p-2 flex flex-row justify-start items-center border-solid border-black border-2 mb-5',
     ],
     {
       variants: {

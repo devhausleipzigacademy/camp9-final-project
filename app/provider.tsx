@@ -10,10 +10,12 @@ import 'react-toastify/dist/ReactToastify.css';
 interface ProviderProps {
   children: React.ReactNode;
 }
-const queryClient = new QueryClient();
+// const queryClient = new QueryClient();
 
 function Provider({ children }: ProviderProps) {
+  const [queryClient] = useState(() => new QueryClient());
   // The query client manages the caching and fetching of data queries within your application.
+  console.log('rendered');
   return (
     <>
       <ToastContainer
