@@ -48,7 +48,7 @@ export default function Review() {
   return (
     <div className="flex flex-col gap-4 w-full ">
       <h3 className="pl-8 title-black">Review & Submit</h3>
-      <div className="pl-8 flex gap-2 flex-col pb-2 h-[375px] scrollbar-left-padded overflow-y-auto">
+      <div className="pl-8 flex gap-2 flex-col pb-2 h-[375px] scrollbar-left-padded-green overflow-y-auto">
         {filteredSteps.map((step, index) => (
           <button
             key={index}

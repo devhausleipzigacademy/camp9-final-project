@@ -4,7 +4,6 @@ import RadioButton from '../Radiobutton';
 import { useFormContext } from 'react-hook-form';
 import { VotePoll } from '@/types/voting/VotingSchema';
 import CheckboxButton from '../CheckboxButton';
-import { get } from 'http';
 
 type Props = {
   type: string;
@@ -13,6 +12,13 @@ type Props = {
 
 function VotingTypeChoice({ type, options }: Props) {
   const { register, setValue, getValues } = useFormContext<VotePoll>();
+
+  function handleSingleChoice(option: string) {
+    const checkForSingleChoice = getValues('answer');
+    if (checkForSingleChoice && !checkForSingleChoice.includes(option)) {
+      setValue('answer', [option]);
+    }
+  }
 
   function handleMultipleChoice(option: string) {
     const checkForAbstain = getValues('answer');
@@ -29,7 +35,7 @@ function VotingTypeChoice({ type, options }: Props) {
   }
 
   if (!options) return null;
-  if (type === 'singleChoice') {
+  if (type === 'SingleChoice') {
     return (
       <fieldset>
         <h1 className="title-bold text-left pt-4 pb-4">Voting</h1>
@@ -37,18 +43,30 @@ function VotingTypeChoice({ type, options }: Props) {
           <span className="small-bold">Single Choice</span>, select only one
         </p>
         <div className="overflow-y-auto h-[352px] scrollbarteal">
-          {options.map(option => (
-            <Questionbox variant="secondary" key={option}>
-              <RadioButton
-                id="singleChoice"
-                {...register('answer')}
+          {options.map((option, idx) => (
+            <Questionbox variant="secondary" key={idx}>
+              <CheckboxButton
+                id={`${idx}`}
+                type="checkbox"
                 value={option}
+                label=""
+                isClickable={true}
+                {...register('answer')}
+                onClick={() => handleSingleChoice(option)}
               />
               <p key={option}>{option}</p>
             </Questionbox>
           ))}
           <Questionbox variant="secondary">
-            <RadioButton id="abstain" {...register('answer')} value="abstain" />
+            <CheckboxButton
+              id="abstain"
+              type="checkbox"
+              label=""
+              isClickable={true}
+              {...register('answer')}
+              value="abstain"
+              onClick={() => handleSingleChoice('abstain')}
+            />
             <p>Abstain</p>
           </Questionbox>
         </div>
@@ -63,8 +81,8 @@ function VotingTypeChoice({ type, options }: Props) {
         want
       </p>
       <div className="overflow-y-auto  h-[352px] scrollbarteal">
-        {options.map(option => (
-          <Questionbox variant="secondary" key={option}>
+        {options.map((option, idx) => (
+          <Questionbox variant="secondary" key={idx}>
             <CheckboxButton
               id="multipleChoice"
               type="checkbox"
