@@ -5,7 +5,6 @@ interface QuestionProps extends React.InputHTMLAttributes<HTMLDivElement> {
   variant: 'primary' | 'secondary' | 'tertiary';
   children?: any;
   desabled?: boolean;
-  key?: string;
 }
 
 export const Questionbox = ({

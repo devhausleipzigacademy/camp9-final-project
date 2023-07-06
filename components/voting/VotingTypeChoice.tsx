@@ -44,7 +44,7 @@ function VotingTypeChoice({ type, options }: Props) {
         </p>
         <div className="overflow-y-auto h-[352px] scrollbarteal">
           {options.map((option, idx) => (
-            <Questionbox variant="secondary" key={option}>
+            <Questionbox variant="secondary" key={idx}>
               <CheckboxButton
                 id={`${idx}`}
                 type="checkbox"
@@ -77,8 +77,8 @@ function VotingTypeChoice({ type, options }: Props) {
         want
       </p>
       <div className="overflow-y-auto  h-[352px] scrollbarteal">
-        {options.map(option => (
-          <Questionbox variant="secondary" key={option}>
+        {options.map((option, idx) => (
+          <Questionbox variant="secondary" key={idx}>
             <CheckboxButton
               id="multipleChoice"
               type="checkbox"

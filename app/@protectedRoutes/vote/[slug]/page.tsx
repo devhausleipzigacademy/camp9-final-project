@@ -29,16 +29,15 @@ export type UserAnswer = {
   mood: Mood;
 };
 
-export default function Voting() {
+export default function Voting({ params }: { params: { slug: string } }) {
   //extract the arguments from the URL
   // const { data: session } = useSession();
   // console.log(session);
-  const pathname = usePathname();
-  const path = pathname.split('/');
-  const pollId = path[2]!;
-  const { query } = useVotePollQuery(pollId);
-  const { mutate } = useVotePollMutation(pollId);
+  const pollId = params.slug;
 
+  const { query } = useVotePollQuery(pollId);
+  const { mutate, isLoading, isSuccess, isError } = useVotePollMutation(pollId);
+  console.log({ isLoading, isSuccess, isError });
   const multistepComponets = [
     <QuestionVote
       description={query.data?.data.description}
@@ -54,8 +53,6 @@ export default function Voting() {
     />,
     <VotingFeedback />,
   ];
-
-  const alreadyVoted = [<ThankYouForVoting />];
 
   const [step, setStep] = useState<number>(0);
 
@@ -87,17 +84,17 @@ export default function Voting() {
   function onSubmit(data: UserAnswer) {
     const userAnswer = query.data?.data.options?.map(option => {
       return data.answer.includes(option);
-    });
+    }) as boolean[];
     const userVote = {
       answer: userAnswer,
       pollId: Number(pollId),
       mood: data.mood,
     };
-    // mutate(userVote);
-    console.log(userVote);
+    mutate(userVote);
+    // console.log(userVote);
   }
 
-  if (query.data?.data.id === 107000) return alreadyVoted[0];
+  if (query.data?.data.id === 107000) return <ThankYouForVoting />;
   if (query.isLoading) return <Loading />;
 
   return (

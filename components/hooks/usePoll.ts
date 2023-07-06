@@ -5,6 +5,7 @@ import { authOptions } from '@/libs/auth';
 
 import { getServerSession } from 'next-auth';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 // const session = await getServerSession(authOptions);
 
@@ -38,13 +39,14 @@ function sendVote(requestvote: VoteAnswer) {
 }
 
 export function useVotePollMutation(pollId: string) {
+  const router = useRouter();
   const query = new QueryClient();
   const mutation = useMutation({
     mutationKey: ['votePoll', pollId],
     mutationFn: (requestVote: VoteAnswer) => sendVote(requestVote),
     onSuccess: data => {
       query.invalidateQueries(['votePoll', pollId]);
-      window.location.reload();
+      router.refresh();
     },
     onError: () => {
       toast.error('you have already voted');
