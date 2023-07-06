@@ -13,10 +13,10 @@ function QuestionVote(props: QuestionVoteProps) {
         <h3>{props.question}</h3>
       </div>
       {props.description != null && (
-        <div className="h-[278px] pt-8">
-          <h2 className="description-semibold">Description:</h2>
-          <div className="overflow-y-auto h-auto scrollbar">
-            <p className="description-light text-justify">
+        <div className="h-[278px] pt-4">
+          <h2 className="description-bold">Description:</h2>
+          <div className="h-[278px] overflow-y-auto scrollbarteal">
+            <p className="description-light text-justify mr-4">
               {props.description}
             </p>
           </div>

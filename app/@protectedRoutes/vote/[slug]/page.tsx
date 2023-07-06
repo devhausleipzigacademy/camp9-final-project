@@ -87,14 +87,14 @@ export default function Voting() {
   function onSubmit(data: UserAnswer) {
     const userAnswer = query.data?.data.options?.map(option => {
       return data.answer.includes(option);
-    });
+    }) as boolean[];
     const userVote = {
       answer: userAnswer,
       pollId: Number(pollId),
       mood: data.mood,
     };
-    // mutate(userVote);
-    console.log(userVote);
+    mutate(userVote);
+    // console.log(userVote);
   }
 
   if (query.data?.data.id === 107000) return alreadyVoted[0];
