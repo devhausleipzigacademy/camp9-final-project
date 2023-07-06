@@ -17,24 +17,21 @@ export default function RevealConditions() {
 
   return (
     <>
-      <div className="pl-8 flex flex-col gap-y-6 ">
+      <div className="flex flex-col gap-y-6 mt-5 m-3">
         <h3 className="title-black">Reveal Conditions</h3>
         <div className="flex flex-col justify-between">
           <div className="flex gap-2">
-            <div>
-              <strong>Reveal usernames</strong> for options with agreement of at
-              least:
-            </div>
-            <div className="flex">
-              <RadioButton
-                id="threshold"
-                value="AnonymousUntilQuorum"
-                {...register('anonymity')}
-                onClick={() => {
-                  setShowConsensusController(true);
-                }}
-              />
-            </div>
+            <RadioButton
+              id="threshold"
+              value="AnonymousUntilQuorum"
+              label="Reveal usernames "
+              sublabel="for options with agreement of at least:"
+              isReverse={false}
+              {...register('anonymity')}
+              onClick={() => {
+                setShowConsensusController(true);
+              }}
+            />
           </div>
           {showConsensusController && (
             <div className="flex mt-5">
@@ -43,36 +40,33 @@ export default function RevealConditions() {
           )}
         </div>
         <div className="flex grid-flow-row justify-between gap-2 ">
-          <div className="flex flex-col">
-            <strong>Always reveal usernames</strong>(fully open)
-          </div>
-          <div className="flex">
-            <RadioButton
-              id="open"
-              value="NonAnonymous"
-              {...register('anonymity')}
-              onClick={() => {
-                setShowConsensusController(false);
-                setValue('quorum', '0');
-              }}
-            />
-          </div>
+          <RadioButton
+            id="open"
+            value="NonAnonymous"
+            label="Always reveal usernames"
+            sublabel=" (fully open)"
+            isReverse={false}
+            {...register('anonymity')}
+            onClick={() => {
+              setShowConsensusController(false);
+              setValue('quorum', '0');
+            }}
+          />
         </div>
         <div className="flex grid-flow-row justify-between">
-          <div className="flex flex-col">
-            <strong>Never reveal usernames</strong>(fully anonymous) least:
-          </div>
-          <div className="flex">
-            <RadioButton
-              id="anonymous"
-              value="Anonymous"
-              {...register('anonymity')}
-              onClick={() => {
-                setShowConsensusController(false);
-                setValue('quorum', '0');
-              }}
-            />
-          </div>
+          {/* flex flex col */}
+          <RadioButton
+            id="anonymous"
+            value="Anonymous"
+            isReverse={false}
+            label="Never reveal usernames"
+            sublabel=" (fully anonymous)"
+            {...register('anonymity')}
+            onClick={() => {
+              setShowConsensusController(false);
+              setValue('quorum', '0');
+            }}
+          />
         </div>
       </div>
     </>
