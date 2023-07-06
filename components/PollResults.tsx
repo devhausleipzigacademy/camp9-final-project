@@ -84,7 +84,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   })();
 
   // collate the voter answers (boolean) arrays to an array of totals
-  const answerTotalsArray = function () {
+  const answerTotalsArray = (function () {
     const answerTotals: Array<number> = [];
     for (let k = 0; k < poll.options.length; k++) {
       answerTotals.push(0);
@@ -97,7 +97,9 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       }
     }
     return answerTotals;
-  }();
+  })();
+
+  console.log(poll);
 
   ///////////
   // cards //
@@ -166,9 +168,9 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
             isClickable={false}
             className="body-light text-black"
           />
-         <p className="body-light text-black">
-          {poll.type === 'SingleChoice' ? 'Single choice' : 'Multiple choice'}
-         </p>
+          <p className="body-light text-black">
+            {poll.type === 'SingleChoice' ? 'Single choice' : 'Multiple choice'}
+          </p>
         </div>
         <div className="flex items-center gap-2 my-[20px]">
           <CheckboxButton label={''} isClickable={false} />
@@ -215,18 +217,28 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
                   participants={poll.participants.length}
                 />
               </div>
-              <p>{answerTotalsArray[index]!} {poll.participants.length}</p>
               <button
                 type="button"
                 className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
               >
-                <p className="small-bold">{poll.votes.length} votes</p>
-                <Image
-                  src="/images/icons/arrowDown.png"
-                  width={13}
-                  height={16}
-                  alt="show participants who voted for this option"
-                ></Image>
+                <p className="small-bold">{answerTotalsArray[index]!} / {poll.participants.length} votes</p>
+                {poll.anonymity === 'NonAnonymous' ||
+                (poll.anonymity === 'AnonymousUntilQuorum' &&
+                  (answerTotalsArray[index]! / poll.participants.length) *
+                    100 >=
+                    poll.quorum!) ? (
+                  <>
+                    <p>see voters</p>
+                    <Image
+                      src="/images/icons/arrowDown.png"
+                      width={13}
+                      height={16}
+                      alt="show participants who voted for this option"
+                    ></Image>
+                  </>
+                ) : (
+                  ''
+                )}
               </button>
             </div>
           ))}
