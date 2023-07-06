@@ -21,8 +21,8 @@ const InputField = forwardRef(
       label,
       error,
       disabled,
-      required,
       showLabel = true,
+      required = false,
       ...props
     }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -34,8 +34,8 @@ const InputField = forwardRef(
           disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
-        <div className="flex flex-row items-center justify-between">
-          {label && <span>{showLabel && label}</span>}
+        <div className="flex flex-row items-center justify-between mb-1">
+          {showLabel && label}
           {error && (
             <div className="flex flex-row gap-2 items-center">
               <WarningSVG width="14px" height="14px" />{' '}

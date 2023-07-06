@@ -10,7 +10,6 @@ export default function CreateQuestion() {
 
   return (
     <div className="pl-8 flex flex-col gap-4 w-full">
-      <h3 className="title-black">Create Poll</h3>
       <InputField
         {...register('question')}
         error={formState.errors.question}

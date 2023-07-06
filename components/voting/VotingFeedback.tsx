@@ -9,15 +9,12 @@ function VotingFeedback() {
 
   return (
     <div className="flex flex-col flex-wrap justify-center items-center gap-2">
-      <h2 className="title-bold-feedback text-center pt-4">
-        Give us your Feedback
-      </h2>
       <p className="description text-center">
-        How do you feel about the question you answered and/or skipped?
+        How do you feel about the asked question?
       </p>
       <div className="leading-[6px] pb-2">
         <p className="small-feedback text-center pb-2">
-          Please select the mood that best describes how you felt: <br />
+          Please select the mood that best describes how you feel: <br />
         </p>
         <div className="small-bold-feedback flex justify-center gap-1 uppercase">
           <p>Beaming,</p>
