@@ -17,19 +17,11 @@ export async function GET(request: IRequest) {
   const hasParticipants = params.has('participants');
   const alreadySelected = hasParticipants ? params.get('participants') : '';
 
-  /* try {
-    const data = await request.json();
-
-    const queryUsersModel = z.object({
-      queryString: z.string(),
-    });
-*/
-  //const { queryString } = queryUsersModel.parse(data);
   if (queryString !== null) {
     const users = await db.user.findMany({
       where: {
         name: {
-          contains: queryString,
+          contains: queryString.toLowerCase(),
           notIn: alreadySelected!.split(','),
         },
       },

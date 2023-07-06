@@ -16,9 +16,17 @@ export default function AnswerOptions() {
 
   return (
     <div className="pl-8 flex flex-col gap-2">
-      <h3 className="title-black">Answer Options</h3>
-      <fieldset className="flex flex-col gap-2">
+      <fieldset className="flex flex-col font-semibold gap-2 w-full">
         <div className="flex justify-between items-center ">
+          <RadioButton
+            label="Multiple Choice"
+            value="MultipleChoice"
+            isReverse={false}
+            id="multiple-choice"
+            {...register('type')}
+          />
+        </div>
+        <div className="flex flex-row justify-between items-center mb-2">
           <RadioButton
             label="Single Choice"
             value="SingleChoice"
@@ -28,18 +36,9 @@ export default function AnswerOptions() {
             onChange={() => {}}
           />
         </div>
-        <div className="flex flex-row justify-between items-center mb-2">
-          <RadioButton
-            label="Multiple Choice"
-            value="MultipleChoice"
-            isReverse={false}
-            id="muliple-choice"
-            {...register('type')}
-          />
-        </div>
       </fieldset>
       <hr className="border border-black my-2"></hr>
-      <fieldset className="flex gap-2 flex-col h-[260px] scrollbar-left-padded overflow-y-auto">
+      <fieldset className="flex gap-2 flex-col h-[260px] scrollbar-left-padded-green overflow-y-auto">
         {fields.map((_, index) => (
           <div
             key={index}

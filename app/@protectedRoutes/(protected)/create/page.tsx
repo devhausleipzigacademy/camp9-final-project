@@ -48,7 +48,6 @@ export default function CreatePoll() {
   const methods = useForm<CreateNewPoll>({
     resolver: zodResolver(CreateNewPollSchema),
     mode: 'all',
-    // defaultValues: useFormDataStore.getState().formData,
     defaultValues: {
       anonymity: 'AnonymousUntilQuorum',
       endDateTime: tomorrow,
@@ -64,11 +63,6 @@ export default function CreatePoll() {
       ],
     },
   });
-
-  // useEffect(() => {
-  //   // Save the form data to the store when it changes
-  //   useFormDataStore.getState().setFormData(methods.getValues());
-  // }, [methods]);
 
   // API request to create a new poll
   async function createNewPoll(poll: CreateNewPoll) {
@@ -149,10 +143,20 @@ export default function CreatePoll() {
     }
   };
 
+  const titles = [
+    'Create a Poll',
+    'Answer Options',
+    'Reveal Conditions',
+    'Deadline',
+    'Add participants',
+    'Review & Submit',
+  ];
+
   return (
     <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
       <div className="mb-[156px] w-full flex flex-col overflow-x-hidden  overflow-y-hidden items-center justify-between  pr-8 gap-4">
         <div className="pl-8 w-full">
+          <h3 className="title-black">{titles[stepIndex]}</h3>
           <ProgressBar
             currentPage={stepIndex + 1}
             numberOfPages={multiStepComponents.length}
@@ -180,7 +184,7 @@ export default function CreatePoll() {
                 <Button
                   size="large"
                   type="button"
-                  className={stepIndex === 0 ? 'w-full' : 'ml-auto'}
+                  className="ml-auto"
                   onClick={nextHandler}
                   disabled={Object.keys(methods.formState.errors).length !== 0}
                 >
@@ -198,7 +202,7 @@ export default function CreatePoll() {
                 <Button
                   size="large"
                   type="button"
-                  className="w-full"
+                  className="ml-auto"
                   onClick={() => {
                     setStepIndex(0);
                     setIsError(false);

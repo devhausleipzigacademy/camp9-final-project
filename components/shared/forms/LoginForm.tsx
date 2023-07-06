@@ -54,7 +54,7 @@ function LoginForm() {
     <form
       onSubmit={handleSubmit(submitData => mutate(submitData))}
       noValidate
-      className="flex flex-col gap-20"
+      className="flex flex-col gap-36"
     >
       <div className="flex flex-col gap-5">
         <InputField
@@ -62,7 +62,7 @@ function LoginForm() {
           width="full"
           type="username"
           error={errors.username}
-          placeholder="Username"
+          placeholder="username"
           disabled={isLoading}
           {...register('username')}
         />
@@ -70,7 +70,7 @@ function LoginForm() {
           label="password"
           width="full"
           type="password"
-          placeholder="Password"
+          placeholder="password"
           error={errors.password}
           disabled={isLoading}
           {...register('password')}
