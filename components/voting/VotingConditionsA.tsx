@@ -25,6 +25,8 @@ function VotingConditionsAnonymous(props: VotingConditionsProps) {
         <CheckboxButton
           id="anonymity"
           value="Anonymous"
+          label=''
+          isClickable={true}
           {...register('anonymity')}
         />
       </div>

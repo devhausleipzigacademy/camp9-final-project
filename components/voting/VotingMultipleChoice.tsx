@@ -17,6 +17,8 @@ function VotingMultipleChoice() {
           <CheckboxButton
             id="singleChoice"
             type="radio"
+            label=""
+            isClickable={true}
             {...register('answer')}
             value="option"
           />
@@ -26,6 +28,8 @@ function VotingMultipleChoice() {
           <CheckboxButton
             id="singleChoice"
             type="radio"
+            label=""
+            isClickable={true}
             {...register('answer')}
             value="abstain"
           />
