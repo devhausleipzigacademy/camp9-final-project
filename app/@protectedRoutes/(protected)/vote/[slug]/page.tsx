@@ -18,6 +18,8 @@ import { VotePoll, voteSchema } from '@/types/voting/VotingSchema';
 import VotingTypeChoice from '@/components/voting/VotingTypeChoice';
 import QuestionVote from '@/components/voting/QuestionVote';
 import VotingConditions from '@/components/voting/VotingConditions';
+import { useSession } from 'next-auth/react';
+import Loading from '@/components/voting/Loading';
 
 type Anonymity = 'Anonymous' | 'NonAnonymous' | 'AnonymousUntilQuorum';
 
@@ -27,19 +29,18 @@ export type UserAnswer = {
   mood: Mood;
 };
 
-export default function Voting() {
+export default function Voting({ params }: { params: { slug: string } }) {
   //extract the arguments from the URL
+  // const { data: session } = useSession();
+  // console.log(session);
+  const pollId = params.slug;
 
-  const pathname = usePathname();
-  const path = pathname.split('/');
-  const userId = path[2]!;
-  const pollId = path[3]!;
-  const { query } = useVotePollQuery(userId, pollId);
-  // const { mutate } = useVotePollMutation(userId);
+  const { query } = useVotePollQuery(pollId);
+  const { mutate, isLoading, isSuccess, isError } = useVotePollMutation(pollId);
 
   const multistepComponets = [
     <QuestionVote
-      decription={query.data?.data.description}
+      description={query.data?.data.description}
       question={query.data?.data.question}
     />,
     <VotingConditions
@@ -52,8 +53,6 @@ export default function Voting() {
     />,
     <VotingFeedback />,
   ];
-
-  const alreadyVoted = [<ThankYouForVoting />];
 
   const [step, setStep] = useState<number>(0);
 
@@ -84,21 +83,19 @@ export default function Voting() {
 
   function onSubmit(data: UserAnswer) {
     const userAnswer = query.data?.data.options?.map(option => {
-      for (let i = 0; i < query.data?.data.options.length; i++) {
-        if (data.answer[i] === 'abstain') return false;
-        if (option === data.answer[i]) {
-          return true;
-        } else return false;
-      }
-    });
+      return data.answer.includes(option);
+    }) as boolean[];
     const userVote = {
       answer: userAnswer,
       pollId: Number(pollId),
-      userId: Number(userId),
       mood: data.mood,
     };
-    console.log(userVote, 'userVote');
+    mutate(userVote);
+    // console.log(userVote);
   }
+
+  if (query.data?.data.id === 107000) return <ThankYouForVoting />;
+  if (query.isLoading) return <Loading />;
 
   return (
     <main>
@@ -109,7 +106,7 @@ export default function Voting() {
       <FormProvider {...methods}>
         <form>
           {multistepComponets[step]}
-          <footer className="fixed bottom-8 right-12 flex flex-row justify-end gap-16 w-3/4">
+          <div className="fixed bottom-24 right-8 flex flex-row justify-end gap-16 w-[311px]">
             {step > 0 && step < 4 && (
               <Button
                 size="small"
@@ -144,7 +141,7 @@ export default function Voting() {
                 Submit
               </Button>
             )}
-          </footer>
+          </div>
         </form>
       </FormProvider>
     </main>

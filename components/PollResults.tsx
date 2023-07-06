@@ -1,6 +1,5 @@
 'use client';
 
-import Checkbox from '@/components/Checkbox';
 import MoodDisplay from '@/components/MoodDisplay';
 import PollProgressBar from '@/components/PollProgressBar';
 import PollResultsCard from '@/components/PollResultsCard';
@@ -11,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr';
 import ProgressBar from './shared/ProgressBar';
+import CheckboxButton from './CheckboxButton';
 
 interface PollResultsProps extends Poll {
   participants: User[];
@@ -161,31 +161,23 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
       <PollResultsCard.Content className="h-[260px]">
         <p className="body-semibold mb-4">Voting Conditions</p>
         <div className="flex items-center gap-2">
-          <Checkbox
-            variant={'secondary'}
-            checkProp={true}
-            disableProp={true}
-          ></Checkbox>
-          <p className="body-light text-black">
-            {poll.type === 'SingleChoice' ? 'Single Choice' : 'Multiple Choice'}
-          </p>
+          <CheckboxButton
+            label=""
+            isClickable={false}
+            className="body-light text-black"
+          />
+         <p className="body-light text-black">
+          {poll.type === 'SingleChoice' ? 'Single choice' : 'Multiple choice'}
+         </p>
         </div>
         <div className="flex items-center gap-2 my-[20px]">
-          <Checkbox
-            variant={'secondary'}
-            checkProp={true}
-            disableProp={true}
-          ></Checkbox>
+          <CheckboxButton label={''} isClickable={false} />
           <p className="body-light text-black">
             {poll.participants.length} participants
           </p>
         </div>
         <div className="flex gap-2">
-          <Checkbox
-            variant={'secondary'}
-            checkProp={true}
-            disableProp={true}
-          ></Checkbox>
+          <CheckboxButton label={''} isClickable={false} />
           <p className="body-light text-black">
             {poll.anonymity === 'Anonymous'
               ? 'Anonymous'

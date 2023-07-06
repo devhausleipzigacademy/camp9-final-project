@@ -24,6 +24,8 @@ function VotingConditionsQu(props: PropsQuorum) {
         <CheckboxButton
           id="anonymousuntilquorum"
           value="AnonymousUntilQuorum"
+          label=""
+          isClickable={true}
           {...register('anonymity')}
         />
       </div>

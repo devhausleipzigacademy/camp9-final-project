@@ -67,7 +67,6 @@ function Settings() {
       >
         <InputField
           label={'Username'}
-          showLabel={true}
           type={'username'}
           width={'reduced'}
           disabled={usernameEdit === 'pencil'}
@@ -75,21 +74,22 @@ function Settings() {
           error={errorsU.username}
           {...registerU('username')}
         />
-        <SettingsButton
-          disabled={false}
-          variant={usernameEdit}
-          children=""
-          type="submit"
-          onClick={() => {
-            setUsernameEdit('check');
-          }}
-        />
+        <div className="translate-y-1">
+          <SettingsButton
+            disabled={false}
+            variant={usernameEdit}
+            children=""
+            type="submit"
+            onClick={() => {
+              setUsernameEdit('check');
+            }}
+          />
+        </div>
       </form>
       <form onSubmit={handleSubmitP(onPasswordSubmit)}>
         <div className="flex gap-4">
           <InputField
             label={'Password'}
-            showLabel={true}
             type={'password'}
             width={'reduced'}
             disabled={passwordEdit === 'pencil'}
@@ -97,26 +97,30 @@ function Settings() {
             placeholder="********"
             {...registerP('password')}
           />
-          <SettingsButton
-            disabled={false}
-            variant={passwordEdit}
-            children=""
-            type="submit"
-            onClick={() => {
-              setPasswordEdit('check');
-            }}
-          />
+          <div className="translate-y-1">
+            <SettingsButton
+              disabled={false}
+              variant={passwordEdit}
+              children=""
+              type="submit"
+              onClick={() => {
+                setPasswordEdit('check');
+              }}
+            />
+          </div>
         </div>
-        <InputField
-          label={'Confirm Password'}
-          showLabel={true}
-          type={'password'}
-          width={'reduced'}
-          disabled={passwordEdit === 'pencil'}
-          error={errorsP.confirmPassword}
-          placeholder="********"
-          {...registerP('confirmPassword')}
-        />
+        <div className="flex gap-4">
+          <InputField
+            label={'Confirm Password'}
+            type={'password'}
+            width={'reduced'}
+            disabled={passwordEdit === 'pencil'}
+            error={errorsP.confirmPassword}
+            placeholder="********"
+            {...registerP('confirmPassword')}
+          />
+          <div className="w-[53px]"></div>
+        </div>
       </form>
     </div>
   );

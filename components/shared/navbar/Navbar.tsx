@@ -24,7 +24,7 @@ export const Navbar = ({
             variant === 'primary' ? 'bg-green' : 'bg-teal'
           )}
         >
-          <Navbaritem>
+          <Navbaritem hrefString="/">
             <IoHomeSharp className="w-8.5 h-8.5" />
           </Navbaritem>
           <Navbaritem hrefString="/create">
