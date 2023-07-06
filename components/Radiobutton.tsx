@@ -14,22 +14,29 @@ const RadioButton = forwardRef<HTMLInputElement, Props>(
   ({ id, label, sublabel, isReverse, ...props }: Props, ref) => {
     return (
       <>
-        <label htmlFor={id}>
-          {label && <span className="align-middle">{label}</span>}
-          <input
-            ref={ref}
-            className="radio-input"
-            type="radio"
-            id={id}
-            {...props}
-          />
-          <span className="custom-radio" />
+        <label
+          className={clsx(
+            'flex items-center justify-between w-full',
+            isReverse ? 'flex-row-reverse' : 'flex-row'
+          )}
+        >
+          <span className="align-middle w-[180-px]">
+            <strong>{label}</strong>
+            {sublabel && (
+              <>
+                <br />
+                <small>{sublabel}</small>
+              </>
+            )}
+          </span>
+          <div>
+            <input ref={ref} className="radio-input" type="radio" {...props} />
+            <span className="custom-radio" />
+          </div>
         </label>
       </>
     );
   }
 );
-
-RadioButton.displayName = 'RadioButton';
 
 export default RadioButton;
