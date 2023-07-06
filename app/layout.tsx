@@ -22,7 +22,7 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
-      <body className="overflow-hidden">
+      <body className="">
         <Provider>{session ? protectedRoutes : auth}</Provider>
       </body>
     </html>

@@ -94,7 +94,7 @@ export default function PollCard({
                 {displayHours && displayMinutes && ', '}
                 {
                   displayMinutes &&
-                    `${displayMinutes} ${pluralize(displayMinutes, 'minute')}` // Display the number of minutes
+                    `${displayMinutes} ${pluralize(displayMinutes, 'min')}` // Display the number of minutes
                 }
               </span>
             }

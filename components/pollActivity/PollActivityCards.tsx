@@ -103,19 +103,19 @@ function PollActivityCards({
     }
     return newCards;
   }
-  useEffect(() => {
-    // sets an interval that calls refreshCards() each 30 seconds
-    // if the newly created cards look different than the old ones, the state gets updated, triggering a re-render
-    // const interval = setInterval(() => {
-    //   const newCards = renderCards();
-    //   if (!_.isEqual(newCards, cards)) {
-    //     setCards(newCards);
-    //   }
-    // }, 30000);
-    // return () => {
-    //   clearInterval(interval);
-    // };
-  }, []);
+  // useEffect(() => {
+  // sets an interval that calls refreshCards() each 30 seconds
+  // if the newly created cards look different than the old ones, the state gets updated, triggering a re-render
+  // const interval = setInterval(() => {
+  //   const newCards = renderCards();
+  //   if (!_.isEqual(newCards, cards)) {
+  //     setCards(newCards);
+  //   }
+  // }, 30000);
+  // return () => {
+  //   clearInterval(interval);
+  // };
+  // }, []);
 
   useEffect(() => {
     const newCards = renderCards();
