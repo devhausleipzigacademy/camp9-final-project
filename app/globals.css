@@ -804,7 +804,7 @@
 
   .radioButtonHappy:checked {
     margin-right: 5px;
-    background-color: #fa9a5d;
+    background-color: #febf10;
     background-image: url('/images/voting/icons8-happy2 1.png');
     background-repeat: no-repeat;
     -webkit-appearance: none;
@@ -834,7 +834,7 @@
 
   .radioButtonBeaming:checked {
     margin-right: 5px;
-    background-color: #fa9a5d;
+    background-color: #febf10;
     background-image: url('/images/voting/icons8-lol2 1.png');
     background-repeat: no-repeat;
     -webkit-appearance: none;
@@ -864,7 +864,7 @@
 
   .radioButtonUnsure:checked {
     margin-right: 5px;
-    background-color: #fa9a5d;
+    background-color: #febf10;
     background-image: url('/images/voting/icons8-confused2 1.png');
     background-repeat: no-repeat;
     -webkit-appearance: none;
@@ -893,7 +893,7 @@
 
   .radioButtonUnhappy:checked {
     margin-right: 5px;
-    background-color: #fa9a5d;
+    background-color: #febf10;
     background-image: url('/images/voting/bad.png');
     background-repeat: no-repeat;
     -webkit-appearance: none;
@@ -922,7 +922,7 @@
 
   .radioButtonMiserable:checked {
     margin-right: 5px;
-    background-color: #fa9a5d;
+    background-color: #febf10;
     background-image: url('/images/voting/icons8-crying2 1.png');
     background-repeat: no-repeat;
     -webkit-appearance: none;
