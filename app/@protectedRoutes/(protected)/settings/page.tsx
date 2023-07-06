@@ -59,7 +59,7 @@ function Settings() {
   };
 
   return (
-    <div className="bg-yellow-light">
+    <div className="bg-yellow-light w-full">
       <h2 className="title-bold">User Settings</h2>
       <form
         className="flex gap-4 mt-[60px]"
