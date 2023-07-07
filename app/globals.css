@@ -468,6 +468,21 @@
     background-clip: content-box;
     @apply bg-green;
   }
+  .scrollbar-left-padded-green-sage::-webkit-scrollbar {
+    width: 25px;
+  }
+  .scrollbar-left-padded-green-sage::-webkit-scrollbar-track {
+    border-left: 8px solid transparent;
+    box-shadow: inset 0 0 0 3px black;
+    background: #fa9a5d;
+    background-clip: content-box;
+  }
+  .scrollbar-left-padded-green-sage::-webkit-scrollbar-thumb {
+    border-left: 8px solid transparent;
+    box-shadow: inset 0 0 0 3px black;
+    background-clip: content-box;
+    @apply bg-green-sage;
+  }
   .scrollbar::-webkit-scrollbar {
     width: 15px;
   }
