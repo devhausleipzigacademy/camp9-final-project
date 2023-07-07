@@ -13,7 +13,8 @@ import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 import InputField from '../InputField';
 
 export default function AddParticipants() {
-  const { getValues, setValue, trigger } = useFormContext<CreateNewPoll>(); // retrieve all hook methods
+  const { getValues, setValue, trigger, formState } =
+    useFormContext<CreateNewPoll>(); // retrieve all hook methods
 
   const [participants, setParticipants] = useState<string[]>(
     getValues('participants') || []
@@ -46,9 +47,10 @@ export default function AddParticipants() {
   return (
     <div className="pl-8">
       <Combobox value={selectedUser} onChange={setSelectedUser}>
-        <div className="flex flex-row h-12 gap-2 justify-between items-center mt-4">
+        <div className="flex flex-row h-12 gap-2 justify-between items-end mt-4">
           <Combobox.Input
             as={InputField}
+            error={formState.errors.participants}
             placeholder="username"
             onChange={e => setQuery(e.target.value)}
           />
