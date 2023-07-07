@@ -16,9 +16,7 @@ export default function AnswerOptions() {
 
   return (
     <div className="pl-8 flex flex-col gap-2">
-
       <fieldset className="flex flex-col gap-2 w-full">
-
         <div className="flex justify-between items-center ">
           <RadioButton
             label="Multiple Choice"
@@ -35,7 +33,6 @@ export default function AnswerOptions() {
             isReverse={false}
             id="single-choice"
             {...register('type')}
-            onChange={() => {}}
           />
         </div>
       </fieldset>
