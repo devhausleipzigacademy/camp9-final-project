@@ -40,11 +40,11 @@ function VotingTypeChoice({ type, options, question }: Props) {
   if (type === 'SingleChoice') {
     return (
       <fieldset>
-        <p className="small mb-4">
+        <p className="small mb-2">
           <span className="small-bold">Single Choice</span>, select only one
         </p>
         <QuestionViewBox question={question} />
-        <div className="overflow-y-auto h-[352px] scrollbarteal">
+        <div className="overflow-y-auto h-[290px] scrollbarteal">
           {options.map((option, idx) => (
             <Questionbox variant="secondary" key={idx}>
               <CheckboxButton

@@ -13,7 +13,7 @@ function QuestionViewBox({ question }: Props) {
   const initialText =
     question.length >= 50 ? `${question.slice(0, 50)}...` : question;
   return (
-    <div className="h-[70px]">
+    <div className="h-[70px] mb-2">
       <div
         className={clsx(
           'bg-peach-light ml-1 mr-[7px] shadow-shadow rounded-round p-2 flex flex-row justify-start items-center border-solid border-black border-2 mb-5',

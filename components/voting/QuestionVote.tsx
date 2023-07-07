@@ -11,10 +11,10 @@ function QuestionVote(props: QuestionVoteProps) {
     <div>
       <div
         className={clsx(
-          props.description && props.question?.length! >= 50
+          props.description && props.question?.length! >= 100
             ? 'max-h-[150px] w-[300px] overflow-y-auto scrollbarteal'
             : 'w-full',
-          !props.description && props.question?.length! >= 50
+          !props.description && props.question?.length! >= 100
             ? 'max-h-[380px] w-[300px] overflow-y-auto scrollbarteal'
             : 'w-full'
         )}
