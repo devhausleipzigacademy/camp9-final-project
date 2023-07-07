@@ -15,7 +15,6 @@ async function getPoll(pollID: number) {
       }
     },
   });
-  console.log("poll", poll)
   return poll;
 }
 
