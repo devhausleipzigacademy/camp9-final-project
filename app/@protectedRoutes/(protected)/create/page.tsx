@@ -134,7 +134,10 @@ export default function CreatePoll() {
   }
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
-    if (Object.keys(methods.formState.errors).length === 0) {
+    if (
+      Object.keys(methods.formState.errors).length === 0 &&
+      methods.getValues().endDateTime > new Date()
+    ) {
       try {
         mutate(data);
       } catch (error) {
