@@ -35,7 +35,9 @@ const InputField = forwardRef(
         )}
       >
         <div className="flex flex-row items-center justify-between mb-1">
-          {showLabel && label}
+          <span className={clsx(showLabel ? 'visible' : 'sr-only')}>
+            {label}
+          </span>
           {error && (
             <div className="flex flex-row gap-2 items-center">
               <WarningSVG width="14px" height="14px" />{' '}
