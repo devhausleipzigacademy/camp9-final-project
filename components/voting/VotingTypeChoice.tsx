@@ -4,6 +4,7 @@ import RadioButton from '../Radiobutton';
 import { useFormContext } from 'react-hook-form';
 import { VotePoll } from '@/types/voting/VotingSchema';
 import CheckboxButton from '../CheckboxButton';
+import QuestionViewBox from './QuestionViewBox';
 
 type Props = {
   type: string;
@@ -39,10 +40,11 @@ function VotingTypeChoice({ type, options, question }: Props) {
   if (type === 'SingleChoice') {
     return (
       <fieldset>
-        <p className="small mb-4">
+        <p className="small mb-2">
           <span className="small-bold">Single Choice</span>, select only one
         </p>
-        <div className="overflow-y-auto h-[352px] scrollbarteal">
+        <QuestionViewBox question={question} />
+        <div className="overflow-y-auto h-[290px] scrollbarteal">
           {options.map((option, idx) => (
             <Questionbox variant="secondary" key={idx}>
               <CheckboxButton
@@ -75,9 +77,7 @@ function VotingTypeChoice({ type, options, question }: Props) {
   }
   return (
     <fieldset>
-      <p className="description max-h-[63px] overflow-y-auto scrollbarteal">
-        {question}
-      </p>
+      <QuestionViewBox question={question} />
       <p className="small mb-2 mt-2">
         <span className="small-bold">Multi choice</span>, select many as you
         want
