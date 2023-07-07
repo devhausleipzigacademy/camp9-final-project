@@ -21,7 +21,8 @@ export async function GET(request: IRequest) {
     const users = await db.user.findMany({
       where: {
         name: {
-          contains: queryString.toLowerCase(),
+          contains: queryString.toLocaleLowerCase(),
+          mode: 'insensitive',
           notIn: alreadySelected!.split(','),
         },
       },
