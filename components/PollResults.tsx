@@ -146,7 +146,22 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
           <p className="body-semibold mb-5">
             {questionFitter(poll.question, 32).questionEnd}
           </p>
-          <p className="body-light text-black">{poll.description}</p>
+          {!poll.description ? (
+            <div className="flex flex-col gap-6">
+              <Image
+                width={165}
+                height={125}
+                src="/images/logos/flame-space-virtual-reality.png"
+                alt="icon"
+                className="mt-7 mb-10 object-contain"
+              />
+              <p className="body text-center mb-4 mt-2">
+                No description for this poll
+              </p>
+            </div>
+          ) : (
+            <p className="body-light text-black">{poll.description}</p>
+          )}
         </div>
       </PollResultsCard.Content>
       <div className="text-right mt-3 mr-1">
