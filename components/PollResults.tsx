@@ -85,7 +85,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
 
   // function votesForEachOption() {
   //   for (let k = 0; k < poll.options.length; k++) {
-    
+
   //   const answerTotals: Array<number> = [];
   //   for (let i = 0; i < poll.votes.length; i++) {
   //     for (let j = 0; j < poll.options.length; j++) {
@@ -103,9 +103,8 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   //   }
   //   return answerTotals
   // }
-  
-  // poll.votes.map(vote => vote.answer);
 
+  // poll.votes.map(vote => vote.answer);
 
   ///////////
   // cards //
@@ -174,9 +173,9 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
             isClickable={false}
             className="body-light text-black"
           />
-         <p className="body-light text-black">
-          {poll.type === 'SingleChoice' ? 'Single choice' : 'Multiple choice'}
-         </p>
+          <p className="body-light text-black">
+            {poll.type === 'SingleChoice' ? 'Single choice' : 'Multiple choice'}
+          </p>
         </div>
         <div className="flex items-center gap-2 my-[20px]">
           <CheckboxButton label={''} isClickable={false} />
@@ -214,8 +213,8 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     >
       <PollResultsCard.Content className="h-[310px]">
         <div className="overflow-y-auto scrollbar-left-padded scrollbar--results h-[270px]">
-          {poll.options.map(option => (
-            <div className="mb-5">
+          {poll.options.map((option, idx) => (
+            <div className="mb-5" key={idx}>
               <p className="body-light text-black mb-3">{option}</p>
               <div className="w-[220px]">
                 <PollProgressBar
