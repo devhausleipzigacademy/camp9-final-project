@@ -21,7 +21,7 @@ export const Questionbox = ({
       variants: {
         variant: {
           primary: 'bg-teal',
-          secondary: 'bg-peach',
+          secondary: 'bg-peach-light',
           tertiary: 'bg-green',
         },
         desabled: {
