@@ -7,6 +7,7 @@ import Navbaritem from './NavbarItem';
 
 interface NavbarProps {
   variant: 'primary' | 'secondary';
+  // pri: bg-green-light, sec: bg-teal
   active?: boolean;
   className?: string;
 }
@@ -21,7 +22,7 @@ export const Navbar = ({
         <div
           className={clsx(
             'flex justify-around items-center w-full h-[60px] rounded-round border-2 border-black border-solid shadow-shadow',
-            variant === 'primary' ? 'bg-green' : 'bg-teal'
+            variant === 'primary' ? 'bg-green-light' : 'bg-teal'
           )}
         >
           <Navbaritem hrefString="/">
