@@ -16,6 +16,7 @@ module.exports = {
         green: {
           DEFAULT: '#4D9979',
           light: '#79CB65',
+          sage: '#9FCC95',
         },
         peach: {
           DEFAULT: '#FA9A5D',
