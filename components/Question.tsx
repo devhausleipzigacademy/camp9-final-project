@@ -5,12 +5,14 @@ interface QuestionProps extends React.InputHTMLAttributes<HTMLDivElement> {
   variant: 'primary' | 'secondary' | 'tertiary';
   children?: any;
   desabled?: boolean;
+  fixedHeight?: boolean;
 }
 
 export const Questionbox = ({
   variant,
   children,
   desabled,
+  fixedHeight,
   ...props
 }: QuestionProps) => {
   const questionboxClass = cva(
@@ -27,12 +29,16 @@ export const Questionbox = ({
         desabled: {
           true: 'opacity-50',
         },
+        fixedHeight: { true: 'h-[70px]' },
       },
     }
   );
   return (
     <div>
-      <div className={questionboxClass({ variant, desabled })} {...props}>
+      <div
+        className={questionboxClass({ variant, desabled, fixedHeight })}
+        {...props}
+      >
         {children}
       </div>
     </div>
