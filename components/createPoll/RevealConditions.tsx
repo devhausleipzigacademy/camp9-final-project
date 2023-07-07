@@ -17,9 +17,7 @@ export default function RevealConditions() {
 
   return (
     <>
-
       <div className="flex flex-col gap-y-6 mt-5 pl-8">
-
         <div className="flex flex-col justify-between">
           <div className="flex gap-2">
             <RadioButton

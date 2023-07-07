@@ -39,4 +39,6 @@ const RadioButton = forwardRef<HTMLInputElement, Props>(
   }
 );
 
+RadioButton.displayName;
+
 export default RadioButton;
