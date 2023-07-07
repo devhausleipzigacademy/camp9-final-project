@@ -134,7 +134,10 @@ export default function CreatePoll() {
   }
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
-    if (Object.keys(methods.formState.errors).length === 0) {
+    if (
+      Object.keys(methods.formState.errors).length === 0 &&
+      methods.getValues().endDateTime > new Date()
+    ) {
       try {
         mutate(data);
       } catch (error) {
@@ -143,10 +146,20 @@ export default function CreatePoll() {
     }
   };
 
+  const titles = [
+    'Create a Poll',
+    'Answer Options',
+    'Reveal Conditions',
+    'Deadline',
+    'Add participants',
+    'Review & Submit',
+  ];
+
   return (
     <main className="container flex flex-col items-center h-screen justify-between bg-teal pt-8">
       <div className="mb-[156px] w-full flex flex-col overflow-x-hidden  overflow-y-hidden items-center justify-between  pr-8 gap-4">
         <div className="pl-8 w-full">
+          <h3 className="title-black">{titles[stepIndex]}</h3>
           <ProgressBar
             currentPage={stepIndex + 1}
             numberOfPages={multiStepComponents.length}
@@ -174,25 +187,31 @@ export default function CreatePoll() {
                 <Button
                   size="large"
                   type="button"
-                  className={stepIndex === 0 ? 'w-full' : 'ml-auto'}
+                  className="ml-auto"
                   onClick={nextHandler}
-                  disabled={Object.keys(methods.formState.errors).length !== 0}
+                  disabled={
+                    Object.keys(methods.formState.errors).length !== 0 ||
+                    (stepIndex === 3 &&
+                      methods.getValues().endDateTime <= new Date())
+                  }
                 >
                   Next
                   <GrFormNext size={24} strokeWidth={2} />
                 </Button>
               )}
 
-              {stepIndex === multiStepComponents.length - 1 && !isError && (
-                <Button size="large" type="submit" className="ml-auto">
-                  Create
-                </Button>
-              )}
+              {methods.getValues().endDateTime > new Date() &&
+                stepIndex === multiStepComponents.length - 1 &&
+                !isError && (
+                  <Button size="large" type="submit" className="ml-auto">
+                    Create
+                  </Button>
+                )}
               {isError && (
                 <Button
                   size="large"
                   type="button"
-                  className="w-full"
+                  className="ml-auto"
                   onClick={() => {
                     setStepIndex(0);
                     setIsError(false);

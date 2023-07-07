@@ -31,7 +31,7 @@ function VotingConditionsAnonymous(props: VotingConditionsProps) {
         />
       </div>
       <p className="description-light-conditions  max-w-[270px] -mt-2">
-        No username will be revealed
+        No usernames will be revealed
       </p>
     </fieldset>
   );

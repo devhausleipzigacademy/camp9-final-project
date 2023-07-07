@@ -30,13 +30,10 @@ export type UserAnswer = {
 };
 
 export default function Voting({ params }: { params: { slug: string } }) {
-  //extract the arguments from the URL
-  // const { data: session } = useSession();
-  // console.log(session);
   const pollId = params.slug;
 
   const { query } = useVotePollQuery(pollId);
-  const { mutate, isLoading, isSuccess, isError } = useVotePollMutation(pollId);
+  const { mutate } = useVotePollMutation(pollId);
 
   const multistepComponets = [
     <QuestionVote
@@ -48,6 +45,7 @@ export default function Voting({ params }: { params: { slug: string } }) {
       quorum={query.data?.data.quorum}
     />,
     <VotingTypeChoice
+      question={query.data?.data.question!}
       type={query.data?.data.type!}
       options={query.data?.data.options}
     />,
@@ -91,20 +89,22 @@ export default function Voting({ params }: { params: { slug: string } }) {
       mood: data.mood,
     };
     mutate(userVote);
-    // console.log(userVote);
   }
+
+  const titles = ['Question', 'About this Poll', 'Your Vote', 'Your Mood'];
 
   if (query.data?.data.id === 107000) return <ThankYouForVoting />;
   if (query.isLoading) return <Loading />;
 
   return (
     <main>
+      <h1 className="title-bold text-left pb-1">{titles[step]}</h1>
       <ProgressBar
         currentPage={step + 1}
         numberOfPages={multistepComponets.length}
       />
       <FormProvider {...methods}>
-        <form>
+        <form className="pt-4 ">
           {multistepComponets[step]}
           <div className="fixed bottom-24 right-8 flex flex-row justify-end gap-16 w-[311px]">
             {step > 0 && step < 4 && (
@@ -113,6 +113,7 @@ export default function Voting({ params }: { params: { slug: string } }) {
                 type="button"
                 variant="secondary"
                 onClick={() => setStep(step - 1)}
+                disabled={Object.keys(methods.formState.errors).length !== 0}
               >
                 <GrFormPrevious size={24} strokeWidth={2} />
                 Back

@@ -23,12 +23,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="overflow-hidden">
-        <Provider>{session ? protectedRoutes : auth}</Provider>
+        <div className="fixed w-full">
+          <Provider>{session ? protectedRoutes : auth}</Provider>
+        </div>
       </body>
     </html>
   );
-}
-
-{
-  /* <body className="grid justify-center h-screen items-center"> */
 }

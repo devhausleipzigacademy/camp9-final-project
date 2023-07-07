@@ -52,7 +52,6 @@ export default function Deadline() {
   // JSX return statement
   return (
     <div className="pl-8 flex flex-col gap-y-2 items-center pb-1">
-      <h3 className="title-black">Deadline</h3>
       <Calendar
         className="calendar"
         prev2Label={null}
@@ -88,15 +87,16 @@ export default function Deadline() {
           onInvalidChange={() => setValue('endDateTime', endDateTime)}
         />
       )}
-      <div
-        className={
-          'description bg-peach border-brutal shadow-brutal p-2 flex gap-1 items-center ' +
-          (!formState.errors.endDateTime && 'hidden')
-        }
-      >
-        <HiExclamationTriangle className="h-5 w-5" />
-        {formState.errors.endDateTime?.message}
-      </div>
+      {getValues().endDateTime <= new Date() && (
+        <div
+          className={
+            'description bg-peach border-brutal shadow-brutal p-2 flex gap-1 items-center '
+          }
+        >
+          <HiExclamationTriangle className="h-5 w-5" />
+          Deadline must be in the future!
+        </div>
+      )}
     </div>
   );
 }

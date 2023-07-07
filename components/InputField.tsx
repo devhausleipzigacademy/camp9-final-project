@@ -20,9 +20,8 @@ const InputField = forwardRef(
     {
       label,
       error,
-      disabled,
-      required,
       showLabel = true,
+      required = false,
       ...props
     }: InputFieldProps,
     ref: React.ForwardedRef<HTMLInputElement>
@@ -31,11 +30,13 @@ const InputField = forwardRef(
       <label
         className={clsx(
           'flex flex-col w-full gap-1',
-          disabled ? 'body-semibold-disabled' : 'body-semibold'
+          props.disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
-        <div className="flex flex-row items-center justify-between">
-          {label && <span>{showLabel && label}</span>}
+        <div className="flex flex-row items-center justify-between mb-1">
+          <span className={clsx(showLabel ? 'visible' : 'sr-only')}>
+            {label}
+          </span>
           {error && (
             <div className="flex flex-row gap-2 items-center">
               <WarningSVG width="14px" height="14px" />{' '}
@@ -49,7 +50,7 @@ const InputField = forwardRef(
             error?.message === undefined
               ? 'border-black body'
               : 'border-peach body-accent',
-            disabled ? 'border-brutal-disabled' : 'border-brutal'
+            props.disabled ? 'border-brutal-disabled' : 'border-brutal'
           )}
           ref={ref}
           {...props}

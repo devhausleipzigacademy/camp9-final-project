@@ -7,10 +7,7 @@ type Props = {
 };
 
 function NavbarItem({ children, hrefString }: Props) {
-  // if children = IoHomeSharp, then hrefString = '/'
-  // if children = IoIosAdd, then hrefString = '/add'
-  // if children = HiUser, then hrefString = '/settings'
-
+ 
   return (
     <Link
       href={hrefString || ''}

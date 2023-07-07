@@ -99,8 +99,6 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     return answerTotals;
   })();
 
-  // console.log('poll', poll);
-
   // get the users who voted for a certain answer
   const usersWhoVotedForOptionArray = (function () {
     const usersWhoVotedForOptionArray = [];
@@ -115,8 +113,6 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     }
     return usersWhoVotedForOptionArray;
   })();
-
-  console.log('users', usersWhoVotedForOptionArray);
 
   ///////////
   // cards //
