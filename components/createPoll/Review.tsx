@@ -5,9 +5,10 @@ import { CreateNewPoll } from '@/types/newPoll/CreatePollSchema';
 import PollDetailsCard from '../shared/PollDetailsCard';
 import useStore from '@/utils/store';
 import { DateTime } from '@/stories/Button.stories';
+import WarningSVG from '@/public/images/WarningSVG';
 
 export default function Review() {
-  const { getValues } = useFormContext<CreateNewPoll>();
+  const { getValues, formState } = useFormContext<CreateNewPoll>();
   const { setStepIndex } = useStore();
 
   const {
@@ -55,9 +56,20 @@ export default function Review() {
       step.value !== '0%'
   );
 
+  // End date is not in the past
+  const endDateIsValid = endDateTime > new Date();
+
   return (
     <div className="flex flex-col gap-4 w-full ">
       <div className="pl-8 flex gap-2 flex-col pb-2 h-[375px] scrollbar-left-padded overflow-y-auto">
+        {!endDateIsValid && (
+          <div className="flex gap-2 items-center">
+            <WarningSVG width="14px" height="14px" />{' '}
+            <p className="special-accent mr-auto">
+              Deadline must be in the future!
+            </p>
+          </div>
+        )}
         {filteredSteps.map((step, index) => (
           <button
             key={index}

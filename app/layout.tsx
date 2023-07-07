@@ -30,7 +30,3 @@ export default async function RootLayout({
     </html>
   );
 }
-
-{
-  /* <body className="grid justify-center h-screen items-center"> */
-}

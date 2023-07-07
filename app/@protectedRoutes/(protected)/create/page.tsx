@@ -134,7 +134,10 @@ export default function CreatePoll() {
   }
   // Form submission handler
   const onSubmit: SubmitHandler<CreateNewPoll> = data => {
-    if (Object.keys(methods.formState.errors).length === 0) {
+    if (
+      Object.keys(methods.formState.errors).length === 0 &&
+      methods.getValues().endDateTime > new Date()
+    ) {
       try {
         mutate(data);
       } catch (error) {
@@ -186,18 +189,24 @@ export default function CreatePoll() {
                   type="button"
                   className="ml-auto"
                   onClick={nextHandler}
-                  disabled={Object.keys(methods.formState.errors).length !== 0}
+                  disabled={
+                    Object.keys(methods.formState.errors).length !== 0 ||
+                    (stepIndex === 3 &&
+                      methods.getValues().endDateTime <= new Date())
+                  }
                 >
                   Next
                   <GrFormNext size={24} strokeWidth={2} />
                 </Button>
               )}
 
-              {stepIndex === multiStepComponents.length - 1 && !isError && (
-                <Button size="large" type="submit" className="ml-auto">
-                  Create
-                </Button>
-              )}
+              {methods.getValues().endDateTime > new Date() &&
+                stepIndex === multiStepComponents.length - 1 &&
+                !isError && (
+                  <Button size="large" type="submit" className="ml-auto">
+                    Create
+                  </Button>
+                )}
               {isError && (
                 <Button
                   size="large"
