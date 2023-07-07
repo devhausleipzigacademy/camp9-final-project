@@ -30,9 +30,6 @@ export type UserAnswer = {
 };
 
 export default function Voting({ params }: { params: { slug: string } }) {
-  //extract the arguments from the URL
-  // const { data: session } = useSession();
-  // console.log(session);
   const pollId = params.slug;
 
   const { query } = useVotePollQuery(pollId);
@@ -92,7 +89,6 @@ export default function Voting({ params }: { params: { slug: string } }) {
       mood: data.mood,
     };
     mutate(userVote);
-    // console.log(userVote);
   }
 
   const titles = ['Question', 'About this Poll', 'Your Vote', 'Your Mood'];
