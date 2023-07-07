@@ -16,7 +16,7 @@ export default function ProtectedLayout({
       {children}
 
       <footer className="fixed bottom-6 container px-8">
-        <Navbar variant={'primary'} />
+        <Navbar />
       </footer>
     </div>
   );
