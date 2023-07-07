@@ -53,7 +53,6 @@ function parsePollData(pollData: FullPollInfo): {
   body: string | React.JSX.Element;
   note?: string;
 }[][] {
-  
   const moods = pollData.votes.map(vote =>
     Object.keys(Mood).indexOf(vote.mood)
   );
@@ -80,8 +79,46 @@ function parsePollData(pollData: FullPollInfo): {
       },
     ],
     [
-      { title: 'Poll created on', body: pollData.createdAt.toString() },
-      { title: 'Poll closes on', body: pollData.endDateTime.toString() },
+      {
+        title: 'Poll created on',
+        body: (
+          <p>
+            {pollData.createdAt.toLocaleDateString(undefined, {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            }) +
+              ', ' +
+              pollData.createdAt.toLocaleTimeString('de-DE', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            <br />
+            {pollData.createdAt.toTimeString().slice(18)}
+          </p>
+        ),
+      },
+      {
+        title: 'Poll closes on',
+        body: (
+          <p>
+            {pollData.endDateTime.toLocaleDateString(undefined, {
+              weekday: 'long',
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            }) +
+              ', ' +
+              pollData.endDateTime.toLocaleTimeString('de-DE', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            <br />
+            {pollData.endDateTime.toTimeString().slice(18)}
+          </p>
+        ),
+      },
 
       {
         title: 'Anonymity level',
