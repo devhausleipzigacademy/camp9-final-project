@@ -8,9 +8,14 @@ async function getPoll(pollID: number) {
     },
     include: {
       participants: true,
-      votes: true,
+      votes: {
+        include: {
+          User: true
+        }
+      }
     },
   });
+  console.log("poll", poll)
   return poll;
 }
 

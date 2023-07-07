@@ -86,32 +86,37 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
   // collate the voter answers (boolean) arrays to an array of totals
   const answerTotalsArray = (function () {
     const answerTotals: Array<number> = [];
-    for (let k = 0; k < poll.options.length; k++) {
+    for (let i = 0; i < poll.options.length; i++) {
       answerTotals.push(0);
     }
-    for (let i = 0; i < poll.votes.length; i++) {
-      for (let j = 0; j < poll.options.length; j++) {
-        if (poll.votes[i]?.answer[j] === true) {
-          answerTotals.splice(j, 1, answerTotals[j]! + 1);
+    for (let j = 0; j < poll.votes.length; j++) {
+      for (let k = 0; k < poll.options.length; k++) {
+        if (poll.votes[j]?.answer[k] === true) {
+          answerTotals.splice(k, 1, answerTotals[k]! + 1);
         }
       }
     }
     return answerTotals;
   })();
 
-  // get the users who voted for a certain answer
-  function getUsersWhoVotedForOption(answerIndex: number) {
-    const usersWhoVotedForOptionArray: Array<number> = [];
-    for (let i = 0; i < poll.votes.length; i++) {
-      if (poll.votes[i]?.answer[answerIndex] === true) {
-        console.log(poll.votes[i]?.userId!);
-        usersWhoVotedForOptionArray.push(poll.votes[i]?.userId!)
-      }
-    }
-    return usersWhoVotedForOptionArray.toString
-  }
+  // console.log('poll', poll);
 
-  console.log("users", getUsersWhoVotedForOption(1));
+  // get the users who voted for a certain answer
+  const usersWhoVotedForOptionArray = (function () {
+    const usersWhoVotedForOptionArray = [];
+    for (let i = 0; i < poll.votes.length; i++) {
+      let arrEntry = []
+      for (let j = 0; j < poll.votes.length; j++) {
+        if (poll.votes[j]?.answer[i] === true) {
+          arrEntry.push(poll.votes[j]?.User.name);
+        }
+      }
+      usersWhoVotedForOptionArray.push(arrEntry)
+    }
+    return usersWhoVotedForOptionArray;
+  })();
+
+  console.log('users', usersWhoVotedForOptionArray);
 
   ///////////
   // cards //
@@ -229,11 +234,14 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
                   participants={poll.participants.length}
                 />
               </div>
+              <p>{}</p>
               <button
                 type="button"
                 className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
               >
-                <p className="small-bold">{answerTotalsArray[index]!} / {poll.participants.length} votes</p>
+                <p className="small-bold">
+                  {answerTotalsArray[index]!} / {poll.participants.length} votes
+                </p>
                 {poll.anonymity === 'NonAnonymous' ||
                 (poll.anonymity === 'AnonymousUntilQuorum' &&
                   (answerTotalsArray[index]! / poll.participants.length) *
@@ -247,7 +255,7 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
                       height={16}
                       alt="show participants who voted for this option"
                     ></Image>
-                    {getUsersWhoVotedForOption(answerTotalsArray[index]!)}
+                    {usersWhoVotedForOptionArray[index]?.join(" ")}
                   </>
                 ) : (
                   ''
