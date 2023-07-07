@@ -86,7 +86,7 @@ export default function AddParticipants() {
         </Combobox.Options>
       </Combobox>
       <div className="flex flex-col">
-        <div className="my-4 h-[260px] overflow-y-auto scrollbar-left-padded-green w-full">
+        <div className="my-4 h-[260px] overflow-y-auto scrollbar-left-padded-green-sage w-full">
           {participants.map((participant, idx) => {
             return (
               <div
