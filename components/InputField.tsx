@@ -20,7 +20,6 @@ const InputField = forwardRef(
     {
       label,
       error,
-      disabled,
       showLabel = true,
       required = false,
       ...props
@@ -31,7 +30,7 @@ const InputField = forwardRef(
       <label
         className={clsx(
           'flex flex-col w-full gap-1',
-          disabled ? 'body-semibold-disabled' : 'body-semibold'
+          props.disabled ? 'body-semibold-disabled' : 'body-semibold'
         )}
       >
         <div className="flex flex-row items-center justify-between mb-1">
@@ -51,7 +50,7 @@ const InputField = forwardRef(
             error?.message === undefined
               ? 'border-black body'
               : 'border-peach body-accent',
-            disabled ? 'border-brutal-disabled' : 'border-brutal'
+            props.disabled ? 'border-brutal-disabled' : 'border-brutal'
           )}
           ref={ref}
           {...props}
