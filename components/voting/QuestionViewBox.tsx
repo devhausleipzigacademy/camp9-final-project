@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Questionbox from '../Question';
-import Button from '../shared/buttons/Button';
 import clsx from 'clsx';
 
 type Props = {

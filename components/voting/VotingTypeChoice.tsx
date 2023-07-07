@@ -43,9 +43,7 @@ function VotingTypeChoice({ type, options, question }: Props) {
         <p className="small mb-4">
           <span className="small-bold">Single Choice</span>, select only one
         </p>
-        <Questionbox variant="secondary" fixedHeight>
-          {question.slice(0, 50)}...
-        </Questionbox>
+        <QuestionViewBox question={question} />
         <div className="overflow-y-auto h-[352px] scrollbarteal">
           {options.map((option, idx) => (
             <Questionbox variant="secondary" key={idx}>
