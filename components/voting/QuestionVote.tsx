@@ -12,10 +12,13 @@ function QuestionVote(props: QuestionVoteProps) {
       <div
         className={clsx(
           props.description && props.question?.length! >= 100
-            ? 'max-h-[150px] w-[300px] overflow-y-auto scrollbarteal'
+            ? 'max-h-[150px] w-[310px] overflow-y-auto scrollbarteal'
             : 'w-full',
           !props.description && props.question?.length! >= 100
-            ? 'max-h-[380px] w-[300px] overflow-y-auto scrollbarteal'
+            ? 'max-h-[380px] w-[310px] overflow-y-auto scrollbarteal'
+            : 'w-full',
+          props.description?.length! >= 373 && props.question?.length! >= 100
+            ? 'max-h-[100px] w-[310px] overflow-y-auto scrollbarteal'
             : 'w-full'
         )}
       >
@@ -26,7 +29,13 @@ function QuestionVote(props: QuestionVoteProps) {
       {props.description && (
         <div className="h-[278px] pt-4">
           <h2 className="description-semibold">Description:</h2>
-          <div className="overflow-y-auto h-[278px] scrollbarteal">
+          <div
+            className={clsx(
+              props.description?.length! >= 373 && props.question?.length! >= 55
+                ? 'max-h-[250px] w-[310px] overflow-y-auto scrollbarteal'
+                : 'max-h-[280px] w-[310px] overflow-y-auto scrollbarteal'
+            )}
+          >
             <p className="description-light text-justify mr-4">
               {props.description}
             </p>
