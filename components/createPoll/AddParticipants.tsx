@@ -29,7 +29,7 @@ export default function AddParticipants() {
   async function searchUsers() {
     const { data } = await axios.get('/api/searchUsers', {
       params: {
-        queryString: query.toLocaleLowerCase(),
+        queryString: query,
         participants: participants.join(','),
       },
     });
@@ -52,6 +52,7 @@ export default function AddParticipants() {
             as={InputField}
             error={formState.errors.participants}
             placeholder="username"
+            showLabel={false}
             onChange={e => setQuery(e.target.value)}
           />
           <Button
