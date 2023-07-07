@@ -87,15 +87,16 @@ export default function Deadline() {
           onInvalidChange={() => setValue('endDateTime', endDateTime)}
         />
       )}
-      <div
-        className={
-          'description bg-peach border-brutal shadow-brutal p-2 flex gap-1 items-center ' +
-          (!formState.errors.endDateTime && 'hidden')
-        }
-      >
-        <HiExclamationTriangle className="h-5 w-5" />
-        {formState.errors.endDateTime?.message}
-      </div>
+      {getValues().endDateTime <= new Date() && (
+        <div
+          className={
+            'description bg-peach border-brutal shadow-brutal p-2 flex gap-1 items-center '
+          }
+        >
+          <HiExclamationTriangle className="h-5 w-5" />
+          Deadline must be in the future!
+        </div>
+      )}
     </div>
   );
 }
