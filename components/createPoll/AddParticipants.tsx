@@ -29,7 +29,7 @@ export default function AddParticipants() {
   async function searchUsers() {
     const { data } = await axios.get('/api/searchUsers', {
       params: {
-        queryString: query.toLocaleLowerCase(),
+        queryString: query,
         participants: participants.join(','),
       },
     });
@@ -52,6 +52,7 @@ export default function AddParticipants() {
             as={InputField}
             error={formState.errors.participants}
             placeholder="username"
+            showLabel={false}
             onChange={e => setQuery(e.target.value)}
           />
           <Button
@@ -85,7 +86,7 @@ export default function AddParticipants() {
         </Combobox.Options>
       </Combobox>
       <div className="flex flex-col">
-        <div className="my-4 h-[260px] overflow-y-auto scrollbar-left-padded-green w-full">
+        <div className="my-4 h-[260px] overflow-y-auto scrollbar-left-padded-green-sage w-full">
           {participants.map((participant, idx) => {
             return (
               <div

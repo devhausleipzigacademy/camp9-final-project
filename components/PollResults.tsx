@@ -83,28 +83,36 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     }
   })();
 
-  // function votesForEachOption() {
-  //   for (let k = 0; k < poll.options.length; k++) {
+  // collate the voter answers (boolean) arrays to an array of totals
+  const answerTotalsArray = (function () {
+    const answerTotals: Array<number> = [];
+    for (let i = 0; i < poll.options.length; i++) {
+      answerTotals.push(0);
+    }
+    for (let j = 0; j < poll.votes.length; j++) {
+      for (let k = 0; k < poll.options.length; k++) {
+        if (poll.votes[j]?.answer[k] === true) {
+          answerTotals.splice(k, 1, answerTotals[k]! + 1);
+        }
+      }
+    }
+    return answerTotals;
+  })();
 
-  //   const answerTotals: Array<number> = [];
-  //   for (let i = 0; i < poll.votes.length; i++) {
-  //     for (let j = 0; j < poll.options.length; j++) {
-  //       if (poll.votes[i]?.answer[j] === true) {
-  //         let newTtl;
-  //         if(answerTotals[j]){
-  //           newTtl = answerTotals[j] + 1
-  //         } else {
-
-  //         }
-  //         // answerTotals.splice(j, 1, newTtl);
-  //       }
-
-  //     }
-  //   }
-  //   return answerTotals
-  // }
-
-  // poll.votes.map(vote => vote.answer);
+  // get the users who voted for a certain answer
+  const usersWhoVotedForOptionArray = (function () {
+    const usersWhoVotedForOptionArray = [];
+    for (let i = 0; i < poll.votes.length; i++) {
+      let arrEntry = []
+      for (let j = 0; j < poll.votes.length; j++) {
+        if (poll.votes[j]?.answer[i] === true) {
+          arrEntry.push(poll.votes[j]?.User.name);
+        }
+      }
+      usersWhoVotedForOptionArray.push(arrEntry)
+    }
+    return usersWhoVotedForOptionArray;
+  })();
 
   ///////////
   // cards //
@@ -146,7 +154,22 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
           <p className="body-semibold mb-5">
             {questionFitter(poll.question, 32).questionEnd}
           </p>
-          <p className="body-light text-black">{poll.description}</p>
+          {!poll.description ? (
+            <div className="flex flex-col gap-6">
+              <Image
+                width={165}
+                height={125}
+                src="/images/logos/flame-space-virtual-reality.png"
+                alt="icon"
+                className="mt-7 mb-10 object-contain"
+              />
+              <p className="body text-center mb-4 mt-2">
+                No description for this poll
+              </p>
+            </div>
+          ) : (
+            <p className="body-light text-black">{poll.description}</p>
+          )}
         </div>
       </PollResultsCard.Content>
       <div className="text-right mt-3 mr-1">
@@ -213,26 +236,41 @@ export default function PollResults({ poll }: { poll: PollResultsProps }) {
     >
       <PollResultsCard.Content className="h-[310px]">
         <div className="overflow-y-auto scrollbar-left-padded scrollbar--results h-[270px]">
-          {poll.options.map((option, idx) => (
-            <div className="mb-5" key={idx}>
+          {poll.options.map((option, index) => (
+            <div className="mb-5" key={option}>
               <p className="body-light text-black mb-3">{option}</p>
               <div className="w-[220px]">
                 <PollProgressBar
-                  votes={poll.votes.length}
+                  votes={answerTotalsArray[index]!}
                   participants={poll.participants.length}
                 />
               </div>
+              <p>{}</p>
               <button
                 type="button"
                 className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 flex gap-1 items-center"
               >
-                <p className="small-bold">{poll.votes.length} votes</p>
-                <Image
-                  src="/images/icons/arrowDown.png"
-                  width={13}
-                  height={16}
-                  alt="show participants who voted for this option"
-                ></Image>
+                <p className="small-bold">
+                  {answerTotalsArray[index]!} / {poll.participants.length} votes
+                </p>
+                {poll.anonymity === 'NonAnonymous' ||
+                (poll.anonymity === 'AnonymousUntilQuorum' &&
+                  (answerTotalsArray[index]! / poll.participants.length) *
+                    100 >=
+                    poll.quorum!) ? (
+                  <>
+                    <p>see voters</p>
+                    <Image
+                      src="/images/icons/arrowDown.png"
+                      width={13}
+                      height={16}
+                      alt="show participants who voted for this option"
+                    ></Image>
+                    {usersWhoVotedForOptionArray[index]?.join(" ")}
+                  </>
+                ) : (
+                  ''
+                )}
               </button>
             </div>
           ))}
