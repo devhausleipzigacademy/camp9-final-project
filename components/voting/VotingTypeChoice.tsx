@@ -39,7 +39,6 @@ function VotingTypeChoice({ type, options, question }: Props) {
   if (type === 'SingleChoice') {
     return (
       <fieldset>
-
         <p className="small mb-4">
           <span className="small-bold">Single Choice</span>, select only one
         </p>
@@ -76,11 +75,14 @@ function VotingTypeChoice({ type, options, question }: Props) {
   }
   return (
     <fieldset>
-      <p className="small mb-4">
+      <p className="description max-h-[63px] overflow-y-auto scrollbarteal">
+        {question}
+      </p>
+      <p className="small mb-2 mt-2">
         <span className="small-bold">Multi choice</span>, select many as you
         want
       </p>
-      <div className="overflow-y-auto  h-[352px] scrollbarteal">
+      <div className="overflow-y-auto h-[290px] scrollbarteal">
         {options.map((option, idx) => (
           <Questionbox variant="secondary" key={idx}>
             <CheckboxButton
